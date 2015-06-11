@@ -1,37 +1,105 @@
-# Cache and logs (Symfony2)
-/app/cache/*
-/app/logs/*
-!app/cache/.gitkeep
-!app/logs/.gitkeep
-
-# Cache and logs (Symfony3)
-/var/cache/*
-/var/logs/*
-!var/cache/.gitkeep
-!var/logs/.gitkeep
-
-# Parameters
+# Local project configuration #
+###############################
 /app/config/parameters.yml
-/app/config/parameters.ini
-
-# Managed by Composer
-/app/bootstrap.php.cache
-/var/bootstrap.php.cache
-/bin/*
-!bin/console
-!bin/symfony_requirements
-/vendor/
-
-# Assets and user uploads
-/web/bundles/
-/web/uploads/
-
-# PHPUnit
 /app/phpunit.xml
-/phpunit.xml
+/properties
 
-# Build data
+# Cache #
+#########
+/app/bootstrap.php.cache
+/app/cache/*
+!app/cache/.gitkeep
+
+# Logs #
+########
+/app/logs/*
+!app/logs/.gitkeep
+*.log
+
+# Vendors #
+###########
+/vendor/
+/node_modules/
+
+# Binaries #
+###########
+/bin/
+
+# Generated resources #
+#######################
+/web/assetic/
+/web/assets/
+/web/bundles/
+/web/css/
+/web/images/
+/web/java/
+/web/js/
+/web/media/
+
+# Uploaded content #
+####################
+/web/upload/
+
+# Build files #
+###############
 /build/
 
-# Composer PHAR
+# Generated databases #
+##################
+/data/
+*.sql
+*.sqlite
+
+# Composer #
+############
 /composer.phar
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# OS generated files #
+######################
+*~
+.DS_Store
+.DS_Store?
+*.swp
+._*
+*.out
+*.idea
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# IDE generated files #
+#######################
+*.sublime-project
+*.sublime-workspace
+nbproject
+.idea
+*.tmproj
+.buildpath
+.cache
+.project
+.settings
+.tmproj
+*.esproj
+
+# Numerous always-ignore extensions #
+#####################################
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.zip
+*.vi

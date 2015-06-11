@@ -1,0 +1,4 @@
+{% spaceless %}Ruch JOW -
+    {% if justCreated %} nowe zadanie {% elseif justCanceled %} anulowane zadanie {% endif %}
+    {{ task.title }}
+{% endspaceless %}

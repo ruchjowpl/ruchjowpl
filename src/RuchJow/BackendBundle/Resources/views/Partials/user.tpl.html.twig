@@ -1,0 +1,214 @@
+{% extends '@RuchJowBackend/Partials/stdPage.html.twig' %}
+
+{% block title %}
+    Użytkownik: [[ username ]]
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class=" col-md-6">
+            <div class="content-block"  ng-class="{ 'in-progress-center': loading }">
+                <span ng-if="!loading && !user">Nie udało się znaleźć użytkownika: [[ username ]]</span>
+                <table class="object-table" ng-if="user">
+                    <tr>
+                        <td translate="">user.Names</td>
+                        <td>[[ user.firstName || user.lastName ? user.firstName + ' ' + user.lastName : '-' ]]</td>
+                    </tr>
+                    <tr>
+                        <td translate="">user.Email</td>
+                        <td>[[ user.email ? user.email : '-' ]]</td>
+                    </tr>
+                    <tr>
+                        <td translate="">user.Address</td>
+                        <td>
+                            <span ng-if="user.address && user.address.city">
+                                [[ user.addres.street ]] [[ user.address.house ]][[ user.address.flat ? '/' + user.address.flat : '' ]]<br/>
+                                [[ user.addres.city ]] [[ user.address.postCode ]]
+                            </span>
+                            <span ng-if="!(user.address && user.address.city)">-</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td translate="">user.Commune</td>
+                        <td>[[ user.commune ? user.commune.name : '-' ]]</td>
+                    </tr>
+                    <tr>
+                        <td translate="">user.District</td>
+                        <td>[[ user.commune.district ? user.commune.district.name : '-' ]]</td>
+                    </tr>
+                    <tr>
+                        <td translate="">user.Region</td>
+                        <td>[[ user.commune.district.region ? user.commune.district.region.name : '-' ]]</td>
+                    </tr>
+                    <tr>
+                        <td translate="">user.Organisation</td>
+                        <td>
+                            <span ng-if="user.organisation">
+                                [[ user.organisation.name ]]<br/>
+                                [[ user.organisation.url ]]
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td translate="">user.Phone</td>
+                        <td>[[ user.phone ? user.phone : '-' ]]</td>
+                    </tr>
+                    <tr>
+                        <td translate="">user.CreatedAt</td>
+                        <td>[[ user.createdAt ? (user.createdAt|date:'yyyy.MM.dd HH:mm') : '-' ]]</td>
+                    </tr>
+                    <tr>
+                        <td translate="">user.SupportedAt</td>
+                        <td>[[ user.supportedAt ? (user.supportedAt|date:'yyyy.MM.dd HH:mm') : '-' ]]</td>
+                    </tr>
+                    <tr ng-if="user.confirmationLink">
+                        <td translate="">user.ConfirmationLink</td>
+                        <td>[[ user.ConfirmationLink ]]</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-6" ng-if="user && ruchJowIsGranted('ROLE_ADD_POINTS') && ruchJowIsGranted('ROLE_ADD_DONATION')">
+            <div class="row" ng-if="ruchJowIsGranted('ROLE_ADD_POINTS')">
+                <div class="col-md-12">
+                    <div class="content-block small-gutter" ng-controller="BackendUserPointsAddCtrl">
+                        <h2 class="clickable" ng-click="isCollapsed = !isCollapsed">Dodawanie punktów<span class="collapse-toggle-indicator" ng-class="{collapsed: isCollapsed}"></span></h2>
+                        <div collapse="isCollapsed">
+                            <form ng-submit="submit()" name="userAddPoints" novalidate>
+
+                            <div class="row form-row">
+                                <div class="col-sm-8">
+                                    <label>Rodzaj</label>
+                                    <select
+                                        class="form-control"
+                                        ng-model="data.type"
+                                        ng-options="(('points.type.' + type)|translate) for (type, definition) in options"
+                                        ng-required="true"
+                                        name="type"
+                                    ></select>
+                                    <div ng-show="showErrors('type')">
+                                        <span ng-show="showError('type', 'required')">Musisz podać rodzaj</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Punkty</label>
+                                    <input
+                                        type="number"
+                                        ng-model="data.points"
+                                        class="form-control"
+                                        name="points"
+                                        ui-validate="{ min: '$value >= (data.type.min || 0)', max: '!data.type.max || $value <= data.type.max' }"
+                                    />
+                                    <div ng-show="showErrors('points')">
+                                        <span ng-show="showError('points', 'required')">Musisz podać liczbę punktów</span>
+                                        <span ng-show="showError('points', 'min')">Minimalna liczba punktów: [[ data.type.min ]]</span>
+                                        <span ng-show="showError('points', 'max')">Maksymalna liczba punktów: [[ data.type.max ]]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-row">
+                                <div class="col-sm-12">
+                                    <div class="datetime-block wide">
+                                        <div class="datetime-date">
+                                            <label>Data</label>
+                                            <p class="input-group">
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    datepicker-popup="[[ datePicker.format ]]"
+                                                    ng-model="data.date"
+                                                    is-open="datePicker.opened"
+                                                    {#min-date="minDate"#}
+                                                    {#max-date="'2015-06-22'"#}
+                                                    datepicker-options="datePicker.options"
+                                                    show-button-bar="false"
+                                                    {#date-disabled="disabled(date, mode)"#}
+                                                    ng-required="true"
+                                                    {#close-text="Close"#}
+                                                    name="datetime"
+                                                />
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default" ng-click="datePicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                </span>
+                                            </p>
+                                            <label>&nbsp</label>
+                                        </div>
+                                        <div class="datetime-time">
+                                            <div
+                                                timepicker
+                                                ng-model="data.date"
+                                                {#ng-change="changed()"#}
+                                                {#hour-step="hstep"#}
+                                                {#minute-step="mstep"#}
+                                                show-meridian="false"
+                                            ></div>
+                                        </div>
+                                    </div>
+                                    <div ng-show="showErrors('datetime')">
+                                        <span ng-show="showError('datetime', 'required')">Musisz podać datę</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row form-row">
+                                <div class="col-sm-12">
+                                    <label>Opis</label>
+                                    <textarea
+                                        ng-model="date.description"
+                                        class="form-control"
+                                    ></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row form-row">
+                                <div class="col-sm-12 form-right">
+                                    <button class="btn" translate>form.add</button>
+                                </div>
+                            </div>
+
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-if="ruchJowIsGranted('ROLE_ADD_DONATION')">
+                <div class="col-md-12">
+                    <div class="content-block small-gutter" ng-controller="BackendUserDonationAddCtrl">
+                        <h2 class="clickable" ng-click="isCollapsed = !isCollapsed">Ręczne dodawanie wpłaty od użytkownika<span class="collapse-toggle-indicator" ng-class="{collapsed: isCollapsed}"></span></h2>
+                        <div collapse="isCollapsed">
+                            <form ng-submit="submit()" name="userAddDonation" novalidate>
+
+                                <div class="row form-row">
+                                    <div class="col-sm-12">
+                                        <label>Kwota</label>
+                                        <input
+                                            type="text"
+                                            ng-model="data.amount"
+                                            class="form-control"
+                                            name="amount"
+                                            ng-pattern="/[0-9]+/"
+                                            ui-validate="{ min: '$value >= 1' }"
+                                            />
+                                        <ul ng-show="showErrors(userAddDonation, 'amount')">
+                                            <li ng-show="showError(userAddDonation, 'amount', 'required')">Musisz podać kwotę</li>
+                                            <li ng-show="showError(userAddDonation, 'amount', 'min')">Minimalna kwota to 1zł</li>
+                                            <li ng-show="showError(userAddDonation, 'amount', 'pattern')">Kwota powinna się składać z samych cyfr i nie powinna zacznać się od 0</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row form-row">
+                                    <div class="col-sm-12 form-right">
+                                        <button class="btn" translate>form.add</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

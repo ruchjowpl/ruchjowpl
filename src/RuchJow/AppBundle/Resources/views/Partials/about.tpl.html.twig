@@ -1,0 +1,253 @@
+{% extends 'RuchJowAppBundle:Partials:staticPage.html.twig' %}
+
+{#% set controllerName = 'SponsorsController' %#}
+
+{% block title %}O akcji{% endblock %}
+
+{% block static_page_content %}
+
+    <div class="row">
+        <div class="col-md-12" >
+            <ul style="list-style-type:square;color:#428BCA;">
+                <li><a class="clickable" ng-click="ruchJowAnchorScroll('chapter_1')">O co walczymy?</a></li>
+                <li><a class="clickable" ng-click="ruchJowAnchorScroll('chapter_2')">Wady obecnego systemu</a></li>
+                <li><a class="clickable" ng-click="ruchJowAnchorScroll('chapter_3')">Nasze postulaty</a></li>
+                <li><a class="clickable" ng-click="ruchJowAnchorScroll('chapter_4')">Co to zmieni?</a></li>
+                <li><a class="clickable" ng-click="ruchJowAnchorScroll('chapter_5')">Kim jesteśmy?</a></li>
+                <li><a class="clickable" ng-click="ruchJowAnchorScroll('chapter_6')">Jak wprowadzić JOW?</a></li>
+                <li><a class="clickable" ng-click="ruchJowAnchorScroll('chapter_7')">Dlaczego się uda?</a></li>
+                <li><a class="clickable" ng-click="ruchJowAnchorScroll('chapter_8')">Idea serwisu RuchJOW.pl</a></li>
+            </ul>
+        </div>
+    </div>
+
+    {# 1. O co walczymy #}
+    <div class="row" id="chapter_1">
+        <div class="col-md-12" >
+            <h2>O co walczymy?</h2>
+            <div class="row">
+                <div class="col-md-8"><ul>
+                        <li>Chcemy posłów odpowiedzialnych przed wyborcami. </li>
+                        <li>Chcemy sprawnie zarządzanego państwa oraz urzędów i instytucji publicznych działających dla obywatela.</li>
+                        <li>Domagamy się wprowadzenia <strong>460 jednomandatowych okręgów wyborczych (JOW) w wyborach do Sejmu RP</strong> z równym prawem do kandydowania dla wszystkich obywateli, niezależnie, czy są popierani przez partie czy startują samodzielnie.
+                            <strong>Na&nbsp;wzór Wielkiej Brytanii.</strong></li>
+                    </ul></div>
+                <div class="col-md-4">
+                    {% image '@misc_poslowie' %}<img src="{{ asset_url }}" alt="posłowie"/>{% endimage %}
+                </div>
+            </div>
+
+            <p>Nie jesteśmy związani z żadną partią polityczną. Wśród nas są ludzie o bardzo różnych poglądach. Łączy nas przekonanie, że dopiero zmiana systemu wyborczego dostarczy obywatelom skutecznych narzędzi do dalszych działań. Nie występujemy przeciwko partiom jako takim. Zauważamy jednak, że w proporcjonalnym systemie wyborczym są one grupami interesu, scentralizowanymi i oderwanymi od obywateli. W systemie JOW partie mają szansę stać się organizacjami demokratycznymi, obywatelskimi, służącymi społeczeństwu.</p>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" id="chapter_2">
+            <h2>Wady obecnego systemu</h2>
+
+            <p>
+                Jednym z głównych powodów rażąco niskiej jakości polskiej klasy politycznej jest obowiązująca w Polsce ordynacja proporcjonalna (głosowanie na listy partyjne), która:
+                <ul style="padding-top: 25px; padding-bottom: 25px; line-height: 1.6;">
+                    <li><strong>nadmiernie upartyjnia wybory</strong> oraz odsuwa obywateli od osób sprawujących władzę i wywierania realnego wpływu na elekcję posłów. Jednocześnie z posłów czyni marionetki, całkowicie zależne od aparatu partyjnego.</li>
+                    <li><strong>prowadzi do słabych i niesprawnych rządów koalicyjnych</strong>, które w praktyce <strong>nie są w stanie realizować programów wyborczych</strong></li>
+                    <li>mniejszym partiom daje często zbyt dużą władzę, nieproporcjonalną do ich wyniku wyborczego.</li>
+                    <li><strong>wiąże posłów z kierownictwem partii nadmierną lojalnością</strong> (to kierownictwo ustala miejsca na listach wyborczych), co skutkuje brakiem odpowiedzialności posłów przed wyborcami</li>
+                    <li><strong>prowadzi do centralizacji i biurokratyzacji struktur partii politycznych, które zamiast być organizacjami obywatelskimi stają się oderwanymi od społeczeństwa grupami interesu, niezdolnymi do kreowania prawdziwych liderów politycznych.</strong></li>
+                </ul>
+            </p>
+
+            <div class="row">
+                <div class="col-md-4" >{% image '@misc_ankieta_poparcia_wykres' %}<img src="{{ asset_url }}" alt="ankieta poparcia - wykres"/>{% endimage %}</div>
+                <div class="col-md-8" >
+                    <p>
+                        <strong>Polacy nie ufają własnemu parlamentowi.</strong> Według badania CBOS z grudnia 2013 r. ponad dwie trzecie Polaków (68 proc.) źle ocenia pracę Sejmu. Ogromna większość badanych uważa, że ma on niewielki społeczny autorytet (85 proc.), a tylko 8 proc. uważa, że działa on dla dobra Polski. Aż 82 proc. ankietowanych jest przekonana, że działa on głównie dla dobra partii i polityków.
+                        Według badania Diagnoza Społeczna 2013 prawie 60% Polaków nie utożsamia się z żadną z partii politycznych. W porównaniu z 2011 rokiem odsetek ten wzrósł o 7 punktów proc. <strong>Brak zaufania trwa niezależnie od tego, która partia dominuje w danej kadencji.</strong>
+                        Taka sytuacja <strong>utrudnia budowanie społeczeństwa obywatelskiego</strong>. Skoro posłowie nie są odpowiedzialni przed swoimi wyborcami, to wyborcy słusznie mają poczucie, że niewiele od nich zależy. Prowadzi to do naturalnego spadku aktywności obywatelskiej i traktowania polityki jako zajęcia „brudnego” i szkodliwego.
+                        Ordynacja proporcjonalna <strong>w praktyce  uniemożliwia również obywatelom kandydowanie do Sejmu bez zgody partii politycznych.</strong> Skutecznie pozbawia szans na wybór kandydatów niezależnych, choćby mieli poparcie w swojej lokalnej społeczności i cieszyli się w niej pełnym zaufaniem.
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" id="chapter_3">
+            <h2>Nasze postulaty</h2>
+            {% image '@misc_postulaty' %}<img src="{{ asset_url }}" alt="postulaty" style="float: right; max-width: 100%;"/>{% endimage %}
+
+            <h3>Swoboda kandydowania</h3>
+            <p>Równa swoboda indywidualnego kandydowania dla każdego obywatela, który otrzyma pisemne poparcie co najmniej 10 wyborców danego okręgu.</p>
+
+            <h3>Podział Polski na 460 jednomandatowych okręgów</h3>
+            <p>Niewielkie okręgi wyborcze to realna możliwość bezpośredniego kontaktu posła z wyborcami podczas kampanii oraz całej kadencji. Wyborcy mogą kandydatów poznać i porównać bez dominującej roli mediów. Kampania wyborcza jest tania, a szanse wyborcze niezamożnych i bogatszych kandydatów stają się porównywalne.</p>
+
+            <h3>Jedna tura głosowania</h3>
+            <p>
+                Posłem zostaje kandydat, który uzyskał zwykłą większość głosów. Nie ma potrzeby przeprowadzania drugiej tury wyborów.
+                Wybieranie w jednej turze głosowania:
+                <ul>
+                    <li>jest proste, tanie i daje jasne dla wyborcy rozstrzygnięcie wyłaniające posła</li>
+                    <li>ogranicza partyjne manipulacje, nieodłączne przy wyborach dwuturowych</li>
+                    <li>mobilizuje wyborców do jednoznacznego poparcia konkretnego kandydata</li>
+                </ul>
+            </p>
+
+            <h3>Finansowanie wyłącznie ze środków niepublicznych, z równym limitem dla każdego kandydata</h3>
+            <p>W jednomandatowych okręgach kluczowego znaczenia nabierają spotkania kandydata na posła z wyborcami. Pieniądze stają się mniej istotne. Nie zmienia to jednak faktu, iż osiągnięcie równych szans w wyborach dla kandydatów niezależnych i partyjnych wymaga wyznaczenia równego limitu wydatków.</p>
+
+            <h3>Monitoring głosowania i liczenia głosów</h3>
+            <p>Obywatelski i medialny monitoring głosowania trwający od jego rozpoczęcia, aż do dostarczenia urn do Okręgowej Komisji Wyborczej. Następnie monitoring publicznego liczenia głosów, z udziałem kandydatów, ich pełnomocników i członków komitetów wyborczych. Tak jak to się odbywa np. w Wielkiej Brytanii.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9" id="chapter_4">
+            <h2>Co to zmieni?</h2>
+            <p>Jednomandatowe Okręgi Wyborcze (JOW) na wzór brytyjski w wyborach do Sejmu to:
+
+                <ul>
+                    <li><strong>Odpowiedzialność posłów przed ich wyborcami</strong></li>
+                    <li><strong>Rozwój społeczeństwa obywatelskiego</strong> poprzez zaistnienie partnerstwa osób sprawujących władzę z obywatelami, upowszechniające wśród obywateli poczucie odpowiedzialności za dobro wspólne</li>
+                    <li><strong>Sprawne i stabilne rządy</strong></li>
+                    <li><strong>Zmiana charakteru partii politycznych</strong> z „wodzowskich” na obywatelskie</li>
+                    <li>Wzrost kompetencji posłów i ich asertywności względem aparatu partyjnego</li>
+                    <li>Decentralizacja, ożywienie i jawność życia politycznego
+                        na skutek swobodnego zawierania:
+                        <ol>
+                            <li>Porozumień wewnątrz okręgowych, wyłaniających kandydatów o największych szansach zdobycia mandatu dla danej opcji politycznej.</li>
+                            <li>Porozumień międzyokręgowych, oddolnie tworzących ugrupowania polityczne.</li>
+                        </ol>
+
+                    </li>
+                    <li>Utrudnienie dostępu do sprawowania władzy dla ugrupowań skrajnych</li>
+                    <li>Dwubiegunowa scena polityczna spowodowana zawieraniem „koalicji” przed wyborami, a nie po nich, co jest znacznie bardziej uczciwe i czytelne wobec wyborców</li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="col-md-3">
+            {% image '@misc_klocki' %}<img src="{{ asset_url }}" alt="klocki J O W" style="float: right; max-width: 100%;"/>{% endimage %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" id="chapter_5">
+            <h2>Kim jesteśmy?</h2>
+            <p>Ruch Obywatelski na rzecz Jednomandatowych Okręgów Wyborczych. został zainicjowany przez śp. prof. Jerzego Przystawę ponad 20 lat temu. Dziś zrzesza wszystkich obywateli i środowiska dążące do wprowadzenia w wyborach do Sejmu RP ordynacji większościowej na wzór brytyjski. W ramach Ruchu JOW działa szereg różnych organizacji posiadających osobowość prawną, między innymi <strong><a href="http://fundacja.jow.pl/">Fundacja „Jednomandatowe Okręgi Wyborcze” im. prof. Jerzego Przystawy</a></strong> (administrator serwisu RuchJOW.pl), <strong><a href="http://jow.pl/dzialalnosc/">Stowarzyszenie JOW</a></strong> czy <strong><a href="http://madison.org.pl/">Fundacja im. J. Madisona</a></strong>. Zachęcamy do zapoznania się z ich stronami internetowymi.  </p>
+            <p>Działacze Ruchu JOW zorganizowali do tej pory setki wydarzeń: konferencji międzynarodowych i ogólnopolskich, prelekcji, spotkań, debat, happeningów i manifestacji. Prowadzimy działania edukacyjne, popularyzatorskie oraz naukowe.</p>
+            <p>Uzyskaliśmy szerokie poparcie dla naszego postulatu wśród środowisk samorządowych. Wśród patronów honorowych naszego Ruchu jest wielu wójtów, burmistrzów i prezydentów miast z całej Polski. Ich liczba cały czas wzrasta.</p>
+            <p>Organizowaliśmy również zainicjowaną przez Pawła Kukiza akcję Zmieleni.pl, która poparło w Internecie ponad 125 tys. osób, a nasze społeczności na Facebooku to ponad 50 tys. osób.</p>
+            <p>Z wszystkimi popierającymi staramy się pozostawać w kontakcie poprzez m.in. newslettery czy prowadzony fanpage.
+                Od lat Ruch JOW wydaje szereg materiałów i publikacji związanych z tematyką ordynacji wyborczych. I w dalszym ciągu jest to działalność bardzo potrzebna, gdyż główną przeszkodą na drodze do naprawy państwa jest niewiedza jego obywateli. Dystrybuujemy książki, broszury i ulotki, publikujemy w mediach lokalnych i ogólnopolskich, systematycznie budując świadomość społeczeństwa, jak ważnym tematem jest system wyłaniania posłów na Sejm.
+            </p>
+            <p>Dziś postulat Jednomandatowych Okręgów Wyborczych wybrzmiał jeszcze głośniej dzięki kampanii prezydenckiej Pawła Kukiza. Serwis RuchJOW.pl to nowy etap w walce o prawdziwą zmianę w Polsce. Dziś stajemy się pierwszym ruchem społecznym 2.0. RuchJOW.pl to portal z elementami społeczności. Nowa jakość w budowaniu ruchów obywatelskich.</p>
+            {% image '@misc_o_nas' %}<img src="{{ asset_url }}" style="max-width: 100%; margin: 0 auto; display: block; padding-top: 1rem;"/>{% endimage %}
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12" id="chapter_6">
+            <h2>Jak wprowadzić JOW?</h2>
+            {% image '@misc_klocki' %}<img src="{{ asset_url }}" alt="klocki J O W" style="float: right; max-width: 100%;"/>{% endimage %}
+            <p><strong>Nikt nie jest w stanie przewidzieć, który z możliwych scenariuszy zmiany systemu wyborczego się ziści. Można natomiast określić ramy strategii działania, która zakończy się sukcesem.</strong><p>
+            <p>Z pewnością trzeba poinformować Polaków o tym, że istnieje proste i realne do wdrożenia rozwiązanie, droga wyjścia z politycznego impasu. Zbyt wielu z nas żyje w przekonaniu, że tak jak jest, tak być musi i nic się nie da z tym zrobić. A przecież nie musimy tkwić w narzuconych nam ramach, możemy sami, jako obywatele, zorganizować sobie dobrze funkcjonujące państwo. Tak, żebyśmy sami mieli realny wpływ na jego funkcjonowanie. Wtedy też poczujemy się za to nasze państwo naprawdę odpowiedzialni.</p>
+            <p>Oczywiście nie wystarczy przekonać, że okręgi jednomandatowe to lepszy system od obecnego. Trzeba pokazać, że wybór systemu wyborczego jest decyzją kluczową dla funkcjonowania demokracji i społeczeństwa obywatelskiego. Musimy zrozumieć, że jest to sprawa fundamentalna, a nie jakiś nieistotny szczegół techniczny.</p>
+            <p>Gdy już wiedza będzie wystarczająco rozpowszechniona, musi nastąpić mobilizacja społeczna w celu wprowadzenia zmiany. Jak uczy historia, zmiany ustrojowe najczęściej przeprowadzane są w obliczu jakiegoś głębszego kryzysu politycznego czy ekonomicznego. <strong>O to, że takie kryzysy będą się pojawiać, akurat możemy być spokojni (niestety).</strong> Ważnym jest, żeby odpowiednio duża liczba świadomych obywateli nie pozwoliła na skanalizowanie niezadowolenia społecznego i skierowała rodzącą się energię w kierunku rzeczywistej zmiany. Warto pamiętać, że w wielu krajach takie zmiany udało się przeprowadzić – więc dlaczego nie zrobić tego w Polsce? </p>
+            <p><strong>Musi powstać</strong> (i już powstaje) <strong>szeroki, oddolny ruch obywatelski skupiony wokół JEDNEGO postulatu - zmiany systemu wyborczego</strong>, działający na zasadzie luźnej asocjacji lokalnych grup obywateli, i opierający się (tam, gdzie to możliwe), <strong>na środowiskach samorządowych.</strong>
+                Gdy taki Ruch urośnie w siłę, scenariusze doprowadzenia do zmiany mogą być naprawdę różne. W praktyce być może wystarczy kilka 20-tysięcznych demonstracji – w tym miejscu warto przypomnieć sobie protesty w sprawie ACTA.  Być może Prezydent zechce rozpisać referendum lub po prostu kolejne partie nagle zaczną twierdzić, że od początku wspierały nasz postulat . Scenariuszy może być wiele - najważniejsze, żeby obywatele potrafili się zmobilizować.
+            </p>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12" id="chapter_7">
+            <h2>Dlaczego się uda?</h2>
+
+            {% image '@misc_tak_dla_jow' %}<img src="{{ asset_url }}" alt="tak dla JOW" style="float: left; width: 300px; max-width: 100%; padding: 0 2.5rem 2.5rem 0;"/>{% endimage %}
+            <p>Zbyt często nie doceniamy siły naszego postulatu. Szanse na sukces są naprawdę duże, ponieważ: </p>
+            <p><strong>Po pierwsze</strong> proponujemy wprowadzenie systemu wyborczego, który występuje w większości najlepiej funkcjonujących demokracji na świecie. Proponujemy konkretnie <strong>model brytyjski</strong> – co w kontekście tak licznych wyjazdów Polaków do Anglii ma szczególnie pozytywny wydźwięk.</p>
+            <p>Nie proponujemy jakiegoś teoretycznego modelu, który nigdzie na świecie nie występuje. Nie wymyślamy niczego nowego czy egzotycznego. <strong>Chcemy po prostu mądrze skorzystać z doświadczeń innych krajów</strong>, w szczególności tych dobrze sobie radzących, do grona których aspirujemy.</p>
+            <p> <strong>Po drugie </strong> nasz postulat NIC NIE KOSZTUJE. Wręcz przeciwnie, wprowadzenie 460 JOW w wyborach do Sejmu oznacza realne oszczędności dla budżetu państwa. Stawia to nas w znacznie lepszym świetle niż jakiekolwiek grupy zawodowe, które z reguły protestują żądając więcej pieniędzy z budżetu.</p>
+            <p> <strong>Po trzecie </strong> o ile politycy szczebla centralnego będą ostatnimi, którzy realnie poprą JOW, to inaczej ma się sprawa ze środowiskami samorządowymi. Wójtowie, burmistrzowie i prezydenci miast w przeważającej większości rozumieją nasz postulat i potrzebę zmian. JOW leżą w najlepiej rozumianym interesie samorządowców. Jeśli obywatele zdołają się zmobilizować, samorządy pójdą z nami.</p>
+            <p> <strong>Po czwarte </strong>, być może najważniejsze. Nasz postulat jest korzystny dla wszystkich obywateli. Łączy bardzo różne środowiska. Nie generuje jakichkolwiek podziałów czy konfliktów społecznych. Wszyscy chcieliby wybierać swoich przedstawicieli normalnie i wszyscy chcieliby, żeby posłowie czuli się odpowiedzialni przed wyborcami. Pod postulatem JOW może podpisać się przeważająca większość organizacji i ruchów obywatelskich. </p>
+            <p> <strong>Dlatego Ruch JOW zadziała </strong></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" id="chapter_8">
+            <h2>Idea serwisu RuchJOW.pl</h2>
+
+            <div class="row" style="padding: 0; margin: 2rem 0;">
+
+                <div class="col-md-4" style="padding: 0">
+                    {% image '@img_homepage_infographics_1_of_3' %}
+                    <img src="{{ asset_url }}" alt="Ruch JOW - 1. krok"  style="max-width: 100%"/>
+                    {% endimage %}
+                    {#<img src="https://efektjow.pl/images/932cabc" alt="Efekt JOW - 1. krok" style="max-width: 100%">#}
+                </div>
+                <div class="col-md-4" style="padding: 0">
+                    {% image '@img_homepage_infographics_2_of_3' %}
+                    <img src="{{ asset_url }}" alt="Ruch JOW - 2. krok"  style="max-width: 100%"/>
+                    {% endimage %}
+                    {#<img src="https://efektjow.pl/images/53a8fed" alt="Efekt JOW - 2. krok" style="max-width: 100%">#}
+                </div>
+                <div class="col-md-4" style="padding: 0">
+                    {% image '@img_homepage_infographics_3_of_3' %}
+                    <img src="{{ asset_url }}" alt="Ruch JOW - 3. krok"  style="max-width: 100%"/>
+                    {% endimage %}
+                    {#<img src="https://efektjow.pl/images/fd5ef69" alt="Efekt JOW - 3. krok" style="max-width: 100%">#}
+                </div>
+            </div>
+
+            <p>Ostatnie 25 lat to czas, w którym wydarzyło się wiele pozytywnych zmian. Niestety odnieśliśmy również wiele porażek, a wśród nich z pewnością można umieścić słaby rozwój społeczeństwa obywatelskiego. Jako obywatele nie czujemy, że mamy większy wpływ na funkcjonowanie naszego państwa. I równocześnie trudno nam się zmobilizować do zmiany tego stanu rzeczy.</p>
+            <p>Poparcie dla wprowadzenia 460 JOW w wyborach do Sejmu wyrażają w sondażach miliony Polaków. Niestety większość z nas nie potrafi poświęcić paru godzin czy kilkudziesięciu złotych w miesiącu, aby zmiany stały się rzeczywistością. <strong>Zbyt często ograniczamy się tylko do narzekania i ew. „lajków” na facebooku.</strong></p>
+            <p>Równocześnie przecież bardzo dobrze zdajemy sobie sprawę z tego, że <strong>NIKT ZA NAS nie naprawi naszego własnego państwa. A już na pewno nie politycy.</strong></p>
+            <p><strong>Wielu zwolenników JOW pokazało swoje zaangażowanie w kampanii Pawła Kukiza. Dziś to Wam dajemy nowoczesne narzędzie w walce o prawdziwą zmianę.</strong></p>
+            <p>
+                <strong>RuchJOW.pl to Ruch 2.0 bo jest formą społeczności i 2.0 bo to drugie życie kampanii Pawła Kukiza, miejsce dla Waszej aktywności.</strong>
+                Wprowadziliśmy elementy grywalizacji (punkty przyznawane za aktywność) nie dlatego, że mało poważnie podchodzimy do tematu, ale dlatego, żeby ułatwić nam samym mierzenie naszej aktywności obywatelskiej.</p>
+
+            <p>Serwis dostarcza kilku bardzo prostych narzędzi, dzięki którym możemy realnie i bez większego wysiłku przyczynić się do promowania postulatu JOW.</p>
+            <ul>
+                <li>promowanie idei wśród znajomych</li>
+                <li>kolportaż materiałów edukacyjnych</li>
+                <li>organizacja spotkań</li>
+                <li>wsparcie finansowe akcji i rozwoju serwisu</li>
+            </ul>
+
+            <p>Systematycznie będziemy również uzupełniać i prezentować poparcie środowisk samorządowych dla postulatu JOW. Jeśli wiecie o takim – prosimy o <a href="mailto:kontakt@ruchjow.pl">kontakt</a>.</p>
+            <p><strong>RuchJOW.pl jest i będzie rozwijany.</strong> Planujemy dodawać nowe funkcjonalności i ulepszać serwis jako narzędzie do budowania ruchu obywatelskiego <strong>zgodnie z WASZYMI POTRZEBAMI</strong>. Dlatego wszelkie uwagi, pomysły czy chęć pomocy są bardzo mile widziane – prosimy pisać na <a href="mailto:kontakt@ruchjow.pl">kontakt@ruchjow.pl</a></p>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block bellow %}
+    <div class="row">
+        <div class="col-md-12">
+            <article>
+                <div class="abc-jow-guide-block">
+                    <div class="row">
+                        <div class="col-md-4 guide-img">
+                            {% image '@misc_abc_jow' %}<img src="{{ asset_url }}" alt="przewodnik JOW" />{% endimage %}
+                        </div>
+                        <div class="col-md-8">
+                            <h1>Pobierz przewodnik i poznaj JOWy</h1>
+                            <ul>
+                                <li>Bezpłatne kompendium wiedzy o JOWach</li>
+                                <li>Wszystko w jednym i przystępnym ebooku</li>
+                                <li>Dowiesz się kim jesteśmy i o co walczymy</li>
+                            </ul>
+                            <a class="btn btn-go" href="{{ asset('res/przewodnik-jow.pdf') }}">Pobierz</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+{% endblock %}

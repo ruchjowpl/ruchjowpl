@@ -1,0 +1,42 @@
+<article class="user-profile">
+    <div class="close-control" ng-click="close()"></div>
+    <div class="modal-header">
+        <h1>
+            <a ui-sref="profile({username: userData.nick})" ruch-jow-force-hash-href="" ng-click="close()">[[ userData.nick ]]</a>
+            <span class="points" ng-if="userData.stats.pointsUser">[[userData.stats.pointsUser]] pkt</span>
+        </h1>
+        <h2 class="user-full-name">
+            [[ userData.firstName ]] [[ userData.lastName ]]
+        </h2>
+    </div>
+    <div class="modal-body">
+        <div ng-if="userData.socialLinks" class="social-links">
+            <ul>
+                <li ng-repeat="(name, url) in userData.socialLinksFull" ng-show="url">
+                    <a href="[[ url ]]" class="social-[[ name ]]-icon" target="_blank"></a>
+                </li>
+            </ul>
+        </div>
+
+        <div ng-if="userData.organisation" class="organisation">
+            <span class="name">[[ userData.organisation.name ]]</span> -
+            <a class="url" href="[[ userData.organisation.url ]]" target="_blank">[[ userData.organisation.url ]]</a>
+        </div>
+
+        <div class="ranks">
+            <h3>Rankingi użytkownika</h3>
+
+            <ul>
+                <li ng-if="userData.stats.ranksUser.commune">[[ userData.stats.ranksUser.commune ]]. miejsce w gminie ([[ userData.commune.name ]])</li>
+                <li ng-if="userData.stats.ranksUser.district">[[ userData.stats.ranksUser.district ]]. miejsce w powiecie ([[ userData.commune.district.name ]])</li>
+                <li ng-if="userData.stats.ranksUser.region">[[ userData.stats.ranksUser.region ]]. miejsce w województwie ([[ userData.commune.district.region.name ]])</li>
+                <li ng-if="userData.stats.ranksUser.country">[[ userData.stats.ranksUser.country ]]. miejsce w kraju</li>
+            </ul>
+        </div>
+
+        {#[[ userData ]]#}
+    </div>
+    <div class="modal-footer" {#ng-if="security.isAllowed('messages:send')"#}>
+        <a class="clickable" ng-click="$sendMessage(userData.nick)">Wyślij wiadomość</a>
+    </div>
+</article>

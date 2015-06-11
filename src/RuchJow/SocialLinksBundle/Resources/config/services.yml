@@ -1,0 +1,9 @@
+parameters:
+    ruch_jow_social_links.social_link_manager.class: 'RuchJow\SocialLinksBundle\Entity\SocialLinkManager'
+
+
+services:
+    ruch_jow_social_links.social_link_manager:
+        class: %ruch_jow_social_links.social_link_manager.class%
+        arguments:
+            - @service_container

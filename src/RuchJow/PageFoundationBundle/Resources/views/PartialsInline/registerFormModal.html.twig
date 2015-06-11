@@ -1,0 +1,272 @@
+{{ '<script type="text/ng-template" id="registerFormModal.html">' }}
+<article>
+<form ng-submit="registerAsync()" name="ruchJowRegister" ng-controller="RegisterFormSubmitCtrl" id="ruch_jow_register_form" novalidate>
+    <div class="close-control" ng-click="cancel()"></div>
+
+    <div class="modal-header center">
+        <h1>
+            [[ 'security.register.title'|translate ]]
+            <span ng-if="data.referral" class="small by-referral">
+                ([[ 'security.register.byReferral'|translate ]] <span ng-click="data.referral = undefined" class="icon-delete clickable"></span>)
+            </span>
+        </h1>
+        <h2 translate="security.register.subtitle" translate-values="getSupportersCntTranslationData()" translate-interpolation="messageformat"></h2>
+        <div ng-if="errorMessage" class="te-error-msg">[[ errorMessage ]]</div>
+    </div>
+    <div class="modal-body">
+        {# Login #}
+        <div
+            ruch-jow-form-simple-field="nick"
+            {#label="security.register.nick"#}
+            errors="validation.nick.$labels"
+            {#label-suffix-class="'required'"#}
+            ruch-jow-form-show-label="false"
+        >
+            <input
+                type="text" name="nick"
+                ng-model="data.nick" ng-model-options="ngModelOptions()"
+                ruch-jow-external-validation="{ 'unique': ['ruchJowUserAsyncValidators', 'nickUnique', 'cancel', [{#'pattern', 'required'#}] ] }"
+                ng-pattern="validation.nick.pattern"
+                ng-required="true"
+                required="false"
+                ruch-jow-form-null-if-empty
+                ruch-jow-enter-down-trigger
+                placeholder="[[ 'security.register.nick'|translate ]]*"
+            />
+        </div>
+
+        {# Email #}
+        <div
+            ruch-jow-form-simple-field="email"
+            {#label="security.register.email"#}
+            errors="validation.email.$labels"
+            {#label-suffix="'*'"#}
+            {#label-suffix-class="'required'"#}
+            ruch-jow-form-show-label="false"
+        >
+            <input
+                type="text" name="email"
+                ng-model="data.email" ng-model-options="ngModelOptions()"
+                ruch-jow-external-validation="{ 'unique': ['ruchJowUserAsyncValidators', 'emailUnique', 'cancel', ['pattern'] ] }"
+                ng-pattern="validation.email.pattern"
+                ng-required="true"
+                ruch-jow-form-null-if-empty
+                ruch-jow-enter-down-trigger
+                title="[[ 'security.register.email'|translate ]]"
+                placeholder="[[ 'security.register.email'|translate ]]*"
+            />
+        </div>
+
+        {# Phone #}
+        {#<div#}
+            {#ruch-jow-form-simple-field="phone"#}
+            {#&#123;&#35;label="security.register.phone"&#35;&#125;#}
+            {#errors="validation.phone.$labels"#}
+            {#&#123;&#35;label-suffix="'*'"&#35;&#125;#}
+            {#ruch-jow-form-show-label="false"#}
+        {#>#}
+            {#<input#}
+                {#type="text" name="phone"#}
+                {#ng-model="data.phone" ng-model-options="ngModelOptions()"#}
+                {#ng-pattern="validation.phone.pattern"#}
+                {#ruch-jow-enter-down-trigger#}
+                {#ruch-jow-form-null-if-empty#}
+                {#title="[[ 'security.register.phone'|translate ]]"#}
+                {#placeholder="[[ 'security.register.phone'|translate ]]"#}
+            {#/>#}
+        {#</div>#}
+
+
+        {# Commune #}
+        <div
+            {#ruch-jow-form-single-row#}
+            ruch-jow-form-simple-field="commune"
+            {#show-untouched-errors="false"#}
+            {#show-pristine-errors="false"#}
+
+            label="security.register.commune"
+            {#ruch-jow-form-show-label="false"#}
+
+            errors="validation.commune.$labels"
+            ng-class="{ loading: loading.communes }"
+
+        >
+            <div ng-show="data.commune">
+                <strong
+                    ruch-jow-input-icon="setCommune(null); localData.communeInputName = null;"
+                    ruch-jow-icon-class="{ delete: true, disabled: !data.commune }"
+                >
+                    [[ localData.selectedCommuneLabel ? localData.selectedCommuneLabel : '-' ]]
+                </strong>
+            </div>
+            <input
+                ng-show="!data.commune"
+                {#ruch-jow-input-icon="setCommune(null); localData.communeInputName = null;"#}
+                {#ruch-jow-wrapper-class=""#}
+                {#ruch-jow-icon-class="{ delete: true, disabled: !localData.communeInputName && !data.communeUrl }"#}
+                type="text" name="commune"
+                ng-model="localData.communeInputName"
+                placeholder="[[ 'security.register.postcode.or.commune.name'|translate ]]"
+                typeahead="commune.label for commune in getCommunes($viewValue)"
+                typeahead-loading="loading.communes"
+                typeahead-on-select="setCommune($item)"
+                ruch-jow-validate="{ commune: 'data.commune || data.organisationUrl' }"
+                ruch-jow-validate-watch="['data.organisationUrl', 'data.commune']"
+            />
+        </div>
+
+
+        {# Organisation #}
+        <hr />
+        <div class="checkbox-wrapper-right label-wrapper">
+            <label>[[ 'security.register.organisation.block.info'|translate ]]</label>
+            <input type="checkbox" ng-model="orgs.visible"/>
+        </div>
+
+        {# URL #}
+        <div
+            {#ruch-jow-form-single-row#}
+            ruch-jow-form-simple-field="organisationUrl"
+
+            {#label="security.register.organisationUrl"#}
+            ruch-jow-form-show-label="false"
+
+            errors="validation.organisationUrl.$labels"
+            ng-show="orgs.visible"
+        >
+            <div ng-show="data.organisationUrl && ruchJowRegister.organisationUrl.$valid && !orgs.edit">
+                <strong
+                    ruch-jow-input-icon="orgs.set(null); orgs.input.url = null;"
+                    ruch-jow-icon-class="{ delete: true, disabled: !data.organisationUrl }"
+                >
+                    [[ data.organisationUrl ]]
+                </strong>
+            </div>
+            <input
+                ng-show="!data.organisationUrl || !ruchJowRegister.organisationUrl.$valid || orgs.edit"
+                ruch-jow-escape-down="orgs.updateUrl()"
+
+                type="text" name="organisationUrl"
+                ng-model="orgs.input.url" {#ng-model-options="ngModelOptions()"#}
+
+                typeahead="organisation.url as organisation.label for organisation in orgs.get($viewValue)"
+                typeahead-loading="orgs.loading"
+                typeahead-on-select="orgs.set($item)"
+
+                ng-pattern="validation.organisationUrl.pattern"
+                {#ruch-jow-enter-down-trigger#}
+                ruch-jow-form-null-if-empty
+                title="[[ 'security.register.organisationUrl'|translate ]]"
+                placeholder="[[ 'security.register.organisationUrl'|translate ]]"
+                />
+        </div>
+
+        {# Organisation Name #}
+        <div
+            {#ruch-jow-form-single-row#}
+            ruch-jow-form-simple-field="organisationName"
+            {#label="security.register.organisationName"#}
+            ruch-jow-form-show-label="false"
+
+            errors="validation.organisationName.$labels"
+            ng-show="orgs.visible"
+        >
+            <div ng-show="!orgs.edit">
+                [[ data.organisationName ]]
+            </div>
+            <input
+                ng-show="orgs.edit"
+                ng-disabled="!data.organisationUrl && !orgs.input.url"
+
+                type="text" name="organisationName"
+                ng-model="orgs.input.name" ng-model-options="ngModelOptions()"
+
+                ruch-jow-enter-down-trigger
+                ng-pattern="validation.organisationName.pattern"
+                ruch-jow-form-null-if-empty
+                ruch-jow-validate="{ required: '!(orgs.edit && data.organisationUrl && !$value)' }"
+                ruch-jow-validate-watch="['orgs.edit', 'data.organisationUrl', 'data.organisationName']"
+
+                title="[[ 'security.register.organisationName'|translate ]]"
+                placeholder="[[ 'security.register.organisationName'|translate ]]"
+            />
+        </div>
+
+
+        {# PASSWORD #}
+        <hr />
+        <div class="checkbox-wrapper-right label-wrapper">
+            <label>[[ 'security.register.password.block.info'|translate ]]</label>
+            <input type="checkbox" ng-model="localData.passwordVisible"/>
+        </div>
+
+        {# Password #}
+        <div
+            {#ruch-jow-form-single-row#}
+            ruch-jow-form-simple-field="password"
+            {#label="security.register.password"#}
+            ruch-jow-form-show-label="false"
+
+            errors="validation.password.$labels"
+            ng-show="localData.passwordVisible"
+
+        >
+            <input
+                type="password" name="password"
+                ng-model="data.password" ng-model-options="ngModelOptions()"
+                ng-pattern="validation.password.pattern"
+                ruch-jow-enter-down-trigger
+                ruch-jow-form-null-if-empty
+                title="[[ 'security.register.password'|translate ]]"
+                placeholder="[[ 'security.register.password'|translate ]]"
+            />
+        </div>
+
+        {# Password #}
+        <div
+            {#ruch-jow-form-single-row#}
+            ruch-jow-form-simple-field="passwordRepeat"
+            {#label="security.register.passwordRepeat"#}
+            ruch-jow-form-show-label="false"
+
+            errors="validation.passwordRepeat.$labels"
+            ng-show="localData.passwordVisible"
+        >
+            <input
+                type="password" name="passwordRepeat"
+                ng-model="localData.passwordRepeat" {#ng-model-options="ngModelOptions()"#}
+                ruch-jow-enter-down-trigger
+                ruch-jow-form-null-if-empty
+                title="[[ 'security.register.passwordRepeat'|translate ]]"
+                placeholder="[[ 'security.register.passwordRepeat'|translate ]]"
+                ruch-jow-equals="data.password"
+                />
+        </div>
+
+        <br />
+        <hr />
+        <div
+            ruch-jow-form-simple-field="isRegulationsAccepted"
+            {#label="security.register.isRegulationsAccepted"#}
+            ruch-jow-form-show-label="false"
+            errors="validation.isRegulationsAccepted.$labels"
+        >
+            <div class="checkbox-wrapper-left label-wrapper">
+                <input
+                    type="checkbox" name="isRegulationsAccepted"
+                    ng-model="data.isRegulationsAccepted"
+                    ng-required="true"
+                />
+                <label>Oświadczam, że przeczytałem i akceptuję <a ng-href="/regulamin.html" class="clickable" target="_blank">regulamin</a> serwisu RuchJOW.pl</label>
+            </div>
+        </div>
+
+        <div class="btns">
+            <button type="submit" class="btn btn-register btn-go">
+                <span class="glyphicon glyphicon-refresh te-spin-fast" ng-if="inProgress"></span> [[ 'security.register.submit'|translate ]]
+            </button>
+        </div>
+    </div>
+</form>
+</article>
+{{ '</script>' }}

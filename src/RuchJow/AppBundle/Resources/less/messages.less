@@ -1,0 +1,125 @@
+
+.msgs {
+  .msgs-folders {
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        list-style: none;
+        display: block;
+
+        padding: 0.3rem 1rem;
+
+        &.selected {
+          background: #eee;
+          color: @ruch-jow-blue-dark;
+          font-weight: 600;
+        }
+
+        &.unread {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .msgs-messages {
+    .msgs-messages-ctrls {
+      .clearfix();
+      margin-bottom: 0.5rem;
+
+      .right-ctrls {
+        float: right;
+      }
+
+    }
+
+    .msgs-messages-table {
+      width: 100%;
+      font-size: 1.2rem;
+
+      tr {
+        border-bottom: 1px solid #ccc;
+        background: #eee;
+
+        th, td {
+          padding: 1rem 1rem;
+        }
+
+        > .unread,
+        > .sender,
+        > .recipient,
+        > .sent-at,
+        > .read-at {
+          width: 1px;
+          white-space: nowrap;
+        }
+
+        > .subject {
+          padding-left: 3rem;
+          padding-right: 2rem;
+        }
+
+        &.unread {
+          td {
+            font-weight: 600;
+          }
+        }
+      }
+
+      thead:first-child > tr:first-child,
+      tbody:first-child > tr:first-child,
+      > tr:first-child {
+        border-top: 1px solid #ccc;
+      }
+
+      thead {
+        tr {
+          background: #ddd;
+        }
+      }
+    }
+  }
+}
+
+.msgs-sent-message {
+  .modal-body {
+    :last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.msgs-message {
+  .message-headers {
+    margin: 2.5rem 0 0;
+
+  }
+
+  ul.message-headers {
+    list-style: none;
+    display: block;
+    padding: 0;
+
+    li {
+      display: block;
+      list-style: none;
+    }
+  }
+
+  .message-body {
+    font-size: 1.7rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .message-reply {
+    :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  hr {
+    margin-bottom: 1.5rem;
+  }
+}

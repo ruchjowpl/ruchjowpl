@@ -1,0 +1,168 @@
+
+
+.btn {
+  .btn();
+}
+
+.btn-go {
+  .btn-icon(@fa-var-chevron-right, 2em, 1.65em);
+}
+
+.link-btn {
+  color: @link-color;
+  border: none;
+  background: none;
+
+  &:hover {
+    color: @link-hover-color;
+    text-decoration: underline;
+  }
+
+  //  display: inline;
+  padding: 0;
+}
+
+
+/*********** In progress ***********/
+.in-progress {
+  .glyphicon();
+  .glyphicon-refresh();
+
+  &::before {
+    .animate-spin();
+    display: inline-block;
+  }
+}
+
+.in-progress-center {
+  position: relative;
+  .fa-icon(@fa-var-refresh);
+//  .glyphicon-refresh;
+
+  &::after {
+    display: block;
+    content: '';
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    //    border: 1px solid red;
+
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(230,230,230, 0.45),
+      rgba(235,235,235, 0.45) 15px,
+      rgba(245,245,245, 0.45) 15px,
+      rgba(250,250,250, 0.45) 30px
+    );
+
+//    border-radius: 1em;
+//    box-shadow: 0 0 1em 0.5em white inset;
+
+    z-index: 10;
+  }
+
+  &::before {
+//    .glyphicon;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 11;
+
+    padding: 1em;
+    line-height: 1;
+    width: 3em;
+    text-align: center;
+    color: #3b3b3b;
+
+
+    background: rgba(240, 240, 240, 0.7);
+    .border-left-radius(100%);
+    .border-right-radius(100%);
+
+    box-shadow: 0 0 0.5em #bbb;
+
+    .animate-spin-center-fix();
+  }
+}
+
+/*********** Number formats ***********/
+.fr-number-separator,
+.fr-number-decimals {
+  font-size: 0.75em;
+  color: @nav-disabled-link-color
+}
+
+.fr-number-unit {
+  font-size: 0.9em;
+}
+
+
+/*********** Count Icons ***********/
+.count-icon {
+  position: relative;
+
+  .count {
+    position: absolute;
+    white-space: nowrap;
+
+    right: 0;
+    bottom: -0.9em;
+
+    font-size: 0.35em;
+
+    line-height: 1;
+
+    padding: 0.4em;
+    background: rgba(3,3,3,0.7);
+    border-radius: 0.7em;
+  }
+}
+
+
+
+/************ SOCIAL ICONS *************/
+.social-facebook-icon,
+.social-twitter-icon,
+.social-pinterest-icon,
+.social-google-plus-icon,
+.social-google_plus-icon,
+.social-youtube-icon {
+  background: #fff;
+  border: 2px solid white;
+  border-radius: 2px;
+
+  display: inline-block;
+  line-height: 0;
+
+}
+
+.social-facebook-icon {
+  .link-one-color(@ruch-jow-social-facebook-color);
+  .ruch-jow-icon(@ruch-jow-icon-facebook);
+}
+
+.social-twitter-icon {
+  .link-one-color(@ruch-jow-social-twitter-color);
+  .ruch-jow-icon(@ruch-jow-icon-twitter);
+}
+
+.social-pinterest-icon {
+  .link-one-color(@ruch-jow-social-pinterest-color);
+  .ruch-jow-icon(@ruch-jow-icon-pinterest);
+}
+
+.social-google-plus-icon,
+.social-google_plus-icon {
+  .link-one-color(@ruch-jow-social-google-plus-color);
+  .ruch-jow-icon(@ruch-jow-icon-google_plus);
+}
+
+.social-youtube-icon {
+  .link-one-color(@ruch-jow-social-youtube-color);
+  .ruch-jow-icon(@ruch-jow-icon-youtube);
+}

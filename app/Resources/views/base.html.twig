@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="{% block description %}{% endblock %}">
+        <meta name="author" content="{% block author %}Ruch JOW &copy;{% endblock %}">
+
+        <meta name="google-site-verification" content="NjriRm5YABTv-A-0OqV3eqxix-pMzf0UfltsaSSJUBQ" />
+
+        <meta property="og:type"  content="website" />
+        <meta property="og:url"   content="https://ruchjow.pl" />
+        <meta property="og:title" content="Ruch JOW" />
+        <meta property="og:description" content="Poprzyj jednomandatowe okręgi wyborcze na wzór brytyjski w wyborach do Sejmu RP. Żeby posłowie byli odpowiedzialni przed wyborcami!" />
+        <meta property="og:image" content="https://ruchjow.pl/images/fb_img_v2.jpg" />
+
+        <meta name="twitter:url" content="https://ruchjow.pl" />
+        <meta name="twitter:title" content="Ruch JOW" />
+        <meta name="twitter:description" content="Poprzyj jednomandatowe okręgi wyborcze na wzór brytyjski w wyborach do Sejmu RP. Żeby posłowie byli odpowiedzialni przed wyborcami!" />
+        <meta name="twitter:image" content="https://ruchjow.pl/images/twitter_img_v2.jpg" />
+
+        <title update-title></title>
+
+    {% block stylesheets %}{% endblock %}
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="{{ asset('js/ie8fix.js') }}"></script>
+    <![endif]-->
+
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ asset('favicon16.png') }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon32.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon64.png') }}" />
+    <link rel="icon" type="image/png" href="{{ asset('favicon64.png') }}" />
+</head>
+<body {% block bodyattrs %}{% endblock %}>
+    <div id="body_wrapper">
+        {% block body %}{% endblock %}
+    </div>
+
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

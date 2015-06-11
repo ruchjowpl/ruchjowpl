@@ -1,0 +1,19 @@
+parameters:
+    ruch_jow_statistics.statistic_manager.class: RuchJow\StatisticsBundle\Entity\StatisticManager
+    ruch_jow_statistics.events_subscriber.class: RuchJow\StatisticsBundle\Listener\EventsSubscriber
+
+services:
+    ruch_jow_statistics.statistic_manager:
+        class: %ruch_jow_statistics.statistic_manager.class%
+        arguments:
+            - @service_container
+
+
+    ruch_jow_statistics.events_subscriber:
+        class: %ruch_jow_statistics.events_subscriber.class%
+        arguments:
+            - @ruch_jow_statistics.statistic_manager
+            - @doctrine
+        tags:
+            - { name: kernel.event_subscriber }
+

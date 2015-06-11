@@ -1,0 +1,66 @@
+{% extends 'RuchJowAppBundle:Partials:staticPage.html.twig' %}
+
+{% set pageName = 'why_jow_page' %}
+
+{% block title %}Dlaczego JOW?{% endblock %}
+
+{% block static_page_content %}
+
+    <p>
+        Jednomandatowe Okręgi Wyborcze to najstarszy, najprostszy i sprawdzony w ponad <strong>dwustuletniej</strong> praktyce system wyborczy.
+        Publiczne liczenie głosów i brak komisji wyborczych eliminuje możliwości oszustw i „cudów nad urną”.
+        <strong>Wybierani są ludzie znani lokalnym wyborcom z dobrej strony.</strong>
+        Są przed wyborcami odpowiedzialni, bo ci łatwo mogą ich odwołać.
+        O tym, kto zostanie posłem decydują obywatele a nie szefowie partii!
+    </p>
+
+    <p>
+        Taki system wyborczy prowadzi do powstania silnego rządu,
+        mającego autentyczne poparcie obywateli.
+        Wyborcy kontrolują rząd, a rząd musi prowadzić politykę,
+        która odpowiada ich oczekiwaniom.
+    </p>
+
+    <ul>
+        <li>
+            Dlaczego w Polsce nie możemy wybierać posłów jak w Wielkiej Brytanii,
+            gdzie z jednego okręgu wybiera się tylko jednego posła:
+            tego, kto uzyskał najwięcej głosów poparcia?
+        </li>
+        <li>
+            Dlaczego w Polsce musimy głosować na listy partyjne,
+            na ludzi, których znają głównie szefowie partii?
+        </li>
+        <li>
+            Dlaczego w Polsce obywatele są pozbawieni biernego prawa wyborczego,
+            bo nie mogą sami kandydować?
+        </li>
+        <li>
+            Dlaczego w Wielkiej Brytanii nie ma żadnych Komitetów Wyborczych,
+            kandydaci mogą zgłaszać się sami
+            i nie ma potrzeby zbierania dziesiątek tysięcy podpisów?
+        </li>
+    </ul>
+
+    <p>
+        Jednomandatowe Okręgi Wyborcze to silne państwo, wewnętrznie i zewnętrznie.
+        Ordynacja proporcjonalna to państwo słabe, które nie potrafi wywiązać się ze swoich obowiązków
+        ani wewnątrz, ani na zewnątrz.
+        To wieczne podziały, skandale i kłótnie.
+        Tak, jak to wygląda teraz w Polsce! Czas na zmianę!
+        <strong>Czas na Ruch JOW!</strong>
+    </p>
+
+{% endblock %}
+
+{% set rightColumnSize = 4 %}
+{% block right_column %}
+    <div id="abc_jow_block">
+        <h3 class="header">Twój przewodnik</h3>
+        <div class="content">
+            <a href="http://jow.pl/pobierz-abc/">
+                {% image '@misc_abc_jow' %}<img src="{{ asset_url }}" />{% endimage %}
+            </a>
+        </div>
+    </div>
+{% endblock %}

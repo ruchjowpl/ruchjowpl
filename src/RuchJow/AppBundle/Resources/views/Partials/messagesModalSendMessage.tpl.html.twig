@@ -1,0 +1,60 @@
+<article class="msgs-sent-message">
+    <form ng-submit="$send()" name="messagesSendForm" novalidate="">
+        <div ng-init="$setForm(messagesSendForm)"></div>
+        <div class="close-control" ng-click="close()"></div>
+
+        <div class="modal-header">
+            <h1>Nowa wiadomość</h1>
+        </div>
+        <div class="modal-body">
+            <div>Do: <span>[[ recipient ]]</span></div>
+            <div
+                ruch-jow-form-simple-field="subject"
+                {#label=""#}
+                ruch-jow-form-show-label="false"
+
+                errors="validation.subject.$labels"
+            >
+                <input
+                    type="text" name="subject"
+                    ng-model="inputData.subject"
+                    ng-required="true"
+
+                    fr-auto-focus
+                    ng-maxlength="maxSubjectSize"
+                    maxlength="[[ maxSubjectSize ]]"
+                    {#ruch-jow-enter-down-trigger#}
+                    {#ng-pattern="validation.subject.pattern"#}
+                    title="[[ 'msgs.sendForm.subject.label'|translate ]]"
+                    placeholder="[[ 'msgs.sendForm.subject.label'|translate ]]"
+                />
+            </div>
+            <div
+                ruch-jow-form-simple-field="body"
+                {#label=""#}
+                ruch-jow-form-show-label="false"
+
+                errors="validation.body.$labels"
+            >
+                <textarea
+                    name="body"
+                    ng-model="inputData.body"
+                    ng-required="true"
+                    ng-maxlength="maxBodySize"
+                    maxlength="[[ maxBodySize ]]"
+
+                    {#ruch-jow-enter-down-trigger#}
+                    {#ng-pattern="validation.subject.pattern"#}
+                    title="[[ 'msgs.sendForm.body.label'|translate ]]"
+                    placeholder="[[ 'msgs.sendForm.body.label'|translate ]]"
+                ></textarea>
+                <span class="ruch-jow-form-field-under-info">[[ inputData.body.length || 0 ]]/[[ maxBodySize ]]</span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-msg-ok">
+                <span>Wyślij</span>
+            </button>
+        </div>
+    </form>
+</article>

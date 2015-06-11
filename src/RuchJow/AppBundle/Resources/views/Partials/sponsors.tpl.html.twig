@@ -1,0 +1,103 @@
+{% extends 'RuchJowAppBundle:Partials:staticPage.html.twig' %}
+
+
+{% set diamondSponsors = [
+    'Tomasz Jankowski',
+    'Piotr Krzyszkowski',
+    'Rafał Sławiński',
+    'Witold Winnicki "Symforjan"',
+    'Michał Wojciechowski',
+    'Sylwester Kachniarz',
+    'Stanisław Tymiński',
+    'Paweł Szramka',
+    'Paweł Pytlik',
+    'Łukasz Tokarz',
+    'Adam Sokolnicki',
+    'Norbert Orlikowski'
+] %}
+
+{% set goldSponsors = [
+    'Adrian Smyczyński',
+    'Leszek Gorski',
+    'Wiesław Pawelec',
+    'Mirosław Kupis',
+    'Andrzej Polak',
+    'Grzegorz Cichy',
+    'Marcin Krakowiak',
+    'Robert Szczelina',
+    'Mariusz Stokłosa',
+    'Michał Jezierski',
+    'Beata Wojtczak',
+    'Piotr Łukaszczyk',
+    'Adam Stasiak',
+    'Marcin Ślusarz',
+    'Bogusław Cilski',
+    'Łukasz Marynicz',
+    'Anonim z Krakowa',
+    'Wojciech Kruk',
+    'Bogdan Gutknecht',
+    'Rafał Sikora',
+    'Anonim z Wrocławia',
+    'Wojciech Pryć',
+    'Bartosz Grzybowski',
+    'Zofia Gerlach-Kolasa',
+    'Anonim z Warszawy',
+    'Tomasz Burliga',
+    'Karol Krzysztof Ekert',
+    'Mirosław Kwak',
+    'Zbigniew Brożek',
+    'Dominika Oleś',
+    'Radosław Paklikowski',
+    'Sebastian Szulc',
+    'Wojciech Kaźmierczak',
+    'Marek Wesołowski',
+    '„jozka”',
+    'Anula78',
+] %}
+
+{% set bronzeSponsors = [
+    'Łukasz Kaczanowski',
+    'Bogusław Długosz',
+    'slawkoc',
+] %}
+
+{#% set controllerName = 'SponsorsController' %#}
+
+
+{% block title %}Sponsorzy{% endblock %}
+
+{% block static_page_content %}
+    Poniżej przedstawiamy listę osób, które wsparły finansowo serwis Ruch JOW (i wcześniejszą wersję efektJOW.pl w ramach akcji crowdfundingowej.
+
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Sponsorzy „DIAMENTOWI”</h2>
+
+            <ol>
+                {% for sponsor in diamondSponsors %}
+                    <li>{{ sponsor }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+
+        <div class="col-md-4">
+            <h2>Sponsorzy „ZŁOCI”</h2>
+            <ol>
+                {% for sponsor in goldSponsors %}
+                    <li>{{ sponsor }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+
+        <div class="col-md-4">
+            <h2>Sponsorzy „BRĄZOWI”</h2>
+            <ol>
+                {% for sponsor in bronzeSponsors %}
+                    <li>{{ sponsor }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+
+    Wszystkim sponsorom bardzo dziękujemy! Bez Waszego wsparcia nie byłoby Ruchu JOW.
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends 'RuchJowAppBundle:Partials:staticPage.html.twig' %}
+
+{% block title %}FAQ{% endblock %}
+
+{% set faq = [
+{
+    q: 'Czym jest Ruch JOW?',
+    a: '<p>RuchJOW.pl to pierwszy serwis ruchu obywatelskiego 2.0. Cele serwisu internetowegoto::</p>
+<ul>
+<li>animacja i monitorowanie zaangażowania obywatelskiego na rzecz wprowadzenia w Polsce jednomandatowych okręgów wyborczych (JOW) w wyborach do Sejmu RP;</li>
+<li>dostarczenie praktycznych narzędzi promocji idei JOW wszystkim zainteresowanym osobom;</li>
+<li>integracja osób działających na rzecz zmiany ordynacji wyborczej</li>
+</ul>'
+},
+{
+    q: 'Czym są punkty Ruchu JOW?',
+    a: '<p>Punkty Ruchu JOW są przyznawane każdemu użytkownikowi serwisu za konkretne działania promujące ideę Jednomandatowych Okręgów Wyborczych.</p>'
+},
+{
+    q: 'Za co konkretnie mogę zdobyć punkty Ruchu JOW?',
+    a: '<p>Punkty standardowo przyznawane są za poparcie akcji oraz za realizację wyzwań Ruchu JOW.</p>'
+},
+{
+    q: 'Czym są wyzwania Ruchu JOW?',
+    a: '<p>Standardowe wyzwania to polecenie serwisu znajomym, promowanie go na innych stronach internetowych, dystrybucja ulotek, organizacja wydarzeń promujących JOW oraz finansowe wsparcie akcji. Za każde zrealizowane wyzwanie otrzymasz punkty Ruchu JOW. Nie jest to jednak lista zamknięta. Jeżeli masz inny pomysł na to jak mógłbyś promować ideę JOW to skontaktuj się z nami! Każdą inicjatywę nagrodzimy punktami.</p>'
+},
+{
+    q: 'Po co mi punkty Ruchu JOW!',
+    a: '<p>Dzięki punktom awansujesz w rankingach naszego serwisu, stając się lokalnym liderem Ruchu. Punkty świadczą o zaangażowaniu i determinacji w dążeniu do wprowadzenia jednomandatowych okręgów wyborczych w wyborach do Sejmu RP. W niedalekiej przyszłości będziesz mógł wymienić punkty Ruchu JOW na nagrody w postaci gadżetów naszej akcji.</p>'
+},
+{
+    q: 'Czym są rankingi Ruchu JOW?',
+    a: '<p>Rankingi prezentują aktywność poszczególnych użytkowników. Dzięki rankingom w łatwy sposób można zlokalizować lokalnych liderów działań na rzecz zmiany ordynacji wyborczej oraz zobaczyć, które regiony Polski są najaktywniejsze w działaniach na rzecz promocji JOW.</p>'
+},
+{
+    q: 'Kto może poprzeć akcję Ruch JOW?',
+    a: '<p>Akcję może poprzeć każdy, na dwa sposoby – jako osoba prywatna lub jako strona internetowa.</p>'
+},
+{
+    q: 'Na czym polega poparcie Ruchu jako „strona internetowa”?',
+    a: '<p>Jeżeli prowadzisz stronę internetową (bloga, fanpage, serwis internetowy itp.) możesz wesprzeć nas umieszczając na niej baner Ruchu. Za każdą osobę, która zarejestruje się w naszym serwisie klikając w baner na Twojej stronie, otrzymasz punkty Ruchu JOW. Najaktywniejsze serwisy są przez nas promowane na efektjow.pl, a Ty zyskujesz podwójnie – promując ideę JOW oraz promując swoją stronę internetową!</p>'
+}
+] %}
+
+{% set jowfaq = [
+{
+    q: 'Co to są Jednomandatowe Okręgi Wyborcze (JOW)?',
+    a: '<p>
+JOW to najprostszy i najprawdopodobniej najlepszy sposób wybierania parlamentarzystów.
+<br />Najprostszy ponieważ trudno wyobrazić sobie bardziej naturalną zasadę niż ta, że zwycięzcą zostaje osoba, która uzyskała najwięcej głosów.
+<br />Co prawda w dziedzinie polityki nie sposób stwierdzić, że jedno rozwiązanie jest zawsze lepsze niż inne, jednak empirycznym dowodem na skuteczność JOW jest to, że stosują go najważniejsze państwa Europy (Wielka Brytania i Francja) oraz najpotężniejsze mocarstwo świata (USA)
+</p>'
+},
+{
+    q: 'Jakie są najważniejsze skutki wprowadzenia JOW?',
+    a: '<p>
+Przede wszystkim jest to osobista odpowiedzialność posła przed obywatelami w jego okręgu wyborczym, gdyż to od wyborców, a nie od partii zależy jego polityczna przyszłość.
+</p>
+<p>
+Drugi bardzo ważny efekt to stabilny i sprawny rząd. Odpowiedzialność za rządzenie państwem bierze na siebie zazwyczaj jedna partia, która nie ma możliwości zrzucania winy na koalicjantów. Równocześnie opozycja jest znacznie silniejsza i lepiej kontroluje  rządzących.
+</p>
+<p>
+Kolejny skutek to całkowita zmiana struktur, filozofii działania i zakorzenienia w społeczeństwie partii politycznych. Partie muszą wystawiać kandydatów akceptowanych społecznie, kompetentnych i zdolnych zdobyć większość głosów w okręgu wyborczym. Warto również zauważyć, że JOW eliminuje z parlamentu ugrupowania o poglądach skrajnych.
+</p>'
+},
+{
+    q: 'Czy wprowadzenie JOW nie spowoduje rozdrobnienia w Parlamencie? Jak 460 Posłów osiągnie porozumienie?',
+    a: '<p>
+Nie należy obawiać się rozdrobnienia. Z dużym prawdopodobieństwem można powiedzieć, że w Polsce może sprawdzić się mechanizm opisany przez M. Duvergera. Wskazuje on, że wybory przeprowadzane w okręgach jednomandatowych na podstawie większości względnej prowadzą do utworzenia dwubiegunowego systemu partyjnego. W jego ramach jedna z dwóch kluczowych formacji politycznych może samodzielnie tworzyć rząd i ponosić odpowiedzialność za sprawowanie władzy. Druga stanowi silną merytoryczną opozycję, zdolną i zmotywowaną do punktowania błędów rządu, przygotowaną do przejęcia władzy. Nie oznacza to, że w Sejmie będą tylko dwie partie. Prawdopodobnie będzie ich więcej. Dla przykładu w brytyjskiej Izbie Gmin jest ich aktualnie kilkanaście. Scena dwubiegunowa tworzy się naturalnie. W okręgu jednomandatowym wygrać może tylko jeden kandydat, a to zmusza zbliżone środowiska polityczne do integrowania się przed wyborami i zawiązywania porozumień wewnątrz okręgowych.
+</p>'
+},
+{
+    q: 'Czy po wprowadzeniu JOW Sejm zapełni się populistami i bogatymi biznesmenami?',
+    a: '<p>
+Możliwość wyboru populistów jest zawsze ryzykiem demokracji. W systemie JOW zostaje ono jednak poważnie ograniczone. Trzeba w tym wypadku przyjąć, że w małym okręgu, jednomandatowym, ludzie znają się względnie dobrze i potrafią właściwie ocenić kandydatów na posłów. Jeżeli wyborcy poczują się rozczarowani postawą czy zachowaniem swojego posła, to z pewnością po czterech latach nie zostanie on ponownie wybrany. W ramach tzw. ordynacji proporcjonalnej możliwe jest wprowadzenie kilkudziesięciu posłów niejako „na plecach” jednego popularnego polityka, na którym opiera się cała kampania wyborcza. Dlatego to właśnie w ramach obowiązującego mechanizmu możliwe jest wprowadzanie do Sejmu osób o wątpliwej reputacji. Doświadczenie bezpośrednich wyborów prezydentów, burmistrzów i wójtów uczy, że jakość wybranych jednomandatowo przedstawicieli jest wyższa.
+<br />W JOW-ach pieniądze nie odgrywają kluczowej roli. To właśnie dziś obowiązująca ordynacja partyjnych list wyborczych pozwala kupować „biorące” miejsca na tych
+listach i powoduje, że kampania wyborcza kosztuje polskich podatników setki tysięcy złotych. Pieniądze te wydawane są przeważnie na billboardy, plakaty, spoty TV.
+<br />W JOW-ach największe szanse na wygraną mają kandydaci, którzy znani są w okręgu, posiadają dobrą opinię i zdołają wypracować osobiste relacje z wyborcami w czasie kampanii wyborczej. Dla spełnienia takich warunków najważniejsze jest osobiste zaangażowanie, które wymaga nieporównywalnie mniejszych pieniędzy. W JOW
+o wygranej przesądza wiarygodność i osobista, ciężka praca kandydata.
+</p>'
+},
+{
+    q: 'Czy JOW nie „zabetonuje” polskiej sceny politycznej? Czy nie jest to rozwiązanie „niesprawiedliwe” dla małych partii?',
+    a: '<p>
+W minionych dwudziestu pięciu latach nie udało się wytworzyć w Polsce stabilnego systemu partyjnego. Jest to bezpośredni skutek obowiązującej ordynacji proporcjonalnej. Ordynacja większościowa realizowana w JOW będzie natomiast sprzyjała konsolidacji systemu partyjnego. Nie będzie to jednak oznaczało „zabetonowania” polskiej sceny politycznej oraz wykluczenia z Sejmu mniejszych partii. O uzyskaniu mandatu zadecyduje bowiem jakość konkretnego kandydata, a nie jak ma to miejsce obecnie, przynależność partyjna. Tytułem przykładu warto wspomnieć o doświadczeniach brytyjskich.
+<br />W Izbie Gmin jest aktualnie 11 partii, ale kilka z nich ma tylko po jednym, dwóch, bądź trzech przedstawicieli.
+</p>'
+},
+{
+    q: 'Dlaczego 460 okręgów? Dlaczego okręgi muszą być małe?',
+    a: '<p>
+W dyskusji na temat zmiany ordynacji wyborczej w Polsce pojawia się czasem postulat ograniczenia liczby posłów, np. do połowy stanu obecnego. Argumentuje się, że obniży to koszty funkcjonowania Sejmu, tym bardziej, że do pracy nad ustawami i do debaty publicznej 230 posłów zupełnie wystarczy. Dziś na dobrą sprawę wystarczyłoby kilkudziesięciu posłów prowadzących prace legislacyjne (ustawy przecież
+i tak najczęściej pisze rząd i eksperci), a głosować  natomiast  mogliby sami liderzy, którzy dysponowaliby procentowym udziałem głosów.
+</p>
+
+<p>Fundamentem demokracji przedstawicielskiej jest jednak coś zupełnie innego: zasada odpowiedzialności posła przed wyborcami. Jej realizacja wymaga, by obywatele mieli bezpośrednią kontrolę nad wybranym przez siebie posłem. Jest to możliwe tylko w małym okręgu, gdzie działalności posła łatwiej się przyjrzeć i gdzie można go osobiście spotkać. Taki mały okręg staje się ośrodkiem budowania społeczeństwa obywatelskiego i skłania więcej osób do publicznego zaangażowania. Kluczem do zwycięstwa w kampanii wyborczej staje się bezpośrednie spotkanie kandydata i jego współpracowników z mieszkańcami. W okręgach jednomandatowych kandydatami są zazwyczaj osoby znane danej społeczności od wielu lat, więc ich ocena przez wyborców jest łatwiejsza i celniejsza.</p>
+
+<p>
+Przy zachowaniu obecnej liczby posłów zapisanej w Konstytucji, obszar jednego okręgu będzie w przybliżeniu odpowiadał jednemu powiatowi ziemskiemu lub dzielnicy miasta. Każdy okręg wyborczy to ok. 83 tysięcy mieszkańców (nieco mniej niż
+w Wielkiej Brytanii, gdzie średnio jest to ok. 90 tysięcy mieszkańców). Dzięki temu nawet niewielkie ośrodki będą miały swoich posłów w Sejmie.
+</p>'
+},
+{
+    q: 'Dlaczego ordynacja mieszana jest niewystarczająca?',
+    a: '<p>
+Ordynacja proporcjonalna jest systemem antyobywatelskim głównie dlatego, że nadaje partiom politycznym specjalne przywileje w stosunku do „zwykłych” obywateli. Jak pokazują badania opinii publicznej, ok. 3/4 społeczeństwa nie utożsamia się
+z żadną partią. Dlatego niezrozumiałe staje się ich faworyzowanie kosztem kandydatów bezpartyjnych. Propozycje różnego rodzaju ordynacji „mieszanych” są próbą kompromisu między interesem obywateli i klasy politycznej. Nie jest to jednak kompromis do zaakceptowania, gdyż takie ordynacje utrzymują uprzywilejowaną pozycję partii. Nie widzimy żadnego merytorycznego uzasadnienia dla takiego „kompromisu”.
+<br />Zwolennicy systemu mieszanego przekonują, że pozwoliłoby to połączyć zalety obu systemów. W praktyce wygląda to jednak inaczej. Polska jest państwem na tyle homogenicznym etnicznie i kulturowo, że nie grozi nam dyskryminacja mniejszości. Trudno również uwierzyć, a jest to przez krytyków JOW-ów podnoszone, że po przejściu na pełną ordynację większością nastąpiłaby groźna dla stabilności państwa całkowita wymiana członków Sejmu. Można przypuszczać, że wielu obecnych posłów przeszłoby przez sito elekcji większościowej. Oczywiście nie wszyscy.
+</p>
+
+<p>
+Przyjrzyjmy się głosowaniu na posłów do Bundestagu, pod rządami typowej ordynacji mieszanej. Gdy tylko połowę mandatów obsadza się wybranymi w JOW, a drugą połowę partyjnymi nominatami, to okręgi obejmują 2 razy więcej wyborców, niż
+w przypadku wybierania wyłącznie w JOW. W tak dużych okręgach kandydaci nie są  w stanie zaprezentować się wyborcom bezpośrednio i pozostają mało znani. Głosujący otrzymuje dwie karty wyborcze. Na jednej wykaz kandydatów dla wybrania posła z okręgu, a na drugiej tylko nazwy partii. Łatwiejszym jest dokonanie wyboru partii, bo ten wybór podpowiada mu świadomość ukształtowana przez mass media np. TV. Postawienie krzyżyka na drugiej karcie jest trudniejsze, bo kandydaci są mało znani. Zatem o wybraniu kandydata z listy imiennej nie decydują jego osobiste walory, lecz partyjna przynależność. Ten mechanizm skutkuje  nieodpowiedzialnością  posłów znaną i u nas.
+<br />W tak skonstruowanej ordynacji mieszanej  JOW-om przypada rola listka figowego. Pozwalają zdecydować, kto zasiądzie w Parlamencie, ale bez wpływu na to, jaka partia przejmie stery władzy. Głosuje się zatem nadal na partyjne szyldy, a co za tym idzie, kampania wyborcza odbywa się w skali kraju, w wielkich mass mediach, podnosząc poziom wydatków i demagogii. Co więcej, pozwala to także zachować więcej władzy w rękach aparatu partyjnego kosztem wyborców, a partia dalej może wystawiać osoby, których jedynym atutem jest lojalność, bowiem nawet jeśli poniesie klęskę w JOW, to „odzyska” swoją pozycję w części proporcjonalnej.
+<br />Sami Niemcy zaczynają dostrzegać wady swojej ordynacji. Kilka lat temu z postulatem wprowadzenia czystego JOW wystąpił prezydent organizacji przemysłowców niemieckich BDI Michael Rogowski.
+</p>'
+},
+{
+    q: 'Czy JOW-y zagwarantują prawa mniejszościom?',
+    a: '<p>JOW-y pozwalają mniejszościom mieszkającym w zwartych obszarach na wprowadzenie do parlamentów krajowych swoich przedstawicieli. W Wielkiej Brytanii dla przykładu ordynacja większościowa w JOW pozwala zdobywać mandaty przedstawicielom partii narodowych ze Szkocji, Walii czy Irlandii Północnej. W brytyjskim parlamencie mamy obecnie przedstawicieli 11 partii politycznych. W Polsce nie mamy wielu mniejszości narodowych, dlatego taka sytuacja naszego kraju nie dotyczy. Istotne jest, że przedstawiciel mniejszości musi znaleźć się na liście partii politycznej ze względu na próg wyborczy wynoszący 5%. W JOW-ach ma niezależne prawo do startu w wyborach. Prawa mniejszości są więc zagwarantowane.</p>
+'
+}
+] %}
+
+{% block static_page_content %}
+
+    <h2>FAQ dotyczące serwisu</h2>
+
+    <ol>
+    {% for item in faq %}
+        <li>
+            <a class="clickable" ng-click="ruchJowAnchorScroll('question-{{ loop.index }}')">{{ item.q|raw }}</a>
+        </li>
+    {% endfor %}
+    </ol>
+
+    {% for item in faq %}
+        <h3 id="question-{{ loop.index }}">{{ loop.index }}. {{ item.q|raw }}</h3>
+        <div>
+            {{ item.a|raw }}
+        </div>
+    {% endfor %}
+
+
+    <h2>FAQ dotyczące JOW</h2>
+
+    <ol>
+    {% for item in jowfaq %}
+        <li>
+            <a class="clickable" ng-click="ruchJowAnchorScroll('jow-question-{{ loop.index }}')">{{ item.q|raw }}</a>
+        </li>
+    {% endfor %}
+    </ol>
+
+    {% for item in jowfaq %}
+        <h3 id="jow-question-{{ loop.index }}">{{ loop.index }}. {{ item.q|raw }}</h3>
+        <div>
+            {{ item.a|raw }}
+        </div>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,54 @@
+<article {#ng-controller="UserAccountOrganiseEventCtrl"#} id="organise_event">
+    <span class="points">
+        <span class="value"><span>+[[ getPoints('organise.event') ]] pkt</span></span>
+        <span class="comment" ng-if="comment = getPointsDef('organise.event').comment"><span>[[ ('points.comment.' + comment)|translate ]]</span></span>
+    </span>
+
+    <h1>[[ 'supportForm.organise_event.title'|translate ]]</h1>
+
+    <p class="p-level-1">
+        Jeżeli chcesz, aby mieszkańcy twojej lokalnej społeczności
+        – sąsiedzi, znajomi z pracy, szkoły lub organizacji –
+        poznali ideę jednomandatowych okręgów wyborczych oraz nasze postulaty,
+        zorganizuj w swojej okolicy wydarzenie specjalne.
+        Może to być seminarium, konferencja, manifestacja czy inny dowolny happening,
+        który urodzi się w twojej głowie!
+        My udzielimy Ci niezbędnego wsparcia merytorycznego.
+        Oddelegujemy prelegentów, którzy wystąpią na twoim wydarzenie
+        i przekażemy Ci materiały informacyjne oraz promocyjne.
+        Za każde wydarzenie nagrodzimy Cię dodatkowymi punktami Ruchu JOW.
+    </p>
+
+
+    <div class="row">
+        {# Invitation banners#}
+        <div class="col-md-12">
+            <div id="organise_event_block">
+                <p class="info">
+                    Aby zorganizować zamówienie kliknij w poniższy formularz. Następnie skontakuje się z Tobą (na podany w Twoim profilu telefon lub adres e-mail) osoba obsługująca wydarzenia.
+                </p>
+                <form name="organiseEventForm" ng-submit="submit()">
+                    <label translate="">supportForm.organise_event.description.label</label>
+                    <div class="row">
+                        <div class="col-sm-8 col-md-7">
+                            <textarea
+                                title=""
+                                class="event-description"
+                                name="event_info"
+                                ng-model="data.eventInfo"
+                            ></textarea>
+                            <button class="btn submit-organise-event">[[ 'supportForm.organise_event.submit'|translate ]]</button>
+                        </div>
+                        <div class="col-sm-4 col-md-5">
+                            <ul>
+                                <li ng-if="!security.currentUser || !security.currentUser.username">Aby zgłosić chęć organizacji wydażenia będziesz musiał się zalogować</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</article>

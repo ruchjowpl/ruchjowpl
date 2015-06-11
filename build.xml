@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Ruch JOW" basedir="." default="main" phingVersion="2.11.0">
+    <!-- Properties -->
+    <if>
+        <not><isset property="symfony_env"/></not>
+        <then>
+            <if>
+                <isset property="env.SYMFONY_ENV"/>
+                <then>
+                    <property name="symfony_env" value="${env.SYMFONY_ENV}"/>
+                </then>
+                <else>
+                    <propertyprompt propertyName="symfony_env"
+                                    defaultValue="dev"
+                                    promptText="Define symfony environment" />
+                </else>
+            </if>
+        </then>
+    </if>
+
+    <property file="properties.dist" />
+    <if>
+        <available file="properties" property="custom.properties.available"/>
+        <then>
+            <property file="properties" override="true" />
+        </then>
+    </if>
+    <!-- Filesets -->
+    <fileset id="cache" dir="${dir.cache}">
+        <include name="**/*"/>
+        <exclude name=".gitkeep"/>
+    </fileset>
+    <fileset id="logs" dir="${dir.logs}">
+        <include name="**/*"/>
+        <exclude name=".gitkeep"/>
+    </fileset>
+
+    <!-- web -->
+    <fileset id="web" dir="${dir.web}">
+        <include name="**/*"/>
+    </fileset>
+    <fileset id="web.assetic" dir="${dir.web.assetic}">
+        <include name="**/*"/>
+    </fileset>
+    <fileset id="web.bundles" dir="${dir.web.bundles}">
+        <include name="**/*"/>
+    </fileset>
+    <fileset id="web.css" dir="${dir.web.css}">
+        <include name="**/*"/>
+    </fileset>
+    <fileset id="web.images" dir="${dir.web.images}">
+        <include name="**/*"/>
+    </fileset>
+    <fileset id="web.js" dir="${dir.web.js}">
+        <include name="**/*"/>
+    </fileset>
+    <!-- upload -->
+    <fileset id="upload" dir="${dir.upload}">
+        <include name="**/*"/>
+    </fileset>
+
+    <!-- Dirs to check -->
+    <property name="dirsToCheck" value="
+        ${dir.cache},
+        ${dir.logs},
+        ${dir.web},
+        ${dir.web.assetic},
+        ${dir.web.bundles},
+        ${dir.web.css},
+        ${dir.web.images},
+        ${dir.web.js},
+        ${dir.upload}
+        "/>
+
+    <!-- Default target -->
+    <target name="main"
+            depends="clean, vendors, cache, db:check, fixtures, assets, permissions"
+            description="Build application."/>
+
+    <!-- Project clean -->
+    <target name="clean" description="Clear some project dirs.">
+        <echo msg="Cleaning project ..."/>
+        <phingcall target="permissions" />
+        <delete>
+            <fileset refid="cache"/>
+            <fileset refid="web.assetic"/>
+            <fileset refid="web.bundles"/>
+            <fileset refid="web.css"/>
+            <fileset refid="web.images"/>
+            <fileset refid="web.js"/>
+        </delete>
+
+        <if>
+            <equals arg1="${symfony_env}" arg2="prod" />
+            <then>
+                <echo message="Skipping dirs cleanup in prod environment: ${dir.logs}, ${dir.upload}" />
+            </then>
+            <else>
+                <delete>
+                    <fileset refid="upload"/>
+                    <fileset refid="logs"/>
+                </delete>
+            </else>
+        </if>
+        <echo msg="Preparing dir structure ..."/>
+        <foreach list="${dirsToCheck}" param="dir" target="clean:check"/>
+    </target>
+
+    <target name="clean:check" description="Check if dirs exists">
+        <echo msg="Checking dir: ${dir} ..."/>
+        <if>
+            <available file="${dir}" type="dir"/>
+            <then>
+                <echo message="${dir} exist..." />
+            </then>
+            <else>
+                <echo message="${dir} doesn't exist! creating..." />
+                <if>
+                    <or>
+                        <contains string="${dir}" substring="cache" />
+                        <contains string="${dir}" substring="logs" />
+                        <contains string="${dir}" substring="upload" />
+                    </or>
+                    <then>
+                        <mkdir dir="${dir}" mode="0777" />
+                    </then>
+                    <else>
+                        <mkdir dir="${dir}" mode="0775" />
+                    </else>
+                </if>
+            </else>
+        </if>
+    </target>
+
+    <!-- Project Install/update vendors -->
+    <target name="vendors" description="Install/update vendors.">
+        <if>
+            <istrue value="${npm.execute}"/>
+            <then>
+                <echo msg="Installing/updating npm vendors ..."/>
+                <exec command="npm install" />
+            </then>
+            <else>
+                <echo msg="Installing/updating npm vendors skipped."/>
+            </else>
+        </if>
+        <if>
+            <istrue value="${composer.execute}"/>
+            <then>
+                <echo msg="Installing/updating vendors ..."/>
+                <if>
+                    <istrue value="${composer.self-update}"/>
+                    <then>
+                        <composer php="${composer.php}" composer="${composer.path}" command="self-update"/>
+                    </then>
+                </if>
+                <if>
+                    <istrue value="${composer.validate}"/>
+                    <then>
+                        <composer php="${composer.php}" composer="${composer.path}" command="validate"/>
+                    </then>
+                </if>
+                <if>
+                    <equals arg1="${symfony_env}" arg2="prod" />
+                    <then>
+                        <composer php="${composer.php}" composer="${composer.path}" command="install">
+                            <arg value="--no-dev" />
+                        </composer>
+                    </then>
+                    <else>
+                        <composer php="${composer.php}" composer="${composer.path}" command="install"/>
+                    </else>
+                </if>
+            </then>
+            <else>
+                <echo msg="Installing/updating vendors skipped."/>
+            </else>
+        </if>
+    </target>
+
+    <!-- Project check database -->
+    <target name="db:check" description="Check project database.">
+        <if>
+            <equals arg1="${symfony_env}" arg2="prod" />
+            <then>
+                <echo msg="Checking if database exist ..."/>
+                <exec command="app/console doctrine:database:create --env=${symfony_env}" returnProperty="databaseExist" />
+                <if>
+                    <equals arg1="${databaseExist}" arg2="0" />
+                    <then>
+                        <!-- Fresh prod install. -->
+                        <echo msg="The database does not exist. Initializing database in prod env ..."/>
+                        <phingcall target="db:init">
+                            <property name="skipCreate" value="true" />
+                        </phingcall>
+                        <phingcall target="fixtures">
+                            <property name="freshInstall" value="true" />
+                        </phingcall>
+                    </then>
+                    <else>
+                        <echo msg="The database exist. Skipping database init in prod env."/>
+                    </else>
+                </if>
+            </then>
+            <else>
+                <if>
+                    <equals arg1="${symfony_env}" arg2="test" />
+                    <then>
+                        <if>
+                            <not><available file="${dir.testData}" type="dir" property="dir.testData.available"/></not>
+                            <then>
+                                <mkdir dir="${dir.testData}"/>
+                            </then>
+                        </if>
+                        <if>
+                            <not><available file="${testDatabase}" property="testDatabase.available"/></not>
+                            <then>
+                                <touch file="${testDatabase}"/>
+                            </then>
+                        </if>
+                    </then>
+                </if>
+                <phingcall target="db:clean" />
+            </else>
+        </if>
+    </target>
+
+    <!-- Project initialize database -->
+    <target name="db:init" description="Initialize database.">
+        <if>
+            <equals arg1="${skipCreate}" arg2="true" />
+            <then>
+            </then>
+            <else>
+                <echo msg="Creating project database ..."/>
+                <SymfonyConsole command="doctrine:database:create">
+                    <arg name="env" value="${symfony_env}" />
+                </SymfonyConsole>
+            </else>
+        </if>
+        <echo msg="Creating project database schema ..."/>
+        <SymfonyConsole command="doctrine:schema:create">
+            <arg name="env" value="${symfony_env}" />
+        </SymfonyConsole>
+    </target>
+
+    <!-- Project clean database -->
+    <target name="db:clean" description="Clean up database.">
+        <if>
+            <equals arg1="${symfony_env}" arg2="prod" />
+            <then>
+                <echo msg="You cannot clean database in prod env!"/>
+            </then>
+            <else>
+                <echo msg="Cleaning project database ..."/>
+                <echo msg="Dropping project database ..."/>
+                <SymfonyConsole command="doctrine:database:drop">
+                    <arg name="env" value="${symfony_env}" />
+                    <arg name="force" />
+                </SymfonyConsole>
+                <phingcall target="db:init" />
+            </else>
+        </if>
+    </target>
+
+    <!-- Project load fixtures -->
+    <target name="fixtures" description="Load fixtures.">
+        <if>
+            <equals arg1="${symfony_env}" arg2="prod" />
+            <then>
+                <if>
+                    <and>
+                        <isset property="freshInstall"/>
+                        <istrue value="${freshInstall}"/>
+                    </and>
+                    <then>
+                        <echo msg="Loading project initial fixtures ..."/>
+                        <SymfonyConsole command="doctrine:fixtures:load">
+                            <arg name="env" value="${symfony_env}" />
+                            <arg name="no-interaction" />
+                        </SymfonyConsole>
+                    </then>
+                    <else>
+                        <echo message="Skipping loading project fixtures in prod env..." />
+                    </else>
+                </if>
+            </then>
+            <else>
+                <echo msg="Loading project fixtures ..."/>
+                <SymfonyConsole command="doctrine:fixtures:load">
+                    <arg name="env" value="${symfony_env}" />
+                    <arg name="no-interaction" />
+                </SymfonyConsole>
+            </else>
+        </if>
+    </target>
+
+    <!-- Project install assets -->
+    <target name="assets" description="Install project assets.">
+        <echo msg="Installing assets ..."/>
+        <if>
+            <istrue value="${assets.installWithSymlink}"/>
+            <then>
+                <SymfonyConsole command="assets:install" checkreturn="true">
+                    <arg value="web" />
+                    <arg name="symlink" />
+                </SymfonyConsole>
+            </then>
+            <else>
+                <SymfonyConsole command="assets:install" checkreturn="true">
+                    <arg value="web" />
+                </SymfonyConsole>
+            </else>
+        </if>
+        <if>
+            <equals arg1="${symfony_env}" arg2="dev" />
+            <then>
+                <echo msg="Dumping assets for dev environment with debug ..."/>
+                <SymfonyConsole command="assetic:dump">
+                    <arg name="env" value="${symfony_env}" />
+                </SymfonyConsole>
+            </then>
+            <else>
+                <echo msg="Dumping assets for prod/test environment without debug ..."/>
+                <SymfonyConsole command="assetic:dump">
+                    <arg name="env" value="${symfony_env}" />
+                    <arg name="no-debug" />
+                </SymfonyConsole>
+            </else>
+        </if>
+    </target>
+
+    <!-- Project clear cache -->
+    <target name="cache" description="Clear project cache and logs.">
+        <echo msg="Clearing project cache ..."/>
+        <delete>
+            <fileset refid="cache"/>
+        </delete>
+        <if>
+            <isset property="warmup_cache"/>
+            <then>
+                <echo message="Clearing cache with warm up..."/>
+                <SymfonyConsole command="cache:clear">
+                    <arg name="env" value="${symfony_env}" />
+                </SymfonyConsole>
+            </then>
+            <else>
+                <echo message="Clearing cache without warm up..."/>
+                <SymfonyConsole command="cache:clear">
+                    <arg name="env" value="${symfony_env}" />
+                    <arg name="no-warmup" />
+                </SymfonyConsole>
+            </else>
+        </if>
+    </target>
+
+    <!-- Set dir permissions -->
+    <target name="permissions" description="Set dir permissions.">
+        <echo msg="Setting dir permissions ..."/>
+        <if>
+            <not>
+                <os family="windows"/>
+            </not>
+            <then>
+                <if>
+                    <istrue value="${changeOwner}"/>
+                    <then>
+                        <if>
+                            <istrue value="${execWithSudo}"/>
+                            <then>
+                                <exec command="sudo chown -R ${httpserver.user}:${httpserver.group} ${dir.upload} ${dir.web.media}" />
+                            </then>
+                            <else>
+                                <exec command="chown -R ${httpserver.user}:${httpserver.group} ${dir.upload} ${dir.web.media}" />
+                            </else>
+                        </if>
+                    </then>
+                </if>
+                <if>
+                    <istrue value="${execWithSudo}"/>
+                    <then>
+                        <exec command="sudo chmod -R 777 ${dir.cache} ${dir.logs}" />
+                        <exec command="sudo chmod -R 775 ${dir.upload} ${dir.web.media}" />
+                    </then>
+                    <else>
+                        <exec command="chmod -R 777 ${dir.cache} ${dir.logs}" />
+                        <exec command="chmod -R 775 ${dir.upload} ${dir.web.media}" />
+                    </else>
+                </if>
+            </then>
+            <else>
+                <echo msg="Cannot automatically set permissions on Windows OS ..."/>
+            </else>
+        </if>
+    </target>
+</project>

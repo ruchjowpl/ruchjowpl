@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {# Page Foundation CSS #}
+    {% include '@RuchJowPageFoundation/css.html.twig' %}
+
+    {# Frontend CSS #}
+    {% stylesheets '@RuchJowAppBundle/Resources/less/style.less' output='css/frontend.css'%}
+        <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {# Page Foundation JS #}
+    {% include '@RuchJowPageFoundation/js.html.twig' %}
+
+    {# Feedback #}
+    {% include '@RuchJowFeedback/js.html.twig' %}
+
+
+    {# Inline partials #}
+    {% block angularInlineTemplates %}
+
+        {# Page Foundation Inline Partials #}
+        {% include '@RuchJowPageFoundation/jsInlinePartials.html.twig' %}
+
+        {# Feedback Inline Partials #}
+        {% include '@RuchJowFeedback/jsInlinePartials.html.twig' %}
+
+    {% endblock %}
+
+
+{% endblock %}
+
+{% block body %}
+
+    {% block content %}{% endblock %}
+
+{% endblock %}

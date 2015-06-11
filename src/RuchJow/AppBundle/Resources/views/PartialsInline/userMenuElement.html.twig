@@ -1,0 +1,28 @@
+{{ '<script type="text/ng-template" id="userMenuElement.html">' }}
+    <span dropdown-toggle="" ng-show="security.currentUser && security.currentUser.username" class="clickable nav-element">
+        <span class="glyphicon glyphicon-refresh te-spin-fast" ng-show="logOutInProgress"></span>
+        <span class="scroll-too-big user-name">
+            <span>
+                [[ security.currentUser.displayName ]]
+            </span>
+        </span>
+        <span class="count-icon user-icon">
+            <span class="glyphicon glyphicon-user"></span>
+            <span class="count" ng-if="userPoints = getStatistics('user.pointsUser')">[[ userPoints|frNumberFormat ]] pkt</span>
+        </span>
+
+    </span>
+    <ul class="dropdown-menu"  >
+        <li>
+            <a href="#/user">
+                Moje konto
+            </a>
+        </li>
+        <li>
+            <a href="" ng-click="logout()">
+                <span class="glyphicon glyphicon-off"></span>
+                Wyloguj
+            </a>
+        </li>
+    </ul>
+{{ '</script>' }}

@@ -1,0 +1,99 @@
+<div id="points-info-page" class="page">
+    <div class="container">
+        <div class="row" ng-if="!(security.currentUser && security.currentUser.username)">
+            <div class="col-md-12">
+                <div class="points-info-support-block page-block">
+                    <p>
+                        Zacznij od poparcia naszej akcji. Jeśli jeszcze nie wiesz o co walczymy, sprawdź szczegóły.
+                    </p>
+
+                    <p>
+                        Za poparcie akcji otrzymasz <strong>[[ 'raw.points' | translate:{ NUMBER: getPoints('user.support') }:"messageformat" ]]</strong>.
+                    </p>
+
+                    <button class="btn btn-support" ng-click="security.register()">[[ 'I Support'|translate ]]</button>
+                    <span class="login clickable" ng-click="security.login()">Poparłeś juź akcję? Zaloguj się na<br/>swoje konto i zdobądź więcej punktów</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="points-info-main-block page-block">
+                    <div class="header">
+                        <h1>Jak i za co przyznajemy punkty</h1>
+                    </div>
+
+                    <div class="single-support-form-info">
+                        <span class="points">
+                            <span class="value"><span>+[[ getPoints('user.referral') ]] pkt</span></span>
+                            <span class="comment" ng-if="getPointsDef('user.referral').comment"><span>[[ 'points.comment.' + getPointsDef('user.referral').comment|translate ]]</span></span>
+                        </span>
+
+                        <h2>Zaproszenie znajomych</h2>
+                        <p>
+                            Ruch JOW opiera się na efekcie skali.
+                            Aby mógł odnieść zamierzony skutek, musi stworzyć armię aktywnych ludzi
+                            pragnących zmiany ordynacji wyborczej w Polsce na jednomandatową.
+                            Dlatego tak ważnym jest, abyś opowiedział o naszej akcji możliwie największej liczbie swoich
+                            przyjaciół, znajomych i krewnych.
+                            Za każdą osobę, która zarejestruje się w serwisie w wyniku Twojego zaproszenia
+                            otrzymasz dodatkowe punkty ruchu JOW.
+                        </p>
+                    </div>
+
+                    <div class="single-support-form-info">
+                        <span class="points">
+                            <span class="value"><span>+[[ getPoints('make.donation.1pln') ]] pkt</span></span>
+                            <span class="comment" ng-if="getPointsDef('make.donation.1pln').comment"><span>[[ 'points.comment.' + getPointsDef('make.donation.1pln').comment|translate ]]</span></span>
+                        </span>
+                        <h2>Wsparcie finansowe</h2>
+                        <p>
+                            Chcemy, żeby każdy mógł mieć dostęp do wysokiej jakości materiałów merytorycznych
+                            dotyczących jednomandatowych okręgów wyborczych.
+                            Produkujemy dla was broszury, ulotki, plakaty, delegujemy ekspertów na organizowane przez Was wydarzenia.
+                            Wesprzyj naszą akcję finansowo za pomocą e-przelewu lub PayPal’a,
+                            wpłaty przeznaczymy na aktualizację i produkcję tych materiałów.
+                            Za każdą przekazaną nam złotówkę otrzymasz dodatkowe punkty ruchu JOW.
+                        </p>
+                    </div>
+
+                    <div class="single-support-form-info">
+                        <span class="points">
+                            <span class="value"><span>+[[ getPoints('organise.event') ]] pkt</span></span>
+                            <span class="comment" ng-if="getPointsDef('organise.event').comment"><span>[[ 'points.comment.' + getPointsDef('organise.event').comment|translate ]]</span></span>
+                        </span>
+                        <h2>Organizacja wydarzenia</h2>
+                        <p>
+                            Jeżeli chcesz, aby mieszkańcy twojej lokalnej społeczności
+                            – sąsiedzi, znajomi z pracy, szkoły lub organizacji –
+                            poznali ideę jednomandatowych okręgów wyborczych oraz nasze postulaty,
+                            zorganizuj w swojej okolicy wydarzenie specjalne.
+                            Może to być seminarium, konferencja, manifestacja czy inny dowolny happening,
+                            który urodzi się w twojej głowie!
+                            My udzielimy Ci niezbędnego wsparcia merytorycznego.
+                            Oddelegujemy prelegentów, którzy wystąpią na twoim wydarzenie
+                            i przekażemy Ci materiały informacyjne oraz promocyjne.
+                            Za każde wydarzenie nagrodzimy Cię dodatkowymi punktami ruchu JOW.
+                        </p>
+                    </div>
+
+                    <div class="single-support-form-info">
+                        <span class="points">
+                            <span class="value"><span>+[[ getPoints('distribute.leaflets') ]] pkt</span></span>
+                            <span class="comment" ng-if="getPointsDef('distribute.leaflets').comment"><span>[[ 'points.comment.' + getPointsDef('distribute.leaflets').comment|translate ]]</span></span>
+                        </span>
+                        <h2>Kolportaż broszur</h2>
+                        <p>
+                            Masz dostęp do miejsca, w którym mogłyby znaleźć się nasze materiały informacyjne?
+                            Twoja uczelnia, firma lub organizacja z którą współpracujesz? Świetnie!
+                            Skontaktuj się z nami, a nasz kurier dostarczy Ci pakiet materiałów wprost pod Twoje drzwi.
+                            Prześlij do nas zdjęcie miejsca, gdzie udało się Ci dotrzeć wraz z krótkim raportem z kolportażu,
+                            a my zasilimy twoje konto dodatkowymi punktami ruchu JOW.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

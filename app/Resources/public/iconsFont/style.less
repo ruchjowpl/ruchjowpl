@@ -1,0 +1,106 @@
+@ruch-jow-if-font-path: 'fonts/';
+
+@font-face {
+	font-family: 'RuchJowIcons';
+	src:url('@{ruch-jow-if-font-path}ruchjowicons.eot?-ns8wwf');
+	src:url('@{ruch-jow-if-font-path}ruchjowicons.eot?#iefix-ns8wwf') format('embedded-opentype'),
+		url('@{ruch-jow-if-font-path}ruchjowicons.woff?-ns8wwf') format('woff'),
+		url('@{ruch-jow-if-font-path}ruchjowicons.ttf?-ns8wwf') format('truetype'),
+		url('@{ruch-jow-if-font-path}ruchjowicons.svg?-ns8wwf#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="ruch-jow-icon-"], [class*=" ruch-jow-icon-"] {
+  .ruch-jow-icon();
+}
+
+@ruch-jow-icon-facebook:        "\e620";
+@ruch-jow-icon-google_plus_alt: "\e621";
+@ruch-jow-icon-google_plus:     "\e622";
+@ruch-jow-icon-pinterest:       "\e623";
+@ruch-jow-icon-twitter:         "\e624";
+@ruch-jow-icon-youtube:         "\e625";
+
+@ruch-jow-icon-thumb:      "\e605";
+@ruch-jow-icon-checklist:  "\e606";
+@ruch-jow-icon-bills:      "\e607";
+@ruch-jow-icon-dollars:    "\e600";
+@ruch-jow-icon-politician: "\e601";
+@ruch-jow-icon-rankings:   "\e602";
+@ruch-jow-icon-supporters: "\e603";
+
+
+
+
+// In PHP storm: replace "\e620" with variable.
+//  (\.icon-)([^:]*)(.*\n\W*content: ).*
+//  .ruch-jow-icon-$2$3 @ruch-jow-icon-$2;
+
+
+.ruch-jow-icon-facebook:before {
+  content: "\e620";
+}
+.ruch-jow-icon-google_plus_alt:before {
+  content:  @ruch-jow-icon-google_plus_alt;
+}
+.ruch-jow-icon-google_plus:before {
+  content:  @ruch-jow-icon-google_plus;
+}
+.ruch-jow-icon-pinterest:before {
+  content:  @ruch-jow-icon-pinterest;
+}
+.ruch-jow-icon-twitter:before {
+  content:  @ruch-jow-icon-twitter;
+}
+.ruch-jow-icon-youtube:before {
+  content:  @ruch-jow-icon-youtube;
+}
+.ruch-jow-icon-thumb:before {
+  content:  @ruch-jow-icon-thumb;
+}
+.ruch-jow-icon-checklist:before {
+  content:  @ruch-jow-icon-checklist;
+}
+.ruch-jow-icon-bills:before {
+  content:  @ruch-jow-icon-bills;
+}
+.ruch-jow-icon-dollars:before {
+  content:  @ruch-jow-icon-dollars;
+}
+.ruch-jow-icon-politician:before {
+  content:  @ruch-jow-icon-politician;
+}
+.ruch-jow-icon-rankings:before {
+  content:  @ruch-jow-icon-rankings;
+}
+.ruch-jow-icon-supporters:before {
+  content:  @ruch-jow-icon-supporters;
+}
+
+
+
+
+
+.ruch-jow-icon() {
+  display: inline-block;
+
+  font-family: RuchJowIcons;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  speak: none;
+  line-height: 1;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ruch-jow-icon(@name) {
+  &:before {
+    .ruch-jow-icon();
+
+    content: @name;
+  }
+}

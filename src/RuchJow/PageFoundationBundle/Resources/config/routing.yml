@@ -1,0 +1,5 @@
+# All routes
+page_foundation:
+    resource: "@RuchJowPageFoundationBundle/Controller"
+    prefix:   /
+    type:     annotation

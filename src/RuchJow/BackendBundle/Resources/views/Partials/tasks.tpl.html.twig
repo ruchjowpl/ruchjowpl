@@ -1,0 +1,38 @@
+{% extends '@RuchJowBackend/Partials/stdPage.html.twig' %}
+
+{% block title %}
+    Zadania
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-block">
+                <table class="data-table" ng-class="{ 'in-progress-center': loading }">
+                    <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Godzina</th>
+                        <th>Type</th>
+                        <th>Title</th>
+                        <th>Content</th>
+                    </tr>
+                    </thead>
+                    <tr ng-repeat="entry in tasks|orderBy:'createdAt':true">
+                        <td class="tight">[[ entry.createdAt|date:'yyyy.MM.dd' ]]</td>
+                        <td class="tight">[[ entry.createdAt|date:'HH:mm' ]]</td>
+                        <td>[[ entry.type ]]</td>
+                        <td>[[ entry.title ]]</td>
+                        <td>[[ entry.content ]]</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

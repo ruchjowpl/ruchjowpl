@@ -1,0 +1,46 @@
+<article {#ng-controller="UserAccountDistributeLeafletsCtrl"#} id="distribute_leaflets">
+    <span class="points">
+        <span class="value"><span>+[[ getPoints('distribute.leaflets') ]] pkt</span></span>
+        <span class="comment" ng-if="comment = getPointsDef('distribute.leaflets').comment"><span>[[ ('points.comment.' + comment)|translate ]]</span></span>
+    </span>
+
+    <h1>[[ 'supportForm.distribute_leaflets.title'|translate ]]</h1>
+
+    <p class="p-level-1">
+        Masz dostęp do miejsca, w którym mogłyby znaleźć się nasze materiały informacyjne?
+        Twoja uczelnia, firma lub organizacja z którą współpracujesz? Świetnie!
+        Skontaktuj się z nami, a nasz kurier dostarczy Ci pakiet materiałów wprost pod Twoje drzwi.
+        Prześlij do nas zdjęcie miejsca, gdzie udało się Ci dotrzeć wraz z krótkim raportem z kolportażu,
+        a my zasilimy twoje konto dodatkowymi punktami ruchu JOW.
+    </p>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div id="distribute_leaflets_block">
+                <p class="info">
+                    Aby otrzymać zestaw ulotek do rozdystrybuowania, kliknij w poniższy przycisk. Zachęcamy również do przekazania również dodatkowych informacji (np. gdzie i kiedy planujesz rozdać ulotki), dzięki temu będziemy mieli pełniejszy obraz działań, które mają miejsce w związku z naszą akcją.
+                </p>
+                <form name="distributeLeafletsForm" ng-submit="submit()">
+                    <label translate="">supportForm.distribute_leaflets.description.label</label>
+                    <div class="row">
+                        <div class="col-sm-8 col-md-7">
+                            <textarea
+                                title=""
+                                class="distribute-leaflets-description"
+                                name="distribute_leaflets_info"
+                                ng-model="data.distributeLeafletsInfo"
+                            ></textarea>
+                            <button class="btn submit-distribute-leaflets">[[ 'supportForm.distribute_leaflets.submit'|translate ]]</button>
+                        </div>
+                        <div class="col-sm-4 col-md-5">
+                            <ul>
+                                <li ng-if="!security.currentUser || !security.currentUser.username">Aby zgłosić chęć kolportażu ulotek będziesz musiał się zalogować</li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</article>

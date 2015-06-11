@@ -1,0 +1,9 @@
+<label>Dodatkowe informacje od użytkownika:</label>
+<p>
+    {{ organiseReferendumPointInfo|escape }}
+</p>
+
+<label>Użytkownik:</label><br/>
+{{ user.nick }}<br/>
+e-mail: {{ user.email }}<br/>
+telefon: {{ user.phone is defined ? user.phone : '-' }}

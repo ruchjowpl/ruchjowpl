@@ -1,0 +1,132 @@
+<article {#ng-controller="UserAccountInviteFriendsCtrl"#} id="invite_friends">
+    <span class="points">
+        <span class="value"><span>+[[ getPoints('user.referral') ]] pkt</span></span>
+        <span class="comment" ng-if="comment = getPointsDef('user.referral').comment"><span>[[ ('points.comment.' + comment)|translate ]]</span></span>
+    </span>
+    <h1>[[ 'supportForm.invite_friends.title'|translate ]]</h1>
+
+    <p class="p-level-1">
+        Ruchu JOW opiera się na efekcie skali.
+        Aby mógł odnieść zamierzony skutek, musi stworzyć armię aktywnych ludzi
+        pragnących zmiany ordynacji wyborczej w Polsce na jednomandatową.
+        Dlatego tak ważnym jest, abyś opowiedział o naszej akcji możliwie największej liczbie swoich
+        przyjaciół, znajomych i krewnych.
+        Za każdą osobę, która zarejestruje się w serwisie w wyniku Twojego zaproszenia
+        otrzymasz dodatkowe punkty ruchu JOW.
+    </p>
+
+    <div class="row" ng-if="!security.currentUser || !security.currentUser.username">
+        <div class="col-md-12">
+            <div id="invite_friends_login_info">
+                <p class="info">
+                    Aby zaprosić znajomych musisz posiadać konto (poprzeć zmiany) i być zalogowanym.
+                </p>
+
+                <button class="btn" ng-click="security.login()">Zaloguj</button>
+                <button class="btn" ng-click="security.register()">Poprzyj zmiany</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-if="security.currentUser && security.currentUser.username">
+        {# Send invitation via RuchJow#}
+        <div class="col-md-6" ng-controller="ChallengesInviteFriendsEmailCtrl">
+            <div id="invite_friends_emails">
+                <p class="info">Skorzystaj z prostego formularza i zaproś Twoich znajomych do akcji! Jednorazowo możesz zaprosić do 10 osób.</p>
+
+                <label translate="">supportForm.invite_friends.email.label</label>
+                <form name="friendsEmailsForm" ng-submit="addEmail()">
+                    <div ng-show="friendsEmailsForm.email.$error.pattern" ng-required="true">
+                        [[ 'supportForm.invite_friends.email.pattern.error'|translate ]]
+                    </div>
+
+                    <input type="text" name="email"
+                       ng-model="newEmail"
+                       ng-disabled="isExceeded()"
+                       placeholder="[[ 'supportForm.invite_friends.email.placeholder'|translate ]]"
+
+                       ng-pattern="emailPattern"
+                    /><button
+                        type="submit"
+                        ng-disabled="isExceeded()"
+
+                        class="link-btn submit-btn"
+                    ></button>
+                </form>
+
+                <ul class="email-list">
+                    <li ng-repeat="email in emails">
+                        <button
+                            class="link-btn remove-btn"
+                            ng-click="removeEmail(email)"></button>[[ email ]]
+                    </li>
+                </ul>
+
+                <button
+                    type="button"
+                    class="btn send-invitations"
+                    ng-click="sendEmails()"
+                    ng-disabled="!emails.length || inProgress"
+                >
+                    <span class="glyphicon glyphicon-refresh ruch-jow-spin-fast" ng-if="inProgress"></span>
+                    [[ 'supportForm.invite_friends.invite'|translate ]]
+                    <span class="icon"></span>
+                </button>
+            </div>
+
+        </div>
+
+        {# Send invitation yourself - referral link#}
+        <div class="col-md-6" ng-controller="ChallengesInviteFriendsLinkCtrl">
+            <div id="invite_friends_referral">
+                <p class="info">
+                    Możesz też osobiście powiadomić ich o akcji.<br/>
+                    Wyślij im Twój unikalny link lub podziel się nim na portalu społecznościowym
+                </p>
+
+                <label for="invite_friends_referralUrl" translate="">supportForm.invite_friends.copy_referral.label</label>
+                <input
+                    id="invite_friends_referralUrl"
+                    type="text"
+                    ng-model="referralUrl"
+                    ruch-jow-select-all=""
+                /><span class="link-btn copy-link-btn"></span>
+
+                <label translate="">supportForm.invite_friends.share.label</label>
+                <div>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=[[ security.currentUser.referralUrl ]]" class="link-btn share-btn facebook"></a>
+                    <a href="https://twitter.com/intent/tweet?text=&via=efektjow.pl&url=[[ security.currentUser.referralUrl ]]" class="link-btn share-btn twitter"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-if="security.currentUser && security.currentUser.username">
+        {# Invitation banners#}
+        <div class="col-md-12" ng-controller="ChallengesInviteFriendsBannersCtrl">
+            <div id="invite_friends_banners">
+                <div class="row">
+                    <div class="col-md-5 info">
+                        Lub umieść na Twojej stronie poniższy baner.<br/>
+                        Wystarczy skopiować wybrany kod i wkleić go w dowolnym miejscu na stronie
+                    </div>
+                </div>
+
+                <div class="row" ng-repeat="banner in banners">
+                    <div class="col-md-7 banner-img-wrapper"><img ng-src="[[ banner.imgUrl ]]" class="banner-img" /></div>
+                    <div class="col-md-5">
+                        <div class="banner-html-wrapper">
+                            <textarea
+                                title=""
+                                ng-model="banner.html"
+                                ruch-jow-select-all=""
+                            ></textarea>
+                            <span class="link-btn copy-link-btn"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</article>

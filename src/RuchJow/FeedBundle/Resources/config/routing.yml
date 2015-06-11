@@ -1,0 +1,5 @@
+# Main page
+feed_main:
+    resource: "@RuchJowFeedBundle/Controller"
+    prefix:   /
+    type:     annotation

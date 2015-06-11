@@ -1,0 +1,28 @@
+{% extends 'RuchJowAppBundle:Partials:staticPage.html.twig' %}
+
+{% block static_page_header %}<h1>Komunikaty</h1>{% endblock %}
+
+{% block static_page_content_attributes %}{{ parent() }} ng-class="{ 'in-progress-center': status === 'loading'}"{% endblock %}
+
+{% block static_page_content %}
+
+    <div ng-if="status === 'success' && !feed.length">
+        Brak komunikatów.
+    </div>
+
+    <div class="row" ng-if="status === 'success' && feed.length">
+        <div class="col-md-6" ng-repeat="item in feed" ng-if="status === 'success'">
+            <h2>
+                <span class="sub-info">[[ date(item.pubDate)|date:'dd.MM.yyyy HH:mm' ]]</span>
+                [[ item.title ]]
+            </h2>
+            <div>[[ date(item.pubDate)|date:'dd.MM.yyyy HH:mm' ]]</div>
+                <div ng-bind-html="item.description.__cdata"></div>
+            </div>
+        </div>
+        <div ng-if="status === 'error'">
+            Wystąpił nieoczekiwany błąd podczas pobierania komunikatów.
+        </div>
+    </div>
+
+{% endblock %}

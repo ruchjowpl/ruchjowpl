@@ -1,0 +1,5 @@
+# Main page
+app_main:
+    resource: "@RuchJowAppBundle/Controller"
+    prefix:   /
+    type:     annotation

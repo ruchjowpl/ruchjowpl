@@ -1,0 +1,414 @@
+
+.rank-tabs {
+
+    @media (min-width: @screen-md-min) {
+        font-size: 0.9rem;
+    }
+
+    @media (min-width: @screen-lg-min) {
+        font-size: 1.3rem;
+    }
+
+    li {
+        a {
+            padding: 0.5rem 1rem;
+        }
+    }
+
+    margin-bottom: 0.5rem;
+}
+
+.block-rank-wrapper,
+.rank-table-wrapper {
+
+    &.disabled {
+        opacity: 0.15;
+    }
+
+    position: relative;
+
+    &.loading {
+        .in-progress-center;
+    }
+
+    ul.pagination {
+
+        width: 100%;
+        padding: 0.5rem 0 1.5rem;
+        text-align: right;
+
+        //      display: table;
+        //      width: 100%;
+        margin:0;
+
+        li {
+            //        display: table-cell;
+            //        display: inline-block;
+
+
+            a {
+                padding: 1px 6px;
+                float: none;
+
+                cursor: pointer;
+
+                border: none;
+            }
+        }
+    }
+}
+
+
+.data-table {
+    margin: 0;
+
+    th, td {
+        padding: 0.5em 1em;
+
+        border-bottom: 1px solid #ddd;
+
+        &.tight {
+            width: 1px;
+        }
+    }
+
+    > tr:last-child {
+        td, th {
+            border-bottom: none;
+        }
+    }
+
+    > thead:last-child,
+    > tbody:last-child {
+        > tr:last-child {
+            td, th {
+                border-bottom: none;
+            }
+        }
+    }
+
+    th {
+        background: #2a2a2a;
+        color: #fff;
+        border-bottom: none !important;
+
+        text-transform: capitalize;
+        font-variant: small-caps;
+
+        border-right: 4px solid #fff;
+
+        &:first-child {
+            border-left: none;
+        }
+
+        &:last-child {
+            border-right: none;
+        }
+
+        &.points {
+            width: 1px;
+        }
+    }
+
+    tr {
+        &:nth-child(2n) {
+            td {
+                background-color: #f6f6f6;
+            }
+        }
+
+        &.highlighted {
+            td {
+                background:  #990 /*#467*/;
+                border-color: transparent;
+                color: #fff;
+                font-weight: 600;
+
+                a {
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    td {
+        &.points {
+            text-align: center;
+            width: 1px;
+        }
+
+        &.rank {
+            text-align: center;
+            width: 1px;
+        }
+
+        a {
+            //      text-decoration: underline;
+
+            //      color: inherit;
+        }
+
+        word-wrap: break-word;
+    }
+
+
+}
+
+
+.rank-table {
+
+    margin: 0;
+
+    th {
+        background: #2a2a2a;
+        color: #fff;
+        border-bottom: none !important;
+
+        text-transform: capitalize;
+        font-variant: small-caps;
+
+        border-right: 4px solid #fff;
+
+        &:first-child {
+            border-left: none;
+        }
+
+        &:last-child {
+            border-right: none;
+        }
+
+        &.points {
+            width: 1px;
+        }
+    }
+
+    tr {
+        &:nth-child(2n) {
+            td {
+                background-color: #f6f6f6;
+            }
+        }
+
+        &.highlighted {
+            td {
+                background:  #990 /*#467*/;
+                border-color: transparent;
+                color: #fff;
+                font-weight: 600;
+
+                a {
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    td {
+        &.points {
+            text-align: center;
+            width: 1px;
+        }
+
+        &.rank {
+            text-align: center;
+            width: 1px;
+        }
+
+        a {
+            //      text-decoration: underline;
+
+            //      color: inherit;
+        }
+
+        word-wrap: break-word;
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ranks-block {
+    .header {
+        li > a {
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+            padding: 0 0.5em;
+            border-left: 1px solid #fff;
+
+            &.active {
+                font-weight: bold;
+            }
+        }
+        li:first-child > a {
+            border-left: 0 none;
+        }
+    }
+
+
+    .map-title {
+        padding: 0 0 0.3em;
+        text-align: left;
+
+        position: relative;
+
+        .active-territorial-unit {
+            font-variant: small-caps;
+            text-transform: uppercase;
+
+            .type {
+                font-size: 0.75em;
+                font-weight: 500;
+            }
+
+            .name {
+                font-size: 1.1em;
+                font-weight: 600;
+            }
+        }
+
+        .level-up {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin-top: -0.5em;
+            line-height: 1;
+        }
+    }
+}
+
+.ruch-jow-google-map {
+    height: 500px;
+    width: 100%;
+    margin: auto;
+    cursor: default;
+}
+
+
+// hide google marks on the maps
+.gmnoprint a, .gmnoprint span {
+    display:none;
+}
+.gmnoprint div {
+    background:none !important;
+}
+img[src="http://maps.gstatic.com/mapfiles/api-3/images/google_white2.png"], a[href^="http://maps.google.com/maps"]{
+    display:none !important;
+}
+
+
+
+.block-rank-element {
+    display: table;
+    width: 100%;
+
+    &.highlighted {
+
+        .content-wrapper {
+            .content {
+                box-shadow: 3px 3px 5px 0 #aaa;
+
+                .content-header-wrapper {
+                    background: #990 !important;
+                }
+            }
+        }
+    }
+
+    > div {
+        display: table-cell;
+
+        &.rank {
+            padding: .2em .2em .2em 0;
+            vertical-align: top;
+            width: 1px;
+
+            font-size: 1.65em;
+            font-weight: 500;
+
+            color: #000;
+        }
+
+        &.content-wrapper {
+
+            .content {
+
+                &:hover {
+                    z-index: 1005;
+                    box-shadow: 3px 3px 5px 0 #aaa;
+                }
+
+                position: relative;
+                border: 1px solid #bfc0bf;
+
+                .content-header-wrapper {
+
+                    background: #03658c;
+                    color: #fff;
+
+                    padding: 0.7em 1em;
+
+                    .content-header {
+                        overflow: hidden;
+
+                        a {
+                            color: inherit;
+                            text-decoration: underline;
+
+                            font-size: 1.6em;
+                            font-weight: 500;
+                        }
+
+                        a, .name {
+                            display: block;
+                            width: auto;
+                            white-space: normal;
+                            word-break: break-all;
+                        }
+
+                        @media (min-width: @screen-md-min) {
+
+                            a, .name {
+                                display: block;
+                                width: 100px;
+                                white-space: nowrap;
+                            }
+
+                            &:hover {
+                                a, .name {
+                                    width: auto;
+//                                    white-space: normal;
+//                                    word-break: break-all;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .content-content {
+                    padding: 1em;
+                    background: #fff;
+
+                    .points {
+                        font-size: 1.3em;
+                        font-weight: 600;
+                        color: #000;
+                    }
+                }
+
+            }
+        }
+    }
+}

@@ -1,0 +1,75 @@
+<article class="msgs-message">
+    <form ng-submit="reply.$send()" name="messagesReplyForm" novalidate="">
+        <div ng-init="reply.$setForm(messagesReplyForm)"></div>
+        <div class="close-control" ng-click="close()"></div>
+
+        <div class="modal-header">
+            <h1>[[ message.subject ]]</h1>
+            <ul class="message-headers">
+                <li class="message-from">Od: <span>[[ message.sender ]]</span></li>
+                <li class="message-to">Do: <span>[[ message.recipient ]]</span></li>
+                <li class="message-date">Data: <span>[[ message.sentAt|date:'yyyy-MM-dd HH:mm' ]]</span></li>
+            </ul>
+        </div>
+        <div class="modal-body">
+            <div class="message-body">
+                [[ message.body ]]
+            </div>
+
+            <div ng-if="reply.show" class="message-reply">
+                <hr/>
+                <div
+                    ruch-jow-form-simple-field="subject"
+                    {#label=""#}
+                    ruch-jow-form-show-label="false"
+
+                    errors="reply.validation.subject.$labels"
+                >
+                    <input
+                        type="text" name="subject"
+                        ng-model="reply.inputData.subject"
+                        ng-required="true"
+
+                        ng-maxlength="reply.maxSubjectSize"
+                        maxlength="[[ reply.maxSubjectSize ]]"
+                        {#ruch-jow-enter-down-trigger#}
+                        {#ng-pattern="reply.validation.subject.pattern"#}
+                        title="[[ 'msgs.replyForm.subject.label'|translate ]]"
+                        placeholder="[[ 'msgs.replyForm.subject.label'|translate ]]"
+                    />
+                </div>
+                <div
+                    ruch-jow-form-simple-field="body"
+                    {#label=""#}
+                    ruch-jow-form-show-label="false"
+
+                    errors="reply.validation.body.$labels"
+                >
+                    <textarea
+                        name="body"
+                        ng-model="reply.inputData.body"
+                        ng-required="true"
+                        ng-maxlength="reply.maxBodySize"
+                        maxlength="[[ reply.maxBodySize ]]"
+
+                        fr-auto-focus
+                        {#ruch-jow-enter-down-trigger#}
+                        {#ng-pattern="reply.validation.subject.pattern"#}
+                        title="[[ 'msgs.replyForm.body.label'|translate ]]"
+                        placeholder="[[ 'msgs.replyForm.body.label'|translate ]]"
+                    ></textarea>
+                    <span class="ruch-jow-form-field-under-info">[[ reply.inputData.body.length || 0 ]]/[[ reply.maxBodySize ]]</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer" ng-if="message">
+            <button class="btn btn-msg-ok" ng-if="!reply.show" ng-click="reply.$init()">
+                <span>Odpowiedz</span>
+            </button>
+            <button type="submit" class="btn btn-msg-ok" ng-if="reply.show">
+                <span>Wyślij</span>
+            </button>
+        </div>
+    </form>
+</article>

@@ -1,0 +1,60 @@
+<article {#ng-controller="UserAccountMakeDonationCtrl"#} id="make_donation">
+    <span class="points">
+        <span class="value"><span>+[[ getPoints('make.donation.1pln') * data.amount || 0 ]] pkt</span></span>
+        <span class="comment" ng-if="comment = getPointsDef('make.donation.1pln').comment"><span>[[ getPoints('make.donation.1pln') ]]pkt [[ ('points.comment.' + comment)|translate ]]</span></span>
+    </span>
+
+    <h1>[[ 'supportForm.make_donation.title'|translate ]]</h1>
+
+    <p class="p-level-1">
+        Chcemy, żeby każdy mógł mieć dostęp do wysokiej jakości materiałów merytorycznych
+        dotyczących jednomandatowych okręgów wyborczych.
+        Produkujemy dla was broszury, ulotki, plakaty, delegujemy ekspertów na organizowane przez Was wydarzenia.
+        Wesprzyj naszą akcję finansowo za pomocą e-przelewu lub PayPal’a,
+        wpłaty przeznaczymy na aktualizację i produkcję tych materiałów.
+        Za każdą przekazaną nam złotówkę otrzymasz dodatkowe punkty ruchu JOW.
+    </p>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>[[ 'supportForm.make_donation.average_donation_7d.label'|translate ]]: <strong>[[ getStatistics('basic.donationsAvg7d')|frNumberFormat:'cash' ]]</strong></h2>
+            <div id="make_donation_block">
+
+                <div class="row">
+                    <div class="col-md-5 col-sm-6">
+                        <form name="makeDonationForm" ng-submit="submit()">
+                            <span ng-if="data.formError" translate="">Wystąpił nieoczekiwany błąd.</span>
+
+                            <div ng-repeat="predefinedAmount in predefinedAmounts" class="radio-wrapper">
+                                <input type="radio" ng-model="data.predefinedAmount" ng-value="predefinedAmount" id="predefinedAmount_[[ $index ]]" />
+                                <label for="predefinedAmount_[[ $index ]]">[[ predefinedAmount|frNumberFormat:'cash' ]]</label>
+                            </div>
+
+                            <div class="radio-wrapper">
+                                <input type="radio" ng-model="data.predefinedAmount" ng-value="0" id="predefinedAmount_other" />
+                                <label for="predefinedAmount_other" translate="">supportForm.make_donation.otherAmount</label>
+                                <input
+                                    title=""
+                                    type="text"
+                                    name="amount"
+                                    ng-model="data.amount"
+                                    ng-pattern="/^[1-9]\d*$/"
+                                    ng-required="true"
+                                    ng-focus="data.predefinedAmount = 0"
+                                    id="other_amount"
+                                />
+                            </div>
+                            <button ng-disabled="!makeDonationForm.$valid" class="btn submit-make-donation">[[ 'supportForm.make_donation.submit'|translate ]]</button>
+                        </form>
+                    </div>
+                    <div class="col-md-7 col-sm-6" ng-if="!(security.currentUser && security.currentUser.username)">
+                        <ul>
+                            <li>Nie jesteś zalogowany. Jeśli nie masz konta w serwisie nie będziesz miał zaliczonych punktów.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</article>

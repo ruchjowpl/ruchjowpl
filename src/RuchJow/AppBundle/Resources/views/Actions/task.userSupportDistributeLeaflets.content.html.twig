@@ -1,0 +1,17 @@
+<label>Dodatkowe informacje od użytkownika:</label>
+<p>
+    {{ distInfo|escape }}
+</p>
+
+<label>Użytkownik:</label><br/>
+{{ user.nick }}<br/>
+e-mail: {{ user.email }}<br/>
+telefon: {{ user.phone ? user.phone : '-' }}
+
+<label>Adres:</label><br/>
+{% if user.address %}
+    {{ user.address.street is defined ? user.address.street : user.address.city }} {{ user.address.house }}{{ user.address.flat is defined ? (' / ' ~ user.address.flat) : '' }}<br/>
+    {{ user.address.postCode }} {{ user.address.City }}
+{% else %}
+    Użytkownik nie podał swojego adresu.
+{% endif %}

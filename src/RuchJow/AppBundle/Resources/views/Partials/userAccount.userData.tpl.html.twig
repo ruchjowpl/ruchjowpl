@@ -1,0 +1,627 @@
+<div class="row">
+    <div class="col-md-6 user-data-field">
+        <label translate="">commune.label</label>
+        <div class="content">[[ security.currentUser.commune.name ]]</div>
+    </div>
+
+    {# ORGANISATION #}
+    <div class="col-md-6 user-data-field">
+        <form name="ruchJowUserDataOrganisationEdit" ng-submit="orgs.save()">
+
+            <a class="action-link edit" ng-show="!orgs.edit" ng-click="orgs.initEdit()" translate="" >form.edit</a>
+            <button type="button" class="action-link cancel link-btn" ng-show="orgs.edit" ng-click="orgs.edit = false" ng-disabled="orgs.saveInProgress" translate="" >form.cancel</button>
+            <button type="button" class="action-link save link-btn" ng-class="{ 'in-progress': orgs.saveInProgress }" ng-show="orgs.edit" ng-click="orgs.save()" ng-disabled="!ruchJowUserDataOrganisationEdit.$valid || orgs.saveInProgress" translate="" >form.save</button>
+
+            <label translate="">organisation.label</label>
+
+
+            <div class="content">
+                <div ng-hide="orgs.edit">
+                    <input type="text" value="[[ security.currentUser.organisation.url ]]" placeholder="[[ 'organisation.url.label'|translate ]]" disabled="true"/>
+                    <input type="text" value="[[ security.currentUser.organisation.name ]]" placeholder="[[ 'organisation.name.label'|translate ]]" disabled="true"/>
+                </div>
+                <div ng-if="orgs.edit">
+                    <div ruch-jow-form-table>
+                        <div
+                            ruch-jow-form-field="url"
+                            {#label="[[ 'form.organisation.name.label'|translate ]]"#}
+                            {#label-suffix-class="'required'"#}
+                            errors="orgs.validation.name.$labels"
+                            ruch-jow-form-show-label="false"
+                            ruch-jow-form-errors-on-top="false"
+                            >
+                            <input
+                                ng-disabled="orgs.data.url && ruchJowUserDataOrganisationEdit.url.$valid && !orgs.editName || orgs.saveInProgress"
+                                ruch-jow-escape-down="orgs.updateUrl()"
+
+                                type="text" name="url"
+                                ng-model="orgs.input.url" {#ng-model-options="ngModelOptions()"#}
+
+                                typeahead="organisation.url as organisation.label for organisation in orgs.get($viewValue)"
+                                typeahead-loading="orgs.loading"
+                                typeahead-on-select="orgs.set($item)"
+
+                                ng-pattern="orgs.validation.url.pattern"
+                                ruch-jow-enter-down-trigger
+                                ruch-jow-form-null-if-empty
+                                title="[[ 'organisation.url.label'|translate ]]"
+                                placeholder="[[ 'organisation.url.placeholder'|translate ]]"
+
+                                ruch-jow-input-icon="orgs.set(null); orgs.input.url = null;"
+                                ruch-jow-icon-class="{ delete: true, disabled: !orgs.data.url }"
+                                />
+                        </div>
+                        <div
+                            ruch-jow-form-field="name"
+                            errors="orgs.validation.name.$labels"
+
+                            ruch-jow-form-show-label="false"
+                            ruch-jow-form-errors-on-top="false"
+                            >
+                            <input
+                                ng-disabled="!orgs.editName || !orgs.data.url && !orgs.input.url || orgs.saveInProgress"
+
+                                type="text" name="name"
+                                ng-model="orgs.input.name" {#ng-model-options="ngModelOptions()"#}
+
+                                ruch-jow-enter-down-trigger
+                                {#ng-pattern="validation.organisationName.pattern"#}
+                                ruch-jow-form-null-if-empty
+                                ruch-jow-validate="{ required: '!(orgs.editName && orgs.data.url && !$value)' }"
+                                ruch-jow-validate-watch="['orgs.editName', 'orgs.data.url', 'orgs.data.name']"
+
+                                title="[[ 'organisation.name.label'|translate ]]"
+                                placeholder="[[ 'organisation.name.placeholder'|translate ]]"
+                                />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 user-data-field">
+        <label translate="">email.label</label>
+        <div class="content">[[ security.currentUser.email ]]</div>
+    </div>
+
+
+    <div class="col-md-6 user-data-field">
+        <form name="ruchJowUserDataPhoneEdit" ng-submit="phone.save()">
+
+            <a class="action-link edit" ng-show="!phone.edit" ng-click="phone.initEdit()" translate="" >form.edit</a>
+            <button type="button"class="action-link cancel link-btn" ng-show="phone.edit" ng-click="phone.edit = false" ng-disabled="phone.saveInProgress" translate="" >form.cancel</button>
+            <button type="button"class="action-link save link-btn" ng-class="{ 'in-progress': phone.saveInProgress }" ng-show="phone.edit" ng-click="phone.save()" ng-disabled="!ruchJowUserDataPhoneEdit.$valid || phone.saveInProgress" translate="" >form.save</button>
+
+            <label translate="">phone.label</label>
+
+
+            <div class="content">
+                <div ng-if="!phone.edit">
+                    <input type="text" value="[[ security.currentUser.phone ]]" placeholder="[[ 'phone.placeholder'|translate ]]" disabled="true"/>
+                </div>
+
+                <div ng-if="phone.edit">
+                    <div ruch-jow-form-table>
+                        <div
+                            ruch-jow-form-field="phone"
+                            errors="phone.validation.$labels"
+                            ruch-jow-form-show-label="false"
+                            ruch-jow-form-errors-on-top="false"
+                            >
+                            <input
+                                type="text" name="phone"
+                                ng-model="phone.data" {#ng-model-options="ngModelOptions()"#}
+                                ng-pattern="phone.validation.pattern"
+                                {#ruch-jow-enter-down-trigger=""#}
+                                ruch-jow-form-null-if-empty=""
+                                title="[[ 'phone.label'|translate ]]"
+                                placeholder="[[ 'phone.placeholder'|translate ]]"
+                                />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 user-data-field">
+        <div class="row">
+            <div class="col-md-12">
+                <label translate="">nick.label</label>
+                <div class="content">[[ security.currentUser.username ]]</div>
+            </div>
+
+            <div class="col-md-12">
+                <form name="ruchJowUserDataDisplayNameFormatEdit" ng-submit="displayNameFormat.save()">
+                    <a class="action-link edit" ng-show="!displayNameFormat.edit" ng-click="displayNameFormat.initEdit()" translate="">form.edit</a>
+                    <button type="button" class="action-link cancel link-btn" ng-show="displayNameFormat.edit" ng-click="displayNameFormat.edit = false" ng-disabled="displayNameFormat.inProgress" translate="">form.cancel</button>
+                    <button type="button" class="action-link save link-btn" ng-class="{ 'in-progress': displayNameFormat.saveInProgress }" ng-show="displayNameFormat.edit" ng-click="displayNameFormat.save()" ng-disabled="!ruchJowUserDataDisplayNameFormatEdit.$valid || displayNameFormat.inProgress" translate="" >form.save</button>
+
+                    <label translate="">displayNameFormat.label</label>
+                    <div class="content">
+                        <div ng-if="!displayNameFormat.edit">
+                            [[ ('displayNameFormat.values.' + security.currentUser.displayNameFormat + '.label')|translate ]]
+                        </div>
+
+                        <div ng-if="displayNameFormat.edit">
+                            <div ruch-jow-form-table>
+                                <div
+                                    ruch-jow-form-field="displayNameFormat"
+                                    ruch-jow-form-show-label="false"
+                                    ruch-jow-form-errors-on-top="false"
+                                >
+                                    <select ng-options="value as (('displayNameFormat.values.' + value + '.label')|translate) for value in displayNameFormat.values" ng-model="displayNameFormat.data">
+                                    </select>
+                                </div>
+
+                                {#<div#}
+                                    {#ruch-jow-form-field="displayNameFormat"#}
+                                    {#ruch-jow-form-show-label="false"#}
+                                    {#ruch-jow-form-errors-on-top="false"#}
+                                {#>#}
+                                    {#<div class="ruch-jow-form-radio" ng-repeat="value in displayNameFormat.values">#}
+                                        {#<label class="clickable">#}
+                                            {#<input type="radio"#}
+                                               {#name="displayNameFormat"#}
+                                               {#value="[[ value ]]"#}
+                                               {#ng-model="displayNameFormat.data" />#}
+                                            {#[[ ('displayNameFormat.values.' + value + '.label')|translate ]]#}
+                                        {#</label>#}
+                                    {#</div>#}
+                                {#</div>#}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 user-data-field">
+        <form name="ruchJowUserDataAddressEdit" ng-submit="address.save()">
+
+            <a class="action-link edit" ng-show="!address.edit" ng-click="address.initEdit()" translate="" >form.edit</a>
+            <button type="button" class="action-link cancel link-btn" ng-show="address.edit" ng-click="address.edit = false" ng-disabled="address.inProgress" translate="">form.cancel</button>
+            <button type="button" class="action-link delete link-btn" ng-class="{ 'in-progress': address.deleteInProgress }" ng-show="address.edit" ng-click="address.delete()" ng-disabled="address.inProgress" translate="" >form.delete</button>
+            <button type="button" class="action-link save link-btn" ng-class="{ 'in-progress': address.saveInProgress }" ng-show="address.edit" ng-click="address.save()" ng-disabled="!ruchJowUserDataAddressEdit.$valid || address.inProgress" translate="" >form.save</button>
+
+            <label translate="">address.label</label>
+            <div class="content">
+                <div ng-if="!address.edit">
+                    <div class="row">
+                        <div class="col-md-6 col-fix">
+                            <input type="text" value="[[ security.currentUser.address.firstName ]]" placeholder="[[ 'address.firstName.placeholder'|translate ]]" ng-disabled="true" />
+                        </div>
+                        <div class="col-md-6 col-fix">
+                            <input type="text" value="[[ security.currentUser.address.lastName ]]" placeholder="[[ 'address.lastName.placeholder'|translate ]]" ng-disabled="true" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7 col-fix">
+                            <input type="text" value="[[ security.currentUser.address.street ]]" placeholder="[[ 'address.street.placeholder'|translate ]]" ng-disabled="true"/>
+                        </div>
+                        <div class="col-md-3 col-fix">
+                            <input type="text" value="[[ security.currentUser.address.house ]]" placeholder="[[ 'address.house.placeholder'|translate ]]" ng-disabled="true" />
+                        </div>
+                        <div class="col-md-2 col-fix">
+                            <input type="text" value="[[ security.currentUser.address.flat ]]" placeholder="[[ 'address.flat.placeholder'|translate ]]" ng-disabled="true" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-fix">
+                            <input type="text" value="[[ security.currentUser.address.postCode ]]" placeholder="[[ 'address.postCode.placeholder'|translate ]]" ng-disabled="true" />
+                        </div>
+                        <div class="col-md-6 col-fix">
+                            <input type="text" value="[[ security.currentUser.address.city ]]" placeholder="[[ 'address.city.placeholder'|translate ]]" ng-disabled="true" />
+                        </div>
+                    </div>
+                </div>
+
+
+                <div ng-if="address.edit">
+                    <div ruch-jow-form-table>
+                        <div
+                            ruch-jow-form-field="firstName lastName"
+                            errors="{
+                                firstName: address.validation.firstName.$labels,
+                                lastName: address.validation.lastName.$labels
+                            }"
+                            ruch-jow-form-show-label="false"
+                            ruch-jow-form-errors-on-top="false"
+                        >
+
+                            <div class="row">
+                                <div class="col-md-6 col-fix">
+                                    <input
+                                       type="text" name="firstName"
+                                       ng-model="address.data.firstName"
+                                       ng-pattern="address.validation.firstName.pattern"
+                                       ng-required="true"
+                                       {#ruch-jow-enter-down-trigger=""#}
+
+                                       title="[[ 'address.firstName.label'|translate ]]"
+                                       placeholder="[[ 'address.firstName.placeholder'|translate ]]"                                  />
+                                </div>
+                                <div class="col-md-6 col-fix">
+                                    <input
+                                        type="text" name="lastName"
+                                        ng-model="address.data.lastName"
+                                        ng-pattern="address.validation.lastName.pattern"
+                                        ng-required="true"
+                                        {#ruch-jow-enter-down-trigger=""#}
+
+                                        title="[[ 'address.lastName.label'|translate ]]"
+                                        placeholder="[[ 'address.lastName.placeholder'|translate ]]"
+                                    />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div
+                            ruch-jow-form-field="street house flat"
+                            errors="{
+                            street: address.validation.street.$labels,
+                            house: address.validation.house.$labels,
+                            flat: address.validation.flat.$labels
+                            }"
+                            ruch-jow-form-show-label="false"
+                            ruch-jow-form-errors-on-top="false"
+                            >
+                            <div class="row">
+                                <div class="col-md-7 col-fix">
+                                    <input
+                                        type="text" name="street"
+                                        ng-model="address.data.street"
+
+                                        ng-pattern="address.validation.street.pattern"
+                                        ruch-jow-form-null-if-empty=""
+                                        {#ruch-jow-enter-down-trigger=""#}
+
+                                        title="[[ 'address.street.label'|translate ]]"
+                                        placeholder="[[ 'address.street.placeholder'|translate ]]"
+                                        >
+                                </div>
+                                <div class="col-md-3 col-fix">
+                                    <input
+                                        type="text" name="house"
+                                        ng-model="address.data.house"
+
+                                        ng-pattern="address.validation.house.pattern"
+                                        ng-required="true"
+                                        ruch-jow-form-null-if-empty=""
+                                        {#ruch-jow-enter-down-trigger=""#}
+
+                                        title="[[ 'address.house.label'|translate ]]"
+                                        placeholder="[[ 'address.house.placeholder'|translate ]]"
+                                        />
+                                </div>
+                                <div class="col-md-2 col-fix">
+                                    <input
+                                        type="text" name="flat"
+                                        ng-model="address.data.flat"
+
+                                        ng-pattern="address.validation.flat.pattern"
+                                        ruch-jow-form-null-if-empty=""
+                                        {#ruch-jow-enter-down-trigger=""#}
+
+                                        title="[[ 'address.flat.label'|translate ]]"
+                                        placeholder="[[ 'address.flat.placeholder'|translate ]]"
+                                        />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            ruch-jow-form-field="postCode city"
+                            errors="{
+                            postCode: address.validation.postCode.$labels,
+                            city: address.validation.city.$labels
+                            }"
+                            ruch-jow-form-show-label="false"
+                            ruch-jow-form-errors-on-top="false"
+                            >
+
+                            <div class="row">
+                                <div class="col-md-6 col-fix">
+                                    <input
+                                        type="text" name="postCode"
+                                        ng-model="address.data.postCode"
+
+                                        ng-pattern="address.validation.postCode.pattern"
+                                        ng-required="true"
+                                        {#ruch-jow-enter-down-trigger=""#}
+
+                                        title="[[ 'address.postCode.label'|translate ]]"
+                                        placeholder="[[ 'address.postCode.placeholder'|translate ]]"                                  />
+                                </div>
+                                <div class="col-md-6 col-fix">
+                                    <input
+                                        type="text" name="city"
+                                        ng-model="address.data.city"
+
+                                        ng-pattern="address.validation.city.pattern"
+                                        ng-required="true"
+                                        {#ruch-jow-enter-down-trigger=""#}
+
+                                        title="[[ 'address.city.label'|translate ]]"
+                                        placeholder="[[ 'address.city.placeholder'|translate ]]"
+                                        />
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="row">
+
+    {#<div class="col-md-6 user-data-field">#}
+    {#</div>#}
+
+    {# PASSWORD #}
+    <div class="col-md-6 user-data-field">
+        <form name="ruchJowUserDataPasswordEdit" ng-submit="password.save()">
+
+            <a class="action-link edit" ng-show="!password.edit" ng-click="password.initEdit()" translate="" >form.edit</a>
+            <button
+                type="button"
+                class="action-link cancel link-btn"
+                ng-show="password.edit"
+                ng-click="password.edit = false"
+                ng-disabled="password.saveInProgress"
+                translate=""
+                >
+                form.cancel
+            </button>
+            <button type="button"
+                    class="action-link save link-btn"
+                    ng-class="{ 'in-progress': password.saveInProgress }"
+                    ng-show="password.edit" ng-click="password.save()"
+                    ng-disabled="!ruchJowUserDataPasswordEdit.$valid || password.saveInProgress"
+                    translate=""
+                    >
+                form.save
+            </button>
+            <label translate="">password.label</label>
+            <div class="content" ng-show="password.edit">
+                {#<div ng-if="!password.edit">#}
+                    {#<div class="row">#}
+                        {#<div class="col-md-12 col-fix">#}
+                            {#<input type="text"placeholder="[[ 'password.currentPassword.placeholder'|translate ]]" ng-disabled="true"/>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<div class="row">#}
+                        {#<div class="col-md-12 col-fix">#}
+                            {#<input type="text"placeholder="[[ 'password.newPassword.placeholder'|translate ]]" ng-disabled="true"/>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<div class="row">#}
+                        {#<div class="col-md-12 col-fix">#}
+                            {#<input type="text"  placeholder="[[ 'password.newPasswordRepeat.placeholder'|translate ]]" ng-disabled="true" />#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+                <div ng-if="password.edit">
+                    <div ruch-jow-form-table>
+                        <div
+                            ruch-jow-form-field="currentPassword"
+                            errors="password.validation.currentPassword.$labels"
+                            ruch-jow-form-show-label="false"
+                            ruch-jow-form-errors-on-top="false"
+                            >
+                            <input
+                                type="password" name="currentPassword"
+                                ng-model="password.data.currentPassword"
+                                autocomplete="off"
+                                ng-pattern=""
+                                ng-required="true"
+                                ruch-jow-external-validation="{ 'check': ['ruchJowUserAsyncPasswordValidators', 'passwordCheck', 'cancel', [ ] ] }"
+                                ruch-jow-form-null-if-empty=""
+                                title="[[ 'password.currentPassword.label'|translate ]]"
+                                placeholder="[[ 'password.currentPassword.placeholder'|translate ]]"
+                                />
+                        </div>
+                    </div>
+                    <div ruch-jow-form-table>
+                        <div
+                            ruch-jow-form-field="newPassword"
+                            errors="password.validation.newPassword.$labels"
+                            ruch-jow-form-show-label="false"
+                            ruch-jow-form-errors-on-top="false"
+                            >
+                            <input
+                                type="password" name="newPassword"
+                                ng-model="password.data.newPassword"
+                                autocomplete="off"
+                                ng-pattern="password.validation.newPassword.pattern"
+                                ng-required="true"
+                                ruch-jow-form-null-if-empty=""
+                                title="[[ 'password.newPassword.label'|translate ]]"
+                                placeholder="[[ 'password.newPassword.placeholder'|translate ]]"
+                                />
+                        </div>
+                    </div>
+                    <div ruch-jow-form-table>
+                        <div
+                            ruch-jow-form-field=" newPasswordRepeat"
+                            errors="password.validation.newPasswordRepeat.$labels"
+                            ruch-jow-form-show-label="false"
+                            ruch-jow-form-errors-on-top="false"
+                            >
+                            <input
+                                type="password" name="newPasswordRepeat"
+                                ng-model="password.data.newPasswordRepeat"
+                                ruch-jow-equals="password.data.newPassword"
+                                ng-pattern="password.validation.newPasswordRepeat.pattern"
+                                ruch-jow-form-null-if-empty=""
+                                title="[[ 'password.newPasswordRepeat.label'|translate ]]"
+                                placeholder="[[ 'password.newPasswordRepeat.placeholder'|translate ]]"
+                                />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+{#</div>#}
+{#<hr/>#}
+
+{#<div class="row">#}
+
+    {#<div class="col-md-4 user-data-field">#}
+    {#</div>#}
+
+    {# ABOUT #}
+    <div class="col-md-6 user-data-field">
+        <form name="ruchJowUserDataAboutEdit" ng-submit="about.save()">
+
+            <a class="action-link edit" ng-show="!about.edit" ng-click="about.initEdit()" translate="" >form.edit</a>
+            <button
+                type="button"
+                class="action-link cancel link-btn"
+                ng-show="about.edit"
+                ng-click="about.edit = false"
+                ng-disabled="about.saveInProgress"
+                translate=""
+                >
+                form.cancel
+            </button>
+            <button type="button"
+                    class="action-link save link-btn"
+                    ng-class="{ 'in-progress': about.saveInProgress }"
+                    ng-show="about.edit" ng-click="about.save()"
+                    ng-disabled="!ruchJowUserDataAboutEdit.$valid || about.saveInProgress"
+                    translate=""
+                    >
+                form.save
+            </button>
+
+            <label translate="">aboutUser.label</label>
+
+            <div class="content">
+                <textarea type="text"
+                          ng-disabled="true"
+                          ng-hide="about.edit"
+                          >[[ security.currentUser.about ]]</textarea>
+                <div ruch-jow-form-table ng-show="about.edit">
+                    <div
+                        ruch-jow-form-field="about"
+                        errors="about.validation.$labels"
+                        ruch-jow-form-show-label="false"
+                        ruch-jow-form-errors-on-top="false"
+                        >
+                        <textarea
+                            type="text" name="about"
+                            ng-model="about.data"
+                            ></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr/>
+
+<div class="row">
+
+    {# Social Profiles #}
+    <div class="col-md-12 user-data-field social-links">
+        <form name="ruchJowUserDataSocialLinksEdit" ng-submit="socialLinks.save()">
+
+            <a class="action-link edit" ng-show="!socialLinks.edit" ng-click="socialLinks.initEdit()" translate="" >form.edit</a>
+            <button type="button"class="action-link cancel link-btn" ng-show="socialLinks.edit" ng-click="socialLinks.edit = false" ng-disabled="socialLinks.saveInProgress" translate="">form.cancel</button>
+            <button type="button"class="action-link save link-btn" ng-class="{ 'in-progress': socialLinks.saveInProgress }" ng-show="socialLinks.edit" ng-click="socialLinks.save()" ng-disabled="!ruchJowUserDataSocialLinksEdit.$valid || socialLinks.saveInProgress" translate="" >form.save</button>
+
+            <label translate="">socialLinks.label</label>
+
+            <div class="content">
+                <ul>
+                    <li ng-repeat="linkDef in socialLinks.availableServices">
+                        <div ng-form="" name="innerForm" class="row">
+                            <div class="col-md-2 col-fix">
+                                <label>[[ linkDef.label ]]</label>
+                            </div>
+
+                            <div class="col-md-5 col-fix path-base">
+                                [[ linkDef.pathBase ]]
+                            </div>
+
+                            <div class="col-md-5 col-fix">
+                                <input type="text"
+                                       value="[[ security.currentUser.socialLinks[linkDef.service] ]]"
+                                       ng-disabled="true"
+                                       ng-hide="socialLinks.edit"
+                                       />
+
+                                <div ruch-jow-form-table ng-show="socialLinks.edit">
+                                    <div
+                                        ruch-jow-form-field="path"
+                                        errors="socialLinks.validation.$labels"
+                                        ruch-jow-form-show-label="false"
+                                        ruch-jow-form-errors-on-top="false"
+                                        >
+                                        <input
+                                            type="text" name="path"
+                                            ng-model="socialLinks.data[linkDef.service]"
+                                            ng-pattern="linkDef.pathSuffixPattern"
+
+                                            {#ruch-jow-form-null-if-empty=""#}
+                                            {#ruch-jow-enter-down-trigger=""#}
+                                            />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr/>
+
+<div class="row">
+    <div class="col-md-12 user-data-field user-data-visibility">
+        <form name="ruchJowUserDataVisibilityEdit" ng-submit="visibility.save()">
+            <a class="action-link edit" ng-show="!visibility.edit" ng-click="visibility.initEdit()" translate="">form.edit</a>
+            <button type="button"class="action-link cancel link-btn" ng-show="visibility.edit" ng-click="visibility.edit = false" ng-disabled="visibility.saveInProgress" translate="">form.cancel</button>
+            <button type="button"class="action-link save link-btn" ng-class="{ 'in-progress': visibility.saveInProgress }" ng-show="visibility.edit" ng-click="visibility.save()" ng-disabled="!ruchJowUserDataVisibilityEdit.$valid || visibility.saveInProgress" translate="">form.save</button>
+
+            <label translate="">userDataVisibility.label</label>
+
+            <div class="content">
+                <div ng-if="!visibility.edit">
+                    <div ng-repeat="name in visibility.list" class="ruch-jow-form-field" ng-show="security.currentUser.visibility.hasOwnProperty(name)">
+                        <div class="ruch-jow-form-checkbox">
+                            <span class="checkbox-icon visibility-icon" ng-class="{ visible: security.currentUser.visibility[name] }"></span> [[ ('userDataVisibility.' + name + '.label')|translate ]]
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="visibility.edit">
+                    <div ng-repeat="name in visibility.list" class="ruch-jow-form-field" ng-show="visibility.data.hasOwnProperty(name)">
+                        <div class="ruch-jow-form-checkbox clickable" ng-click="visibility.toggle(name)">
+                            <span class="checkbox-icon visibility-icon" ng-class="{ visible: visibility.data[name] }"></span> [[ ('userDataVisibility.' + name + '.label')|translate ]]
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

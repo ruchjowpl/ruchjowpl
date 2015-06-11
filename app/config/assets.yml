@@ -1,0 +1,461 @@
+assetic:
+    assets:
+
+        ####### IE8 Shim & Responsive #######
+        ie8fix:
+            inputs:
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/html5shiv/dist/html5shiv.min.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/respond/dest/respond.min.js'
+            output: 'js/ie8fix.js'
+
+        messageformat:
+            inputs:
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/messageformat/messageformat.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/messageformat/locale/pl.js'
+            output: js/messageformat.js
+
+        ####### ANGULAR #######
+        angular:
+            inputs:
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular/angular.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular/angular-sanitize.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular/angular-route.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular/angular-touch.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-translate/angular-translate.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-ui-bootstrap/uncompressed/ui-bootstrap-tpls-0.12.0.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-ui-slider/src/slider.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-ui-utils/ui-utils.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-ui-router/uncompressed/angular-ui-router.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-cookie/angular-cookie.js'
+                - '%kernel.root_dir%/../vendor/framling/fr-angular-utils/dist/fr-ang-utils-tpls-0.0.4.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/google-x2js/xml2json.js'
+            output: js/angular_with_libs.js
+        angular_min:
+            inputs:
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular/angular.min.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular/angular-sanitize.min.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular/angular-route.min.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular/angular-touch.min.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-translate/angular-translate.min.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.min.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-ui-bootstrap/min/ui-bootstrap-tpls-0.12.0.min.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-ui-router/min/angular-ui-router.min.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-ui-utils/ui-utils.min.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-cookie/angular-cookie.min.js'
+                - '%kernel.root_dir%/../vendor/framling/fr-angular-utils/dist/fr-ang-utils-tpls-0.0.4.min.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/google-x2js/xml2json.min.js'
+            output: js/angular_with_libs.min.js
+            filter: closure
+
+        ####### jQuery2#######
+        jquery:
+            inputs:
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/jquery/uncompressed/jquery-1.11.1.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/jquery-ui/ui/jquery-ui.js'
+            output: js/jquery/jquery-with-ui.js
+        jquery_min:
+            inputs:
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/jquery/min/jquery-1.11.1.min.js'
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/jquery-ui/ui/minified/jquery-ui.min.js'
+            output: js/jquery/jquery-with-ui.min.js
+
+        jquery_ui_css:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/jquery-ui-theme/jquery-ui-1.10.4.css'
+            output: css/jquery/jquery-ui-1.10.4.css
+        jquery_ui_css_min:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/jquery-ui-theme/jquery-ui-1.10.4.min.css'
+            output: css/jquery/jquery-ui-1.10.4.min.css
+
+
+        # jQuery UI theme images
+        jquery_ui_img1:
+            inputs: [ '%kernel.root_dir%/Resources/public/jquery-ui-theme/images/animated-overlay.gif' ]
+            output: css/jquery/images/animated-overlay.gif
+
+        jquery_ui_img2:
+            inputs: [ '%kernel.root_dir%/Resources/public/jquery-ui-theme/images/ui-bg_flat_0_aaaaaa_40x100.png' ]
+            output: css/jquery/images/ui-bg_flat_0_aaaaaa_40x100.png
+
+        jquery_ui_img3:
+            inputs: [ '%kernel.root_dir%/Resources/public/jquery-ui-theme/images/ui-bg_flat_75_ffffff_40x100.png' ]
+            output: css/jquery/images/ui-bg_flat_75_ffffff_40x100.png
+
+        jquery_ui_img4:
+            inputs: [ '%kernel.root_dir%/Resources/public/jquery-ui-theme/images/ui-bg_glass_55_fbf9ee_1x400.png' ]
+            output: css/jquery/images/ui-bg_glass_55_fbf9ee_1x400.png
+
+        jquery_ui_img5:
+            inputs: [ '%kernel.root_dir%/Resources/public/jquery-ui-theme/images/ui-bg_glass_65_ffffff_1x400.png' ]
+            output: css/jquery/images/ui-bg_glass_65_ffffff_1x400.png
+
+        jquery_ui_img6:
+            inputs: [ '%kernel.root_dir%/Resources/public/jquery-ui-theme/images/ui-bg_glass_75_dadada_1x400.png' ]
+            output: css/jquery/images/ui-bg_glass_75_dadada_1x400.png
+
+        jquery_ui_img7:
+            inputs: [ '%kernel.root_dir%/Resources/public/jquery-ui-theme/images/ui-bg_glass_75_e6e6e6_1x400.png' ]
+            output: css/jquery/images/ui-bg_glass_75_e6e6e6_1x400.png
+
+        jquery_ui_img8:
+            inputs: [ '%kernel.root_dir%/Resources/public/jquery-ui-theme/images/ui-bg_glass_95_fef1ec_1x400.png' ]
+            output: css/jquery/images/ui-bg_glass_95_fef1ec_1x400.png
+
+        jquery_ui_img9:
+            inputs: [ '%kernel.root_dir%/Resources/public/jquery-ui-theme/images/ui-bg_highlight-soft_75_cccccc_1x100.png' ]
+            output: css/jquery/images/ui-bg_highlight-soft_75_cccccc_1x100.png
+
+        jquery_ui_img10:
+            inputs: [ '%kernel.root_dir%/Resources/public/jquery-ui-theme/images/ui-icons_2e83ff_256x240.png' ]
+            output: css/jquery/images/ui-icons_2e83ff_256x240.png
+
+        jquery_ui_img11:
+            inputs: [ '%kernel.root_dir%/Resources/public/jquery-ui-theme/images/ui-icons_222222_256x240.png' ]
+            output: css/jquery/images/ui-icons_222222_256x240.png
+
+        jquery_ui_img12:
+            inputs: [ '%kernel.root_dir%/Resources/public/jquery-ui-theme/images/ui-icons_454545_256x240.png' ]
+            output: css/jquery/images/ui-icons_454545_256x240.png
+
+        jquery_ui_img13:
+            inputs: [ '%kernel.root_dir%/Resources/public/jquery-ui-theme/images/ui-icons_888888_256x240.png' ]
+            output: css/jquery/images/ui-icons_888888_256x240.png
+
+        jquery_ui_img14:
+            inputs: [ '%kernel.root_dir%/Resources/public/jquery-ui-theme/images/ui-icons_cd0a0a_256x240.png' ]
+            output: css/jquery/images/ui-icons_cd0a0a_256x240.png
+
+
+        ####### BOOTSTRAP #######
+#        bootstrapjs:
+#            inputs:
+#                - '%kernel.root_dir%/../vendor/twitter/bootstrap/dist/js/bootstrap.js'
+#            output: js/bootstrap.js
+#        bootstrapjs_min:
+#            inputs:
+#                - '%kernel.root_dir%/../vendor/twitter/bootstrap/dist/js/bootstrap.min.js'
+#            output: js/bootstrap.min.js
+#
+#        bootstrap_css:
+#            inputs:
+#                - '%kernel.root_dir%/Resources/less/bootstrap.less'
+#            output: css/bootstrap.css
+
+
+        # Bootstrap fonts
+        fonts_bootstrap_halflings_woff:
+            inputs:
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/fonts/glyphicons-halflings-regular.woff'
+            output: fonts/glyphicons-halflings-regular.woff
+        fonts_bootstrap_halflings_ttf:
+            inputs:
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/fonts/glyphicons-halflings-regular.ttf'
+            output: fonts/glyphicons-halflings-regular.ttf
+        fonts_bootstrap_halflings_eot:
+            inputs:
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/fonts/glyphicons-halflings-regular.eot'
+            output: fonts/glyphicons-halflings-regular.eot
+        fonts_bootstrap_halflings_svg:
+            inputs:
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/fonts/glyphicons-halflings-regular.svg'
+            output: fonts/glyphicons-halflings-regular.svg
+
+
+        ####### FONT AWESOME #######
+        font_awesome_webfont_woff:
+            inputs:
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/font-awesome/fonts/fontawesome-webfont.woff'
+            output: fonts/fontawesome-webfont.woff
+        font_awesome_webfont_ttf:
+            inputs:
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/font-awesome/fonts/fontawesome-webfont.ttf'
+            output: fonts/fontawesome-webfont.ttf
+        font_awesome_webfont_eot:
+            inputs:
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/font-awesome/fonts/fontawesome-webfont.eot'
+            output: fonts/fontawesome-webfont.eot
+        font_awesome_webfont_svg:
+            inputs:
+                - '%kernel.root_dir%/../vendor/ruch-jow-local/font-awesome/fonts/fontawesome-webfont.svg'
+            output: fonts/fontawesome-webfont.svg
+
+        ####### RuchJow ICON FONTS #######
+        ruch_jow_icon_font_woff:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/iconsFont/fonts/icomoon.woff'
+            output: fonts/ruchjowicons.woff
+        ruch_jow_icon_font_ttf:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/iconsFont/fonts/icomoon.ttf'
+            output: fonts/ruchjowicons.ttf
+        ruch_jow_icon_font_eot:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/iconsFont/fonts/icomoon.eot'
+            output: fonts/ruchjowicons.eot
+        ruch_jow_icon_font_svg:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/iconsFont/fonts/icomoon.svg'
+            output: fonts/ruchjowicons.svg
+
+        ####### FONTS (ROBOTO) #######
+        ruch_jow_roboto_bold_font_eot:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Bold-webfont.eot']
+            output: fonts/Roboto-Bold-webfont.eot
+        ruch_jow_roboto_bold_font_svg:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Bold-webfont.svg']
+            output: fonts/Roboto-Bold-webfont.svg
+        ruch_jow_roboto_bold_font_ttf:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Bold-webfont.ttf']
+            output: fonts/Roboto-Bold-webfont.ttf
+        ruch_jow_roboto_bold_font_woff:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Bold-webfont.woff']
+            output: fonts/Roboto-Bold-webfont.woff
+        ruch_jow_roboto_light_font_eot:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Light-webfont.eot']
+            output: fonts/Roboto-Light-webfont.eot
+        ruch_jow_roboto_light_font_svg:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Light-webfont.svg']
+            output: fonts/Roboto-Light-webfont.svg
+        ruch_jow_roboto_light_font_ttf:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Light-webfont.ttf']
+            output: fonts/Roboto-Light-webfont.ttf
+        ruch_jow_roboto_light_font_woff:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Light-webfont.woff']
+            output: fonts/Roboto-Light-webfont.woff
+        ruch_jow_roboto_medium_font_eot:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Medium-webfont.eot']
+            output: fonts/Roboto-Medium-webfont.eot
+        ruch_jow_roboto_medium_font_svg:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Medium-webfont.svg']
+            output: fonts/Roboto-Medium-webfont.svg
+        ruch_jow_roboto_medium_font_ttf:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Medium-webfont.ttf']
+            output: fonts/Roboto-Medium-webfont.ttf
+        ruch_jow_roboto_medium_font_woff:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Medium-webfont.woff']
+            output: fonts/Roboto-Medium-webfont.woff
+        ruch_jow_roboto_regular_font_eot:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Regular-webfont.eot']
+            output: fonts/Roboto-Regular-webfont.eot
+        ruch_jow_roboto_regular_font_svg:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Regular-webfont.svg']
+            output: fonts/Roboto-Regular-webfont.svg
+        ruch_jow_roboto_regular_font_ttf:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Regular-webfont.ttf']
+            output: fonts/Roboto-Regular-webfont.ttf
+        ruch_jow_roboto_regular_font_woff:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Regular-webfont.woff']
+            output: fonts/Roboto-Regular-webfont.woff
+        ruch_jow_roboto_thin_font_eot:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Thin-webfont.eot']
+            output: fonts/Roboto-Thin-webfont.eot
+        ruch_jow_roboto_thin_font_svg:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Thin-webfont.svg']
+            output: fonts/Roboto-Thin-webfont.svg
+        ruch_jow_roboto_thin_font_ttf:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Thin-webfont.ttf']
+            output: fonts/Roboto-Thin-webfont.ttf
+        ruch_jow_roboto_thin_font_woff:
+            inputs: ['%kernel.root_dir%/Resources/public/fonts/roboto/Roboto-Thin-webfont.woff']
+            output: fonts/Roboto-Thin-webfont.woff
+
+        ####### IMAGES #######
+#        img_logo_svg:
+#            inputs:
+#                - '%kernel.root_dir%/Resources/public/img/layout/logo.svg'
+#            output: images/layout/logo.svg
+        img_logo4:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/logo4_75.png'
+            output: images/layout/logo4.png
+        img_logo3:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/newLogo75.png'
+            output: images/layout/logo3.png
+        img_logo2:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/logo3_75.png'
+            output: images/layout/logo2.png
+        img_logo:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/logo.png'
+            output: images/layout/logo.png
+        img_logo_kukiz:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/logo_kukiz_small.png'
+            output: images/layout/logo_kukiz.png
+
+
+        img_for_facebook:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/imgForFacebook.jpg'
+            output: images/fb_img_v2.jpg
+        img_for_twitter:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/imgForTwitter.jpg'
+            output: images/twitter_img_v2.jpg
+
+        img_homepage_infographics:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/homepageInfographics.jpg'
+            output: images/layout/efekt_jow.3_kroki.jpg
+
+        img_homepage_infographics_1_of_3:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/homepageInfographics1.jpg'
+            output: images/layout/efekt_jow.1_krok.jpg
+
+        img_homepage_infographics_2_of_3:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/homepageInfographics2.jpg'
+            output: images/layout/efekt_jow.2_krok.jpg
+
+        img_homepage_infographics_3_of_3:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/homepageInfographics3.jpg'
+            output: images/layout/efekt_jow.3_krok.jpg
+
+        img_homepage_join:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/homepageJoin.png'
+            output: images/layout/hp_join.png
+
+
+        # FavIcons
+#        img_favicon_16:
+#            inputs:
+#                - '%kernel.root_dir%/Resources/public/img/favicon16.png'
+#            output: favicon16.png
+#        img_favicon_32:
+#            inputs:
+#                - '%kernel.root_dir%/Resources/public/img/favicon32.png'
+#            output: favicon32.png
+#        img_favicon_64:
+#            inputs:
+#                - '%kernel.root_dir%/Resources/public/img/favicon64.png'
+#            output: favicon64.png
+
+        # Banners
+#        img_banner_big:
+#            inputs:
+#                - '%kernel.root_dir%/Resources/public/img/banner_big.png'
+#            output: images/banner_big.png
+#        img_banner_medium:
+#            inputs:
+#                - '%kernel.root_dir%/Resources/public/img/banner_medium.png'
+#            output: images/banner_medium.png
+#        img_banner_small:
+#            inputs:
+#                - '%kernel.root_dir%/Resources/public/img/banner_small.png'
+#            output: images/banner_small.png
+        img_banner_jow_250_x_250:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/banners/JOW_13_05_250_x_250.jpg'
+            output: images/banners/banner_jow_250_250.jpg
+        img_banner_jow_300_x_250:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/banners/JOW_13_05_300_x_250.jpg'
+            output: images/banners/banner_jow_300_250.jpg
+        img_banner_jow_336_x_280:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/banners/JOW_13_05_336_x_280.jpg'
+            output: images/banners/banner_jow_336_280.jpg
+        img_banner_jow_468_x_60:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/banners/JOW_13_05_468_x_60.jpg'
+            output: images/banners/banner_jow_468_60.jpg
+        img_banner_jow_728_x_90:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/banners/JOW_13_05_728_x_90.jpg'
+            output: images/banners/banner_jow_728_90.jpg
+        img_banner_jow_750_x_100:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/banners/JOW_13_05_750_x_100.jpg'
+            output: images/banners/banner_jow_750_100.jpg
+        img_banner_jow_750_x_200:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/banners/JOW_13_05_750_x_200.jpg'
+            output: images/banners/banner_jow_750_200.jpg
+
+
+        #Map markers
+        map_marker_star:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/markers/star_blue.png'
+            output: images/map/star.png
+        map_marker_circle:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/markers/circle_red.png'
+            output: images/map/circle.png
+
+        ####### MISC IMAGES #######
+        misc_abc_jow:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/misc/abc-jow-ebook.png'
+            output: images/misc/abc-jow-ebook.png
+
+        misc_ankieta_poparcia_wykres:
+            inputs: ['%kernel.root_dir%/Resources/public/img/misc/ankieta_poparcia_wykres.png']
+            output: images/misc/ankieta_poparcia_wykres.png
+
+        misc_klocki:
+            inputs: ['%kernel.root_dir%/Resources/public/img/misc/klocki.jpg']
+            output: images/misc/klocki.jpg
+
+        misc_mapa_polska_region:
+            inputs: ['%kernel.root_dir%/Resources/public/img/misc/mapa_polska_region.png']
+            output: images/misc/mapa_polska_region.png
+
+        misc_o_nas:
+            inputs: ['%kernel.root_dir%/Resources/public/img/misc/o_nas.jpg']
+            output: images/misc/o_nas.jpg
+
+        misc_obywatele:
+            inputs: ['%kernel.root_dir%/Resources/public/img/misc/obywatele.png']
+            output: images/misc/obywatele.png
+
+        misc_order:
+            inputs: ['%kernel.root_dir%/Resources/public/img/misc/order.png']
+            output: images/misc/order.png
+
+        misc_poslowie:
+            inputs: ['%kernel.root_dir%/Resources/public/img/misc/poslowie.png']
+            output: images/misc/poslowie.png
+
+        misc_postulaty:
+            inputs: ['%kernel.root_dir%/Resources/public/img/misc/postulaty.png']
+            output: images/misc/postulaty.png
+
+        misc_tak_dla_jow:
+            inputs: ['%kernel.root_dir%/Resources/public/img/misc/tak_dla_jow.jpg']
+            output: images/misc/tak_dla_jow.jpg
+
+        misc_urna:
+            inputs: ['%kernel.root_dir%/Resources/public/img/misc/urna.png']
+            output: images/misc/urna.png
+
+
+        ####### OTHER MEDIA #######
+        res_pdf_przewodnik_jow:
+            inputs: ['%kernel.root_dir%/Resources/public/res/przewodnik-jow.pdf']
+            output: res/przewodnik-jow.pdf
+
+#
+
+        ####### D3 #######
+#        d3:
+#            inputs:
+#                - '%kernel.root_dir%/../vendor/ruch-jow-local/d3/d3.js'
+#            output: js/d3/d3.js
+#        d3_min:
+#            inputs:
+#                - '%kernel.root_dir%/../vendor/ruch-jow-local/d3/d3.min.js'
+#            output: js/d3/d3.min.js
+
+        ####### SkrollR #######
+#        skrollr:
+#            inputs:
+#                - '%kernel.root_dir%/../vendor/ruch-jow-local/skrollr/dist/skrollr.min.js'
+#            output: js/skrollr/skrollr.min.js

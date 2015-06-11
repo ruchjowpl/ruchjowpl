@@ -1,0 +1,328 @@
+<div id="ranks_page" class="page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="ranks-info-block">
+                    <div class="support-votes col-md-4">
+                        <div class="top">
+                            <div class="icon"><span class="ruch-jow-icon-supporters"></span></div>
+                            <div class="title"
+                                 translate="ranks.supporters.part1"
+                                 translate-values="{ USERS: getStatistics('basic.supportersCnt')}"
+                                 translate-interpolation="messageformat"
+                            ></div>
+                        </div>
+                        <div class="bottom">
+                            <span class="big">[[ getStatistics('basic.supportersCnt')|frNumberFormat ]]</span>
+                            [[ 'ranks.supporters.part2'|translate:{ USERS: getStatistics('basic.supportersCnt') }:'messageformat' ]]
+                        </div>
+                    </div>
+                    <div class="public-people col-md-4">
+                        <div class="top">
+                            <div class="icon"><span class="ruch-jow-icon-checklist"></span></div>
+                            <div class="title"
+                                 translate="ranks.pointsTotal.part1"
+                                 translate-values="{ USERS: getStatistics('basic.supportersCnt')}"
+                                 translate-interpolation="messageformat"
+                            ></div>
+                        </div>
+                        <div class="bottom">
+                            <span class="big">[[ getStatistics('basic.pointsTotal')|frNumberFormat ]]</span>
+                            [[ 'ranks.pointsTotal.part2'|translate:{ POINTS: getStatistics('basic.pointsTotal') }:'messageformat' ]]
+                        </div>
+                    </div>
+                    <div class="collected col-md-4">
+                        <div class="top">
+                            <div class="icon"><span class="ruch-jow-icon-rankings"></span></div>
+                            <div class="title">Twoja gmina<br/>jest obecnie na</div>
+                        </div>
+                        <div class="bottom">
+                            <span class="big">[[ getStatistics('user.ranksTU.commune.country')|frNumberFormat ]]</span> miejscu w rankingu
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="ranks-message-block" ruch-jow-link-block="'points_info'">
+                    <div>Sprawdź jak i za co otrzymasz dodatkowe punkty dla Ciebie i Twojego regionu.</div>
+                    <a ui-sref="points_info" ruch-jow-force-hash-href="" class="btn btn-check">Sprawdź</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" ng-if="security.currentUser && security.currentUser.username">
+            <div class="col-md-12">
+                <div class="ranks-info-block">
+                    <div class="collected col-md-3">
+                        <div class="top">
+                            <div class="icon"><span class="ruch-jow-icon-rankings"></span></div>
+                            <div class="title">Zebrałeś<br/>do tej pory</div>
+                        </div>
+                        <div class="bottom">
+                            <span class="big">[[ getStatistics('user.pointsUser')|frNumberFormat ]]</span> pkt
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <table class="ranks">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>w gminie</th>
+                                    <th>w powiecie</th>
+                                    <th>w województwie</th>
+                                    <th>w Polsce</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>Twoje aktualne miejsce</th>
+                                    <td>[[ getStatistics('user.ranksUser.commune')|frNumberFormat ]]</td>
+                                    <td>[[ getStatistics('user.ranksUser.district')|frNumberFormat ]]</td>
+                                    <td>[[ getStatistics('user.ranksUser.region')|frNumberFormat ]]</td>
+                                    <td>[[ getStatistics('user.ranksUser.country')|frNumberFormat ]]</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">Miejsce Twojej gminy</th>
+                                    <td>[[ getStatistics('user.ranksTU.commune.district')|frNumberFormat ]]</td>
+                                    <td>[[ getStatistics('user.ranksTU.commune.region')|frNumberFormat ]]</td>
+                                    <td>[[ getStatistics('user.ranksTU.commune.country')|frNumberFormat ]]</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3">Miejsce Twojego powiatu</th>
+                                    <td>[[ getStatistics('user.ranksTU.district.region')|frNumberFormat ]]</td>
+                                    <td>[[ getStatistics('user.ranksTU.district.country')|frNumberFormat ]]</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="4">Miejsce Twojego województwa</th>
+                                    <td>[[ getStatistics('user.ranksTU.region.country')|frNumberFormat ]]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" ng-controller="RanksFullCtrl">
+        {# <div class="row">
+            <div class="col-md-12">
+                <div class="page-block ranks-block">
+                    <div class="header">
+                        <h1>Rankingi ogólnopolskie</h1>
+                        <div class="links">
+                            <ul>
+                                <li ng-repeat="type in nationwideTerritorialUnitRanking.availableTypes">
+                                    <a class="clickable"
+                                        ng-class="{ active: nationwideTerritorialUnitRanking.type === type }"
+                                        ng-click="nationwideTerritorialUnitRanking.setType(type)"
+                                    >[[ ('tu.type.' + type + '_plural')|translate ]]</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div
+                            class="col-md-4"
+                            ruch-jow-rank-table=""
+                            ranking-obj="nationwideUserRanking"
+                            name-column-title="Użytkownik"
+                            points-column-title="Punkty"
+                        >[[ row.nick ]]</div>
+                        <div
+                            class="col-md-4"
+                            ruch-jow-rank-table=""
+                            ranking-obj="organisationRanking"
+                            name-column-title="Partner"
+                            points-column-title="Punkty"
+                        >[[ row.name ]]</div>
+                        <div
+                            class="col-md-4"
+                            ruch-jow-rank-table=""
+                            ranking-obj="nationwideTerritorialUnitRanking"
+                            name-column-title="[[ (nationwideTerritorialUnitRanking.type ? ('tu.type.' + nationwideTerritorialUnitRanking.type) : '')|translate ]]"
+                            points-column-title="Punkty"
+                        >[[ row.name ]]</div>
+                    </div>
+                </div>
+            </div>
+        </div> #}
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-block ranks-block" ng-controller="RanksFullCtrl">
+                    <div class="header">
+                        <h1>Rankingi &ndash; ludzie i regiony</h1>
+                        <div class="links">
+                            <ul>
+                                <li><a class="clickable" ng-class="{'active': isCurrentTU('my_region')}" ng-click="setCurrentTU('my_region')" ng-show="userRegion">moje województwo ([[userRegion.name]])</a></li>
+                                <li><a class="clickable" ng-class="{'active': isCurrentTU('my_district')}" ng-click="setCurrentTU('my_district')" ng-show="userDistrict">mój powiat ([[userDistrict.name]])</a></li>
+                                <li><a class="clickable" ng-class="{'active': isCurrentTU('my_commune')}" ng-click="setCurrentTU('my_commune')" ng-show="userCommune">moja gmina ([[userCommune.name]])</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        {# Map #}
+                        <section class="col-md-6">
+                            <div class="map-title">
+                                <span class="active-territorial-unit">
+                                    <span ng-show="activeTerritorialUnit.type !== 'country'">
+                                        <span class="type">
+                                            [[ ('tu.type.' + activeTerritorialUnit.type)|translate ]]
+                                        </span>
+                                        <span class="name">
+                                            [[ activeTerritorialUnit.name ]]
+                                        </span>
+                                    </span>
+                                    <span class="name" ng-show="activeTerritorialUnit.type === 'country'" translate>
+                                        tu.whole_country
+                                    </span>
+                                </span>
+                                <span class="level-up clickable glyphicon glyphicon-chevron-up" ng-click="showParent()" ng-show="parent"></span>
+                            </div>
+                            <div
+                                ruch-jow-map class="ruch-jow-google-map"
+                                map-init-view="country"
+                                markers-data="markersData"
+                                active-territorial-unit="activeTerritorialUnit"
+                            >
+                            </div>
+                        </section>
+
+                        <section class="col-md-6">
+                            <div class="row">
+                                <div
+                                    class="col-md-6"
+                                    ruch-jow-rank-table=""
+                                    ranking-obj="userRanking"
+                                    name-column-title="Użytkownik"
+                                    points-column-title="Punkty"
+                                ><a class="clickable" ng-click="$showModalProfile(row.nick)">[[ row.displayName ]]</a></div>
+                                <div class="col-md-6">
+                                    <ul class="nav nav-tabs rank-tabs" ng-if="territorialUnitRanking.availableTypes.length">
+                                        <li
+                                            ng-repeat="type in territorialUnitRanking.availableTypes"
+                                            ng-class="{active: (territorialUnitRanking.type === type) }"
+                                        >
+                                            <a ng-click="territorialUnitRanking.setType(type)">
+                                                [[ ('tu.type.' + type + '_plural')|translate ]]
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <div
+                                        ruch-jow-rank-table=""
+                                        ranking-obj="territorialUnitRanking"
+                                        name-column-title="[[ (territorialUnitRanking.type ? ('tu.type.' + territorialUnitRanking.type) : '')|translate ]]"
+                                        points-column-title="Punkty"
+                                    >
+                                        <a ng-click="setCurrentTU(row.unitType, row.unitId)" class="clickable">[[ row.name ]]</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-block ranks-block" ng-controller="RanksFullCtrl">
+                    <div class="header">
+                        <h1>Rankingi &ndash; promowane strony</h1>
+                        <div class="links">
+                            {#<ul>#}
+                                {#<li><a class="clickable" ng-class="{'active': isCurrentTU('my_region')}" ng-click="setCurrentTU('my_region')" ng-show="userRegion">moje województwo ([[userRegion.name]])</a></li>#}
+                                {#<li><a class="clickable" ng-class="{'active': isCurrentTU('my_district')}" ng-click="setCurrentTU('my_district')" ng-show="userDistrict">mój powiat ([[userDistrict.name]])</a></li>#}
+                                {#<li><a class="clickable" ng-class="{'active': isCurrentTU('my_commune')}" ng-click="setCurrentTU('my_commune')" ng-show="userCommune">moja gmina ([[userCommune.name]])</a></li>#}
+                            {#</ul>#}
+                        </div>
+                    </div>
+
+                    <div class="block-rank-wrapper" ng-class="{ loading: organisationRanking.loading }">
+                        <div class="row" >
+                            <div class="col-md-4" ng-if="(row = organisationRanking.highlighted) && row.relativePosition === 1">
+                                <div class="block-rank-element highlighted">
+                                    <div class="rank">[[ row.rank ]].</div>
+                                    <div class="content-wrapper">
+                                        <div class="content">
+                                            <div class="content-header-wrapper">
+                                                <div class="content-header">
+                                                    <a href="[[ row.protocol + row.url ]]">[[ row.url ]]</a>
+                                                    <span class="name">[[ row.name ]]</span>
+                                                </div>
+                                            </div>
+                                            <div class="content-content">
+                                                <span class="points">[[ row.points ]] pkt</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" ng-repeat="row in organisationRanking.ranking">
+                                <div class="block-rank-element" ng-class="{ highlighted: row.highlighted }">
+                                    <div class="rank">[[ row.rank ]].</div>
+                                    <div class="content-wrapper">
+                                        <div class="content">
+                                            <div class="content-header-wrapper">
+                                                <div class="content-header">
+                                                    <a href="[[ row.protocol + row.url ]]">[[ row.url ]]</a>
+                                                    <span class="name">[[ row.name ]]</span>
+                                                </div>
+                                            </div>
+                                            <div class="content-content">
+                                                <span class="points">[[ row.points ]] pkt</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" ng-if="(row = organisationRanking.highlighted) && row.relativePosition === -1">
+                                <div class="block-rank-element highlighted">
+                                    <div class="rank">[[ row.rank ]].</div>
+                                    <div class="content-wrapper">
+                                        <div class="content">
+                                            <div class="content-header-wrapper">
+                                                <div class="content-header">
+                                                    <a href="[[ row.protocol + row.url ]]">[[ row.url ]]</a>
+                                                    <span class="name">[[ row.name ]]</span>
+                                                </div>
+                                            </div>
+                                            <div class="content-content">
+                                                <span class="points">[[ row.points ]] pkt</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div pagination
+                            total-items="organisationRanking.pages * organisationRanking.limit"
+                            items-per-page="organisationRanking.limit"
+                            ng-model="organisationRanking.page"
+                            max-size="10"
+                            class="pagination-sm"
+                            boundary-links="true"
+                            {#rotate="false"#}
+                            direction-links="false"
+                            first-text="&laquo;"
+                            previous-text="&lsaquo;"
+                            next-text="&rsaquo;"
+                            last-text="&raquo;"
+                        ></div>'
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

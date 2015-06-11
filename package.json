@@ -1,0 +1,13 @@
+{
+  "name": "ruchjowpl",
+  "description": "Ruchjow.pl",
+  "author": "Ruch JOW <kontakt@ruchjow.pl>",
+  "dependencies": {
+    "less": "2.5.*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ruchjowpl/ruchjowpl"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,10 @@
+parameters:
+    ruch_jow_transferuj_pl.payment_manger.class: RuchJow\TransferujPlBundle\Service\PaymentManager
+
+services:
+    ruch_jow_transferuj_pl.payment_manager:
+        class: %ruch_jow_transferuj_pl.payment_manger.class%
+        arguments:
+            - @event_dispatcher
+            - @doctrine
+            - @service_container

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Ruch JOW" basedir="." default="main" phingVersion="2.11.0">
+    <!-- Properties -->
+    <property file="properties.dist" />
+    <if>
+        <available file="properties" property="custom.properties.available"/>
+        <then>
+            <property file="properties" override="true" />
+        </then>
+    </if>
+
+    <!-- Filesets -->
+    <fileset id="sourcecode" dir="${dir.src}">
+        <include name="**/*.php"/>
+        <exclude name="*Test.php"/>
+        <exclude name="**/*Test.php"/>
+        <exclude name="**/Resources/**"/>
+        <exclude name="**/DataFixtures/**"/>
+        <exclude name="**/Tests/**"/>
+    </fileset>
+    <fileset id="tests" dir="${dir.src}">
+        <include name="**/*Test*.php"/>
+    </fileset>
+    <!-- Default target build:clean, build:prepare, build:check, build:test, build:doc -->
+    <target name="main"
+            depends="clean, prepare, check, test, doc"
+            description="Run all tests"/>
+
+    <!-- Doc target -->
+    <target name="doc"
+            depends="prepare, doc:phpdoc2"
+            description="Generates app API documentation."/>
+
+    <!-- Check target -->
+    <target name="check"
+            depends="check:cs, check:lint, check:md, check:cpd, check:depend, check:loc"
+            description="Analyzes app code."/>
+
+    <!-- Test target -->
+    <target name="test"
+            depends="test:unit"
+            description="Executes all tests.."/>
+
+    <!-- Project build clean -->
+    <target name="clean" description="Clean up build directories.">
+        <echo msg="Cleaning docs and reports directories ..."/>
+        <delete dir="${dir.build.reports}"/>
+    </target>
+
+    <!-- Project build prepare -->
+    <target name="prepare" description="Create build directories.">
+        <echo msg="Creating build directories ..."/>
+        <mkdir dir="${dir.build.docs}"/>
+        <mkdir dir="${dir.build.docs.phpdoc2}"/>
+        <mkdir dir="${dir.build.reports}"/>
+        <mkdir dir="${dir.build.reports.coverage}"/>
+        <mkdir dir="${dir.build.reports.pdepend}"/>
+    </target>
+
+    <!-- PHPDocumentor2 API documentation target -->
+    <target name="doc:phpdoc2" description="Generate project Documentation.">
+        <echo msg="Generating project Documentation with phpDocumentor 2 ..."/>
+        <phpdoc2 title="Ruch JOW Documentation" destdir="${dir.build.docs.phpdoc2}">
+            <fileset refid="sourcecode" />
+        </phpdoc2>
+    </target>
+
+    <!-- Code sniffer -->
+    <target name="check:cs" description="Checks coding standard.">
+        <echo msg="Checking coding standard ..."/>
+        <phpcodesniffer standard="PSR2" showWarnings="true">
+            <fileset refid="sourcecode"/>
+            <formatter type="checkstyle" outfile="${dir.build.reports}/checkstyle.xml"/>
+        </phpcodesniffer>
+    </target>
+
+    <!-- php lint -->
+    <target name="check:lint" description="PHP Lint.">
+        <echo msg="PHP Lint..."/>
+        <phplint tofile="${dir.build.reports}/phplint.txt" deprecatedAsError="true">
+            <fileset refid="sourcecode"/>
+        </phplint>
+    </target>
+
+    <!-- copy/paste detector -->
+    <target name="check:cpd" description="Checks similar code blocks.">
+        <echo msg="Checking similar code blocks ..."/>
+        <phpcpd>
+            <fileset dir="${dir.src}" id="filestocpd">
+                <include name="**/*.php"/>
+            </fileset>
+            <formatter type="pmd" outfile="${dir.build.reports}/pmd-cpd.xml"/>
+        </phpcpd>
+    </target>
+
+    <!-- Mess detector -->
+    <target name="check:md" description="Generate code metrics.">
+        <echo msg="Generating code metrics ..."/>
+        <phpmd>
+            <fileset refid="sourcecode"/>
+            <formatter type="xml" outfile="${dir.build.reports}/pmd.xml"/>
+        </phpmd>
+    </target>
+
+    <!-- Code dependency -->
+    <target name="check:depend" description="Checks coupling and dependency.">
+        <echo msg="Checking coupling and dependency ..."/>
+        <phpdepend>
+            <fileset refid="sourcecode"/>
+            <logger type="jdepend-xml" outfile="${dir.build.reports.pdepend}/jdepend.xml"/>
+            <logger type="jdepend-chart" outfile="${dir.build.reports.pdepend}/dependencies.svg"/>
+            <logger type="overview-pyramid" outfile="${dir.build.reports.pdepend}/overview-pyramid.svg"/>
+        </phpdepend>
+    </target>
+
+    <!-- Measure the size and analyzing the structure of a project -->
+    <target name="check:loc" description="Measure the size and analyzing the structure of a project.">
+        <echo msg="Measuring the size and analyzing the structure of a project ..."/>
+        <phploc countTests="true" reportType="csv" reportName="phploc" reportDirectory="${dir.build.reports}">
+            <fileset refid="sourcecode"/>
+        </phploc>
+    </target>
+
+    <!-- Unit tests -->
+    <target name="test:unit" description="Executes unit tests.">
+        <!-- Check test database -->
+        <if>
+            <not><available file="${dir.testData}" type="dir" property="dir.testData.available"/></not>
+            <then>
+                <mkdir dir="${dir.testData}"/>
+            </then>
+        </if>
+        <if>
+            <not><available file="${testDatabase}" property="testDatabase.available"/></not>
+            <then>
+                <touch file="${testDatabase}"/>
+            </then>
+        </if>
+        <echo msg="Running unit tests ..."/>
+        <if>
+            <istrue value="${phpunit.exec}"/>
+            <then>
+                <if>
+                    <istrue value="${coverage}"/>
+                    <then>
+                        <echo message="Running tests with code coverage..."/>
+                        <exec command="bin/phpunit --log-junit ${dir.build.reports}/phpunit.xml --coverage-clover ${dir.build.reports.coverage}/clover-coverage.xml --coverage-crap4j ${dir.build.reports.coverage}/crap4j-coverage.xml --coverage-html ${dir.build.reports.coverage}/ -c ${dir.app} --colors" passthru="true" checkreturn="true"/>
+                    </then>
+                    <else>
+                        <echo message="Running tests without code coverage..."/>
+                        <exec command="bin/phpunit --log-junit ${dir.build.reports}/phpunit.xml -c ${dir.app} --colors" passthru="true" checkreturn="true"/>
+                    </else>
+                </if>
+            </then>
+            <else>
+                <if>
+                    <istrue value="${coverage}"/>
+                    <then>
+                        <echo message="Running tests with code coverage..."/>
+                        <coverage-setup database="${dir.build.reports.coverage}/coverage.db">
+                            <fileset refid="sourcecode"/>
+                        </coverage-setup>
+                        <phpunit configuration="${phpunit.configuration}" printsummary="true" codecoverage="true" haltonerror="true">
+                            <formatter todir="${dir.build.reports}" type="xml" outfile="phpunit.xml"/>
+                            <formatter todir="${dir.build.reports.coverage}" type="clover"/>
+                            <batchtest>
+                                <fileset refid="tests"/>
+                            </batchtest>
+                        </phpunit>
+                    </then>
+                    <else>
+                        <echo message="Running tests without code coverage..."/>
+                        <phpunit pharLocation="${phpunit.pharLocation}" configuration="${phpunit.configuration}" printsummary="true" haltonerror="true">
+                            <formatter todir="${dir.build.reports}" type="xml" outfile="phpunit.xml"/>
+                            <batchtest>
+                                <fileset refid="tests"/>
+                            </batchtest>
+                        </phpunit>
+                    </else>
+                </if>
+            </else>
+        </if>
+    </target>
+</project>

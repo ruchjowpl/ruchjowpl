@@ -1,0 +1,5 @@
+# Main page
+user_main:
+    resource: "@RuchJowFeedbackBundle/Controller/FeedbackController.php"
+    prefix:   /
+    type:     annotation

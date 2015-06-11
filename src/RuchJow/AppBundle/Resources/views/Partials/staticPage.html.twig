@@ -1,0 +1,36 @@
+{% extends 'RuchJowAppBundle:Partials:pageWrapper.html.twig' %}
+
+{% block page_wrapper_content %}
+
+    <div class="row">
+        <div class="col-md-{{ 12 - (rightColumnSize is defined ? rightColumnSize : 0)  }}">
+            <div class="page-block static-page-block" {% if controllerName is defined %}ng-controller="{{ controllerName }}"{% endif %}>
+                <article>
+                    {% if showTitle is not defined or showTitle %}
+                    <div class="header">
+                        {% block static_page_header %}
+                            <h1>{% block title %}{% endblock %}</h1>
+                        {% endblock %}
+                    </div>
+                    {% endif %}
+
+                    <div {% block static_page_content_attributes %}class="content"{% endblock %}>
+                        {% block static_page_content %}
+
+                        {% endblock %}
+                    </div>
+                </article>
+            </div>
+        </div>
+        {% if rightColumnSize is defined %}
+            <div class="col-md-{{ rightColumnSize }}">
+                {% block right_column %}
+
+                {% endblock %}
+            </div>
+        {% endif %}
+    </div>
+
+    {% block bellow %}{% endblock %}
+
+{% endblock %}

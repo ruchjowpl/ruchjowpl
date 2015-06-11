@@ -1,0 +1,195 @@
+
+.underlined-block(@bg-color, @border-color, @underline-size) {
+  background-color: @bg-color;
+  border-bottom: @underline-size solid @border-color;
+}
+
+.underlined-block(@bg-color, @border-color) {
+  .underlined-block(@bg-color, @border-color, @ruch-jow-underlined-border-size);
+}
+
+.underlined-block(@bg-color) {
+  .underlined-block(@bg-color, darken(@bg-color, @ruch-jow-underlined-border-darkening));
+}
+
+
+.page-block(@bg-color, @border-color, @header-color, @header-background-color) {
+  .underlined-block(@bg-color, @border-color);
+
+  .clearfix();
+
+  .header {
+    .clearfix();
+
+    color: @header-color;
+    background-color: @header-background-color;
+
+    margin: -@ruch-jow-block-padding-top -@ruch-jow-block-padding-right @ruch-jow-block-padding-bottom -@ruch-jow-block-padding-left;
+    padding: @ruch-jow-block-header-padding-v @ruch-jow-block-header-padding-h;
+    text-align: right;
+
+    //height: @ruch-jow-block-header-height;
+
+
+    h1 {
+      font-size: @ruch-jow-block-header-title-font-size;
+      font-weight: normal;
+
+      line-height: 1;
+
+      text-align: left;
+
+      margin: 0;
+
+      float: left;
+    }
+
+
+    .links {
+      font-size: @ruch-jow-block-header-title-links-font-size;
+      font-weight: 500;
+      line-height: @ruch-jow-block-header-title-links-line-height;
+
+      padding: 0;
+
+      ul {
+        list-style: none;
+        margin: 0;
+
+        li {
+          list-style: none;
+          display: inline-block;
+
+
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  .content {
+    //&.no-padding {
+    //  margin: -@ruch-jow-block-padding-top -@ruch-jow-block-padding-right -@ruch-jow-block-padding-bottom -@ruch-jow-block-padding-left;
+    //}
+
+    &.in-progress-center {
+      margin: -@ruch-jow-block-padding-top -@ruch-jow-block-padding-right -@ruch-jow-block-padding-bottom -@ruch-jow-block-padding-left;
+      min-height: 8em;
+    }
+  }
+
+  > h1 {
+    margin-top: 0;
+  }
+
+  h2 {
+    background: #2a2a2a;
+    color: #fff;
+    border-bottom: none !important;
+    text-transform: capitalize;
+    font-variant: small-caps;
+    font-size: 1.4rem;
+    font-weight: bold;
+    padding: 0.8rem;
+    margin: 0 0 0.5rem;
+    line-height: normal;
+
+    .sub-info {
+      float: right;
+      font-size: 0.9em;
+      margin: 0 0 0.5em 1em;
+    }
+  }
+
+
+  padding: @ruch-jow-block-padding-top @ruch-jow-block-padding-right @ruch-jow-block-padding-bottom @ruch-jow-block-padding-left;
+}
+
+.page-block(@color, @border-color) {
+  .page-block(@color, @border-color, darken(@color, 10%), darken(@border-color, 10%));
+}
+
+.page-block(@color) {
+  .page-block(@color, darken(@color, 10%));
+}
+
+.page-block {
+  .page-block(white, #C9C9CA);
+}
+
+// Buttons
+
+.btn-icon() {
+  .btn-icon(@fa-var-chevron-right, 1.5em);
+};
+
+.btn-icon(@icon, @right) {
+  .btn-icon(@fa-var-chevron-right, @right, @right * 1.1);
+}
+
+.btn-icon(@icon, @right, @padding) {
+  .btn-icon(@icon, @right, @padding, @padding * 1.4);
+}
+
+.btn-icon(@icon, @right, @padding, @padding-right) {
+  position: relative;
+
+  &:after {
+
+    @font-size: 0.9em;
+
+    .fa();
+
+    content: @icon;
+
+    position: absolute;
+    left: 100%;
+    margin-left: -@right;
+    line-height: 1.15em;
+    vertical-align: middle;
+
+    top: 50%;
+    margin-top: -0.5em;
+
+    font-size: @font-size;
+  }
+
+  padding-right: @padding-right;
+  padding-left: @padding;
+}
+
+.btn(@bg-color, @border-color, @color, @underline-size) {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-size: @ruch-jow-btn-default-font-size;
+  font-weight: @ruch-jow-btn-default-font-weight;
+
+  .underlined-block(@bg-color, @border-color, @underline-size);
+  color: @color;
+
+  &:hover, &:visited {
+    color: @color;
+  }
+}
+
+.btn(@bg-color, @border-color, @color) {
+  .btn(@bg-color, @border-color, @color, @ruch-jow-underlined-btn-border-size)
+}
+
+.btn() {
+  .btn(@ruch-jow-btn-default-bg-color, @ruch-jow-btn-default-border-color, @ruch-jow-btn-default-color);
+}
+
+
+
+.link-one-color(@color) {
+  color: @color;
+
+  &:link,
+  &:hover,
+  &:active,
+  &:visited {
+    color: @color;
+  }
+}

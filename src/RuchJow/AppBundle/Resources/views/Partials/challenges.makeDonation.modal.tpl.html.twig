@@ -1,0 +1,33 @@
+<article>
+    <div class="close-control" ng-click="cancel()"></div>
+
+    <div class="modal-header">
+        <h1 ng-if="!security.currentUser || !security.currentUser.username">Nie jesteś zalogowany</h1>
+        <h1 ng-if="security.currentUser && security.currentUser.username">Przejdź do strony płatności</h1>
+    </div>
+
+    <div class="modal-body" ng-if="!security.currentUser || !security.currentUser.username">
+        <div class="btn-block">
+            <p>Zaloguj się w celu zaliczenia punków za wpłatę</p>
+            <div>
+                <button class="btn btn-go btn-small" ng-click="security.login()">Zaloguj</button>
+            </div>
+        </div>
+
+        <div class="btn-block">
+            <p>Chcę dostać punkty, ale nie mam konta - zarejestruj się.</p>
+            <div><button class="btn btn-go btn-small" ng-click="security.register()">Zarejestruj</button></div>
+        </div>
+
+        <div class="btn-block">
+            <p>Nie chcę punktów, przenieś mnie od razu do strony płatności</p>
+            <div><button class="btn btn-go btn-small" ng-click="ok('anonymous')">Wpłata <span class="x-small">(bez punktów)</span></button></div>
+        </div>
+    </div>
+
+    <div class="modal-body" ng-if="security.currentUser && security.currentUser.username">
+        <div class="btn-block">
+            <button class="btn btn-go btn-small" ng-click="ok('normal')">Wpłata</button>
+        </div>
+    </div>
+</article>

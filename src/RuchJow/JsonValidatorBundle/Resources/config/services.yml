@@ -1,0 +1,8 @@
+parameters:
+    ruch_jow_json_validator.json_validator.class: RuchJow\JsonValidatorBundle\Services\JsonValidator
+
+services:
+    ruch_jow_json_validator.json_validator:
+        class: %ruch_jow_json_validator.json_validator.class%
+        arguments: [@doctrine]
+#        arguments: [@service_id, "plain_value", %parameter%]

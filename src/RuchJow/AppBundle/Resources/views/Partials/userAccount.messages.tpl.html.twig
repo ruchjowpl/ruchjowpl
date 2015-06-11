@@ -1,0 +1,80 @@
+<div id="user_messages">
+
+    <h1>Wiadomości</h1>
+
+    <div class="row msgs">
+        <div class="msgs-folders col-md-2">
+            <ul>
+                <li ng-repeat="folder in folders.list track by folder.name"
+                    ng-class="{ selected: folders.isSelected(folder), unread: !!folder.unread }"
+                    class="clickable"
+                    ng-click="folders.select(folder.name)"
+                >
+                    <span translate="[['msgs.folder.' + folder.name + '.label']]"></span>
+                    <span ng-if="folder.unread">([[ folder.unread ]])</span>
+                </li>
+            </ul>
+        </div>
+        <div class="msgs-messages col-md-10">
+
+            <div class="msgs-messages-ctrls">
+                <span class="msgs-page-no">
+                    <span ng-show="folders.messagesStart">
+                        Wiadomości od [[ folders.messagesStart ]] do [[ folders.messagesStop ]]
+                    </span>
+
+                    <div class="right-ctrls">
+                        strona
+                        <input
+                            ng-model="folders.pageInput"
+                            ng-change="folders.changePage(folders.pageInput)"
+                            ng-model-options="{ updateOn: 'change'}"
+                        />
+                        z [[ folders.pages ]]
+
+                        <span ng-click="folders.changePage(folders.page - 1)" ng-class="{ disabled: folders.page == 1 }" class="glyphicon glyphicon-arrow-left clickable"></span>
+                        <span ng-click="folders.changePage(folders.page + 1)" ng-class="{ disabled: folders.page == folders.pages }" class="glyphicon glyphicon-arrow-right clickable"></span>
+                    </div>
+
+                </span>
+            </div>
+            <table class="msgs-messages-table">
+                <thead>
+                    <tr>
+                        <th class="unread"><span class="fa fa-eye"></span></th>
+                        <th class="sender" ng-if="folders.selected.name !== '#sent'">Od</th>
+                        <th class="recipient" ng-if="folders.selected.name === '#sent'">Do</th>
+                        <th class="subject">Temat</th>
+                        <th class="sent-at">Data wysłania</th>
+                        {#<th class="read-at">Data przeczytania</th>#}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="message in folders.messages track by message.id" ng-class="{ unread: !message.isRead }">
+                        <td class="unread"><span ng-show="!message.isRead" class="fa fa-eye"></span></td>
+                        <td class="sender clickable"
+                            ng-if="folders.selected.name !== '#sent'"
+                            ng-click="showMessage(message.id)"
+                        >[[ message.sender ]]</td>
+                        <td class="recipient clickable"
+                            ng-if="folders.selected.name === '#sent'"
+                            ng-click="showMessage(message.id)"
+                        >[[ message.recipient ]]</td>
+                        <td class="subject clickable"
+                            ng-click="showMessage(message.id)"
+                        >[[ message.subject ]]</td>
+                        <td class="sent-at clickable"
+                            ng-click="showMessage(message.id)"
+                        >[[ message.sentAt|date:'yyyy-MM-dd HH:mm' ]]</td>
+                        {#<td class="read-at">[[ message.readAt|date:'yyyy-MM-dd HH:mm' ]]</td>#}
+                    </tr>
+                    <tr ng-repeat="element in folders.emptyMessages track by $index">
+                        <td colspan="4">&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>

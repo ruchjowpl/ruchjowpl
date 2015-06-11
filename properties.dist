@@ -1,0 +1,112 @@
+#---------------------------
+# INFO
+# Property files contain key/value pairs
+#key=value
+#
+# Property keys may contain alphanumeric chars and colons, but
+# not special chars. This way you can create pseudo-namespaces
+#
+# You can refer to values of other properties by enclosing their
+# keys in "${}".ex: dir.js=${dir.web}/js
+#
+# Everything behind the equal sign is the value, you do
+# not have to enclose strings: text=This is some text, Your OS is ${php.os}
+#
+# DO NOT CHANGE OR ADD YOUR LOCAL(CUSTOM) PARAMETER HERE!!!
+# create properties file and add there parameters you want to override
+#---------------------------
+
+#---------------------------
+# PROPERTIES               |
+#---------------------------
+
+#---------------------------
+# NPM
+
+#if execute npm during phing build
+npm.execute=true
+
+# COMPOSER
+
+#if execute composer during phing build
+composer.execute=true
+
+#path to composer executable or composer.phar file
+composer.path=/usr/local/bin/composer
+
+#path to php executable used by composerTask
+composer.php=php
+
+#always try to update composer
+composer.self-update=false
+
+#always validate the composer.json file
+composer.validate=false
+
+#---------------------------
+# ENVIRONMENT
+
+# default environment
+# env=prod
+
+# running
+execWithSudo=false
+changeOwner=false
+
+# http server user to give ownership
+httpserver.user=www-data
+httpserver.group=www-data
+
+#---------------------------
+# DIRECTORIES
+
+# base directories
+dir.app=${project.basedir}/app
+dir.src=${project.basedir}/src
+dir.cache=${dir.app}/cache
+dir.logs=${dir.app}/logs
+dir.data=${project.basedir}/data
+
+# web directories
+dir.web=${project.basedir}/web
+dir.web.assetic=${dir.web}/assetic
+dir.web.bundles=${dir.web}/bundles
+dir.web.css=${dir.web}/css
+dir.web.images=${dir.web}/images
+dir.web.js=${dir.web}/js
+dir.web.media=${dir.web}/media
+
+# upload directories
+dir.upload=${dir.web}/upload
+
+# build directories
+dir.build=${project.basedir}/build
+dir.build.docs=${dir.build}/docs
+dir.build.docs.phpdoc2=${dir.build.docs}/phpdoc2
+dir.build.docs.phpcb=${dir.build.docs}/phpcb
+dir.build.reports=${dir.build}/logs
+dir.build.reports.pdepend=${dir.build.reports}/pdepend
+dir.build.reports.coverage=${dir.build.reports}/coverage
+
+# test directories
+dir.testData=${dir.data}/test
+
+#---------------------------
+# ASSETS
+assets.installWithSymlink=false
+
+#---------------------------
+# TESTING
+
+# test database path
+testDatabase=${dir.data}/test/database.sqlite
+
+# phpunit
+phpunit.pharLocation=/usr/local/bin/phpunit
+# run phpunit using exec task instead of phpunitTask
+phpunit.exec=true
+phpunit.configuration=${dir.app}/phpunit.xml.dist
+
+# collect coverage data during tests
+coverage=false
+#---------------------------

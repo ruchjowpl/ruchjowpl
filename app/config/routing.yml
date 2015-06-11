@@ -1,0 +1,87 @@
+
+ruch_jow_ajax_auth:
+    resource: "@RuchJowAjaxAuthBundle/Resources/config/routing.yml"
+
+ruch_jow_transferuj_pl:
+    resource: "@RuchJowTransferujPlBundle/Resources/config/routing.yml"
+    prefix: /transferuj_pl
+
+# User-related routes
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+#fos_user_profile:
+#    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+#    prefix: /profile
+
+#fos_user_resetting:
+#    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+#    prefix: /resetting
+
+#fos_user_change_password:
+#    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+#    prefix: /profile
+
+
+# JS Routing
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+
+# App-specific routes
+ruch_jow_app:
+    resource: "@RuchJowAppBundle/Resources/config/routing.yml"
+
+ruch_jow_page_foundation:
+    resource: "@RuchJowPageFoundationBundle/Resources/config/routing.yml"
+
+ruch_jow_territorial_units:
+    resource: "@RuchJowTerritorialUnitsBundle/Resources/config/routing.yml"
+    prefix: /cif/tu/
+
+ruch_jow_local_gov:
+    resource: "@RuchJowLocalGovBundle/Resources/config/routing.yml"
+    prefix: /cif/localgov/
+
+ruch_jow_user:
+    resource: "@RuchJowUserBundle/Resources/config/routing.user.yml"
+    prefix: /cif/user/
+
+ruch_jow_user_organisation:
+    resource: "@RuchJowUserBundle/Resources/config/routing.organisation.yml"
+    prefix: /cif/user/
+
+ruch_jow_statistics:
+    resource: "@RuchJowStatisticsBundle/Resources/config/routing.yml"
+    prefix: /cif/statistics/
+
+ruch_jow_points:
+    resource: "@RuchJowPointsBundle/Resources/config/routing.yml"
+    prefix: /cif/pts/
+
+ruch_jow_feedback:
+    resource: "@RuchJowFeedbackBundle/Resources/config/routing.yml"
+    prefix: /cif/feedback/
+
+ruch_jow_messages:
+    resource: "@RuchJowMessagesBundle/Resources/config/routing.yml"
+    prefix: /cif/messages/
+
+# FEED
+ruch_jow_feed:
+    resource: "@RuchJowFeedBundle/Resources/config/routing.yml"
+    prefix: /cif/feed/
+
+
+# REDIRECTIONS
+redirect_donations:
+    pattern:   /wsparcie
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: '#/challenges/make_donation'
+        permanent: true
+
+# BACKEND
+ruch_jow_backend:
+    resource: "@RuchJowBackendBundle/Resources/config/routing.yml"
+    prefix: /backend/

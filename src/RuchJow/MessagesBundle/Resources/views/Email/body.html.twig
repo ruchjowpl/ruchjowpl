@@ -1,0 +1,55 @@
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <style>
+        body {margin: 0; font-family: sans-serif;}
+        .wrapper {width: 460px; margin: 0 auto;}
+        .header {height: 100px; background: #005a8f; color: #fff; line-height: 100px;}
+        .header a, .header img {display: inline-block; vertical-align: middle; color: inherit;}
+        .header .account-link { float: right; color: inherit; text-decoration: underline; }
+        .content {padding: 50px 0; color: #373737;}
+        h1 { font-size: 22px; font-weight: 500; margin: 0 0 15px;}
+        h2 { font-size: 17px; font-weight: 500; margin: 0 0 60px;}
+        .message { padding: 20px; background: #ececec; font-size: 14px; margin: 0 0 40px;}
+        .message p { margin: 0; }
+        .message p.body { margin: 20px 0 30px; }
+        .message .btns { text-align: right; }
+        .message .btns .btn { padding: 7px 30px; color: #fff; background: #373737; display: inline-block; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="wrapper">
+        <a href="{{ app.request.scheme ~ '://' ~ app.request.host }}">
+            {% image '@img_logo' %}
+            <img src="{{ app.request.scheme ~ '://' ~ app.request.host ~ asset_url }}" alt="RuchJOW.pl" width="56"/>
+            {% endimage %}
+        </a>
+        <a href="http://kukiz.org">
+            {% image '@img_logo_kukiz' %}
+            <img src="{{ app.request.scheme ~ '://' ~ app.request.host ~ asset_url }}" alt="kukiz.org" width="175"/>
+            {% endimage %}
+        </a>
+
+        <a class="account-link" href="{{ app.request.scheme ~ '://' ~ app.request.host }}/?url=/user">Twoje konto</a>
+    </div>
+</div>
+
+<div class="content">
+    <div class="wrapper">
+        <h1>Witaj <strong>{{ message.recipient.displayName }}</strong>,</h1>
+        <h2>Właśnie otrzymałeś nową wiadomość na RuchJOW.pl.</h2>
+
+        <div class="message">
+            <p>Nadawca: {{ message.sender.displayName }}</p>
+            <p>Temat: {{ message.subject }}</p>
+            <p>Data: {{ message.sentAt|date('d.m.Y, H:i') }}</p>
+
+            <p class="body">{{ message.body }}</p>
+            <div class="btns"><a href="{{ app.request.scheme ~ '://' ~ app.request.host }}/?url=/user/messages" class="btn">Skrzynka odbiorcza</a></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+parameters:
+    ruch_jow_messages.message_doctrine_subscriber.class: RuchJow\MessagesBundle\Doctrine\MessageDoctrineSubscriber
+    ruch_jow_messages.thread_doctrine_subscriber.class: RuchJow\MessagesBundle\Doctrine\ThreadDoctrineSubscriber
+    ruch_jow_messages.message_events_subscriber.class: RuchJow\MessagesBundle\Listener\MessageEventsSubscriber
+    ruch_jow_messages.thread_events_subscriber.class: RuchJow\MessagesBundle\Listener\ThreadEventsSubscriber
+
+    ruch_jow_messages.manager.class: RuchJow\MessagesBundle\Entity\Manager
+
+    ruch_jow_messages.email.parameters: {}
+    ruch_jow_messages.email.subject.template: "RuchJowMessagesBundle:Email:subject.txt.twig"
+    ruch_jow_messages.email.body.template: "RuchJowMessagesBundle:Email:body.html.twig"
+
+services:
+    ruch_jow_messages.message_doctrine_subscriber:
+        class: %ruch_jow_messages.message_doctrine_subscriber.class%
+        arguments:
+            - @event_dispatcher
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    ruch_jow_messages.thread_doctrine_subscriber:
+        class: %ruch_jow_messages.thread_doctrine_subscriber.class%
+        arguments:
+            - @event_dispatcher
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    ruch_jow_messages.message_events_subscriber:
+        class: %ruch_jow_messages.message_events_subscriber.class%
+        arguments:
+            - @ruch_jow_messages.manager
+            - @doctrine.orm.default_entity_manager
+            - @ruch_jow_mail_pool.mail_pool
+            - @templating
+            - %ruch_jow_messages.email.parameters%
+            -
+                subject: %ruch_jow_messages.email.subject.template%
+                body: %ruch_jow_messages.email.body.template%
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ruch_jow_messages.thread_events_subscriber:
+        class: %ruch_jow_messages.thread_events_subscriber.class%
+        arguments:
+            - @ruch_jow_messages.manager
+            - @doctrine.orm.default_entity_manager
+        tags:
+            - { name: kernel.event_subscriber }
+
+
+    ruch_jow_messages.manager:
+        class: %ruch_jow_messages.manager.class%
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - @security.context

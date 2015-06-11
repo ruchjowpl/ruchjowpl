@@ -1,0 +1,17 @@
+{{ '<script type="text/ng-template" id="$alert.html">' }}
+<article>
+    <div class="modal-header" ng-if="title">
+        <h1>[[ title ]]</h1>
+    </div>
+    <div class="modal-body">
+        <div class="alert-msg [[ type ]]">
+            <span>[[ msg ]]</span>
+        </div>
+    </div>
+    <div class="modal-footer" ng-if="showOkBtn">
+        <button class="btn btn-msg-ok" ng-click="close()">
+            <span>[[ btnOkCaption ]]</span>
+        </button>
+    </div>
+</article>
+{{ '</script>' }}

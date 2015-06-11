@@ -1,0 +1,4 @@
+points_main:
+    resource: "@RuchJowPointsBundle/Controller"
+    prefix:   /
+    type:     annotation

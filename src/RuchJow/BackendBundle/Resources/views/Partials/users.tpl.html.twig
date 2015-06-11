@@ -1,0 +1,36 @@
+{% extends '@RuchJowBackend/Partials/stdPage.html.twig' %}
+
+{% block title %}
+    Użytkownicy
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-block">
+                <table class="data-table" ng-class="{ 'in-progress-center': loading }">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Data</th>
+                        <th>Godzina</th>
+                        <th>Nick</th>
+                        <th>Email</th>
+                        <th>Link</th>
+                    </tr>
+                    </thead>
+                    <tr ng-repeat="entry in unverifiedUsers|orderBy:'id':true">
+                        <td class="tight">[[ entry.id ]]</td>
+                        <td class="tight">[[ entry.createdAt|date:'yyyy.MM.dd' ]]</td>
+                        <td class="tight">[[ entry.createdAt|date:'HH:mm' ]]</td>
+                        <td><a ui-sref="userUser({ username: entry.nick })">[[ entry.nick ]]</a></td>
+                        <td>[[ entry.email]]</td>
+                        <td>[[ entry.link ]]</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

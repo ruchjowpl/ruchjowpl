@@ -1,0 +1,86 @@
+{{ '<script type="text/ng-template" id="loginFormModal.html">' }}
+<article>
+<form ng-submit="loginAsync()" name="ruchJowLogin" ng-controller="LoginFormSubmitCtrl">
+    <div class="close-control" ng-click="cancel()"></div>
+
+    <div class="modal-header">
+        <h1>Logowanie</h1>
+        <div ng-if="authReason" class="te-error-msg">[[ authReason ]]</div>
+        <div ng-if="errorMessage" class="te-error-msg">[[ errorMessage ]]</div>
+    </div>
+    <div class="modal-body">
+        {# Login #}
+        <div
+            ruch-jow-form-simple-field="login"
+            {#label="security.login.nick"#}
+            ruch-jow-form-show-label="false"
+
+            errors="validation.login.$labels"
+        >
+            <input
+                type="text" name="login"
+                ng-model="data.username" {#ng-model-options="ngModelOptions()"#}
+                ng-required="true"
+                {#ng-pattern="/.{4,}/"#}
+                fr-auto-focus
+                ruch-jow-enter-down-trigger
+                {#ng-pattern="validation.login.pattern"#}
+                {#gd-auto-fill-sync#}
+                title="[[ 'security.login.nick'|translate ]]"
+                placeholder="[[ 'security.login.nick'|translate ]]"
+            />
+        </div>
+
+        {# Password #}
+        <div
+            ruch-jow-form-simple-field="password"
+            {#label="security.login.password"#}
+            ruch-jow-form-show-label="false"
+            errors="validation.password.$labels"
+        >
+            <input
+                type="password" name="password"
+                ng-model="data.password" {#ng-model-options="ngModelOptions()"#}
+                ng-required="true"
+                ruch-jow-enter-down-trigger
+                fr-auto-fill-sync
+                title="[[ 'security.login.password'|translate ]]"
+                placeholder="[[ 'security.login.password'|translate ]]"
+            />
+            <a ng-click="forgotPassword()" class="left clickable" translate="security.login.resetPassword"></a>
+        </div>
+
+        {# Remember me #}
+        <div
+            ruch-jow-form-simple-field="remember_me"
+            {#label="security.login.rememberMe"#}
+            ruch-jow-form-show-label="false"
+            {#errors="validation.rememberMe.$labels"#}
+        >
+            <div class="checkbox-wrapper-right">
+                <label>[[ 'security.login.rememberMe'|translate ]]</label>
+                <input
+                    type="checkbox" name="remember_me"
+                    ng-model="data.rememberMe"
+                    value="on"
+                    title="[[ 'security.login.rememberMe'|translate ]]"
+                />
+            </div>
+        </div>
+
+        <div class="btns">
+            <button type="submit" class="btn btn-login btn-go" ng-disabled="ruchJowLogin.$pending || !ruchJowLogin.$valid">
+                <span class="glyphicon glyphicon-refresh ruch-jow-spin-fast" ng-if="inProgress"></span> Zaloguj
+            </button>
+        </div>
+    </div>
+
+
+<div class="modal-footer center">
+    <a class="clickable" ng-click="register()" translate="security.login.registerLink"></a>
+    {#<button class="btn btn-warning" ng-click="cancel()">Anuluj</button>#}
+</div>
+
+</form>
+</article>
+{{ '</script>' }}

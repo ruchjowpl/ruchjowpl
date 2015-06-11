@@ -1,0 +1,8 @@
+<div {% if pageName is defined %}id="{{ pageName }}"{% endif %} class="page static-page">
+    <div class="container">
+        {% block page_wrapper_content %}
+
+        {% endblock %}
+    </div>
+</div>
+

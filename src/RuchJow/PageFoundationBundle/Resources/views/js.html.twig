@@ -1,0 +1,52 @@
+{# FOUNDATION: Libs #}
+
+    {# FOS JS ROUTING #}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+
+    {# jQuery && jQueryUI #}
+    {% if app.environment == 'dev' %}
+        <script src="{{ asset('js/jquery/jquery-with-ui.js') }}"></script>
+    {% else %}
+        <script src="{{ asset('js/jquery/jquery-with-ui.min.js') }}"></script>
+    {% endif %}
+
+    <script src="{{ asset('js/messageformat.js') }}"></script>
+
+    {# Angular & Angular UI Bootstrap #}
+    {% if app.environment == 'dev' %}
+        <script src="{{ asset('js/angular_with_libs.js') }}"></script>
+    {% else %}
+        <script src="{{ asset('js/angular_with_libs.min.js') }}"></script>
+    {% endif %}
+
+{# FOUNDATION: Custom angular modules #}
+
+    {% javascripts
+        '@RuchJowPageFoundationBundle/Resources/angular/basicServices.js'
+
+        '@RuchJowPageFoundationBundle/Resources/angular/security/symfonyData.js'
+        '@RuchJowPageFoundationBundle/Resources/angular/security/retryQueue.js'
+        '@RuchJowPageFoundationBundle/Resources/angular/security/loginForm.js'
+        '@RuchJowPageFoundationBundle/Resources/angular/security/registerForm.js'
+        '@RuchJowPageFoundationBundle/Resources/angular/security/passwordReset.js'
+        '@RuchJowPageFoundationBundle/Resources/angular/security/service.js'
+        '@RuchJowPageFoundationBundle/Resources/angular/security/interceptor.js'
+        '@RuchJowPageFoundationBundle/Resources/angular/security/security.js'
+        '@RuchJowPageFoundationBundle/Resources/angular/security/translations.js'
+        '@RuchJowPageFoundationBundle/Resources/angular/security/service.js'
+
+        '@RuchJowPageFoundationBundle/Resources/angular/paths.js'
+        '@RuchJowPageFoundationBundle/Resources/angular/ruchJowGoogleAnalytics.js'
+
+        '@RuchJowPageFoundationBundle/Resources/angular/points.js'
+        '@RuchJowPageFoundationBundle/Resources/angular/statistics.js'
+
+        '@RuchJowPageFoundationBundle/Resources/angular/pageFoundationDataServices.js'
+
+        '@RuchJowPageFoundationBundle/Resources/angular/ruchJowAngularTools.js'
+        '@RuchJowPageFoundationBundle/Resources/angular/ruchJowRss.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}

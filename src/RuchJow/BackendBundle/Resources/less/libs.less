@@ -1,0 +1,40 @@
+@import "../../../../../vendor/twitter/bootstrap/less/bootstrap.less";
+@import "../../../../../vendor/ruch-jow-local/font-awesome/less/font-awesome.less";
+@import "../../../../../app/Resources/public/iconsFont/style.less";
+@import "../../../../../app/Resources/public/fonts/style.less";
+
+
+@ruch-jow-font-path:            "/fonts/";
+@icon-font-path:          "/fonts/";
+@fa-font-path:            "/fonts/";
+@ruch-jow-if-font-path:         "/fonts/";
+
+
+.fa() {
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.fa-icon(@name) {
+  &:before {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    content: @name;
+  }
+}
+
+// Bootstrap fix
+@grid-gutter-width: 35px;  // 3.5rem;
+@grid-gutter-width-small: 10px;  // 3.5rem;
+
+@border-radius-base: 0;

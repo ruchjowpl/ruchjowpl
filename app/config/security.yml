@@ -1,0 +1,167 @@
+security:
+    encoders:
+        'FOS\UserBundle\Model\UserInterface': sha512
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            form_login:
+                provider:      fos_userbundle
+                csrf_provider: form.csrf_provider
+                login_path:    fos_user_security_login
+                check_path:    fos_user_security_check
+                success_handler: ruch_jow_ajax_auth.auth_handler
+                failure_handler: ruch_jow_ajax_auth.auth_handler
+#                default_target_path: app_main_page
+            logout:
+                path: /logout
+#                target: app_main_page
+                invalidate_session: false
+                success_handler: ruch_jow_ajax_auth.auth_handler
+            anonymous: true
+
+            switch_user:  false
+
+            remember_me:
+                key:      "%secret%"
+                lifetime: 2592000 # 30 days in seconds
+                path:     /
+                domain:   ~
+
+
+    access_control:
+        # SECURITY
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/users/register$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/users/register/confirm$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+
+#        # FOUNDATION
+        - { path: "^/foundation/partial/[.\-a-zA-Z0-9_]+$", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/foundation/cif/auth_forms_data$,      role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/foundation/cif/user_roles$,           role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/foundation/cif/user_public_data/[^/]+$,     role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/foundation/cif/user_fvu/(nick|email)$, role: IS_AUTHENTICATED_ANONYMOUSLY } #user_field_value_unique
+        - { path: ^/foundation/cif/user_fvpc/(password)$, role: IS_AUTHENTICATED_ANONYMOUSLY } #user_field_value_check
+        - { path: ^/foundation/cif/points_definitions$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/foundation/cif/user_points_history$, role: ROLE_REGISTERED_USER }
+#        - { path: ^/cif/foundation/data/rates$,           role: IS_AUTHENTICATED_ANONYMOUSLY } #exception for rates
+##        - { path: ^/cif/foundation/data/[a-zA-Z0-9_-]+$,  role: ROLE_REGISTERED_USER }
+
+
+#
+#        # APP
+        - { path: ^/$,                                    role: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/cif/fe_calc_samples+$,                role: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/cif/fe_get_calc/[a-zA-Z0-9_-]+$,      role: ROLE_REGISTERED_USER }
+#        - { path: ^/cif/fe_calc_evaluate/[a-zA-Z0-9_-]+$, role: ROLE_REGISTERED_USER }
+#        - { path: ^/cif/fe_get_calc_names$,               role: ROLE_REGISTERED_USER }
+##        - { path: ^/cif/fe_data/[a-zA-Z0-9_-]+$, role: ROLE_REGISTERED_USER }
+
+        # APP angular partials
+        - { path: "^/partial/[.\-a-zA-Z0-9_]+$", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "^/ajax/organise_event$",      role: ROLE_REGISTERED_USER }
+        - { path: "^/ajax/organise_referendum_point$", role: ROLE_REGISTERED_USER }
+        - { path: "^/ajax/distribute_leaflets$", role: ROLE_REGISTERED_USER }
+
+        # TERRITORIAL UNITS
+        - { path: ^/cif/tu/ajax/communes$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cif/tu/geo_shapes,     role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # TERRITORIAL UNITS
+        - { path: ^/cif/localgov/ajax/support$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # POINTS
+        - { path: ^/cif/pts, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # USER (& ORGANISATIONS)
+        - { path: ^/cif/user/ajax/organisations$,              role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cif/user/ajax/support$,                    role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cif/user/ajax/support/confirm$,            role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cif/user/ajax/password/forgot$,            role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cif/user/ajax/password/check_reset_token$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cif/user/ajax/password/set_new$,           role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cif/user/ajax/pre_signed_data$,            role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        - { path: ^/cif/user/ajax/update$,         role: ROLE_REGISTERED_USER }
+        - { path: ^/cif/user/ajax/invite_friends$, role: ROLE_REGISTERED_USER }
+
+        # STATISTICS
+        - { path: ^/cif/statistics/basic_statistics$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cif/statistics/unit_statistics$,  role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cif/statistics/ranks$,  role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cif/statistics/user_statistics$,  role: ROLE_REGISTERED_USER }
+
+        # Transferuj.pl
+        - { path: ^/transferuj_pl/encode$,   role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/transferuj_pl/feedback$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # FEEDBACK
+        - { path: ^/cif/feedback/create$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # MESSAGES
+        - { path: ^/cif/messages/ajax/folders$, role: ROLE_REGISTERED_USER }
+        - { path: ^/cif/messages/ajax/messages/(\#|[a-zA-Z])+/\d+/[1-9]\d*$, role: ROLE_REGISTERED_USER }
+        - { path: ^/cif/messages/ajax/message/get/[1-9]\d*$, role: ROLE_REGISTERED_USER }
+        - { path: ^/cif/messages/ajax/message/send$, role: ROLE_REGISTERED_USER }
+
+        #FEED
+        - { path: ^/cif/feed/announcements$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # REDIRECTIONS
+        - { path: ^/wsparcie$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # BACKEND
+        - { path: ^/backend/?$, role: ROLE_BACKEND }
+        - { path: ^/backend/cif/feedback$, role: ROLE_BACKEND_FEEDBACK }
+        - { path: ^/backend/cif/users/unverified$, role: ROLE_USERS_UNVERIFIED }
+        - { path: "^/backend/cif/user/data/[.\-_ a-zęóąśłżźćńA-ZĘÓĄŚŁŻŹĆŃ0-9_]+$", role: ROLE_USER_DATA }
+        - { path: ^/backend/cif/tasks$, role: ROLE_BACKEND_TASKS }
+        - { path: ^/backend/cif/user_roles$, role: ROLE_BACKEND }
+
+        - { path: ^/backend/cif/user/points_add_options$, role: ROLE_ADD_POINTS }
+        - { path: ^/backend/cif/user/points_add$, role: ROLE_ADD_POINTS }
+        - { path: ^/backend/cif/user/donation_add$, role: ROLE_ADD_DONATION }
+
+        - { path: "^/backend/partial/[.\-a-zA-Z0-9_]+$", role: ROLE_BACKEND }
+
+        # DEFAULTS
+        - { path: ^/, role: ROLE_NO_ACCESS }
+
+    role_hierarchy:
+        ROLE_BACKEND:
+            - ROLE_BACKEND_FEEDBACK
+            - ROLE_USERS_UNVERIFIED
+            - ROLE_USER_DATA
+            - ROLE_BACKEND_TASKS
+
+        ROLE_BACKEND_ADMIN:
+            - ROLE_BACKEND
+            - ROLE_ADD_POINTS
+            - ROLE_ADD_DONATION
+
+#        ROLE_ADMIN:
+#            -
+        ROLE_SUPER_ADMIN:
+            - ROLE_ADMIN
+            - ROLE_ALLOWED_TO_SWITCH # "wcielanie się" w usera, żeby sprawdzić daną rzecz na jego uprawnieniach
+
+
+ruch_jow_page_foundation:
+    exposed_user_roles:
+        - ROLE_REGISTERED_USER
+
+ruch_jow_backend:
+    exposed_user_roles:
+        - ROLE_ADD_POINTS
+        - ROLE_ADD_DONATION
+
+

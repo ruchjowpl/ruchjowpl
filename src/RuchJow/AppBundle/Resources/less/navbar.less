@@ -1,0 +1,297 @@
+/************ BOOTSTRAP VARIABLES ************/
+@navbar-height: @ruch-jow-navbar-height;
+
+@navbar-margin-vertical: 8px; // TODO add @ruch-jow- variable for that.
+
+@navbar-inverse-color: @ruch-jow-navbar-color;
+@navbar-inverse-bg:    @ruch-jow-navbar-bg-color;
+
+// Navbar links
+@navbar-inverse-link-color:                @navbar-inverse-color;
+@navbar-inverse-link-hover-color:          @ruch-jow-navbar-link-hover-color;
+@navbar-inverse-link-hover-bg:             @ruch-jow-navbar-link-hover-bg;
+
+@navbar-inverse-link-active-color:         @ruch-jow-navbar-link-active-color;
+@navbar-inverse-link-active-bg:            @ruch-jow-navbar-link-active-bg;
+
+@navbar-inverse-link-disabled-color:       @ruch-jow-navbar-link-disabled-color;
+@navbar-inverse-link-disabled-bg:          @ruch-jow-navbar-link-disabled-bg;
+
+
+/************ NAVBAR ************/
+.navbar {
+  font-size: @ruch-jow-navbar-font-size;
+
+  .navbar-brand {
+    line-height: @navbar-height !important;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    > * {
+      vertical-align: middle !important;
+    }
+  }
+
+  .navbar-toggle {
+    line-height: 1;
+    color: @navbar-inverse-link-color;
+    border-color: transparent;
+
+    cursor: pointer;
+  }
+
+  .navbar-content {
+
+    ul.navbar-nav {
+
+      > li {
+
+        > a, > span {
+
+          .scroll-too-big {
+            vertical-align: top;
+            white-space: nowrap;
+            display: inline-block;
+          }
+        }
+
+        &.menu-logged-in {
+          .user-icon {
+            font-size: 1.3em;
+            margin-left: 0.45em;
+          }
+        }
+
+      }
+    }
+  }
+
+  // Standard menu on large screens.
+  @media (min-width: @grid-float-breakpoint) {
+
+    // Force menu to be visible.
+    .navbar-content {
+      display: block !important;
+      height: auto !important;
+
+      ul.navbar-nav {
+        float: left;
+        margin: 0;
+
+        border-right: 1px solid @ruch-jow-navbar-links-separator-color2;
+        border-left: 1px solid @ruch-jow-navbar-links-separator-color1;
+
+
+        > li {
+          float: left;
+
+          border-right: 1px solid @ruch-jow-navbar-links-separator-color1;
+          border-left: 1px solid @ruch-jow-navbar-links-separator-color2;
+
+          > a, > span {
+            margin: 0;
+            padding-bottom: 0;
+            padding-top: 0;
+            line-height: @navbar-height;
+
+            .scroll-too-big {
+              vertical-align: top;
+              white-space: nowrap;
+              display: inline-block;
+            }
+
+          }
+
+          &.menu-logged-in {
+            .user-name {
+              max-width: 130px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: @grid-float-breakpoint-max) {
+    .navbar-content {
+      ul.navbar-nav {
+        margin: 0;
+        border-top: 1px solid #169;
+        &:last-child {
+          border-bottom: 1px solid #169;
+          margin-bottom: 1rem;
+        }
+
+        > li {
+          border-bottom: 1px solid #158;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          > a, > span {
+            margin: 0;
+            padding: 0.7rem 0 0.7rem 1.7rem;
+            font-size: 1.4rem;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.nav {
+  > li {
+    > span.nav-element, > a {
+      position: relative;
+      display: block;
+      padding: @nav-link-padding;
+
+      strong {
+        color: @nav-link-hover-bg;
+      }
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+        background-color: @nav-link-hover-bg;
+      }
+
+      &.btn {
+
+      }
+    }
+
+    // Disabled state sets text to gray and nukes hover/tab effects
+    &.disabled {
+      & > span.nav-element, & > a {
+
+        color: @nav-disabled-link-color;
+
+        &:hover,
+        &:focus {
+          color: @nav-disabled-link-hover-color;
+          text-decoration: none;
+          background-color: transparent;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
+.navbar-nav {
+  > li {
+    > span.nav-element, > a {
+      padding-top:    @navbar-padding-vertical;
+      padding-bottom: @navbar-padding-vertical;
+      line-height:    @line-height-computed;
+    }
+
+    // Uncollapse the nav
+    @media (min-width: @grid-float-breakpoint) {
+      > span.nav-element, > a {
+        padding-top:    @navbar-padding-vertical - @navbar-margin-vertical;
+        padding-bottom: @navbar-padding-vertical - @navbar-margin-vertical;
+        margin-top:    @navbar-margin-vertical;
+        margin-bottom: @navbar-margin-vertical;
+
+        &.nav-btn {
+          border: 1px solid;
+          border-radius: 0.3em;
+        }
+      }
+    }
+  }
+}
+
+.navbar-inverse {
+
+  .navbar-nav {
+    > li {
+      > span.nav-element, > a {
+        color: @navbar-inverse-link-color;
+
+        &:hover,
+        &:focus {
+          color: @navbar-inverse-link-hover-color;
+          background-color: @navbar-inverse-link-hover-bg;
+        }
+
+        .nav-btn {
+          border-color: @navbar-inverse-link-color;
+        }
+      }
+    }
+    > .active > span.nav-element {
+      &,
+      &:hover,
+      &:focus {
+        color: @navbar-inverse-link-active-color;
+        background-color: @navbar-inverse-link-active-bg;
+      }
+    }
+    > .disabled > span.nav-element {
+      &,
+      &:hover,
+      &:focus {
+        color: @navbar-inverse-link-disabled-color;
+        background-color: @navbar-inverse-link-disabled-bg;
+      }
+    }
+  }
+
+  // Dropdowns
+  .navbar-nav {
+    > .open > span.nav-element {
+      &,
+      &:hover,
+      &:focus {
+        background-color: @navbar-inverse-link-active-bg;
+        color: @navbar-inverse-link-active-color;
+      }
+    }
+
+    @media (max-width: @grid-float-breakpoint-max) {
+      // Dropdowns get custom display
+    }
+  }
+
+  .navbar-link {
+    color: @navbar-inverse-link-color;
+    &:hover {
+      color: @navbar-inverse-link-hover-color;
+    }
+  }
+}
+
+ul.nav-tabs > li > a {
+  cursor: pointer;
+}
+
+
+.feedback {
+  position: fixed;
+  z-index: 1000;
+
+  left: 0;
+  top: 30%;
+  display: block;
+
+  background: #2ecc71;
+  color: white;
+  &:hover, &:visited {
+    color: white;
+    text-decoration: none;
+  }
+
+  font-size: 1.7rem;
+  font-weight: bold;
+  padding: 0.7rem 2.5rem 1.2rem;
+  border-radius: 0 0 0.8rem 0.8rem;
+
+
+  transform: translate(-50%,0) rotate(-90deg) translate(0, 50%);
+}

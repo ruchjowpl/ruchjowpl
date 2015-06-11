@@ -1,0 +1,104 @@
+{{ '<script type="text/ng-template" id="feedbackModal.html">' }}
+<article>
+<form ng-submit="submit()" name="ruchJowFeedback">
+    <div class="modal-header">
+        <h1 translate>feedback.form.title</h1>
+        <div ng-if="errorMessage" class="te-error-msg" ng-translate="">[[ errorMessage ]]</div>
+    </div>
+    <div class="modal-body">
+        {# NICK #}
+        <div
+            ng-if="nickEnabled"
+            ruch-jow-form-simple-field="nick"
+            {#label="security.login.nick"#}
+            ruch-jow-form-show-label="false"
+
+            {#errors="validation.login.$labels"#}
+        >
+            <input
+                type="text" name="nick"
+                ng-model="data.nick" {#ng-model-options="ngModelOptions()"#}
+                ng-required="true"
+                {#ng-pattern="/.{4,}/"#}
+                ruch-jow-auto-focus
+                ruch-jow-enter-down-trigger
+                {#ng-pattern="validation.login.pattern"#}
+                {#gd-auto-fill-sync#}
+                title="[[ 'feedback.form.nick'|translate ]]"
+                placeholder="[[ 'feedback.form.nick'|translate ]]"
+            />
+        </div>
+
+        {# TITLE #}
+        <div
+            ruch-jow-form-simple-field="title"
+            {#label="security.login.nick"#}
+            ruch-jow-form-show-label="false"
+
+            {#errors="validation.login.$labels"#}
+        >
+            <input
+                type="text" name="title"
+                ng-model="data.title" {#ng-model-options="ngModelOptions()"#}
+                ng-required="true"
+                {#ng-pattern="/.{4,}/"#}
+                fr-auto-focus
+                {#ruch-jow-enter-down-trigger#}
+                {#ng-pattern="validation.login.pattern"#}
+                {#gd-auto-fill-sync#}
+                title="[[ 'feedback.form.subject'|translate ]]"
+                placeholder="[[ 'feedback.form.subject'|translate ]]"
+            />
+        </div>
+
+        {# DESCRIPTION #}
+        <div
+            ruch-jow-form-simple-field="description"
+            {#label="security.login.nick"#}
+            ruch-jow-form-show-label="false"
+
+            {#errors="validation.login.$labels"#}
+        >
+            <textarea
+                type="text" name="description"
+                ng-model="data.description" {#ng-model-options="ngModelOptions()"#}
+                {#ng-pattern="/.{4,}/"#}
+                {#ruch-jow-enter-down-trigger#}
+                {#ng-pattern="validation.login.pattern"#}
+                {#gd-auto-fill-sync#}
+                title="[[ 'feedback.form.description'|translate ]]"
+                placeholder="[[ 'feedback.form.description'|translate ]]"
+            >
+            </textarea>
+        </div>
+
+        {# CONTACT #}
+        <div
+            ruch-jow-form-simple-field="contact"
+            {#label="security.login.nick"#}
+            ruch-jow-form-show-label="false"
+
+            {#errors="validation.login.$labels"#}
+        >
+            <input
+                type="text" name="contact"
+                ng-model="data.contact" {#ng-model-options="ngModelOptions()"#}
+                {#ng-pattern="/.{4,}/"#}
+                {#ruch-jow-enter-down-trigger#}
+                {#ng-pattern="validation.login.pattern"#}
+                {#gd-auto-fill-sync#}
+                title="[[ 'feedback.form.contact'|translate ]]"
+                placeholder="[[ 'feedback.form.contact'|translate ]]"
+            />
+        </div>
+
+        <div class="btns">
+            <button type="submit" class="btn btn-feedback btn-go" ng-disabled="!ruchJowFeedback.$valid">
+                <span class="glyphicon glyphicon-refresh ruch-jow-spin-fast" ng-if="inProgress"></span> [[ 'feedback.form.submit'|translate ]]
+            </button>
+        </div>
+    </div>
+
+</form>
+</article>
+{{ '</script>' }}

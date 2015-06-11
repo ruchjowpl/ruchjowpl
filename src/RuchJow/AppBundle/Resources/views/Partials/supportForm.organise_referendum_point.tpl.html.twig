@@ -1,0 +1,68 @@
+<article id="organise_referendum_point">
+    <span class="points">
+        <span class="value"><span>+[[ getPoints('organise.referendumPoint') ]] pkt</span></span>
+        <span class="comment" ng-if="comment = getPointsDef('organise.referendumPoint').comment"><span>[[ ('points.comment.' + comment)|translate ]]</span></span>
+    </span>
+
+    <h1>[[ 'supportForm.organise_referendum_point.title'|translate ]]</h1>
+
+    <p class="p-level-1">
+        Edukowanie społeczeństwa w temacie JOW to podstawowe zadanie nas wszystkich,
+        ludzi skupionych woków naszego Ruchu.
+        Zadanie to nabiera szczególnego znaczenia w obliczu zapowiedzianego referendum
+        i prób obrony aktualnego systemu poprzez forsowanie mieszanych wariantów
+        obecnej ordynacji wyborczej pod szyldem JOW’.
+    </p>
+
+    <p class="p-level-1">
+        Jeżeli nie chcesz ograniczać się do sporadycznego kolportowania ulotek
+        czy organizowania wydarzeń, załóż w swojej miejscowości
+        „PUNKT INFORMACYJNY JOW”.
+    </p>
+
+    <p class="p-level-1">
+        Masz dostęp do dogodnej lokalizacji?
+        Prowadzisz punkt handlowy lub usługowy,
+        w którym na stałe mogłyby znaleźć się materiały edukacyjne i informacyjne
+        a zainteresowane osoby mogłyby znaleźć odpowiedzi na nurtujące je pytania?
+        Zgłoś poniżej chęć uruchomienia punktu informacyjnego, zaproponuj adres,
+        w którym będzie funkcjonował.
+        My skontaktujemy się z Tobą i po uzgodnieniu niezbędnych szczegółów
+        umieścimy go na naszej mapie.
+        Za prowadzenie punktu otrzymasz dodatkowe punkty Ruchu JOW.
+    </p>
+
+
+    <div class="row">
+        {# Invitation banners#}
+        <div class="col-md-12">
+            <div id="organise_referendum_point_block">
+                <p class="info">
+                    Aby zorganizować punkt referendalny kliknij w poniższy formularz.
+                    Następnie skontakuje się z Tobą (na podany w Twoim profilu telefon lub adres e-mail)
+                    osoba obsługująca punkty referendalne.
+                </p>
+                <form name="organiseReferendumPointForm" ng-submit="submit()">
+                    <label translate="">supportForm.organise_referendum_point.description.label</label>
+                    <div class="row">
+                        <div class="col-sm-8 col-md-7">
+                            <textarea
+                                title=""
+                                class="referendum-point-description"
+                                name="referendum_point_info"
+                                ng-model="data.organiseReferendumPointInfo"
+                            ></textarea>
+                            <button class="btn submit-organise-referendum-point">[[ 'supportForm.organise_referendum_point.submit'|translate ]]</button>
+                        </div>
+                        <div class="col-sm-4 col-md-5">
+                            <ul>
+                                <li ng-if="!security.currentUser || !security.currentUser.username">Aby zgłosić chęć organizacji punktu referendalnego będziesz musiał się zalogować</li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</article>

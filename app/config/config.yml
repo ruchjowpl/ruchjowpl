@@ -1,0 +1,215 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: assets.yml }
+
+framework:
+    #esi:             ~
+    translator:      { fallback: "%locale%" }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+# Assetic Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:
+        - "RuchJowAppBundle"
+        - "RuchJowPageFoundationBundle"
+        - "RuchJowUserBundle"
+        - "RuchJowRanksBundle"
+        - "RuchJowFeedbackBundle"
+        - "RuchJowMessagesBundle"
+        - "RuchJowBackendBundle"
+
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+
+        closure:
+            jar: "%kernel.root_dir%/../vendor/ruch-jow-local/google-closure-compiler/compiler.jar"
+        yui_css:
+            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar"
+
+        less:
+            node: "%node%"
+            node_paths: [ "%node_modules_path%" ]
+            apply_to: "\.less$"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   "%database_driver%"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver, add the path in parameters.yml
+        # e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        # path:     "%database_path%"
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    port:      "%mailer_port%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    delivery_address:  ~
+    disable_delivery:  true
+    spool:     { type: memory }
+
+
+fos_user:
+    db_driver:     orm
+    firewall_name: main
+    user_class:    RuchJow\UserBundle\Entity\User
+    service:
+        user_manager: ruch_jow_user.user_manager
+
+ruch_jow_user:
+    confirmation_email:
+        subject: "Ruch JOW - potwierdzenie rejestracji"
+        from:      ~
+        from_name: ~
+    referral_links:
+        token_length: 10;
+    password_reset:
+        token_length: 10;
+        email:
+            subject:   "Ruch JOW - ustawienie nowego hasła"
+            from:      ~
+            from_name: ~
+    invitation:
+        email:
+            subject:   "Ruch JOW - zaproszenie"
+            from:      ~
+            from_name: ~
+    thanks:
+        email:
+            subject:   "Ruch JOW - dziękujemy za wpłatę"
+            from:      ~
+            from_name: ~
+            time:   3600
+    reminder:
+        email:
+            subject:   "Ruch JOW - przypomnienie o potwierdzeniu poparcia"
+            from:      ~
+            from_name: ~
+            remainders:
+                - 1440
+                - 4320
+                - 10080
+                - 0
+
+
+ruch_jow_messages:
+    email:
+        from:      ~
+        from_name: ~
+
+ruch_jow_points:
+    predefined_types:
+        user.support:
+            points: 10
+        user.referral:
+            points: 20
+            comment: "for each referral"
+        organise.event:
+            points: 400
+            comment: "and more"
+            manual: true
+            min: 400
+        organise.referendumPoint:
+            points: 400
+            comment: "and more"
+            manual: true
+            min: 400
+        distribute.leaflets:
+            points: 200
+            comment: "and more"
+            manual: true
+            min: 200
+        make.donation.1pln:
+            points: 1
+            comment: "for each 1pln"
+        other:
+            points: 10
+            manual: true
+
+
+ruch_jow_social_links:
+    services:
+        facebook:
+            path_base: 'http://www.facebook.com/'
+            path_suffix_pattern: '/^([?\w\-.\/])+(\?id=(?=\d.*))?$/'
+        twitter:
+            path_base: 'http://twitter.com/'
+            path_suffix_pattern: '/^([?\w\-.\/])+(\?id=(?=\d.*))?$/'
+        google_plus:
+            path_base: 'http://plus.google.com/'
+            path_suffix_pattern: '/^([?\w\-.\/])+(\?id=(?=\d.*))?$/'
+        youtube:
+            path_base: 'http://www.youtube.com/user/'
+            path_suffix_pattern: '/^([?\w\-.\/])+(\?id=(?=\d.*))?$/'
+
+ruch_jow_task:
+    default_status_name: new
+    mailer:
+        from:      ~
+        from_name: ~
+
+ruch_jow_feed:
+    announcements:
+        url: 'http://jow.pl/feed/'
+        timeout: 20
+
+ruch_jow_transferuj_pl:
+    allowed_users:
+        main:
+            id:            "%transferuj_pl_user_id%"
+            security_code: "%transferuj_pl_security_code%"
+
+qbitz_freshmail:
+    api_key: "%freshmail_api_key%"
+    api_secret: "%freshmail_api_secret%"
+
+ruch_jow_mail_pool:
+    default_from:      "%mailer_default_from%"
+    default_from_name: "%mailer_default_from_name%"
+    default_reply_to:  "%mailer_default_reply_to%"
+
+    delivery_address:  "%mailer_delivery_address%"
+    disable_delivery:  "%mailer_disable_delivery%"
+
+
+    mailgun:
+        api_key: "%mailgun_api_key%"
+        domain:  "%mailgun_domain%"

@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% include '@RuchJowBackend/css.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% include '@RuchJowBackend/js.html.twig' %}
+
+    {# Inline partials #}
+    {% block angularInlineTemplates %}
+
+        {% include '@RuchJowPageFoundation/PartialsInline/$alert.html.twig' %}
+
+    {% endblock %}
+
+{% endblock %}
+
+{% block body %}
+
+    {% block content %}{% endblock %}
+
+{% endblock %}

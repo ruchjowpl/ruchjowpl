@@ -1,0 +1,5 @@
+# Main page
+ruch_jow_transferuj_pl:
+    resource: "@RuchJowTransferujPlBundle/Controller"
+    prefix:   /
+    type:     annotation

@@ -1,0 +1,44 @@
+parameters:
+    router.request_context.host: efektjow.pl
+    router.request_context.scheme: https
+    router.request_context.base_url: ''
+
+    database_driver:   pdo_mysql
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     symfony
+    database_user:     root
+    database_password: ~
+
+    mailer_transport:        smtp
+    mailer_host:             127.0.0.1
+    mailer_port:             ~
+    mailer_encryption:       ~
+    mailer_auth_mode:        ~
+    mailer_user:             ~
+    mailer_password:         ~
+
+    mailer_default_from:      ~
+    mailer_default_from_name: ~
+    mailer_default_reply_to:  ~
+    mailer_delivery_address:  ~
+    mailer_disable_delivery:  false
+
+    freshmail_api_key:    ~
+    freshmail_api_secret: ~
+
+    mailgun_api_key: ~
+    mailgun_domain:  ~
+
+    transferuj_pl_user_id:       ~
+    transferuj_pl_security_code: ~
+
+    locale:            pl
+    secret:            ThisTokenIsNotSoSecretChangeIt
+
+    debug_toolbar:          true
+    debug_redirects:        false
+    use_assetic_controller: true
+
+    node:              "/usr/local/bin/node"
+    node_modules_path: "/usr/local/lib/node_modules"

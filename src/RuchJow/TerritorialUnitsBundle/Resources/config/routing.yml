@@ -1,0 +1,4 @@
+territorial_main:
+    resource: "@RuchJowTerritorialUnitsBundle/Controller"
+    prefix:   /
+    type:     annotation

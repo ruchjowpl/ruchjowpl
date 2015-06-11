@@ -1,0 +1,44 @@
+parameters:
+    ruch_jow_task.task_manager.class: RuchJow\TaskBundle\Services\TaskManager
+    ruch_jow_task.task_event_subscriber.class: RuchJow\TaskBundle\Listener\TaskEventSubscriber
+    ruch_jow_task.doctrine_subscriber.class: RuchJow\TaskBundle\Doctrine\TaskDoctrineSubscriber
+    ruch_jow_task.mailer.class: RuchJow\TaskBundle\Services\Mailer
+
+    ruch_jow_task.task_info.subject.template: "RuchJowTaskBundle:Mailer:taskInfo.subject.txt.twig"
+    ruch_jow_task.task_info.template: "RuchJowTaskBundle:Mailer:taskInfo.html.twig"
+
+
+services:
+    ruch_jow_task.task_manager:
+        class: %ruch_jow_task.task_manager.class%
+        arguments:
+            - @doctrine
+            - @event_dispatcher
+            - @service_container
+            - @ruch_jow_task.mailer
+
+    ruch_jow_task.doctrine_subscriber:
+        class: %ruch_jow_task.doctrine_subscriber.class%
+        arguments:
+            - @event_dispatcher
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    ruch_jow_task.task_event_subscriber:
+        class: %ruch_jow_task.task_event_subscriber.class%
+        arguments:
+            - @ruch_jow_task.task_manager
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ruch_jow_task.mailer:
+        class: %ruch_jow_task.mailer.class%
+        arguments:
+            - @ruch_jow_mail_pool.mail_pool
+#            - @mailer
+#            - @router
+            - @templating
+            - @service_container
+            -
+                task_info.subject_template: %ruch_jow_task.task_info.subject.template%
+                task_info.template: %ruch_jow_task.task_info.template%

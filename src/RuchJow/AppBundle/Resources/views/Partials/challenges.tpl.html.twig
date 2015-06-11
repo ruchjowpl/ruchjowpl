@@ -1,0 +1,24 @@
+<div class="page">
+    <div class="container main">
+        <div id="challenges_page">
+            <div
+                {#ng-include="supportForms.active.templateUrl"#}
+                class="support-form-block"
+                id="support-form-block"
+                ui-view=""
+            >
+            </div>
+
+
+            <ul>
+                <li ng-repeat="supportForm in supportForms.list" ng-click="supportForms.setActive(supportForm.name, true)" ng-hide="supportForm.name === supportForms.activeName" class="clickable">
+                    <span class="points">
+                        +[[ getPoints(supportForm.points) ]] pkt
+                        <span ng-if="comment = getPointsDef(supportForm.points).comment">[[ ('points.comment.' + comment)|translate ]]</span>
+                    </span>
+                    <span class="fa fa-angle-double-right" /> [[ supportForm.title|translate ]]
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

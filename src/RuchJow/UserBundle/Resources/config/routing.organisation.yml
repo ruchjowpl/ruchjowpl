@@ -1,0 +1,5 @@
+# Main page
+user_main:
+    resource: "@RuchJowUserBundle/Controller/OrganisationController.php"
+    prefix:   /
+    type:     annotation

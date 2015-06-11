@@ -1,0 +1,12 @@
+{% if justCreated %}
+    <h1>Zostało dodane nowe zadanie</h1>
+{% elseif justCanceled %}
+    <h1>W sytemie RuchJOW.pl Poniższe zadanie</h1>
+{% endif %}
+
+<h2>{{ task.title }}</h2>
+
+<label>Treść:</label>
+<div style="background: #eee; border: 1px solid #ddd; padding: 1.5em;">
+    {{ task.content|raw }}
+</div>

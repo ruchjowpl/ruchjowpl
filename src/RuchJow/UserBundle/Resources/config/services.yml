@@ -1,0 +1,76 @@
+parameters:
+#    ruch_jow_user.user_repository.class: RuchJow\UserBundle\Entity\UserRepository
+    ruch_jow_user.mailer.class: RuchJow\UserBundle\Services\Mailer
+    ruch_jow_user.token_generator.class: RuchJow\UserBundle\Services\TokenGenerator
+
+    ruch_jow_user.doctrine_subscriber.class: RuchJow\UserBundle\Doctrine\UserDoctrineSubscriber
+    ruch_jow_user.user_events_subscriber.class: RuchJow\UserBundle\Listener\UserEventsSubscriber
+
+    ruch_jow_user.user_manager.class: RuchJow\UserBundle\Entity\UserManager
+    ruch_jow_user.user_entity: RuchJowUserBundle:User
+
+#    ruch_jow_user.registration.confirmation.title: "RuchJowUserBundle:Mailer:registration.confirmation.html.twig"
+    ruch_jow_user.registration.confirmation.email.template: "RuchJowUserBundle:Mailer:registration.confirmation.html.twig"
+    ruch_jow_user.password.reset.email.template: "RuchJowUserBundle:Mailer:password.reset.html.twig"
+    ruch_jow_user.invitation.email.template: "RuchJowUserBundle:Mailer:invitation.html.twig"
+    ruch_jow_user.thanks.email.template: "RuchJowUserBundle:Mailer:thanks.html.twig"
+    ruch_jow_user.reminder.email.template: "RuchJowUserBundle:Mailer:reminder.confirmation.html.twig"
+
+services:
+#    ruch_jow_user.user_repository:
+#        class: %ruch_jow_user.user_repository.class%
+#        factory_service: doctrine # this is an instance of Registry
+#        factory_method: getRepository
+#        arguments: [ %ruch_jow_user.user_entity% ]
+#        calls:
+#            - [ setUsernameCanonicalizer, [ @fos_user.util.username_canonicalizer ] ]
+#            - [ setEmailCanonicalizer, [ @fos_user.util.email_canonicalizer ] ]
+
+    ruch_jow_user.user_manager:
+        class: %ruch_jow_user.user_manager.class%
+        arguments:
+            - @router
+            - @ruch_jow_user.token_generator
+            - @ruch_jow_social_links.social_link_manager
+            - @security.encoder_factory
+            - @fos_user.util.username_canonicalizer
+            - @fos_user.util.email_canonicalizer
+            - @fos_user.entity_manager
+            - %fos_user.model.user.class%
+            - @service_container
+
+    ruch_jow_user.mailer:
+        class: %ruch_jow_user.mailer.class%
+        arguments:
+            - @ruch_jow_mail_pool.mail_pool
+#            - @mailer
+            - @router
+            - @templating
+            - @service_container
+            -
+                confirmation.email.template: %ruch_jow_user.registration.confirmation.email.template%
+                password.reset.email.template: %ruch_jow_user.password.reset.email.template%
+                invitation.email.template: %ruch_jow_user.invitation.email.template%
+                thanks.email.template: %ruch_jow_user.thanks.email.template%
+                reminder.email.template: %ruch_jow_user.reminder.email.template%
+
+    ruch_jow_user.token_generator:
+        class: '%ruch_jow_user.token_generator.class%'
+        arguments:
+            - @service_container
+
+
+
+    ruch_jow_user.doctrine_subscriber:
+        class: %ruch_jow_user.doctrine_subscriber.class%
+        arguments:
+            - @event_dispatcher
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    ruch_jow_user.user_events_subscriber:
+        class: %ruch_jow_user.user_events_subscriber.class%
+        arguments:
+            - @ruch_jow_user.user_manager
+        tags:
+            - { name: kernel.event_subscriber }

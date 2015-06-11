@@ -1,0 +1,67 @@
+{{ '<script type="text/ng-template" id="homepageNavbar.html">' }}
+
+<a class="clickable feedback" ng-click="feedback()" translate>feedback.link</a>
+
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <span class="navbar-toggle" type="button" ng-click="navbarOpen = !navbarOpen">
+                <span class="fa fa-bars"></span>
+                <span class="sr-only">Toggle navigation</span>
+            </span>
+            <a ui-sref="main" ruch-jow-force-hash-href="" class="navbar-brand clickable">
+                {% image '@img_logo' %}
+                    <img src="{{ asset_url }}" alt="[[ getConstant('SITE_NAME') ]]" />
+                {% endimage %}
+                {#<img src="/images/layout/logo.png" alt="[[ getConstant('SITE_NAME') ]]" />#}
+            </a>
+            <a href="http://kukiz.org" target="_blank" class="navbar-brand clickable"><img src="/images/layout/logo_kukiz.png" alt="Kukiz'15" /></a>
+        </div>
+        <div class="navbar-content" collapse="!navbarOpen" ng-click="navbarOpen = false">
+            {# Left menu #}
+            {#<ul class="nav navbar-nav">#}
+                {#<li>#}
+                {#</li>#}
+            {#</ul>#}
+
+            {# Right menu #}
+            <ul class="nav navbar-nav navbar-right">
+                <li ruch-jow-link-block="'about'" ng-show="security.currentUser && security.currentUser.username"><a ui-sref="about" ruch-jow-force-hash-href="" class="clickable" translate>menu.about</a></li>
+                <li ruch-jow-link-block="'contact'" {#ng-show="security.currentUser && security.currentUser.username"#}><a ui-sref="contact" ruch-jow-force-hash-href="" class="clickable" translate>menu.contact</a></li>
+                <li ruch-jow-link-block="'challenges'"><a ui-sref="challenges" ruch-jow-force-hash-href="" class="clickable" translate>menu.challenges</a></li>
+                <li ruch-jow-link-block="'ranks'" ng-show="security.currentUser && security.currentUser.username"><a ui-sref="ranks" ruch-jow-force-hash-href="" class="clickable" translate>menu.ranks</a></li>
+                <li ruch-jow-link-block="'faq'" ng-show="security.currentUser && security.currentUser.username"><a ui-sref="faq" ruch-jow-force-hash-href="" class="clickable" translate>menu.faq</a></li>
+                <li ruch-jow-link-block="'announcements'" {#ng-show="security.currentUser && security.currentUser.username"#}><a ui-sref="announcements" ruch-jow-force-hash-href="" class="clickable" translate>menu.announcements</a></li>
+
+                {# Anonymous #}
+                {# Register / support#}
+                <li ng-if="!(security.currentUser && security.currentUser.username)">
+                    <a ng-click="security.register()" class="clickable" translate="">
+                        menu.support_action
+                    </a>
+                </li>
+
+                {# Login #}
+                <li class="menu-login" class="dropdown" ng-if="!(security.currentUser && security.currentUser.username)">
+                    <a href="" ng-hide="security.currentUser && security.currentUser.username" ng-click="security.login()">
+                        [[ 'menu.login' | translate ]]
+                        <span class="glyphicon glyphicon-log-in"></span>
+                    </a>
+                </li>
+
+                {# Logged in #}
+                <li class="menu-logged-in dropdown" dropdown
+                    ng-show="security.currentUser && security.currentUser.username"
+                    ng-include="'userMenuElement.html'"
+                    ng-controller="LoginMenuCtrl">
+                </li>
+
+            </ul>
+
+            {#<ul class="nav navbar-nav navbar-right" ></ul>#}
+
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+{{ '</script>' }}

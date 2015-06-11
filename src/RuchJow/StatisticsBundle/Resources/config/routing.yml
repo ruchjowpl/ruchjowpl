@@ -1,0 +1,4 @@
+# Main page
+statistics_main:
+    resource: "@RuchJowStatisticsBundle/Controller/DataController.php"
+    type:     annotation

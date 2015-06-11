@@ -1,0 +1,48 @@
+{% extends 'RuchJowAppBundle:Partials:staticPage.html.twig' %}
+
+{% set pageName = 'profile_page' %}
+{% set showTitle = false %}
+
+{#{% block title %}#}
+    {#Profil użytkownika: [[ userData.displayName ]]#}
+    {#<span ng-if="userData.stats.pointsUser">([[userData.stats.pointsUser]] pkt)</span>#}
+{#{% endblock %}#}
+
+{% block static_page_content %}
+    <a class="send-message clickable" {#ng-if="security.isAllowed('messages:send')"#} ng-click="$sendMessage(userData.nick)">wyślij wiadomość</a>
+    <h1>
+        [[ userData.nick ]]
+        <span class="points" ng-if="userData.stats.pointsUser">([[userData.stats.pointsUser]] pkt)</span>
+    </h1>
+    <div class="user-full-name">
+        [[ userData.firstName ]] [[ userData.lastName ]]
+    </div>
+
+    <div ng-if="userData.socialLinks" class="social-links">
+        <ul>
+            <li ng-repeat="(name, url) in userData.socialLinksFull" ng-show="url">
+                <a href="[[ url ]]" class="social-[[ name ]]-icon" target="_blank"></a>
+            </li>
+        </ul>
+    </div>
+
+    <hr/>
+
+    <div ng-if="userData.organisation" class="organisation">
+        <span class="name">[[ userData.organisation.name ]]</span> -
+        <a class="url" href="[[ userData.organisation.url ]]" target="_blank">[[ userData.organisation.url ]]</a>
+    </div>
+
+    <div class="ranks">
+        <h2>Rankingi użytkownika</h2>
+        <ul>
+            <li ng-if="userData.stats.ranksUser.commune">[[ userData.stats.ranksUser.commune ]]. miejsce w gminie ([[ userData.commune.name ]])</li>
+            <li ng-if="userData.stats.ranksUser.district">[[ userData.stats.ranksUser.district ]]. miejsce w powiecie ([[ userData.commune.district.name ]])</li>
+            <li ng-if="userData.stats.ranksUser.region">[[ userData.stats.ranksUser.region ]]. miejsce w województwie ([[ userData.commune.district.region.name ]])</li>
+            <li ng-if="userData.stats.ranksUser.country">[[ userData.stats.ranksUser.country ]]. miejsce w kraju</li>
+        </ul>
+    </div>
+
+    {#[[ userData ]]#}
+
+{% endblock %}

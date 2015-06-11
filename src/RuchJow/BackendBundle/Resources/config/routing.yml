@@ -1,0 +1,4 @@
+backend_main:
+    resource: "@RuchJowBackendBundle/Controller"
+    prefix:   /
+    type:     annotation

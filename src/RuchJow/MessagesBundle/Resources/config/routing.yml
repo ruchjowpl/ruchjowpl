@@ -1,0 +1,5 @@
+# Main page
+messages_main:
+    resource: "@RuchJowMessagesBundle/Controller"
+    prefix:   /
+    type:     annotation

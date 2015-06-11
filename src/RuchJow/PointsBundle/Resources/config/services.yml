@@ -1,0 +1,19 @@
+parameters:
+    ruch_jow_points.points_manager.class: RuchJow\PointsBundle\Services\PointsManager
+    ruch_jow_points.various_events_subscriber.class: RuchJow\PointsBundle\Listener\VariousEventsSubscriber
+
+services:
+    ruch_jow_points.points_manager:
+        class: %ruch_jow_points.points_manager.class%
+        arguments:
+            - @doctrine
+            - @event_dispatcher
+            - @service_container
+
+    ruch_jow_points.various_events_subscriber:
+        class: %ruch_jow_points.various_events_subscriber.class%
+        arguments:
+            - @ruch_jow_points.points_manager
+            - @ruch_jow_user.user_manager
+        tags:
+            - { name: kernel.event_subscriber }

@@ -1,0 +1,19 @@
+{# FOS JS ROUTING #}
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+
+{# Angular & Angular UI Bootstrap #}
+{% if app.environment == 'dev' %}
+    <script src="{{ asset('js/angular_with_libs.js') }}"></script>
+{% else %}
+    <script src="{{ asset('js/angular_with_libs.min.js') }}"></script>
+{% endif %}
+
+
+{# FOUNDATION: Custom angular modules #}
+{% javascripts
+    '@RuchJowPageFoundationBundle/Resources/angular/basicServices.js'
+%}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}

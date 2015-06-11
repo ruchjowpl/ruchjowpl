@@ -1,0 +1,15 @@
+{# CSS #}
+
+{# jQuery UI #}
+{#
+{% if app.environment == 'dev' %}
+    <link href="{{ asset('css/jquery/jquery-ui-1.10.4.css' ) }}" rel="stylesheet" media="screen" />
+{% else %}
+    <link href="{{ asset('css/jquery/jquery-ui-1.10.4.min.css' ) }}" rel="stylesheet" media="screen" />
+{% endif %}
+#}
+
+{# Backend CSS #}
+{% stylesheets '@RuchJowBackendBundle/Resources/less/style.less' output='css/backend.css'%}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+{% endstylesheets %}

@@ -1,0 +1,20 @@
+<div id="user_history">
+
+    <table class="data-table" ng-class="{ 'in-progress-center': loading }">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Godzina</th>
+                <th>Rodzaj</th>
+                <th>Punkty</th>
+            </tr>
+        </thead>
+        <tr ng-repeat="entry in history|orderBy:'date':true">
+            <td class="tight">[[ entry.date|date:'yyyy.MM.dd' ]]</td>
+            <td class="tight">[[ entry.date|date:'HH:mm' ]]</td>
+            <td>[[ ('points.type.' + entry.type)|translate ]]</td>
+            <td class="tight">[[ entry.points ]]</td>
+        </tr>
+    </table>
+
+</div>
