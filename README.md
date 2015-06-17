@@ -16,7 +16,10 @@ Możesz zobaczyć działającą wersję aplikacji pobranej bezpośrednio z GitHu
 Wersja produkcyjna aplikacji znajduje się pod adresem http://ruchjow.pl
 
 ## Instalacja
-(w opracowaniu)
+
+    $ composer install
+
+    $ bin/phing
 
 ## Zalążek danych (seed data)
 (w opracowaniu)
@@ -32,7 +35,7 @@ Jest kilka sposobów w jaki możesz nam pomóc:
 * poprzez pisanie i edytowanie dokumentacji,
 * poprzez tworzenie i utrzymanie specyfikacji,
 * poprzez pisanie kodu,
-* poprzez refaktoring koud,
+* poprzez refaktoring kodu,
 * poprzez zamykanie zagadnień (issues),
 * finansowo (szczegóły na http://ruchjow.pl).
 

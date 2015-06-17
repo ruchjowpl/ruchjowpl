@@ -21,33 +21,13 @@
 #---------------------------
 
 #---------------------------
-# NPM
-
-#if execute npm during phing build
-npm.execute=true
-
-# COMPOSER
-
-#if execute composer during phing build
-composer.execute=true
-
-#path to composer executable or composer.phar file
-composer.path=/usr/local/bin/composer
-
-#path to php executable used by composerTask
-composer.php=php
-
-#always try to update composer
-composer.self-update=false
-
-#always validate the composer.json file
-composer.validate=false
-
-#---------------------------
 # ENVIRONMENT
 
-# default environment
-# env=prod
+symfony.console.path=app/console
+symfony.console.executable="${php.interpreter} ${symfony.console.path}"
+
+# recreate db with fixtures during db:check target (not apply to prod env)
+alwaysRecreateDatabase=false
 
 # running
 execWithSudo=false
@@ -56,6 +36,30 @@ changeOwner=false
 # http server user to give ownership
 httpserver.user=www-data
 httpserver.group=www-data
+
+#---------------------------
+# VENDORS
+
+# npm
+#if execute npm during phing build
+npm.path=npm
+npm.execute=true
+
+# composer
+#if execute composer during phing build
+composer.execute=true
+
+#path to composer executable or composer.phar file
+composer.path=/usr/local/bin/composer
+
+#path to php executable used by composerTask
+composer.php=${php.interpreter}
+
+#always try to update composer
+composer.self-update=false
+
+#always validate the composer.json file
+composer.validate=false
 
 #---------------------------
 # DIRECTORIES

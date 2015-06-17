@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Ruch JOW" basedir="." default="main" phingVersion="2.11.0">
+    <taskdef name="Symfony2Console" classname="src.phing.Symfony2ConsoleTask"/>
     <!-- Properties -->
     <if>
-        <not><isset property="symfony_env"/></not>
+        <not><isset property="symfony.env"/></not>
         <then>
             <if>
                 <isset property="env.SYMFONY_ENV"/>
                 <then>
-                    <property name="symfony_env" value="${env.SYMFONY_ENV}"/>
+                    <property name="symfony.env" value="${env.SYMFONY_ENV}"/>
                 </then>
                 <else>
-                    <propertyprompt propertyName="symfony_env"
+                    <propertyprompt propertyName="symfony.env"
                                     defaultValue="dev"
                                     promptText="Define symfony environment" />
                 </else>
@@ -25,6 +26,7 @@
             <property file="properties" override="true" />
         </then>
     </if>
+
     <!-- Filesets -->
     <fileset id="cache" dir="${dir.cache}">
         <include name="**/*"/>
@@ -74,7 +76,7 @@
 
     <!-- Default target -->
     <target name="main"
-            depends="clean, vendors, cache, db:check, fixtures, assets, permissions"
+            depends="clean, vendors, cache, db, assets, permissions"
             description="Build application."/>
 
     <!-- Project clean -->
@@ -91,7 +93,7 @@
         </delete>
 
         <if>
-            <equals arg1="${symfony_env}" arg2="prod" />
+            <equals arg1="${symfony.env}" arg2="prod" />
             <then>
                 <echo message="Skipping dirs cleanup in prod environment: ${dir.logs}, ${dir.upload}" />
             </then>
@@ -109,7 +111,7 @@
     <target name="clean:check" description="Check if dirs exists">
         <echo msg="Checking dir: ${dir} ..."/>
         <if>
-            <available file="${dir}" type="dir"/>
+            <available file="${dir}" type="dir" property="dirAvailable"/>
             <then>
                 <echo message="${dir} exist..." />
             </then>
@@ -138,7 +140,7 @@
             <istrue value="${npm.execute}"/>
             <then>
                 <echo msg="Installing/updating npm vendors ..."/>
-                <exec command="npm install" />
+                <exec command="${npm.path} install" />
             </then>
             <else>
                 <echo msg="Installing/updating npm vendors skipped."/>
@@ -161,7 +163,7 @@
                     </then>
                 </if>
                 <if>
-                    <equals arg1="${symfony_env}" arg2="prod" />
+                    <equals arg1="${symfony.env}" arg2="prod" />
                     <then>
                         <composer php="${composer.php}" composer="${composer.path}" command="install">
                             <arg value="--no-dev" />
@@ -178,119 +180,73 @@
         </if>
     </target>
 
-    <!-- Project check database -->
-    <target name="db:check" description="Check project database.">
+    <!-- Project database -->
+    <target name="db" description="Project database.">
         <if>
-            <equals arg1="${symfony_env}" arg2="prod" />
+            <equals arg1="${alwaysRecreateDatabase}" arg2="true" />
             <then>
-                <echo msg="Checking if database exist ..."/>
-                <exec command="app/console doctrine:database:create --env=${symfony_env}" returnProperty="databaseExist" />
-                <if>
-                    <equals arg1="${databaseExist}" arg2="0" />
-                    <then>
-                        <!-- Fresh prod install. -->
-                        <echo msg="The database does not exist. Initializing database in prod env ..."/>
-                        <phingcall target="db:init">
-                            <property name="skipCreate" value="true" />
-                        </phingcall>
-                        <phingcall target="fixtures">
-                            <property name="freshInstall" value="true" />
-                        </phingcall>
-                    </then>
-                    <else>
-                        <echo msg="The database exist. Skipping database init in prod env."/>
-                    </else>
-                </if>
+                <echo msg="Dropping database ..."/>
+                <Symfony2Console command="doctrine:database:drop">
+                    <arg value="--force" />
+                </Symfony2Console>
+                <Symfony2Console command="doctrine:database:create"/>
+                <Symfony2Console command="doctrine:schema:create"/>
+                <Symfony2Console command="doctrine:fixtures:load">
+                    <arg value="--no-interaction" />
+                </Symfony2Console>
             </then>
             <else>
+                <input message="Would you like to initialize project database"
+                       propertyName="initDb"
+                       validArgs="y,n"
+                       defaultValue="y"
+                       promptChar="?"/>
                 <if>
-                    <equals arg1="${symfony_env}" arg2="test" />
+                    <equals arg1="${initDb}" arg2="y" />
                     <then>
+                        <echo msg="Creating project database ..."/>
+                        <Symfony2Console command="doctrine:database:create" returnProperty="databaseCreationResult"/>
                         <if>
-                            <not><available file="${dir.testData}" type="dir" property="dir.testData.available"/></not>
+                           <not><equals arg1="${databaseCreationResult}" arg2="0" /></not>
                             <then>
-                                <mkdir dir="${dir.testData}"/>
+                                <input message="Database creation failed! Maybe it already exists? Would you like to try drop it before create?"
+                                       propertyName="dropDb"
+                                       validArgs="y,n"
+                                       defaultValue="y"
+                                       promptChar="?"/>
+                                <if>
+                                    <equals arg1="${dropDb}" arg2="y" />
+                                    <then>
+                                        <echo msg="Dropping database ..."/>
+                                        <Symfony2Console command="doctrine:database:drop" returnProperty="databaseDropResult">
+                                            <arg value="--force" />
+                                        </Symfony2Console>
+                                        <if>
+                                            <not><equals arg1="${databaseDropResult}" arg2="0" /></not>
+                                            <then>
+                                                <fail message="Could not create or drop database. Check your connection settings." />
+                                            </then>
+                                            <else>
+                                                <Symfony2Console command="doctrine:database:create" returnProperty="databaseCreationResult"/>
+                                                <if>
+                                                    <not><equals arg1="${databaseCreationResult}" arg2="0" /></not>
+                                                    <then>
+                                                        <fail message="Could not create or drop database. Check your connection settings." />
+                                                    </then>
+                                                </if>
+                                            </else>
+                                        </if>
+                                    </then>
+                                </if>
                             </then>
                         </if>
-                        <if>
-                            <not><available file="${testDatabase}" property="testDatabase.available"/></not>
-                            <then>
-                                <touch file="${testDatabase}"/>
-                            </then>
-                        </if>
+                        <echo msg="Creating project database schema ..."/>
+                        <Symfony2Console command="doctrine:schema:create"/>
+                        <Symfony2Console command="doctrine:fixtures:load">
+                            <arg value="--no-interaction" />
+                        </Symfony2Console>
                     </then>
                 </if>
-                <phingcall target="db:clean" />
-            </else>
-        </if>
-    </target>
-
-    <!-- Project initialize database -->
-    <target name="db:init" description="Initialize database.">
-        <if>
-            <equals arg1="${skipCreate}" arg2="true" />
-            <then>
-            </then>
-            <else>
-                <echo msg="Creating project database ..."/>
-                <SymfonyConsole command="doctrine:database:create">
-                    <arg name="env" value="${symfony_env}" />
-                </SymfonyConsole>
-            </else>
-        </if>
-        <echo msg="Creating project database schema ..."/>
-        <SymfonyConsole command="doctrine:schema:create">
-            <arg name="env" value="${symfony_env}" />
-        </SymfonyConsole>
-    </target>
-
-    <!-- Project clean database -->
-    <target name="db:clean" description="Clean up database.">
-        <if>
-            <equals arg1="${symfony_env}" arg2="prod" />
-            <then>
-                <echo msg="You cannot clean database in prod env!"/>
-            </then>
-            <else>
-                <echo msg="Cleaning project database ..."/>
-                <echo msg="Dropping project database ..."/>
-                <SymfonyConsole command="doctrine:database:drop">
-                    <arg name="env" value="${symfony_env}" />
-                    <arg name="force" />
-                </SymfonyConsole>
-                <phingcall target="db:init" />
-            </else>
-        </if>
-    </target>
-
-    <!-- Project load fixtures -->
-    <target name="fixtures" description="Load fixtures.">
-        <if>
-            <equals arg1="${symfony_env}" arg2="prod" />
-            <then>
-                <if>
-                    <and>
-                        <isset property="freshInstall"/>
-                        <istrue value="${freshInstall}"/>
-                    </and>
-                    <then>
-                        <echo msg="Loading project initial fixtures ..."/>
-                        <SymfonyConsole command="doctrine:fixtures:load">
-                            <arg name="env" value="${symfony_env}" />
-                            <arg name="no-interaction" />
-                        </SymfonyConsole>
-                    </then>
-                    <else>
-                        <echo message="Skipping loading project fixtures in prod env..." />
-                    </else>
-                </if>
-            </then>
-            <else>
-                <echo msg="Loading project fixtures ..."/>
-                <SymfonyConsole command="doctrine:fixtures:load">
-                    <arg name="env" value="${symfony_env}" />
-                    <arg name="no-interaction" />
-                </SymfonyConsole>
             </else>
         </if>
     </target>
@@ -301,30 +257,27 @@
         <if>
             <istrue value="${assets.installWithSymlink}"/>
             <then>
-                <SymfonyConsole command="assets:install" checkreturn="true">
+                <Symfony2Console command="assets:install" checkReturn="true">
                     <arg value="web" />
-                    <arg name="symlink" />
-                </SymfonyConsole>
+                    <arg value="--symlink" />
+                </Symfony2Console>
             </then>
             <else>
-                <SymfonyConsole command="assets:install" checkreturn="true">
+                <Symfony2Console command="assets:install" checkReturn="true">
                     <arg value="web" />
-                </SymfonyConsole>
+                </Symfony2Console>
             </else>
         </if>
         <if>
-            <equals arg1="${symfony_env}" arg2="dev" />
+            <equals arg1="${symfony.env}" arg2="dev" />
             <then>
                 <echo msg="Dumping assets for dev environment with debug ..."/>
-                <SymfonyConsole command="assetic:dump">
-                    <arg name="env" value="${symfony_env}" />
-                </SymfonyConsole>
+                <Symfony2Console command="assetic:dump"/>
             </then>
             <else>
                 <echo msg="Dumping assets for prod/test environment without debug ..."/>
                 <SymfonyConsole command="assetic:dump">
-                    <arg name="env" value="${symfony_env}" />
-                    <arg name="no-debug" />
+                    <arg value="--no-debug" />
                 </SymfonyConsole>
             </else>
         </if>
@@ -340,16 +293,13 @@
             <isset property="warmup_cache"/>
             <then>
                 <echo message="Clearing cache with warm up..."/>
-                <SymfonyConsole command="cache:clear">
-                    <arg name="env" value="${symfony_env}" />
-                </SymfonyConsole>
+                <Symfony2Console command="cache:clear"/>
             </then>
             <else>
                 <echo message="Clearing cache without warm up..."/>
-                <SymfonyConsole command="cache:clear">
-                    <arg name="env" value="${symfony_env}" />
-                    <arg name="no-warmup" />
-                </SymfonyConsole>
+                <Symfony2Console command="cache:clear">
+                    <arg value="--no-warmup" />
+                </Symfony2Console>
             </else>
         </if>
     </target>
