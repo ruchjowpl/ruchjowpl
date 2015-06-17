@@ -54,7 +54,7 @@ assetic:
 
         less:
             node: "%node%"
-            node_paths: [ "%node_modules_path%" ]
+            node_paths: "%node_paths%"
             apply_to: "\.less$"
 
 # Doctrine Configuration

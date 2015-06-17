@@ -1,12 +1,13 @@
+# This file is a "template" of what your parameters.yml file should look like
 parameters:
-    router.request_context.host: efektjow.pl
+    router.request_context.host: ruchjow.pl
     router.request_context.scheme: https
     router.request_context.base_url: ''
 
     database_driver:   pdo_mysql
     database_host:     127.0.0.1
     database_port:     ~
-    database_name:     symfony
+    database_name:     ruchjow
     database_user:     root
     database_password: ~
 
@@ -40,5 +41,5 @@ parameters:
     debug_redirects:        false
     use_assetic_controller: true
 
-    node:              "/usr/local/bin/node"
-    node_modules_path: "/usr/local/lib/node_modules"
+    node:       "/usr/bin/nodejs"
+    node_paths: ["%kernel.root_dir%/../node_modules"]
