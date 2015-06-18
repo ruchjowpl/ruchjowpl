@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Ruch JOW" basedir="." default="main" phingVersion="2.11.0">
-    <taskdef name="Symfony2Console" classname="src.phing.Symfony2ConsoleTask"/>
+    <taskdef name="Symfony2Console" classname="src.Phing.Symfony2ConsoleTask"/>
     <!-- Properties -->
     <if>
         <not><isset property="symfony.env"/></not>

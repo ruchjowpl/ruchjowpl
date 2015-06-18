@@ -1,18 +1,15 @@
 <?php
 
-//require_once 'phing/Task.php';
-require_once '../../vendor/phing/phing/classes/phing/Task.php';
+require_once 'phing/Task.php';
 
 /**
  * Executes a Symfony console command. Build on ExecTask
  *
  * @author Jakub Paszkiewicz <j.paszkiewicz@stermedia.pl>
  * @license MIT
- * @package   phing.tasks.ext
  */
 class Symfony2ConsoleTask extends Task
 {
-
     /**
      * path to Symfony console application
      * @var string
