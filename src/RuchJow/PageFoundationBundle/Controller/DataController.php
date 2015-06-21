@@ -152,7 +152,12 @@ class DataController extends ModelController
 
         // ORGANISATION
         if ($user->getOrganisationVisible()) {
-            $userArray['organisation'] = $user->getOrganisation() ? $user->getOrganisation()->toArray() : null;
+            if ($organisation = $user->getOrganisation()) {
+                $userArray['organisation'] = $organisation->toArray();
+                $userArray['organisation']['fullUrl'] = $organisation->getUrl(true);
+            } else {
+                $userArray['organisation'] = null;
+            }
         }
 
         // SOCIAL LINKS
