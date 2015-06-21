@@ -188,7 +188,7 @@ ruch_jow_task:
 
 ruch_jow_feed:
     announcements:
-        url: 'http://jow.pl/feed/'
+        url: 'http://jow.pl/category/komunikaty/feed/'
         timeout: 20
 
 ruch_jow_transferuj_pl:
