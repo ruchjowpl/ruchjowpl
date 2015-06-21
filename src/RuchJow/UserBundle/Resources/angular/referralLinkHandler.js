@@ -8,7 +8,7 @@ angular.module('ruchJow.user.referralLinkHandler', ['ruchJow.homepageActions', '
             handleReferralToken: function (token) {
                 ipCookie('referralToken', token, { expires: 30 });
 
-                $modal.open({
+                var modalInstance = $modal.open({
                     templateUrl: 'referralLinkHandlerModal.html',
                     controller: function ($scope, $modalInstance) {
                         $scope.ok = function () {
@@ -16,6 +16,8 @@ angular.module('ruchJow.user.referralLinkHandler', ['ruchJow.homepageActions', '
                         }
                     }
                 });
+
+                return modalInstance.result;
             }
         };
 
