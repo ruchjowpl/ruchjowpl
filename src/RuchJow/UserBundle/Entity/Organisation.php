@@ -136,8 +136,6 @@ class Organisation
      */
     public function getUrl($includeProtocol = false)
     {
-
-
         return ($includeProtocol ? ($this->isHttps() ? 'https://' : 'http://') : '') .
             ($this->isWwwPrefix() ? 'www.' : '') .
             $this->url;
