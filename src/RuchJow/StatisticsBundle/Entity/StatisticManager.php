@@ -506,7 +506,7 @@ class StatisticManager
 
         $total      = $this->getUserSingleRank(null, $level);
         $totalPages = ceil($total / $limit);
-        $page       = min($totalPages, $page);
+        $page       = max(min($totalPages, $page), 1);
 
         $params = array();
 
@@ -802,7 +802,7 @@ class StatisticManager
 
         $total      = $this->getTUSingleRank(null, 'commune', $level);
         $totalPages = ceil($total / $limit);
-        $page       = min($totalPages, $page);
+        $page       = max(min($totalPages, $page), 1);
 
         $params = array();
 
@@ -976,7 +976,7 @@ class StatisticManager
 
         $total      = $this->getTUSingleRank(null, 'district', $level);
         $totalPages = ceil($total / $limit);
-        $page       = min($totalPages, $page);
+        $page       = max(min($totalPages, $page), 1);
 
         $params = array();
 
@@ -1138,7 +1138,7 @@ class StatisticManager
 
         $total      = $this->getTUSingleRank(null, 'region');
         $totalPages = ceil($total / $limit);
-        $page       = min($totalPages, $page);
+        $page       = max(min($totalPages, $page), 1);
 
         $params = array();
 
@@ -1339,7 +1339,7 @@ class StatisticManager
             $totalPages = ceil($total/ $limit);
         }
 
-        $page = min($totalPages, $page);
+        $page = max(min($totalPages, $page), 1);
 
         $params = array();
         $where = array();
