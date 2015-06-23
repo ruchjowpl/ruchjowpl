@@ -21,8 +21,6 @@ Wersja produkcyjna aplikacji znajduje się pod adresem http://ruchjow.pl
 
     $ bin/phing
 
-## Zalążek danych (seed data)
-(w opracowaniu)
 
 ## Współtworzenie
 
@@ -39,6 +37,9 @@ Jest kilka sposobów w jaki możesz nam pomóc:
 * poprzez zamykanie zagadnień (issues),
 * finansowo (szczegóły na http://ruchjow.pl).
 
+Jeżeli chcesz pomóc współtworzyć oprogramowanie lub usuwać błędy to prosimy o postępowanie zgodnie z tym krótkim przewodnikiem:  
 
-## Wysyłanie pull requestów
-(w opracowaniu)
+1. Wyślij [pull request](https://github.com/ruchjowpl/ruchjowpl/compare/).
+2. Sprawdź czy wszystkie testy automatyczne przchodzą! Nie akceptujemy rozwiązań bez testów.
+
+Dziękujemy wszystkim [współautorom](https://github.com/ruchjowpl/ruchjowpl/contributors)!
