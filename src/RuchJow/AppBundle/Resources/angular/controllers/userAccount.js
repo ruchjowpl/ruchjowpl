@@ -428,7 +428,7 @@ angular.module('ruchJow.ctrls.userAccount', [
                 },
                 validation: {
                     street: {
-                        pattern: /^([A-ZĄĆĘŁŃÓŚŹŻ]|[a-ząćęłńóśźż]|[.0-9_\-+()*&%$#@!?,;:"]){3,}( ?([A-ZĄĆĘŁŃÓŚŹŻ]|[a-ząćęłńóśźż]|[ .0-9_\-+()*&%$#@!?,;:"]))*$/,
+                        pattern: /^[0-9a-ząćęłńóśźżA-ZĄĆĘŁŃÓŚŹŻ+=()*&%$#@!?,;: "\/-]{2,}/,
                         $labels: {
                             pattern: 'address.street.error.pattern'
                         }
