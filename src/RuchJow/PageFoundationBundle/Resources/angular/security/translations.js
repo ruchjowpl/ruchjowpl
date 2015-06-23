@@ -11,7 +11,7 @@ angular.module('ruchJow.security.translations', ['pascalprecht.translate'])
                 new_password_set: 'Nowe hasło zostało ustawione',
                 reset_link_sent: 'Link do ustawienia hasła został wysłany',
                 user_registered_title: 'Dziękujemy. Na podany przez Ciebie adres e-mail został wysłany link, potrzebny do potwierdzenia Twojego poparcia.',
-                user_registered_msg: 'Jeśli po godzinie nic nie otrzymasz, sprawdź czy mail nie wylądował w spamie lub w innych folderach. Jeśli nic nie będzie, napisz do nas na adres kontak@ruchjow.pl',
+                user_registered_msg: 'Jeśli po godzinie nic nie otrzymasz, sprawdź czy mail nie wylądował w spamie lub w innych folderach. Jeśli nic nie będzie, napisz do nas na adres kontakt@ruchjow.pl',
                 unsuccess: 'Błędny użytkownik lub hasło'
             },
 
