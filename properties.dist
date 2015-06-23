@@ -22,9 +22,8 @@
 
 #---------------------------
 # ENVIRONMENT
-
-symfony.console.path=app/console
-symfony.console.executable="${php.interpreter} ${symfony.console.path}"
+You can set environment
+# symfony.env=dev
 
 # recreate db with fixtures during db:check target (not apply to prod env)
 alwaysRecreateDatabase=false

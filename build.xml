@@ -2,6 +2,13 @@
 <project name="Ruch JOW" basedir="." default="main" phingVersion="2.11.0">
     <taskdef name="Symfony2Console" classname="src.Phing.Symfony2ConsoleTask"/>
     <!-- Properties -->
+    <property file="properties.dist" />
+    <if>
+        <available file="properties" property="custom.properties.available"/>
+        <then>
+            <property file="properties" override="true" />
+        </then>
+    </if>
     <if>
         <not><isset property="symfony.env"/></not>
         <then>
@@ -16,14 +23,6 @@
                                     promptText="Define symfony environment" />
                 </else>
             </if>
-        </then>
-    </if>
-
-    <property file="properties.dist" />
-    <if>
-        <available file="properties" property="custom.properties.available"/>
-        <then>
-            <property file="properties" override="true" />
         </then>
     </if>
 
