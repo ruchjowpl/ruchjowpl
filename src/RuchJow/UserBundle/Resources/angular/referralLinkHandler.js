@@ -11,9 +11,9 @@ angular.module('ruchJow.user.referralLinkHandler', ['ruchJow.homepageActions', '
                 var modalInstance = $modal.open({
                     templateUrl: 'referralLinkHandlerModal.html',
                     controller: function ($scope, $modalInstance) {
-                        $scope.ok = function () {
+                        $scope.cancel = function () {
                             $modalInstance.close();
-                        }
+                        };
                     }
                 });
 

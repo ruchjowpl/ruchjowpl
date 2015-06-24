@@ -1,4 +1,5 @@
 {{ '<script type="text/ng-template" id="referralLinkHandlerModal.html">' }}
+    <div class="close-control" ng-click="cancel()"></div>
     <div class="modal-header">
         <h1>[[ 'user.referralInfo.title'|translate ]]</h1>
     </div>
@@ -7,9 +8,7 @@
             [[ 'user.referralInfo.msg'|translate ]]
         </div>
     </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="ok()">
-            OK
-        </button>
+    <div class="modal-footer" style="text-align: center">
+        <a ui-sref="about" class="btn btn-primary" ng-click="cancel()">Poznaj RuchJow.pl</a>
     </div>
 {{ '</script>' }}

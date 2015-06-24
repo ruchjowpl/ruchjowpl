@@ -25,6 +25,10 @@
     <div class="row" id="chapter_1">
         <div class="col-md-12" >
             <h2>O co walczymy?</h2>
+            <div ng-if="!security.currentUser || !security.currentUser.username" style="border: 4px solid #6400cf; color: #6400cf; padding: 0.5rem 1rem; font-size:1.4rem; font-weight:500;">
+                Dziękujemy za zainteresowanie naszą akcją!<br/>
+                Jeśli zdecydujesz się ją poprzeć, osoba, która poleciła Ci naszą stronę, otrzyma dodatkowe punkty.
+            </div>
             <div class="row">
                 <div class="col-md-8"><ul>
                         <li>Chcemy posłów odpowiedzialnych przed wyborcami. </li>
