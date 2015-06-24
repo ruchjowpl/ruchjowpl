@@ -3,12 +3,19 @@
 {% block stylesheets %}
     {{ parent() }}
 
+    {# Page Foundation CSS #}
+    {% include '@RuchJowPageFoundation/css.html.twig' %}
+
+    {# Backend CSS #}
     {% include '@RuchJowBackend/css.html.twig' %}
 
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
+
+    {# Page Foundation JS #}
+    {% include '@RuchJowPageFoundation/js.html.twig' %}
 
     {% include '@RuchJowBackend/js.html.twig' %}
 
