@@ -19,13 +19,11 @@
     "doctrine/doctrine-bundle": "~1.4",
     "doctrine/doctrine-fixtures-bundle": "2.2.*",
 
-    "twig/extensions": "~1.0",
-
     "symfony/assetic-bundle": "~2.3",
     "symfony/swiftmailer-bundle": "~2.3",
     "symfony/monolog-bundle": "~2.4",
 
-    "sensio/distribution-bundle": "~3.0,>=3.0.12",
+    "sensio/distribution-bundle": "~4.0",
     "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
     "incenteev/composer-parameter-handler": "~2.0",
 
@@ -95,6 +93,7 @@
   "extra": {
     "symfony-app-dir": "app",
     "symfony-web-dir": "web",
+    "symfony-assets-install": "relative",
     "incenteev-parameters": {
       "file": "app/config/parameters.yml"
     },
