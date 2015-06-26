@@ -2,55 +2,49 @@ angular.module('ruchJow.ctrls.ranks', ['ui.bootstrap', 'ruchJow.security'])
     .provider('ruchJowLocalGov', [function () {
 
         var cache = {},
-            shapesUrl = Routing.generate('local_gov_ajax_support');
+            markersUrl = Routing.generate('markers_ajax_all');
 
         var provider = {
 
-            setShapesUrl: function (url) {
-                shapesUrl = url;
+            setMarkersUrl: function (url) {
+                markersUrl = url;
             },
             $get: ['$q', '$http', function ($q, $http) {
                 var service = {
                     getMarkersData: function (unitType, unitId) {
-                        return getSupportData(unitType, unitId);
+                        return getMarkersData(unitType, unitId);
                     }
                 };
 
                 return service;
 
-                function getSupportData(unitType, unitId) {
+                function getMarkersData(unitType, unitId) {
                     var unitIdKey = unitId || 'null';
 
                     if (
-                        cache.hasOwnProperty(unitType) &&
-                        cache[unitType].hasOwnProperty(unitIdKey)
-
+                        !cache.hasOwnProperty(unitType) ||
+                        !cache[unitType].hasOwnProperty(unitIdKey)
                     ) {
-                        return cache[unitType][unitIdKey];
-                    }
 
-                    var config = {
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        },
-                        method: 'POST',
-                        url: shapesUrl,
-                        data: JSON.stringify(
-                            {
+                        var config = {
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            method: 'POST',
+                            url: markersUrl,
+                            data: JSON.stringify({
                                 type: unitType,
                                 id: unitId
-                            }
-                        )
-                    };
+                            })
+                        };
 
-                    if (typeof cache[unitType] === 'undefined') {
-                        cache[unitType] = {};
+                        if (typeof cache[unitType] === 'undefined') {
+                            cache[unitType] = {};
+                        }
+                        cache[unitType][unitIdKey] = $http(config).then(function (response) {
+                            return response.data.data;
+                        });
                     }
-                    cache[unitType][unitIdKey] = $http(config).then(function (response) {
-                        cache[unitType][unitIdKey] = $q.when(response.data);
-
-                        return response.data;
-                    });
 
                     return cache[unitType][unitIdKey];
                 }
@@ -354,9 +348,6 @@ angular.module('ruchJow.ctrls.ranks', ['ui.bootstrap', 'ruchJow.security'])
             $scope.markersData = {};
             $scope.parent = null;
             $scope.children = null;
-
-
-
 
             // RANKING: NATIONWIDE USER
             $scope.nationwideUserRanking = {
@@ -828,9 +819,8 @@ angular.module('ruchJow.ctrls.ranks', ['ui.bootstrap', 'ruchJow.security'])
                     $scope.activeTerritorialUnit.type,
                     $scope.activeTerritorialUnit.id
                 ).then(function (data) {
-                        $scope.children = data;
-                    });
-
+                    $scope.children = data;
+                });
 
                 // Update LOCAL GOV MARKERS
                 $scope.localGovMarkers = [];
