@@ -385,6 +385,14 @@ assetic:
             inputs:
                 - '%kernel.root_dir%/Resources/public/img/markers/star_blue.png'
             output: images/map/star.png
+        map_marker_default:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/markers/star_blue.png'
+            output: images/map/default.png
+        map_marker_referendum_point:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/markers/info.png'
+            output: images/map/referendumPoint.png
         map_marker_circle:
             inputs:
                 - '%kernel.root_dir%/Resources/public/img/markers/circle_red.png'

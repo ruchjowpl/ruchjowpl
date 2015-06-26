@@ -295,3 +295,28 @@ ul.nav-tabs > li > a {
 
   transform: translate(-50%,0) rotate(-90deg) translate(0, 50%);
 }
+
+.calendar {
+  position: fixed;
+  z-index: 1000;
+  opacity: 0.7;
+
+  left: 31px;
+  top: 43%;
+  display: block;
+
+  background: #005a8f;
+  color: white;
+  &:hover, &:visited {
+    opacity: 1;
+    color: white;
+    text-decoration: none;
+  }
+
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.5rem 0.8rem 0.5rem;
+  border-radius: 0.8rem 0.8rem 0 0;
+
+  transform: translate(-50%, 0) rotate(90deg) translate(0, 50%);
+}

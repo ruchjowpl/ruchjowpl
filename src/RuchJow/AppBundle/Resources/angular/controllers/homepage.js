@@ -12,7 +12,6 @@ angular.module('ruchJow.ctrls.homepage', [
             $scope.actions = { currentAction: null };
             $timeout(function () {
                 $q.when($scope.actions.currentAction)['finally'](function () {
-                    console.log('asdfsdfds');
                     $alert('', '', {templateUrl: 'alertHomepage.html'});
                 });
             }, 500);

@@ -66,6 +66,9 @@ security:
 #        - { path: ^/cif/fe_get_calc_names$,               role: ROLE_REGISTERED_USER }
 ##        - { path: ^/cif/fe_data/[a-zA-Z0-9_-]+$, role: ROLE_REGISTERED_USER }
 
+        # APP markers
+        - { path: ^/markers/cif/all$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
         # APP angular partials
         - { path: "^/partial/[.\-a-zA-Z0-9_]+$", role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: "^/ajax/organise_event$",      role: ROLE_REGISTERED_USER }
