@@ -36,7 +36,18 @@ angular.module('ruchJow.ranks', ['ruchJow.tools.mouseFollower'])
         disableDefaultUI: true,
         scrollwheel: false,
         keyboardShortcuts: false,
-        backgroundColor: '#ffffff88'
+        backgroundColor: '#ffffff88',
+        markers: {
+            default: {
+                icon: 'images/map/star.png'
+            },
+            support: {
+                icon: 'images/map/star.png'
+            },
+            referendum_point: {
+                icon: 'images/map/referendumPoint.png'
+            }
+        }
     })
 
     .directive('ruchJowMap', ['ruchJowTerritorialUnits', 'lazyLoadApi', 'mapOptions', 'ruchJowMouseFollower', function(ruchJowTerritorialUnits, lazyLoadApi, mapOptions, ruchJowMouseFollower) {
@@ -61,11 +72,10 @@ angular.module('ruchJow.ranks', ['ruchJow.tools.mouseFollower'])
                 var chosenShape = null;
                 var scale; // In m/pixel
                 var maxMarkerSizeFactor = 0.02;
+                var options = angular.extend({}, opts, $scope.$eval(attrs.options));
 
                 // wait for the API
                 lazyLoadApi.then(function() {
-
-                    var options = angular.extend({}, opts, $scope.$eval(attrs.options));
 
                     map = new google.maps.Map(elem[0], options);
 
@@ -104,6 +114,7 @@ angular.module('ruchJow.ranks', ['ruchJow.tools.mouseFollower'])
                             return;
                         }
                         updateOtherMarkers();
+                        console.log('markers updated');
                     }, true);
                 });
 
@@ -174,6 +185,7 @@ angular.module('ruchJow.ranks', ['ruchJow.tools.mouseFollower'])
                  * Iterates through all shapes and updates their markers.
                  */
                 function updateOtherMarkers() {
+                    console.log('other markers');
 
                     angular.forEach(otherMarkers, function(marker, key) {
                         if (typeof $scope.otherMarkersData[key] === 'undefined') {
@@ -209,10 +221,15 @@ angular.module('ruchJow.ranks', ['ruchJow.tools.mouseFollower'])
                         var title = markerData.title;
 
                         if (typeof otherMarkers[key] === 'undefined') {
+
+                            var type = markerData.type,
+                                icon = options.markers[type] && options.markers[type].icon ?
+                                    options.markers[type].icon : options.markers['default'].icon;
+
                             otherMarkers[key] = {
                                 marker: new google.maps.Marker({
                                     position: latlng,
-                                    icon: 'images/map/star.png',
+                                    icon: icon,
                                     title: title,
                                     map: map
                                 }),
@@ -453,6 +470,7 @@ angular.module('ruchJow.ranks', ['ruchJow.tools.mouseFollower'])
                             fillOpacity: options.fillOpacity,
                             map: map,
                             shape: shape // save the reference
+
                         });
                         shapes.push(poly);
 
@@ -468,7 +486,6 @@ angular.module('ruchJow.ranks', ['ruchJow.tools.mouseFollower'])
 
                         poly.marker = new google.maps.Marker({
                             icon: circle,
-                            optimized: false,
                             position: new google.maps.LatLng(shape.center[0], shape.center[1]),
                             map: map,
                             parent: poly

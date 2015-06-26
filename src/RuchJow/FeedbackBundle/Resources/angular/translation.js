@@ -6,6 +6,9 @@ angular.module('ruchJow.feedback.translation', ['pascalprecht.translate'])
     .config(['$translateProvider', function ($translateProvider) {
         $translateProvider.translations('pl', {
 
+            calendar:{
+                link:'kalendarz'
+            },
             feedback: {
                 form: {
                     title: 'Zgłoś błąd',
