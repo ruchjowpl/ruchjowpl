@@ -313,16 +313,17 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
 
             // Menu
             menu: {
-                login: 'zaloguj',
+                login: 'Zaloguj',
                 support_action: 'Dołącz',
-                ranks: 'rankingi',
-                about: 'o akcji',
-                sponsors: 'sponsorzy',
-                contact: 'kontakt',
-                faq: 'faq',
-                announcements: 'komunikaty',
-                challenges: 'wesprzyj',
-                why_jow: 'dlaczego JOW?'
+                ranks: 'Rankingi',
+                about: 'O akcji',
+                sponsors: 'Sponsorzy',
+                contact: 'Kontakt',
+                faq: 'Faq',
+                announcements: 'Komunikaty',
+                challenges: 'Wesprzyj',
+                why_jow: 'Dlaczego JOW?',
+                shop: 'Sklep'
             },
 
             points: {
