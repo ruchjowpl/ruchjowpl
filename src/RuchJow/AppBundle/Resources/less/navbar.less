@@ -272,51 +272,45 @@ ul.nav-tabs > li > a {
 }
 
 
-.feedback {
+#floating_menu {
   position: fixed;
   z-index: 1000;
 
   left: 0;
-  top: 30%;
+  top: 20%;
   display: block;
 
-  background: #2ecc71;
-  color: white;
-  &:hover, &:visited {
+  .feedback {
+    background: #2ecc71;
     color: white;
-    text-decoration: none;
   }
 
-  font-size: 1.7rem;
-  font-weight: bold;
-  padding: 0.7rem 2.5rem 1.2rem;
-  border-radius: 0 0 0.8rem 0.8rem;
-
-
-  transform: translate(-50%,0) rotate(-90deg) translate(0, 50%);
-}
-
-.calendar {
-  position: fixed;
-  z-index: 1000;
-  opacity: 0.7;
-
-  left: 31px;
-  top: 43%;
-  display: block;
-
-  background: #005a8f;
-  color: white;
-  &:hover, &:visited {
-    opacity: 1;
+  .calendar {
+    background: #005a8f;
     color: white;
-    text-decoration: none;
   }
 
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 0.5rem 0.8rem 0.5rem;
-  border-radius: 0.8rem 0.8rem 0 0;
+  > * {
+    display: block;
+    float: left;
+    font-size: 1.7rem;
+    font-weight: bold;
+    padding: 0.7rem 2.5rem 1.2rem;
+    border-radius: 0 0 0.8rem 0.8rem;
 
-  transform: translate(-50%, 0) rotate(90deg) translate(0, 50%);
+    &:first-child {
+      border-bottom-right-radius: 0;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: 0;
+    }
+
+    &:hover, &:visited {
+      color: white;
+      text-decoration: none;
+    }
+  }
+
+  transform: translate(-50%,0) rotate(-90deg) translate(-50%, 50%);
 }
