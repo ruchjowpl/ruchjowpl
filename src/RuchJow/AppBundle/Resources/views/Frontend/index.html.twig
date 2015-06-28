@@ -45,6 +45,10 @@
     '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TWPTLX');</script>
 
+    {# SUGESTER #}
+    <script>sugester_tab = 0;</script>
+    <script src='//s3-eu-west-1.amazonaws.com/app1.sugester.com/6867/widget.js' type='text/javascript'></script>
+
 {% endblock %}
 
 
@@ -65,9 +69,17 @@
 
 {% block content %}
     <div ng-include src="'cookiesInfo.html'"></div>
+
+    <div id="floating_menu">
+        <a class="clickable calendar" target="_blank" href="https://www.google.com/calendar/embed?src=lsvabs1m2pek5e4tifs9drtdm0%40group.calendar.google.com&ctz=Europe/Warsaw" translate>calendar.link</a>
+        <a class="clickable feedback" href="#" data-href="https://test760.sugester.pl/forum/app/form.html?link=1" rel="radbox;width=700;height=400" onclick="return false;" translate>feedback.link</a>
+    </div>
+    {#<a class="clickable feedback" ng-click="feedback()" translate>feedback.link</a>#}
+
+
     <div ng-include src="'homepageNavbar.html'"></div>
 
-    <div ng-view class="page-wrapper"></div>
+    {#<div ng-view class="page-wrapper"></div>#}
     <div ui-view class="page-wrapper"></div>
 
     <div ng-include src="'footer.html'" class="footer-wrapper"></div>
