@@ -29,8 +29,10 @@
                 <li ruch-jow-link-block="'contact'" {#ng-show="security.currentUser && security.currentUser.username"#}><a ui-sref="contact" ruch-jow-force-hash-href="" class="clickable" translate>menu.contact</a></li>
                 <li ruch-jow-link-block="'challenges'"><a ui-sref="challenges" ruch-jow-force-hash-href="" class="clickable" translate>menu.challenges</a></li>
                 <li ruch-jow-link-block="'ranks'" ng-show="security.currentUser && security.currentUser.username"><a ui-sref="ranks" ruch-jow-force-hash-href="" class="clickable" translate>menu.ranks</a></li>
-                <li ruch-jow-link-block="'faq'" ng-show="security.currentUser && security.currentUser.username"><a ui-sref="faq" ruch-jow-force-hash-href="" class="clickable" translate>menu.faq</a></li>
+                {#<li ruch-jow-link-block="'faq'" ng-show="security.currentUser && security.currentUser.username"><a ui-sref="faq" ruch-jow-force-hash-href="" class="clickable" translate>menu.faq</a></li>#}
+                <li ng-show="security.currentUser && security.currentUser.username"><a href="http://sklep.ruchjow.pl" target="_blank" translate>menu.shop</a></li>
                 <li ruch-jow-link-block="'announcements'" {#ng-show="security.currentUser && security.currentUser.username"#}><a ui-sref="announcements" ruch-jow-force-hash-href="" class="clickable" translate>menu.announcements</a></li>
+                <li ng-show="!security.currentUser || !security.currentUser.username"><a href="http://sklep.ruchjow.pl" target="_blank" translate>menu.shop</a></li>
 
                 {# Anonymous #}
                 {# Register / support#}
