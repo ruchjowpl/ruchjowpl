@@ -10,11 +10,11 @@ angular.module('ruchJow.ctrls.homepage', [
         '$alert',
         function ($scope, $q, $timeout, $alert) {
             $scope.actions = { currentAction: null };
-            $timeout(function () {
-                $q.when($scope.actions.currentAction)['finally'](function () {
-                    $alert('', '', {templateUrl: 'alertHomepage.html'});
-                });
-            }, 500);
+            //$timeout(function () {
+            //    $q.when($scope.actions.currentAction)['finally'](function () {
+            //        $alert('', '', {templateUrl: 'alertHomepage.html'});
+            //    });
+            //}, 500);
 
         }
     ])
