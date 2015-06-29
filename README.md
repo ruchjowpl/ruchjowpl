@@ -1,5 +1,7 @@
 # ruchjow.pl
 
+[![Join the chat at https://gitter.im/ruchjowpl/ruchjowpl](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ruchjowpl/ruchjowpl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://codeship.com/projects/b3a099c0-f3c9-0132-2194-16cf317d1634/status?branch=develop)](https://codeship.com/projects/85479)
 [![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ruchjowpl)
 
