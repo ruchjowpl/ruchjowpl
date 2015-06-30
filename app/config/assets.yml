@@ -280,7 +280,8 @@ assetic:
             output: images/layout/logo2.png
         img_logo:
             inputs:
-                - '%kernel.root_dir%/Resources/public/img/layout/logo.png'
+#                - '%kernel.root_dir%/Resources/public/img/layout/logo.png'
+                - '%kernel.root_dir%/Resources/public/img/layout/logo3.png'
             output: images/layout/logo.png
         img_logo_kukiz:
             inputs:
