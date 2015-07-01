@@ -63,7 +63,8 @@
 
     "kriswallsmith/buzz": "dev-master",
     "qbitz/freshmailbundle": "dev-master",
-    "mailgun/mailgun-php": "~1.7.2"
+    "mailgun/mailgun-php": "~1.7.2",
+    "stermedia/app-dev-security": "~1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.7",

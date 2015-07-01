@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "924aa866a58bf9054939cced345e0702",
+    "hash": "7c4df3028ec297b8b7790712f1aa3a92",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1306,7 +1306,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/Buzz/zipball/f802a9b9d01b53496f50c9c5e09b5c779cbbd300",
+                "url": "https://api.github.com/repos/kriswallsmith/Buzz/zipball/d4041666c3ffb379af02a92dabe81c904b35fab8",
                 "reference": "f802a9b9d01b53496f50c9c5e09b5c779cbbd300",
                 "shasum": ""
             },
@@ -2001,6 +2001,51 @@
             ],
             "description": "A security checker for your composer.lock",
             "time": "2015-05-28 14:22:40"
+        },
+        {
+            "name": "stermedia/app-dev-security",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stermedia/AppDevSecurity.git",
+                "reference": "ff26639b86f7efc77ddecb27065abce130ba2fe2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stermedia/AppDevSecurity/zipball/ff26639b86f7efc77ddecb27065abce130ba2fe2",
+                "reference": "ff26639b86f7efc77ddecb27065abce130ba2fe2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9",
+                "symfony/config": "~2.3",
+                "symfony/debug": "~2.3",
+                "symfony/yaml": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Stermedia\\AppDevSecurity\\": "src/Stermedia/AppDevSecurity/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jakub Paszkiewicz",
+                    "email": "jacobmaster17@gmail.com",
+                    "homepage": "https://github.com/jacobmaster"
+                }
+            ],
+            "description": "app_dev security helper",
+            "time": "2015-07-01 09:12:24"
         },
         {
             "name": "swiftmailer/swiftmailer",
