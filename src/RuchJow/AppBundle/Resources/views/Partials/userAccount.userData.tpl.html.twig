@@ -1,7 +1,59 @@
 <div class="row">
     <div class="col-md-6 user-data-field">
-        <label translate="">commune.label</label>
-        <div class="content">[[ security.currentUser.commune.name ]]</div>
+        <form name="ruchJowUserDataCommuneEdit" ng-submit="commune.save()">
+            <a class="action-link edit" ng-show="!commune.edit" ng-click="commune.initEdit()" translate="" >form.edit</a>
+            <button type="button" class="action-link cancel link-btn" ng-show="commune.edit" ng-click="commune.edit = false" ng-disabled="commune.saveInProgress" translate="" >form.cancel</button>
+            <button type="button" class="action-link save link-btn" ng-class="{ 'in-progress': commune.saveInProgress }" ng-show="commune.edit" ng-click="commune.save()" ng-disabled="!ruchJowUserDataCommuneEdit.$valid || commune.saveInProgress" translate="" >form.save</button>
+
+            <label translate="">commune.label</label>
+            <div class="content">
+                <div ng-hide="commune.edit">
+                    [[ security.currentUser.commune.name ]]
+                </div>
+
+
+                {# Commune #}
+                <div ng-if="commune.edit">
+                    <div ruch-jow-form-table>
+                        <div
+                            ruch-jow-form-field="commune"
+                            {#label="[[ 'form.organisation.name.label'|translate ]]"#}
+                            {#label-suffix-class="'required'"#}
+                            errors="commune.validation.$labels"
+                            ruch-jow-form-show-label="false"
+                            ruch-jow-form-errors-on-top="false"
+
+                            ng-class="{ loading: loading.communes }" {# !!!!!!!!!!!!!!!!!#}
+                        >
+                            <div ng-show="commune.data.commune">
+                                [[ commune.selectedCommuneLabel ? commune.selectedCommuneLabel : '-' ]]
+                            </div>
+                            <input
+                                ng-disabled="commune.saveInProgress"
+                                type="text"
+                                name="commune"
+                                ng-model="commune.inputName" {#ng-model-options="ngModelOptions()"#}
+
+                                typeahead="commune.label for commune in commune.get($viewValue)"
+                                typeahead-loading="commune.loading"
+                                typeahead-on-select="commune.set($item)"
+
+                                ng-requuired="true"
+                                ruch-jow-validate="{ commune: 'commune.data.commune' }"
+                                ruch-jow-validate-watch="['data.commune']"
+
+                                ruch-jow-enter-down-trigger
+                                ruch-jow-form-null-if-empty
+
+                                title="[[ 'security.register.postcode.or.commune.name'|translate ]]"
+                                placeholder="[[ 'security.register.postcode.or.commune.name'|translate ]]"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
     </div>
 
     {# ORGANISATION #}
