@@ -11,6 +11,12 @@ parameters:
     database_user:     root
     database_password: ~
 
+    app_dev_security_disable: false
+    app_dev_security_allow_http_client_ip: false
+    app_dev_security_allow_http_x_forwarded_for: false
+    app_dev_security_disallowed_php_sapi_names: ['cli-server']
+    app_dev_security_allowed_remote_addr: ['127.0.0.1', 'fe80::1', '::1']
+
     mailer_transport:        smtp
     mailer_host:             127.0.0.1
     mailer_port:             ~
