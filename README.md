@@ -1,8 +1,7 @@
 # ruchjow.pl
 
 [![Build Status](https://codeship.com/projects/b3a099c0-f3c9-0132-2194-16cf317d1634/status?branch=develop)](https://codeship.com/projects/85479)
-[![Chat](https://badges.gitter.im/ruchjowpl/ruchjowpl.svg)](https://gitter.im/ruchjowpl)
-
+[![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ruchjowpl)
 
 Repozytorium aplikacji dostępnej pod adresem RuchJow.pl.
 
@@ -15,11 +14,22 @@ Możesz zobaczyć działającą wersję aplikacji pobranej bezpośrednio z GitHu
 ## Produkcja
 Wersja produkcyjna aplikacji znajduje się pod adresem http://ruchjow.pl
 
+## Przydatne adresy
+
+http://trello.com/ruchjowpl - aktualne wymagania projektu, w cyklach (sprintach) 1 tygodniowych
+
+https://gitter.im/ruchjowpl - czat projektu
+
+https://rozwijaj.ruchjow.pl - miejsce zgłaszania uwag, sugestii i pomysłów
+
+
 ## Instalacja
 
     $ composer install
 
     $ bin/phing
+
+
 
 
 ## Współtworzenie
