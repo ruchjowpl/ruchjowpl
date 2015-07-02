@@ -96,7 +96,7 @@ class LoadTestUsersData extends AbstractFixture implements OrderedFixtureInterfa
             'Admin',
             'Almighty',
             'ROLE_ADMIN',
-            null,
+            'admin',
             null,
             null,
             false
@@ -115,7 +115,7 @@ class LoadTestUsersData extends AbstractFixture implements OrderedFixtureInterfa
                 'Firstname' . $i,
                 'Lastname' . $i,
                 'ROLE_USER',
-                null,
+                $username,
                 $communes[array_rand($communes)],
                 $organisation,
                 true
