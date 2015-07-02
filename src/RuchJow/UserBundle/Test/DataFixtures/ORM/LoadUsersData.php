@@ -2,6 +2,7 @@
 
 namespace RuchJow\UserBundle\DataFixtures\ORM;
 
+use RuchJow\TerritorialUnitsBundle\Entity\CommuneRepository;
 use RuchJow\UserBundle\Entity\UserManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -25,23 +26,37 @@ class LoadUsersData extends AbstractFixture implements OrderedFixtureInterface, 
         $this->container = $container;
     }
 
-    private function makeUser($username, $passwordText, $email, $firstName, $lastName, $roles, $commune = null, $organisation = null)
+    private function makeUser(
+        $username,
+        $email,
+        $firstName,
+        $lastName,
+        $roles,
+        $passwordText = null,
+        $commune = null,
+        $organisation = null,
+        $registered = true
+    )
     {
         /** @var UserManager $manager */
         $manager = $this->container->get('ruch_jow_user.user_manager');
 
         /** @var User $user */
         $user = $manager->createUser();
-        $user->setUsername($username);
-        $user->setEmail($email);
-        $user->setFirstname($firstName);
-        $user->setLastname($lastName);
-        $user->setRoles((array) $roles);
-//        $user->setEnabled(true);
-//        $user->setSupports(true);
-        $user->setPlainPassword($passwordText);
+        $user
+            ->setUsername($username)
+            ->setEmail($email)
+            ->setFirstname($firstName)
+            ->setLastname($lastName)
+            ->setRoles((array) $roles)
+            ->setEnabled(true);
 
-        $manager->confirmRegistration($user);
+        if ($passwordText) {
+            $user->setPlainPassword($passwordText);
+        } else {
+            $user->setPassword('')
+                ->setLocked(true);
+        }
 
         if ($commune) {
             $user->setCommune($commune);
@@ -49,6 +64,10 @@ class LoadUsersData extends AbstractFixture implements OrderedFixtureInterface, 
 
         if ($organisation) {
             $user->setOrganisation($organisation);
+        }
+
+        if ($registered) {
+            $manager->confirmRegistration($user);
         }
 
         $manager->updateUser($user);
@@ -61,6 +80,12 @@ class LoadUsersData extends AbstractFixture implements OrderedFixtureInterface, 
      */
     public function load(ObjectManager $manager)
     {
+        $used = array(
+            'usernames' => array(),
+            'emails' => array(),
+        );
+
+        /** @var CommuneRepository $communeRepo */
         $communeRepo = $manager->getRepository('RuchJowTerritorialUnitsBundle:Commune');
         $communes = $communeRepo->findAll(); // quite counter-efficient, but ORDER BY RAND() is not supported in DQL
         array_unshift($communes, $communeRepo->findOneByRegionDistrictCommuneType('dolnośląskie', 'Wrocław', 'Wrocław', 'gmina miejska'));
@@ -68,22 +93,46 @@ class LoadUsersData extends AbstractFixture implements OrderedFixtureInterface, 
         $organisationRepo = $manager->getRepository('RuchJowUserBundle:Organisation');
         $organisations = $organisationRepo->findAll();
 
-        $this->makeUser('admin', 'admin', 'admin@efektjow.pl',
-            'Administrator', 'Wszechmocny', 'ROLE_ADMIN'
-        );
 
-        $this->makeUser('user', 'user', 'user@efektjow.pl',
-            'Użytkownik', 'Serwisu', 'ROLE_USER', $communes[0]
-        );
 
-        $this->makeUser('tris', 'tris', 'tristran.thorn@stardust.pl',
-            'Tristran', 'Thorn', 'ROLE_USER', $communes[0]
+        // Admin
+        $this->makeUser(
+            'admin',
+            'admin@ruchjow.pl',
+            'Admin',
+            'Almighty',
+            'ROLE_ADMIN',
+            null,
+            null,
+            null,
+            false
         );
+        $used['usernames']['admin'] = 'admin';
+        $used['emails']['admin@ruchjow.pl'] = 'admin@ruchjow.pl';
 
-        $used = array(
-            'usernames' => array('admin', 'user', 'tris'),
-            'emails' => array('admin@efektjow.pl', 'user@efektjow.pl', 'tristran.thorn@stardust.p'),
-        );
+        // Test
+        for ($i = 1; $i <= 5; $i++) {
+            $username = 'user' . $i;
+            $email = $username . '@ruchjow.pl';
+
+            $organisation = rand(0, 1) == 0 ? null : $organisations[array_rand($organisations)];
+
+            $this->makeUser(
+                $username,
+                $email,
+                'Firstname' . $i,
+                'Lastname' . $i,
+                'ROLE_USER',
+                null,
+                $communes[array_rand($communes)],
+                $organisation,
+                true
+            );
+            $used['usernames'][$username] = $username;
+            $used['emails'][$email] = $email;
+        }
+
+
         $faker = \Faker\Factory::create('pl_PL');
 
         for ($i = 1; $i <= 50; $i++)
@@ -91,7 +140,7 @@ class LoadUsersData extends AbstractFixture implements OrderedFixtureInterface, 
             if ($i % 10 === 0) {
                 echo $i ."\n";
             }
-            $organisation = $organisations[array_rand($organisations)];
+            $organisation = rand(0, 1) == 0 ? null : $organisations[array_rand($organisations)];
 
             do {
                 $username = $faker->userName;
@@ -105,14 +154,17 @@ class LoadUsersData extends AbstractFixture implements OrderedFixtureInterface, 
 
             $this->makeUser(
                 $username,
-                'test',
                 $email,
                 $faker->firstName,
                 $faker->lastName,
                 'ROLE_USER',
+                null,
                 $communes[array_rand($communes)],
-                rand(0, 1) == 0 ? null : $organisation
+                $organisation
+
             );
+
+            $manager->flush();
         }
     }
 

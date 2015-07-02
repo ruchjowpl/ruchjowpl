@@ -31,13 +31,28 @@ class LoadOrganisationsData extends AbstractFixture implements OrderedFixtureInt
     {
         $repo = $manager->getRepository('RuchJowUserBundle:Organisation');
 
+        $used = array(
+            'names' => array(),
+            'urls'  => array(),
+        );
+
         $faker = \Faker\Factory::create('pl_PL');
 
         for ($i = 1; $i <= 20; $i++)
         {
+            do {
+                $name = $faker->company;
+            } while (in_array($name, $used['names']));
+            $used['names'][] = $name;
+
+            do {
+                $url = preg_replace('/(https?:\/\/)?([^\/]+).*/', '$2', $faker->url);
+            } while (in_array($url, $used['urls']));
+            $used['urls'][] = $url;
+
             $organisation = new Organisation();
-            $organisation->setName($faker->company);
-            $organisation->setUrl(preg_replace('/(https?:\/\/)?([^\/]+).*/', '$2', $faker->url));
+            $organisation->setName($name);
+            $organisation->setUrl($url);
 
             $manager->persist($organisation);
         }
