@@ -8,8 +8,9 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use RuchJow\UserBundle\Entity\Organisation;
+use Faker\Factory as FakerFactory;
 
-class LoadOrganisationsData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
+class LoadTestOrganisationsData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
     /**
      * @var ContainerInterface
@@ -29,30 +30,13 @@ class LoadOrganisationsData extends AbstractFixture implements OrderedFixtureInt
      */
     public function load(ObjectManager $manager)
     {
-        $repo = $manager->getRepository('RuchJowUserBundle:Organisation');
-
-        $used = array(
-            'names' => array(),
-            'urls'  => array(),
-        );
-
-        $faker = \Faker\Factory::create('pl_PL');
+        $faker = FakerFactory::create('pl_PL');
 
         for ($i = 1; $i <= 20; $i++)
         {
-            do {
-                $name = $faker->company;
-            } while (in_array($name, $used['names']));
-            $used['names'][] = $name;
-
-            do {
-                $url = preg_replace('/(https?:\/\/)?([^\/]+).*/', '$2', $faker->url);
-            } while (in_array($url, $used['urls']));
-            $used['urls'][] = $url;
-
             $organisation = new Organisation();
-            $organisation->setName($name);
-            $organisation->setUrl($url);
+            $organisation->setName($faker->unique()->company);
+            $organisation->setUrl($faker->unique()->url);
 
             $manager->persist($organisation);
         }

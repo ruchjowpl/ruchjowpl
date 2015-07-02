@@ -10,8 +10,9 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use RuchJow\UserBundle\Entity\User;
+use Faker\Factory as FakerFactory;
 
-class LoadUsersData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
+class LoadTestUsersData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
     /**
      * @var ContainerInterface
@@ -80,11 +81,6 @@ class LoadUsersData extends AbstractFixture implements OrderedFixtureInterface, 
      */
     public function load(ObjectManager $manager)
     {
-        $used = array(
-            'usernames' => array(),
-            'emails' => array(),
-        );
-
         /** @var CommuneRepository $communeRepo */
         $communeRepo = $manager->getRepository('RuchJowTerritorialUnitsBundle:Commune');
         $communes = $communeRepo->findAll(); // quite counter-efficient, but ORDER BY RAND() is not supported in DQL
@@ -92,8 +88,6 @@ class LoadUsersData extends AbstractFixture implements OrderedFixtureInterface, 
 
         $organisationRepo = $manager->getRepository('RuchJowUserBundle:Organisation');
         $organisations = $organisationRepo->findAll();
-
-
 
         // Admin
         $this->makeUser(
@@ -107,8 +101,6 @@ class LoadUsersData extends AbstractFixture implements OrderedFixtureInterface, 
             null,
             false
         );
-        $used['usernames']['admin'] = 'admin';
-        $used['emails']['admin@ruchjow.pl'] = 'admin@ruchjow.pl';
 
         // Test
         for ($i = 1; $i <= 5; $i++) {
@@ -128,12 +120,10 @@ class LoadUsersData extends AbstractFixture implements OrderedFixtureInterface, 
                 $organisation,
                 true
             );
-            $used['usernames'][$username] = $username;
-            $used['emails'][$email] = $email;
         }
 
 
-        $faker = \Faker\Factory::create('pl_PL');
+        $faker = FakerFactory::create('pl_PL');
 
         for ($i = 1; $i <= 50; $i++)
         {
@@ -142,19 +132,9 @@ class LoadUsersData extends AbstractFixture implements OrderedFixtureInterface, 
             }
             $organisation = rand(0, 1) == 0 ? null : $organisations[array_rand($organisations)];
 
-            do {
-                $username = $faker->userName;
-            } while (in_array($username, $used['usernames']));
-            $used['usernames'][] = $username;
-
-            do {
-                $email = $faker->email;
-            } while (in_array($email, $used['emails']));
-            $used['emails'][] = $email;
-
             $this->makeUser(
-                $username,
-                $email,
+                $faker->unique()->userName,
+                $faker->unique()->email,
                 $faker->firstName,
                 $faker->lastName,
                 'ROLE_USER',
