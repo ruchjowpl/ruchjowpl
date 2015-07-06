@@ -13,6 +13,7 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
             'Privacy Policy': 'Polityka prywatności',
             'privacy policy': 'polityka prywatności',
             'Terms': 'Regulamin',
+            'Rules & terms': 'Zasady działania i regulamin RuchJOW',
             'Contact': 'Kontakt',
 
             'I Support': 'Popieram',
