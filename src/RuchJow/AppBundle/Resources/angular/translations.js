@@ -13,6 +13,7 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
             'Privacy Policy': 'Polityka prywatności',
             'privacy policy': 'polityka prywatności',
             'Terms': 'Regulamin',
+            'Rules & terms': 'Zasady działania i regulamin RuchJOW',
             'Contact': 'Kontakt',
 
             'I Support': 'Popieram',
@@ -254,7 +255,13 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
                         label: 'Średnia wpłata w ostatnim tygodniu'
                     },
                     otherAmount: 'inna kwota',
-                    submit: 'e-przelew lub PayPal'
+                    submit: 'e-przelew lub PayPal',
+                    alternative: {
+                        description: 'lub wpłać bezpośrednio na konto dowolną kwotę:',
+                        accountDescription: 'Pekao SA nr konta:',
+                        iban: '81 1240 6768 1111 0010 5970 1904',
+                        additionalInfo: 'podając w tytule swój nick z serwisu ruchjow.pl'
+                    }
                 }
             },
 

@@ -392,7 +392,12 @@ class UserController extends ModelController
                         'type' => 'string',
                         'optional' => true,
                         'in' => array(User::DISPLAY_NAME_NICK, User::DISPLAY_NAME_FULL_NAME),
-                    )
+                    ),
+                    'commune' => array(
+                        'type' => 'entityId',
+                        'entity' => 'RuchJowTerritorialUnitsBundle:Commune',
+                        'optional' => true
+                    ),
                 ),
             ),
             $data
@@ -471,6 +476,19 @@ class UserController extends ModelController
                 // Organisation will be detached from user.
                 $user->setOrganisation(null);
             }
+            $em->persist($user);
+        }
+
+        // Organisation
+        if (isset($data['commune'])) {
+            $commune = $this->getRepository('RuchJowTerritorialUnitsBundle:Commune')->find($data['commune']);
+
+            if (!$commune) {
+                // This should never happen (as we already verified commune id).
+                return $this->createJsonErrorResponse('Commune not found.');
+            }
+
+            $user->setCommune($commune);
             $em->persist($user);
         }
 

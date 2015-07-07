@@ -82,8 +82,8 @@ swiftmailer:
     port:      "%mailer_port%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-    delivery_address:  ~
-    disable_delivery:  true
+    delivery_address: %mailer_delivery_address%
+    disable_delivery: %mailer_disable_delivery%
     spool:     { type: memory }
 
 
@@ -200,6 +200,10 @@ ruch_jow_transferuj_pl:
 qbitz_freshmail:
     api_key: "%freshmail_api_key%"
     api_secret: "%freshmail_api_secret%"
+
+cspoo_swiftmailer_mailgun:
+    key: "%mailgun_api_key%"
+    domain: "%mailgun_domain%"
 
 ruch_jow_mail_pool:
     default_from:      "%mailer_default_from%"
