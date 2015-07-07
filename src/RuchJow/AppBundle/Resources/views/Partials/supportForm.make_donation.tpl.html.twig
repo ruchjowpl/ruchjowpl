@@ -10,8 +10,8 @@
         Chcemy, żeby każdy mógł mieć dostęp do wysokiej jakości materiałów merytorycznych
         dotyczących jednomandatowych okręgów wyborczych.
         Produkujemy dla was broszury, ulotki, plakaty, delegujemy ekspertów na organizowane przez Was wydarzenia.
-        Wesprzyj naszą akcję finansowo za pomocą e-przelewu lub PayPal’a,
-        wpłaty przeznaczymy na aktualizację i produkcję tych materiałów.
+        Wesprzyj naszą akcję finansowo za pomocą e-przelewu, PayPal’a lub bezpośredniej wpłaty na konto.
+        Wpłaty przeznaczymy na aktualizację i produkcję tych materiałów.
         Za każdą przekazaną nam złotówkę otrzymasz dodatkowe punkty ruchu JOW.
     </p>
 
@@ -46,6 +46,11 @@
                             </div>
                             <button ng-disabled="!makeDonationForm.$valid" class="btn submit-make-donation">[[ 'supportForm.make_donation.submit'|translate ]]</button>
                         </form>
+                        <div id="make_donation_alternative">
+                            [[ 'supportForm.make_donation.alternative.description'|translate ]]<br/>
+                            [[ 'supportForm.make_donation.alternative.accountDescription'|translate ]] <strong>[[ 'supportForm.make_donation.alternative.iban'|translate ]]</strong><br/>
+                            [[ 'supportForm.make_donation.alternative.additionalInfo'|translate ]]
+                        </div>
                     </div>
                     <div class="col-md-7 col-sm-6" ng-if="!(security.currentUser && security.currentUser.username)">
                         <ul>

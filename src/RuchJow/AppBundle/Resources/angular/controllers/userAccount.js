@@ -142,9 +142,86 @@ angular.module('ruchJow.ctrls.userAccount', [
         '$scope',
         'ruchJowSecurity',
         'ruchJowFindOrganisations',
-        function ($scope, ruchJowSecurity, ruchJowFindOrganisations) {
+        'ruchJowFindCommunes',
+        function ($scope, ruchJowSecurity, ruchJowFindOrganisations, ruchJowFindCommunes) {
 
-            var getOrgsPromise;
+            var getOrgsPromise, getCommunesPromise;
+
+            // Commune
+            $scope.commune = {
+                edit: false,
+                loading: false,
+                saveInProgress: false,
+
+                validation: {
+                    $labels: {
+                        commune: 'registerForm.commune.commune.error',
+                        required: 'registerForm.commune.required.error'
+                    }
+                },
+                inputName: null,
+                selectedCommuneLabel: null,
+                data: {
+                    commune: null
+                },
+
+                get: function (input) {
+
+                    if (getCommunesPromise) {
+                        ruchJowFindCommunes.cancel(getCommunesPromise);
+                    }
+
+                    getCommunesPromise = ruchJowFindCommunes.getCommunes(input);
+
+                    return getCommunesPromise.then(function (communes) {
+                        angular.forEach(communes, function (commune) {
+                            commune.label = commune.name + ' (' +
+                                commune.region + ', ' +
+                                commune.district + ', ' +
+                                commune.type +
+                                ')';
+                        });
+
+                        return communes;
+                    });
+
+                },
+                set: function (item) {
+                    if (!item) {
+                        $scope.commune.data.commune = null;
+                        $scope.commune.selectedCommuneLabel = null;
+                    } else {
+                        $scope.commune.data.commune = item.id;
+                        $scope.commune.selectedCommuneLabel = item.label;
+                    }
+                },
+                initEdit: function () {
+                    var commune = ruchJowSecurity.currentUser.commune
+
+                    if (commune) {
+                        $scope.commune.selectedCommuneLabel = commune.name;
+                        $scope.commune.data.commune = commune.id;
+                    } else {
+                        $scope.commune.selectedCommuneLabel = null;
+                        $scope.commune.data.commune = null;
+                    }
+
+                    $scope.commune.edit = true;
+                },
+
+                save: function () {
+                    $scope.commune.saveInProgress = true;
+                    ruchJowSecurity.getUserService().updateUserCommune($scope.commune.data.commune)
+                        .then(function () {
+                            return ruchJowSecurity.requestCurrentUser()
+                        })
+                        .then(function () {
+                            $scope.commune.edit = false;
+                        })['finally'](function () {
+                        $scope.commune.saveInProgress = false;
+                    });
+                }
+            };
 
             // ORGANISATION
             $scope.orgs = {

@@ -8,13 +8,14 @@ parameters:
     ruch_jow_mail_pool.disable_delivery:  false
 
     ruch_jow_mail_pool.mailgun.mailer.class: RuchJow\MailPoolBundle\Mailer\MailgunMailer
+    ruch_jow_mail_pool.default.mailer.class: RuchJow\MailPoolBundle\Mailer\DefaultMailer
 
 services:
     ruch_jow_mail_pool.mail_pool:
         class: "%ruch_jow_mail_pool.service.class%"
         arguments:
             - @doctrine
-            - @ruch_jow_mail_pool.mailgun.mailer
+            - @ruch_jow_mail_pool.default.mailer
             - "%ruch_jow_mail_pool.default_from%"
             - "%ruch_jow_mail_pool.default_from_name%"
             - "%ruch_jow_mail_pool.default_reply_to%"
@@ -26,5 +27,10 @@ services:
         arguments:
             - "%ruch_jow_mail_pool.mailgun.api_key%"
             - "%ruch_jow_mail_pool.mailgun.domain%"
+
+    ruch_jow_mail_pool.default.mailer:
+        class: "%ruch_jow_mail_pool.default.mailer.class%"
+        arguments:
+            - @mailer
 
 

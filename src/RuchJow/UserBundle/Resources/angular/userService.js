@@ -480,6 +480,11 @@
 
                             return currentUserRequest;
                         },
+                        updateUserCommune: function (id) {
+                            return service.updateUserData({
+                                commune: id
+                            });
+                        },
                         updateUserOrganisation: function (url, name) {
                             return service.updateUserData({
                                 organisation: {
