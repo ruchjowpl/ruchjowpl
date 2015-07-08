@@ -23,6 +23,7 @@
 
             {# Right menu #}
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="https://ludzie.ruchjow.pl/" target="_blank" class="clickable" translate>menu.coordinators</a></li>
                 <li ruch-jow-link-block="'about'" ng-show="security.currentUser && security.currentUser.username"><a ui-sref="about" ruch-jow-force-hash-href="" class="clickable" translate>menu.about</a></li>
                 <li ruch-jow-link-block="'contact'" {#ng-show="security.currentUser && security.currentUser.username"#}><a ui-sref="contact" ruch-jow-force-hash-href="" class="clickable" translate>menu.contact</a></li>
                 <li ruch-jow-link-block="'challenges'"><a ui-sref="challenges" ruch-jow-force-hash-href="" class="clickable" translate>menu.challenges</a></li>

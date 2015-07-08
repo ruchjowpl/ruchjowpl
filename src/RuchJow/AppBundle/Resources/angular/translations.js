@@ -323,6 +323,7 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
                 login: 'Zaloguj',
                 support_action: 'Dołącz',
                 ranks: 'Rankingi',
+                coordinators: 'Koordynatorzy',
                 about: 'O akcji',
                 sponsors: 'Sponsorzy',
                 contact: 'Kontakt',
