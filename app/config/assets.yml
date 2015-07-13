@@ -323,6 +323,11 @@ assetic:
                 - '%kernel.root_dir%/Resources/public/img/layout/homepageJoin.png'
             output: images/layout/hp_join.png
 
+        img_homepage_referendum:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/referendum-background.jpg'
+            output: images/layout/referendum-background.jpg
+
 
         # FavIcons
 #        img_favicon_16:
