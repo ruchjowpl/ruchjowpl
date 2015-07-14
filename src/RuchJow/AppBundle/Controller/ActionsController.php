@@ -230,7 +230,7 @@ class ActionsController extends ModelController
             'RuchJowAppBundle:Actions:task.userSupportDistributeLeaflets.content.html.twig',
             array(
                 'user' => $user,
-                'distInfo' => $data['distInfo'],
+                'distInfo' => $data['distributeLeafletsInfo'],
             )
         );
 

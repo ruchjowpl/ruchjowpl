@@ -28,6 +28,11 @@ class FrontendController extends ModelController
      */
     public function indexAction(Request $request)
     {
+        $referendumDate = new \DateTime('2015-09-06');
+        $today = new \DateTime();
+
+        $interval = $referendumDate->diff($today);
+        $daysToReferendum=$interval->format('%a');
 
         // $_GET parameters
         if ($request->query->count()) {
@@ -37,6 +42,6 @@ class FrontendController extends ModelController
             };
         }
 
-        return array();
+        return array('daysToReferendum'=>$daysToReferendum);
     }
 }
