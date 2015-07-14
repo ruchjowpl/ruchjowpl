@@ -327,7 +327,7 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
                 about: 'O akcji',
                 sponsors: 'Sponsorzy',
                 contact: 'Kontakt',
-                faq: 'Faq',
+                faq: 'FAQ',
                 announcements: 'Komunikaty',
                 challenges: 'Wesprzyj',
                 why_jow: 'Dlaczego JOW?',
