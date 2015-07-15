@@ -328,10 +328,10 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
                 sponsors: 'Sponsorzy',
                 contact: 'Kontakt',
                 faq: 'FAQ',
-                announcements: 'Komunikaty',
                 challenges: 'Wesprzyj',
                 why_jow: 'Dlaczego JOW?',
-                shop: 'Sklep'
+                shop: 'Sklep',
+                referendum: 'Referendum'
             },
 
             points: {

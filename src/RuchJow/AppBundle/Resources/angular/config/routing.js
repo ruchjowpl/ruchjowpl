@@ -146,11 +146,6 @@
                     templateUrl: ruchJowPartialsProvider.getUrl('contact','app')/*,
                      controller: 'ChallengesCtrl'*/
                 })
-                .state('announcements', {
-                    url: '/announcements',
-                    templateUrl: ruchJowPartialsProvider.getUrl('announcements','app'),
-                    controller: 'AnnouncementsCtrl'
-                })
             ;
 
         }])
