@@ -23,14 +23,13 @@
 
             {# Right menu #}
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="https://http://referendum15.pl/" target="_blank" class="clickable" translate>menu.referendum</a></li>
                 <li><a href="https://ludzie.ruchjow.pl/" target="_blank" class="clickable" translate>menu.coordinators</a></li>
                 <li ruch-jow-link-block="'about'" ng-show="security.currentUser && security.currentUser.username"><a ui-sref="about" ruch-jow-force-hash-href="" class="clickable" translate>menu.about</a></li>
-                <li ruch-jow-link-block="'contact'" {#ng-show="security.currentUser && security.currentUser.username"#}><a ui-sref="contact" ruch-jow-force-hash-href="" class="clickable" translate>menu.contact</a></li>
                 <li ruch-jow-link-block="'challenges'"><a ui-sref="challenges" ruch-jow-force-hash-href="" class="clickable" translate>menu.challenges</a></li>
                 <li ruch-jow-link-block="'ranks'" ng-show="security.currentUser && security.currentUser.username"><a ui-sref="ranks" ruch-jow-force-hash-href="" class="clickable" translate>menu.ranks</a></li>
                 {#<li ruch-jow-link-block="'faq'" ng-show="security.currentUser && security.currentUser.username"><a ui-sref="faq" ruch-jow-force-hash-href="" class="clickable" translate>menu.faq</a></li>#}
                 <li ng-show="security.currentUser && security.currentUser.username"><a href="http://sklep.ruchjow.pl" target="_blank" translate>menu.shop</a></li>
-                <li ruch-jow-link-block="'announcements'" {#ng-show="security.currentUser && security.currentUser.username"#}><a ui-sref="announcements" ruch-jow-force-hash-href="" class="clickable" translate>menu.announcements</a></li>
                 <li ng-show="!security.currentUser || !security.currentUser.username"><a href="http://sklep.ruchjow.pl" target="_blank" translate>menu.shop</a></li>
 
                 {# Anonymous #}
@@ -40,6 +39,7 @@
                         menu.support_action
                     </a>
                 </li>
+                <li ruch-jow-link-block="'contact'" {#ng-show="security.currentUser && security.currentUser.username"#}><a ui-sref="contact" ruch-jow-force-hash-href="" class="clickable" translate>menu.contact</a></li>
 
                 {# Login #}
                 <li class="menu-login" class="dropdown" ng-if="!(security.currentUser && security.currentUser.username)">
