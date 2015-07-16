@@ -160,6 +160,10 @@ ruch_jow_points:
         make.donation.1pln:
             points: 1
             comment: "for each 1pln"
+        print.materials:
+            points: 1
+            comment: "for each 1pln payed for materials"
+            manual: true
         other:
             points: 10
             manual: true

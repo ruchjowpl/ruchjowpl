@@ -140,6 +140,11 @@
                     controller: 'ChallengesMakeDonationCtrl',
                     ruchJowScrollId: 'body_wrapper'
                 }/*, ['ROLE_REGISTERED_USER']*/)
+                .state('challenges.print_materials', {
+                    url: '/print_materials',
+                    templateUrl: ruchJowPartialsProvider.getUrl('supportForm.print_materials','app'),
+                    ruchJowScrollId: 'body_wrapper'
+                }/*, ['ROLE_REGISTERED_USER']*/)
 
                 .state('contact', {
                     url: '/contact',

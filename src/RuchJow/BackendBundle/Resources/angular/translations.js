@@ -69,6 +69,8 @@ angular.module('ruchJow.backend.translations', ['pascalprecht.translate'])
                     },
                     'organise.event': 'zorganizowanie wydarzenia',
                     'distribute.leaflets': 'dystrybucja ulotek',
+                    'organise.referendumPoint': 'organizacja punktu referendalnego',
+                    'print.materials': 'druk materiałów',
                     donation: 'wpłata',
                     other: 'inne'
                 }
