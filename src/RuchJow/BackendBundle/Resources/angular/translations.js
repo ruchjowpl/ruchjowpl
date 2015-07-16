@@ -72,7 +72,42 @@ angular.module('ruchJow.backend.translations', ['pascalprecht.translate'])
                     donation: 'wpłata',
                     other: 'inne'
                 }
+            },
+            referendumPoints: {
+                editForm: {
+                    title: {
+                        label: 'Tytuł',
+                        'required.error': 'Tytuł jest wymagany'
+                    },
+                    subtitle: {
+                        label: 'Podtytuł'
+                    },
+                    description: {
+                        label: 'Opis',
+                        'required.error': 'Opis jest wymagany'
+                    },
+                    lat: {
+                        label: 'Szerokość geograficzna',
+                        'min': 'Szerokość jest za mała',
+                        'max': 'Szerokość jest za duża',
+                        'required.error': 'Szerokość geograficzna jest wymagana'
+                    },
+                    lng: {
+                        label: 'Długość geograficzna',
+                        'min': 'Długość jest za mała',
+                        'max': 'Długość jest za duża',
+                        'required.error': 'Długość geograficzna jest wymagana'
+                    },
+                    commune: {
+                        label: 'Kod pocztowy lub nazwa gminy',
+                        'required.error': 'Pole gmina jest wymagane'
+                    },
+                    submit: 'Zapisz'
+                },
+
+
             }
+
 
         });
     }]);
