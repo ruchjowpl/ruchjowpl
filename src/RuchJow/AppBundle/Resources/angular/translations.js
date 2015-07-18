@@ -262,6 +262,9 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
                         iban: '81 1240 6768 1111 0010 5970 1904',
                         additionalInfo: 'podając w tytule swój nick z serwisu ruchjow.pl'
                     }
+                },
+                print_materials: {
+                    title: 'Druk materiałów'
                 }
             },
 
@@ -317,7 +320,6 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
                 'whole_country': 'cały kraj'
             },
 
-
             // Menu
             menu: {
                 login: 'Zaloguj',
@@ -328,16 +330,17 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
                 sponsors: 'Sponsorzy',
                 contact: 'Kontakt',
                 faq: 'FAQ',
-                announcements: 'Komunikaty',
                 challenges: 'Wesprzyj',
                 why_jow: 'Dlaczego JOW?',
-                shop: 'Sklep'
+                shop: 'Sklep',
+                referendum: 'Referendum'
             },
 
             points: {
                 comment: {
                     'and more': 'i więcej',
                     'for each 1pln': 'za każdy 1 zł',
+                    'for each 1pln payed for materials': 'za każdy 1 zł wydany na wydrukowanie materiałów',
                     'for each referral': 'za każdą osobę, która dołączy z Twojego polecenia (linku)'
                 },
                 type: {
@@ -349,12 +352,10 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
                     'organise.referendumPoint': 'zorganizowanie punktu referendalnego',
                     'distribute.leaflets': 'dystrybucja ulotek',
                     donation: 'wpłata',
+                    'print.materials': 'druk materiałów',
                     other: 'inne'
                 }
             }
-
-
-
 
         });
     }]);

@@ -30,15 +30,15 @@
                                     Zmieniajmy razem Polskę
                                     <ul>
                                         <li>
-                                            Sfinansuj billboard
+                                            <a href="https://wspieram.ruchjow.pl/billbordy/" target="_blank">Sfinansuj billboard</a>
                                             <span>Wystawiliśmy już 100 billboardów</span>
                                         </li>
                                         <li>
-                                            Wspomóż druk materiałów
+                                            <a href="https://sklep.ruchjow.pl/index.php?id_category=17&controller=category" target="_blank">Wspomóż druk materiałów</a>
                                             <span>Wysłaliśmy już 1 000 000 ulotek i broszur</span>
                                         </li>
                                         <li>
-                                            Zorganizuj prelekcję JOW
+                                            <a href="https://ruchjow.pl/#/challenges/organise_event" target="_blank">Zorganizuj prelekcję JOW</a>
                                             <span>Zorganizowaliśmy już 190 spotkań</span>
                                         </li>
                                     </ul>
@@ -304,6 +304,32 @@
                             <div class="col-md-6">
                                 <a ruch-jow-twitter-widget="" class="twitter-timeline" href="https://twitter.com/spolecznoscJOW" data-widget-id="551374304236306434">Tweety użytkownika @spolecznoscJOW </a>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-block announcements-block" ng-controller="AnnouncementsCtrl">
+                        <div class="header">
+                            <h1>Komunikaty</h1>
+                        </div>
+                        <div ng-if="status === 'success' && !feed.length">
+                            Brak komunikatów.
+                        </div>
+
+                        <div class="row" ng-if="status === 'success' && feed.length">
+                            <div class="col-md-6" ng-repeat="item in feed" ng-if="status === 'success'">
+                                <h2>
+                                    <span class="sub-info">[[ date(item.pubDate)|date:'dd.MM.yyyy HH:mm' ]]</span>
+                                    [[ item.title ]]
+                                </h2>
+                                <div>[[ date(item.pubDate)|date:'dd.MM.yyyy HH:mm' ]]</div>
+                                <div ng-bind-html="item.description.__cdata"></div>
+                            </div>
+                        </div>
+                        <div ng-if="status === 'error'">
+                            Wystąpił nieoczekiwany błąd podczas pobierania komunikatów.
                         </div>
                     </div>
                 </div>

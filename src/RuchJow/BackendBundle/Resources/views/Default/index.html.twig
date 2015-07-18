@@ -6,13 +6,9 @@
 
     {% javascripts
         '@RuchJowBackendBundle/Resources/angular/main.js'
+        '@RuchJowBackendBundle/Resources/angular/config/*.js'
         '@RuchJowBackendBundle/Resources/angular/translations.js'
-        '@RuchJowBackendBundle/Resources/angular/Controllers/backend.ctrls.js'
-        '@RuchJowBackendBundle/Resources/angular/Controllers/feedback.js'
-        '@RuchJowBackendBundle/Resources/angular/Controllers/unverifiedUsers.js'
-        '@RuchJowBackendBundle/Resources/angular/Controllers/users.js'
-        '@RuchJowBackendBundle/Resources/angular/Controllers/tasks.js'
-
+        '@RuchJowBackendBundle/Resources/angular/Controllers/*.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}

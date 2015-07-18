@@ -1,0 +1,41 @@
+{% extends '@RuchJowBackend/Partials/stdPage.html.twig' %}
+
+{% block title %}
+    Punkty referendalne
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-block">
+                <span ng-click="edit()" class="clickable">Dodaj</span>
+                <table class="data-table" ng-class="{ 'in-progress-center': loading }">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Tytuł</th>
+                        <th>Podtytuł</th>
+                        <th>Opis</th>
+                        <th>Szerokość (Lat)</th>
+                        <th>Długość (Lng)</th>
+                        <th>Gmina</th>
+                        <th>Edit</th>
+                    </tr>
+                    </thead>
+                    <tr ng-repeat="entry in referendumPoints|orderBy:'id'">
+                        <td class="tight">[[ entry.id ]]</td>
+                        <td class="tight">[[ entry.title ]]</td>
+                        <td class="tight">[[ entry.subtitle ]]</td>
+                        <td class="tight">[[ entry.description ]]</td>
+                        <td class="tight">[[ entry.lat ]]</td>
+                        <td class="tight">[[ entry.lng ]]</td>
+                        <td class="tight">[[ entry.commune.name ]] ([[ entry.commune.region ]])</td>
+                        <td class="tight"><span ng-click="edit(entry.id)" class="clickable">Edytuj</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -134,6 +134,11 @@ security:
         - { path: ^/backend/cif/user/points_add$, role: ROLE_ADD_POINTS }
         - { path: ^/backend/cif/user/donation_add$, role: ROLE_ADD_DONATION }
 
+        - { path: ^/backend/cif/referendumPoints/list$, role: ROLE_REFERENDUM_POINTS }
+        - { path: ^/backend/cif/referendumPoints/update$, role: ROLE_REFERENDUM_POINTS_ADMIN }
+
+
+
         - { path: "^/backend/partial/[.\-a-zA-Z0-9_]+$", role: ROLE_BACKEND }
 
         # DEFAULTS
@@ -145,6 +150,7 @@ security:
             - ROLE_USERS_UNVERIFIED
             - ROLE_USER_DATA
             - ROLE_BACKEND_TASKS
+            - ROLE_REFERENDUM_POINTS
 
         ROLE_BACKEND_ADMIN:
             - ROLE_BACKEND
@@ -169,5 +175,6 @@ ruch_jow_backend:
         - ROLE_ADD_POINTS
         - ROLE_ADD_DONATION
         - ROLE_REFERENDUM_POINTS_ADMIN
+        - ROLE_BACKEND_ADMIN
 
 

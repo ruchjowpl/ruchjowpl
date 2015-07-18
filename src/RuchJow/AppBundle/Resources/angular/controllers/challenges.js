@@ -90,6 +90,13 @@ angular.module('ruchJow.ctrls.challenges', [
                 points: 'make.donation.1pln',
                 state: 'challenges.make_donation'
             });
+            addSupportForm({
+                name: 'print_materials',
+                title: 'supportForm.print_materials.title',
+                //templateUrl: ruchJowPartials('supportForm.make_donation', 'app'),
+                points: 'print.materials',
+                state: 'challenges.print_materials'
+            });
 
             function addSupportForm(data, active) {
                 //noinspection UnnecessaryLocalVariableJS
