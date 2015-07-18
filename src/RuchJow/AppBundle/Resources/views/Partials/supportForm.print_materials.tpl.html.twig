@@ -1,0 +1,59 @@
+<article {#ng-controller="UserAccountOrganiseEventCtrl"#} id="print_materials">
+    <span class="points">
+        <span class="value"><span>+[[ getPoints('print.materials') ]] pkt</span></span>
+        <span class="comment" ng-if="comment = getPointsDef('print.materials').comment"><span>[[ ('points.comment.' + comment)|translate ]]</span></span>
+    </span>
+
+    <h1>[[ 'supportForm.print_materials.title'|translate ]]</h1>
+
+    <p class="p-level-1">
+        Masz możliwość rozdystrybuowania naszych materiałów informacyjnych w swojej okolicy?
+        Nie musisz czekać na kuriera. Możesz pobrać wzory ulotki, broszury oraz plakatu
+        i wydrukować je we własnym zakresie.
+        Prześlij na adres e-mail reportyjow@gmail.com skan faktury za wydrukowane materiały i ich zdjęcie,
+        a my doliczymy do Twojego konta punkty ruchu JOW.
+    </p>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div id="print_materials_block">
+                <div class="row">
+                    <div class="col-sm-7 col-md-6">
+                        <p class="info">
+                            Aby pobrać materiały, kliknij w poniższe linki:
+                        </p>
+                        <p>
+                            <label>ULOTKA</label>
+                            <a href="http://uniqpolimedia.pl/klienci/jow/ulotka%20ruch%20jow.pdf" target="_blank">
+                                http://uniqpolimedia.pl/klienci/jow/ulotka%20ruch%20jow.pdf
+                            </a>
+                        </p>
+                        <p>
+                            <label>BROSZURA</label>
+                            <a href="http://uniqpolimedia.pl/klienci/jow/broszura%20jow%20pw.pdf" target="_blank">
+                                http://uniqpolimedia.pl/klienci/jow/broszura%20jow%20pw.pdf
+                            </a>
+                        </p>
+                        <p>
+                            <label>PLAKAT</label>
+                            <a href="http://uniqpolimedia.pl/klienci/jow/plakat.pdf" target="_blank">
+                                http://uniqpolimedia.pl/klienci/jow/plakat.pdf
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col-sm-5 col-md-6">
+                        <ul>
+                            <li ng-if="!security.currentUser || !security.currentUser.username">Aby zgłosić chęć drukowania materiałów będziesz musiał się zalogować</li>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+</article>

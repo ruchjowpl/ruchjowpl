@@ -1,0 +1,132 @@
+<article>
+    <form
+            ng-submit="save()"
+            name="referendumPointEditForm"
+            {#ng-controller="RegisterFormSubmitCtrl"#}
+            id="referendum_point_edit_form"
+            novalidate
+    >
+        <div ng-init="setForm(referendumPointEditForm)"></div>
+
+        <div class="close-control clickable" ng-click="cancel()"></div>
+
+        {#<div class="modal-header center">#}
+            {#<h1></h1>#}
+        {#</div>#}
+
+        <div class="modal-body" ng-if="!security.currentUser || !security.currentUser.username">
+
+            <div
+                    ruch-jow-form-simple-field="title"
+                    errors="validation.title.$labels"
+                    label-suffix-class="'required'"
+                    ruch-jow-form-show-label="false"
+                    >
+                <input
+                        type="text" name="title"
+                        ng-model="data.title"
+                        {#ng-model-options="ngModelOptions()"#}
+                        ng-required="true"
+                        {#ruch-jow-form-null-if-empty#}
+                        ruch-jow-enter-down-trigger
+                        placeholder="[[ 'referendumPoints.editForm.title.label'|translate ]]*"
+                        />
+            </div>
+            <div
+                    ruch-jow-form-simple-field="subtitle"
+                    errors="validation.subtitle.$labels"
+                    ruch-jow-form-show-label="false"
+                    >
+                <input
+                        type="text" name="subtitle"
+                        ng-model="data.subtitle"
+                        {#ng-model-options="ngModelOptions()"#}
+                        ruch-jow-enter-down-trigger
+                        placeholder="[[ 'referendumPoints.editForm.subtitle.label'|translate ]]"
+                        />
+            </div>
+            <div
+                    ruch-jow-form-simple-field="description"
+                    errors="validation.description.$labels"
+                    label-suffix-class="'required'"
+                    ruch-jow-form-show-label="false"
+                    >
+                <textarea
+                        name="description"
+                        ng-model="data.description"
+                        {#ng-model-options="ngModelOptions()"#}
+                        ng-required="true"
+                        placeholder="[[ 'referendumPoints.editForm.description.label'|translate ]]*"
+                        ></textarea>
+            </div>
+
+            <div
+                    ruch-jow-form-simple-field="lat"
+                    errors="validation.lat.$labels"
+                    label-suffix-class="'required'"
+                    ruch-jow-form-show-label="false"
+                    >
+                <input
+                        type="number" name="lat"
+                        ng-model="data.lat"
+                        {#ng-model-options="ngModelOptions()"#}
+                        ng-required="true"
+                        min="[[ validation.lat.min ]]"
+                        max="[[ validation.lat.max ]]"
+                        ruch-jow-enter-down-trigger
+                        placeholder="[[ 'referendumPoints.editForm.lat.label'|translate ]]*"
+                        />
+            </div>
+            <div
+                    ruch-jow-form-simple-field="lng"
+                    errors="validation.lng.$labels"
+                    label-suffix-class="'required'"
+                    ruch-jow-form-show-label="false"
+                    >
+                <input
+                        type="number" name="lng"
+                        ng-model="data.lng"
+                        {#ng-model-options="ngModelOptions()"#}
+                        ng-required="true"
+                        min="[[ validation.lat.min ]]"
+                        max="[[ validation.lat.max ]]"
+                        ruch-jow-enter-down-trigger
+                        placeholder="[[ 'referendumPoints.editForm.lng.label'|translate ]]*"
+                        />
+            </div>
+            <div
+                    ruch-jow-form-simple-field="commune"
+                    {#label="security.register.commune"#}
+                    {#ruch-jow-form-show-label="false"#}
+                    errors="validation.commune.$labels"
+                    ng-class="{ loading: loading.communes }"
+                    >
+                <div ng-show="data.communeId">
+                    <strong
+                            ruch-jow-input-icon="setCommune(null); localData.communeInputName = null;"
+                            ruch-jow-icon-class="{ delete: true, disabled: !data.communeId }"
+                            >
+                        [[ localData.selectedCommuneLabel ? localData.selectedCommuneLabel : '-' ]]
+                    </strong>
+                </div>
+                <input
+                        ng-show="!data.communeId"
+                        type="text" name="commune"
+                        ng-model="localData.communeInputName"
+                        placeholder="[[ 'referendumPoints.editForm.commune.label'|translate ]]"
+                        typeahead="commune.label for commune in getCommunes($viewValue)"
+                        typeahead-loading="loading.communes"
+                        typeahead-on-select="setCommune($item)"
+                        ruch-jow-validate="{ commune: 'data.communeId' }"
+                        />
+            </div>
+
+            <div class="btns">
+                <button type="submit" class="btn btn-register btn-go">
+                    <span class="glyphicon glyphicon-refresh te-spin-fast" ng-if="status == 'inProgress'"></span> [[ 'referendumPoints.editForm.submit'|translate ]]
+                </button>
+                <span ng-if="status === 'error'">Wystąpił problem podczas zapisu punktu referendalnego</span>
+            </div>
+        </div>
+    </form>
+</article>
