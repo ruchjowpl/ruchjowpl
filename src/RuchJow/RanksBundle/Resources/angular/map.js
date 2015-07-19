@@ -67,6 +67,7 @@ angular.module('ruchJow.ranks', ['ruchJow.tools.mouseFollower'])
             link: function ($scope, elem, attrs,  ctrl, $transclude) {
                 var shapes = [];
                 var otherMarkers = [];
+                var openedInfoWindow;
                 var map;
                 var mouseOverShape;
                 var chosenShape = null;
@@ -114,7 +115,6 @@ angular.module('ruchJow.ranks', ['ruchJow.tools.mouseFollower'])
                             return;
                         }
                         updateOtherMarkers();
-                        console.log('markers updated');
                     }, true);
                 });
 
@@ -185,7 +185,6 @@ angular.module('ruchJow.ranks', ['ruchJow.tools.mouseFollower'])
                  * Iterates through all shapes and updates their markers.
                  */
                 function updateOtherMarkers() {
-                    console.log('other markers');
 
                     angular.forEach(otherMarkers, function(marker, key) {
                         if (typeof $scope.otherMarkersData[key] === 'undefined') {
@@ -226,34 +225,47 @@ angular.module('ruchJow.ranks', ['ruchJow.tools.mouseFollower'])
                                 icon = options.markers[type] && options.markers[type].icon ?
                                     options.markers[type].icon : options.markers['default'].icon;
 
-                            otherMarkers[key] = {
-                                marker: new google.maps.Marker({
-                                    position: latlng,
-                                    icon: icon,
-                                    title: title,
-                                    map: map
-                                }),
-                                //infoWindow: new google.maps.InfoWindow({
-                                infoWindow: new InfoBubble({
-                                    content: content,
-                                    minHeight: 150,
-                                    maxWidth: 300,
-                                    padding: 0,
-                                    borderRadius: 0
-                                })
+                            var newMarker = new google.maps.Marker({
+                                position: latlng,
+                                icon: icon,
+                                title: title,
+                                map: map
+                            });
 
+                            var newInfoData = {
+                                content: content,
+                                minHeight: 150,
+                                maxWidth: 300,
+                                padding: 0,
+                                borderRadius: 0
                             };
+
+                            otherMarkers[key] = {
+                                marker: newMarker,
+                                infoWindowData: newInfoData
+                            };
+
                             otherMarkers[key].listenerClick = google.maps.event.addListener(
                                 otherMarkers[key].marker,
                                 'click',
                                 function () {
+                                    if (!otherMarkers[key].infoWindow) {
+                                        otherMarkers[key].infoWindow = new InfoBubble(otherMarkers[key].infoWindowData);
+                                    }
+
+                                    if (openedInfoWindow) {
+                                        openedInfoWindow.close();
+                                    }
+
+                                    openedInfoWindow = otherMarkers[key].infoWindow;
                                     otherMarkers[key].infoWindow.open(
                                         map,
                                         otherMarkers[key].marker
                                     );
                                 }
 
-                            )
+                            );
+
                         } else {
                             otherMarkers[key].marker.set('position', latlng);
                             otherMarkers[key].infoWindow.set('content', content);
