@@ -28,6 +28,7 @@ class AppKernel extends Kernel
 
             // custom bundles
             new RuchJow\AjaxAuthBundle\RuchJowAjaxAuthBundle(),
+            new RuchJow\AngularSecurity\RuchJowAngularSecurityBundle(),
             new RuchJow\JsonValidatorBundle\RuchJowJsonValidatorBundle(),
             new RuchJow\TransferujPlBundle\RuchJowTransferujPlBundle(),
             new RuchJow\MailPoolBundle\RuchJowMailPoolBundle(),

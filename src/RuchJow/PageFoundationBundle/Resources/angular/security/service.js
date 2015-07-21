@@ -3,6 +3,7 @@ angular.module('ruchJow.security.service', [
         'ruchJow.googleAnalytics',
         'ruchJow.security.retryQueue',    // Keeps track of failed requests that need to be retried once the user logs in
         'ruchJow.security.loginForm',     // Contains the login form template and controller
+        'ruchJow.security.removeConfirm',     // Contains the remove modal template and controller
         'ruchJow.security.registerForm',     // Contains the register form template and controller
         'ruchJow.security.passwordReset',     // Contains the forgot password form template and controller
         'ruchJow.security.symfonyData',            // Used to get login, logout (like urls, csrf token) and user related data
@@ -35,9 +36,10 @@ angular.module('ruchJow.security.service', [
                 'ruchJowSecurityRetryQueue',
                 'ruchJowSecurityRegisterForm',
                 'ruchJowSecurityLoginForm',
+                'ruchJowSecurityRemoveConfirm',
                 'ruchJowSecurityForgotPasswordForm',
                 'ruchJowSecurityNewPasswordForm',
-                function ($injector, $q, $rootScope, $alert, ruchJowGoogleAnalytics, retryQueue, registerForm, loginForm, forgotPasswordForm, newPasswordForm) {
+                function ($injector, $q, $rootScope, $alert, ruchJowGoogleAnalytics, retryQueue, registerForm, loginForm, removeConfirm, forgotPasswordForm, newPasswordForm) {
 
                     // Get user service (throw an exception if user service name has not been set).
                     if (!userServiceName) {
@@ -50,6 +52,7 @@ angular.module('ruchJow.security.service', [
                     var registerModalPromise = null;
                     var loginModalPromise = null;
                     var logoutModalPromise = null;
+                    var removeModalPromise = null;
 
     //                var loginCallback = function (username, password, rememberMe) {
     //                    userService.login(username, password, rememberMe)
@@ -167,6 +170,32 @@ angular.module('ruchJow.security.service', [
                                 });
 
                             return logoutModalPromise;
+                        },
+                        remove: function () {
+                            if (removeModalPromise) {
+                                return removeModalPromise;
+                            }
+
+                            removeModalPromise = removeConfirm.open(userService.remove)
+                                .then(function () {
+                                    return service.requestCurrentUser()
+                                        ['finally'](function () {
+                                        // ...we return resolved promise.
+                                        return $q.when();
+                                    })
+                                }, function () {
+                                    // We want to get user and wait for the response...
+                                    return service.requestCurrentUser()
+                                        ['finally'](function () {
+                                        // ...and return rejected promise.
+                                        return $q.reject();
+                                    });
+                                }).then(function() {
+                                    $alert('security.$alert.account_removed');
+                                })
+                                ['finally'](function () {
+                                    removeModalPromise = null;
+                                });
                         },
                         currentUser: undefined,
                         isAuthenticated: function(){

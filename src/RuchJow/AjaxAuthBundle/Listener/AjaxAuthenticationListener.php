@@ -3,7 +3,7 @@
 namespace RuchJow\AjaxAuthBundle\Listener;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -51,4 +51,5 @@ class AjaxAuthenticationListener
             }
         }
     }
+
 }

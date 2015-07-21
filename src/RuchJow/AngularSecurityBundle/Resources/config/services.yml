@@ -1,0 +1,20 @@
+parameters:
+    ruch_jow_angular_security.kernel_listener.class: RuchJow\AngularSecurityBundle\Listener\KernelListener
+
+services:
+    ruch_jow_angular_security.kernel_listener:
+        class: %ruch_jow_angular_security.kernel_listener.class%
+        arguments:
+            - "@ruch_jow_angular_security.service"
+            - "%ruch_jow_angular_security.xsrf_cookie_name%"
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse, priority: 1000 }
+
+
+    ruch_jow_angular_security.service:
+        class: %ruch_jow_angular_security.kernel_listener.class%
+            arguments:
+                - "@form.csrf_provider"
+                - "@request_stack"
+                - "%ruch_jow_angular_security.xsrf_cookie_name%"
+                - "%ruch_jow_angular_security.xsrf_json_name%"

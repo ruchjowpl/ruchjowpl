@@ -677,3 +677,22 @@
         </form>
     </div>
 </div>
+
+<hr/>
+
+<div class="row">
+    <div class="col-md-12 user-data-field user-data-delete-account">
+        {#<a class="action-link edit" ng-show="!visibility.edit" ng-click="visibility.initEdit()" translate="">form.edit</a>#}
+        {#<button type="button"class="action-link cancel link-btn" ng-show="visibility.edit" ng-click="visibility.edit = false" ng-disabled="visibility.saveInProgress" translate="">form.cancel</button>#}
+        {#<button type="button"class="action-link save link-btn" ng-class="{ 'in-progress': visibility.saveInProgress }" ng-show="visibility.edit" ng-click="visibility.save()" ng-disabled="!ruchJowUserDataVisibilityEdit.$valid || visibility.saveInProgress" translate="">form.save</button>#}
+
+        <label translate="">userDataDeleteAccount.label</label>
+
+        <div class="content">
+            <span class="clickable" ng-click="security.remove()">
+                <span class="fa fa-remove"></span>
+                [[ 'userDataDeleteAccount.delete.label' | translate ]]
+            </span>
+        </div>
+    </div>
+</div>

@@ -433,6 +433,70 @@
                              redirect(redirectTo);
                              })*/;
                         },
+                        remove: function () {
+
+                            var prepareHttpRequest = function (forceHttpRequest) {
+                                return ruchJowSecuritySymfonyData.getAuthFormData(forceHttpRequest)
+                                    .then(function (feData) {
+                                        if (
+                                            typeof feData['login_form'] === 'undefined' ||
+                                            typeof feData['login_form']['csrf_token'] === 'undefined'
+                                        ) {
+                                            return $q.reject('Problem with login form data.');
+                                        }
+
+                                        var csrfToken = feData['login_form']['csrf_token'];
+
+                                        return {
+                                            url: Routing.generate('user_remove'),
+                                            method: 'POST',
+                                            headers: {
+                                                'X-Requested-With': 'XMLHttpRequest'
+                                            },
+                                            data: csrfToken
+                                        };
+                                    }, function () {
+                                        return 'Problem with remove form data.';
+                                    });
+                            };
+
+                            return prepareHttpRequest()
+                                // ...and try to login.
+                                .then(function (httpConfig) {
+                                    return $http(httpConfig);
+                                })
+                                // If server returned 200 but...
+                                .then(function (response) {
+                                    // ... login failed because CSRF token was incorrect...
+                                    if (
+                                        typeof response.data.status !== 'undefined' &&
+                                        response.data.status == 'error.csrf'
+                                    ) {
+                                        // ... prepare request once again (but get csrf from server - force param set to true)...
+                                        response = prepareHttpRequest(true).
+                                            // ... and try to login with new data.
+                                            then(function (httpConfig) {
+                                                return $http(httpConfig);
+                                            });
+                                    }
+
+                                    // Return response (either original or new login try promise which should return response).
+                                    return response;
+                                })
+                                // Interpret response.
+                                .then(function (response) {
+                                    // Request success does not mean that user has logged id.
+                                    if (typeof response.data.status === 'undefinded' || !response.data.status !== 'success') {
+                                        // Login unsuccessful
+                                        return $q.reject('User remove failed');
+                                    }
+
+                                    return 'User removed';
+                                }, function (/*response*/) {
+                                    return 'Internal server error';
+                                });
+
+                        },
                         getCurrentUser: function() {
 
                             // TODO move get user data $http call from SymfonyData and put it here (name getUserRoles is misleading)
