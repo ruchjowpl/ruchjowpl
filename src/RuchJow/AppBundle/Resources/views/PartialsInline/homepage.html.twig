@@ -21,9 +21,17 @@
                             </div>
                             <div class="referendum-block">
                                 <div class="col-md-8 col-small-padding referendum-block-left">
-                                    Jeszcze <strong>{{ daysToReferendum }}</strong> dni<br/>
-                                    do referendum 6 IX !<br/>
-                                    <a class="btn" ng-click="security.register()" class="clickable ng-scope">Dołącz</a>
+                                    {% if daysToReferendum == 0 %}
+                                        Już <strong>dziś</strong><br/>
+                                        referendum 6 IX !<br/>
+                                    {% elseif daysToReferendum > 0 %}
+                                        Jeszcze <strong>{{ daysToReferendum }}</strong> dni<br/>
+                                        do referendum 6 IX !<br/>
+                                    {% else %}
+                                        Referendum 6 IX !<br/>
+                                    {% endif %}
+                                    <a class="btn" href="http://referendum15.pl">Dowiedz się więcej</a>
+                                    <a class="btn clickable ng-scope" ng-click="security.register()">Dołącz do nas</a>
                                     <a class="btn" ui-sref="challenges.make_donation" ruch-jow-force-hash-href="">Wesprzyj</a>
                                 </div>
                                 <div class="col-md-4 col-small-padding referendum-block-right">
