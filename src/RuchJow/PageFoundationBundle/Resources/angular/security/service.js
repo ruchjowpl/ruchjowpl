@@ -53,6 +53,7 @@ angular.module('ruchJow.security.service', [
                     var loginModalPromise = null;
                     var logoutModalPromise = null;
                     var removeModalPromise = null;
+                    var removePromise = null;
 
     //                var loginCallback = function (username, password, rememberMe) {
     //                    userService.login(username, password, rememberMe)
@@ -171,7 +172,7 @@ angular.module('ruchJow.security.service', [
 
                             return logoutModalPromise;
                         },
-                        remove: function () {
+                        removeAccount: function () {
                             if (removeModalPromise) {
                                 return removeModalPromise;
                             }
@@ -191,11 +192,21 @@ angular.module('ruchJow.security.service', [
                                         return $q.reject();
                                     });
                                 }).then(function() {
-                                    $alert('security.$alert.account_removed');
+                                    $alert('security.$alert.account_remove_link_send');
                                 })
                                 ['finally'](function () {
                                     removeModalPromise = null;
                                 });
+                        },
+                        confirmRemoveAccount: function (token) {
+                            if (removePromise) {
+                                return removePromise;
+                            }
+
+                            removeModalPromise = userService.confirmRemove()
+                                ['finally'](function () {
+                                removeModalPromise = null;
+                            });
                         },
                         currentUser: undefined,
                         isAuthenticated: function(){

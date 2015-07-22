@@ -110,6 +110,22 @@ class User extends BaseUser
      */
     protected $passwordResetRequestedAt;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="remove_account_token", type="string", length=255, nullable=true)
+     */
+    protected $removeAccountToken;
+
+    /**
+     * @var \DateTime()
+     *
+     * @ORM\Column(name="remove_account_requested_at", type="datetime", nullable=true)
+     *
+     */
+    protected $removeAccountRequestedAt;
+
     /**
      * @var Address
      *
@@ -567,6 +583,59 @@ class User extends BaseUser
         return $this->getPasswordResetRequestedAt() instanceof \DateTime &&
         $this->getPasswordResetRequestedAt()->getTimestamp() + $ttl > time();
     }
+
+    /**
+     * @return string
+     */
+    public function getRemoveAccountToken()
+    {
+        return $this->removeAccountToken;
+    }
+
+    /**
+     * @param string $removeAccountToken
+     *
+     * @return $this
+     */
+    public function setRemoveAccountToken($removeAccountToken)
+    {
+        $this->removeAccountToken = $removeAccountToken;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getRemoveAccountRequestedAt()
+    {
+        return $this->removeAccountRequestedAt;
+    }
+
+    /**
+     * @param \DateTime $removeAccountRequestedAt
+     *
+     * @return $this
+     */
+    public function setRemoveAccountRequestedAt($removeAccountRequestedAt)
+    {
+        $this->removeAccountRequestedAt = $removeAccountRequestedAt;
+
+        return $this;
+    }
+
+    /**
+     * @param $ttl
+     *
+     * @return bool
+     */
+    public function isRemoveAccountRequestNonExpired($ttl)
+    {
+        return $this->getRemoveAccountRequestedAt() instanceof \DateTime &&
+            $this->getRemoveAccountRequestedAt()->getTimestamp() + $ttl > time();
+    }
+
+
 
 
     /**

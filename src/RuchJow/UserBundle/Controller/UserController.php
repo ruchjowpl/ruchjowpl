@@ -24,7 +24,7 @@ class UserController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/support", name="user_ajax_support", options={"expose": true})
+     * @Route("/ajax/support", name="user_ajax_support", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function registerUserAction()
@@ -156,7 +156,7 @@ class UserController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/support/confirm", name="user_ajax_support_confirm", options={"expose": true})
+     * @Route("/ajax/support/confirm", name="user_ajax_support_confirm", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function confirmUserAction()
@@ -203,7 +203,7 @@ class UserController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/password/forgot", name="user_ajax_create_reset_password_link", options={"expose": true})
+     * @Route("/ajax/password/forgot", name="user_ajax_create_reset_password_link", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function forgotPasswordAction()
@@ -239,8 +239,6 @@ class UserController extends ModelController
         $userManager->generatePasswordResetToken($user);
         $userManager->updateUser($user);
 
-        // TODO $send email
-        // TODO move this to events.
         $this->get('ruch_jow_user.mailer')->sendPasswordResetEmailMessage($user);
 
         return $this->createJsonResponse(array('status' => 'success'));
@@ -249,7 +247,7 @@ class UserController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/password/check_reset_token", name="user_ajax_check_reset_password_token", options={"expose": true})
+     * @Route("/ajax/password/check_reset_token", name="user_ajax_check_reset_password_token", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function checkResetTokenAction()
@@ -268,6 +266,11 @@ class UserController extends ModelController
             return $this->createJsonResponse(array('status' => 'incorrect_token'));
         }
 
+        $ttl = $this->getParameter('ruch_jow_user.password_reset.token_expiration_time');
+        if (!$user->isPasswordResetRequestNonExpired($ttl)) {
+            return $this->createJsonResponse(array('status' => 'expired_token'));
+        }
+
         return $this->createJsonResponse(array('status' => 'success'));
     }
 
@@ -275,7 +278,7 @@ class UserController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/password/set_new", name="user_ajax_set_new_password", options={"expose": true})
+     * @Route("/ajax/password/set_new", name="user_ajax_set_new_password", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function setNewPasswordAction()
@@ -319,7 +322,65 @@ class UserController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/update", name="user_ajax_update", options={"expose": true})
+     * @Route("/ajax/remove/account", name="user_ajax_remove_account", options={"expose": true}, condition="request.isXmlHttpRequest()")
+     * @Method("POST")
+     */
+    public function removeAccountAction()
+    {
+        $userManager = $this->getUserManager();
+        $user        = $this->getUser();
+
+        if (!$user) {
+            return $this->createJsonResponse(array('status' => 'user_not_found'));
+        }
+
+        $userManager->generateRemoveAccountToken($user);
+        $userManager->updateUser($user);
+
+        $this->get('ruch_jow_user.mailer')->sendRemoveAccountEmailMessage($user);
+
+        return $this->createJsonResponse(array('status' => 'success'));
+    }
+
+
+    /**
+     * @return Response
+     *
+     * @Route("/ajax/remove/account/confirm", name="user_ajax_remove_account_confirm", options={"expose": true}, condition="request.isXmlHttpRequest()")
+     * @Method("POST")
+     */
+    public function confirmRemoveAccountAction()
+    {
+        $error = $this->validateRequestJson(
+            array('type' => 'string',),
+            $token
+        );
+
+        if ($error) {
+            return $this->createJsonErrorResponse($error['message']);
+        }
+
+        $user = $this->getUserManager()->findUserByRemoveAccountToken($token);
+        if (!$user) {
+            return $this->createJsonResponse(array('status' => 'incorrect_token'));
+        }
+
+        $ttl = $this->getParameter('ruch_jow_user.remove_account.token_expiration_time');
+        if (!$user->isRemoveAccountRequestNonExpired($ttl)) {
+            return $this->createJsonResponse(array('status' => 'expired_token'));
+        }
+
+
+//        $this->getUserManager()->removeAccount($user);
+
+
+        return $this->createJsonResponse(array('status' => 'success'));
+    }
+
+    /**
+     * @return Response
+     *
+     * @Route("/ajax/update", name="user_ajax_update", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function updateUserDataAction()
@@ -675,7 +736,7 @@ class UserController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/pre_signed_data", name="user_ajax_get_pre_signed_data", options={"expose": true})
+     * @Route("/ajax/pre_signed_data", name="user_ajax_get_pre_signed_data", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function getPreSignedDataAction()
@@ -749,7 +810,7 @@ class UserController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/invite_friends", name="user_ajax_invite_friends", options={"expose": true})
+     * @Route("/ajax/invite_friends", name="user_ajax_invite_friends", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function inviteFriendsAction()
@@ -800,7 +861,7 @@ class UserController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/invite_friends/check", name="user_ajax_invite_friends_check", options={"expose": true})
+     * @Route("/ajax/invite_friends/check", name="user_ajax_invite_friends_check", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function inviteFriendsCheckAction()

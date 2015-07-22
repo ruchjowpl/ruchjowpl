@@ -39,7 +39,7 @@ class DefaultController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/cif/user_roles", name="backend_cif_user_roles", options={"expose"=true} )
+     * @Route("/cif/user_roles", name="backend_cif_user_roles", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      */
     public function getUserRolesAction()
     {
@@ -64,7 +64,7 @@ class DefaultController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/cif/feedback", name="backend_cif_feedback",  options={"expose": true})
+     * @Route("/cif/feedback", name="backend_cif_feedback",  options={"expose": true}, condition="request.isXmlHttpRequest()")
      */
     public function feedbackDataAction(/*Request $request*/)
     {
@@ -92,7 +92,7 @@ class DefaultController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/cif/tasks", name="backend_cif_tasks", options={"expose": true})
+     * @Route("/cif/tasks", name="backend_cif_tasks", options={"expose": true}, condition="request.isXmlHttpRequest()")
      */
     public function tasksDataAction(/*Request $request*/)
     {

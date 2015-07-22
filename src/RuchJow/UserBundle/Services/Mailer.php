@@ -88,6 +88,32 @@ class Mailer
     }
 
     /**
+     * @param User $user
+     */
+    public function sendRemoveAccountEmailMessage(User $user)
+    {
+        $subject  = $this->container->getParameter('ruch_jow_user.remove_account.email.subject');
+        $from     = $this->container->getParameter('ruch_jow_user.remove_account.email.from');
+        $fromName = $this->container->getParameter('ruch_jow_user.remove_account.email.from_name');
+
+        // Body
+        $template = $this->parameters['remove.account.email.template'];
+        $url      = $this->router->generate('frontend_homepage', array(), true) . '?url=' . urlencode('/action/remove_account:' . $user->getRemoveAccountToken());
+        $body     = $this->templating->render($template, array(
+            'user'           => $user,
+            'removeAccountUrl' => $url,
+        ));
+
+        $this->sendEmailMessage(
+            $user->getEmail(),
+            $subject,
+            $body,
+            $from,
+            $fromName
+        );
+    }
+
+    /**
      * @param User           $user
      * @param string[]|array $addresses
      */

@@ -29,8 +29,8 @@ class RuchJowAngularSecurityExtension extends Extension
             $config['xsrf_cookie_name']
         );
         $container->setParameter(
-            'ruch_jow_angular_security.xsrf_json_name',
-            $config['xsrf_json_name']
+            'ruch_jow_angular_security.xsrf_header_name',
+            $config['xsrf_header_name']
         );
     }
 }

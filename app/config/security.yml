@@ -94,8 +94,10 @@ security:
         - { path: ^/cif/user/ajax/password/set_new$,           role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/cif/user/ajax/pre_signed_data$,            role: IS_AUTHENTICATED_ANONYMOUSLY }
 
-        - { path: ^/cif/user/ajax/update$,         role: ROLE_REGISTERED_USER }
-        - { path: ^/cif/user/ajax/invite_friends$, role: ROLE_REGISTERED_USER }
+        - { path: ^/cif/user/ajax/update$,                 role: ROLE_REGISTERED_USER }
+        - { path: ^/cif/user/ajax/invite_friends$,         role: ROLE_REGISTERED_USER }
+        - { path: ^/cif/user/ajax/remove/account$,         role: ROLE_REGISTERED_USER }
+        - { path: ^/cif/user/ajax/remove/account/confirm$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
         # STATISTICS
         - { path: ^/cif/statistics/basic_statistics$, role: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -53,7 +53,10 @@ class AngularSecurity
             return false;
         }
 
-        unset($data[$this->jsonName]);
+        if ($removeToken) {
+            // TODO: Remove token data from request instead of $data.
+            unset($data[$this->jsonName]);
+        }
 
         return true;
     }

@@ -425,7 +425,7 @@
 
                                             return 'Logout successful';
                                         }, function (/*response*/) {
-                                            return 'Internal server error';
+                                            return $q.reject('Internal server error');
                                         });
                                 })/*.
                              then(function () {
@@ -435,67 +435,52 @@
                         },
                         remove: function () {
 
-                            var prepareHttpRequest = function (forceHttpRequest) {
-                                return ruchJowSecuritySymfonyData.getAuthFormData(forceHttpRequest)
-                                    .then(function (feData) {
-                                        if (
-                                            typeof feData['login_form'] === 'undefined' ||
-                                            typeof feData['login_form']['csrf_token'] === 'undefined'
-                                        ) {
-                                            return $q.reject('Problem with login form data.');
-                                        }
-
-                                        var csrfToken = feData['login_form']['csrf_token'];
-
-                                        return {
-                                            url: Routing.generate('user_remove'),
-                                            method: 'POST',
-                                            headers: {
-                                                'X-Requested-With': 'XMLHttpRequest'
-                                            },
-                                            data: csrfToken
-                                        };
-                                    }, function () {
-                                        return 'Problem with remove form data.';
-                                    });
+                            var httpConfig = {
+                                url: Routing.generate('user_ajax_remove_account'),
+                                method: 'POST',
+                                headers: {
+                                'X-Requested-With': 'XMLHttpRequest'
+                                }
                             };
 
-                            return prepareHttpRequest()
-                                // ...and try to login.
-                                .then(function (httpConfig) {
-                                    return $http(httpConfig);
-                                })
-                                // If server returned 200 but...
-                                .then(function (response) {
-                                    // ... login failed because CSRF token was incorrect...
-                                    if (
-                                        typeof response.data.status !== 'undefined' &&
-                                        response.data.status == 'error.csrf'
-                                    ) {
-                                        // ... prepare request once again (but get csrf from server - force param set to true)...
-                                        response = prepareHttpRequest(true).
-                                            // ... and try to login with new data.
-                                            then(function (httpConfig) {
-                                                return $http(httpConfig);
-                                            });
-                                    }
-
-                                    // Return response (either original or new login try promise which should return response).
-                                    return response;
-                                })
+                            return $http(httpConfig)
                                 // Interpret response.
                                 .then(function (response) {
                                     // Request success does not mean that user has logged id.
-                                    if (typeof response.data.status === 'undefinded' || !response.data.status !== 'success') {
+                                    if (typeof response.data.status === 'undefinded' || response.data.status !== 'success') {
+                                        // Login unsuccessful
+                                        return $q.reject('User remove failed');
+                                    }
+
+                                    return 'User remove link send';
+                                }, function (/*response*/) {
+                                    return $q.reject('Internal server error');
+                                });
+                        },
+                        confirmRemove: function (token) {
+
+                            var httpConfig = {
+                                url: Routing.generate('user_ajax_remove_account_confirm'),
+                                method: 'POST',
+                                headers: {
+                                'X-Requested-With': 'XMLHttpRequest'
+                                },
+                                data: token
+                            };
+
+                            return $http(httpConfig)
+                                // Interpret response.
+                                .then(function (response) {
+                                    // Request success does not mean that user has logged id.
+                                    if (typeof response.data.status === 'undefinded' || response.data.status !== 'success') {
                                         // Login unsuccessful
                                         return $q.reject('User remove failed');
                                     }
 
                                     return 'User removed';
                                 }, function (/*response*/) {
-                                    return 'Internal server error';
+                                    return $q.reject('Internal server error');
                                 });
-
                         },
                         getCurrentUser: function() {
 

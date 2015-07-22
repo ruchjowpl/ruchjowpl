@@ -22,7 +22,7 @@ class DataController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/auth_forms_data", name="page_foundation_cif_auth_form_data", options={"expose"=true} )
+     * @Route("/auth_forms_data", name="page_foundation_cif_auth_form_data", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      */
     public function getMainDataAction()
     {
@@ -43,7 +43,7 @@ class DataController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/user_roles", name="page_foundation_cif_user_roles", options={"expose"=true} )
+     * @Route("/user_roles", name="page_foundation_cif_user_roles", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      */
     public function getUserRolesAction()
     {
@@ -116,7 +116,7 @@ class DataController extends ModelController
      *
      * @return Response
      *
-     * @Route("/user_public_data/{username}", name="page_foundation_cif_user_public_data", options={"expose"=true})
+     * @Route("/user_public_data/{username}", name="page_foundation_cif_user_public_data", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      */
     public function getUserPublicDataAction($username)
     {
@@ -178,7 +178,7 @@ class DataController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/user_points_history", name="page_foundation_cif_user_points_history", options={"expose"=true} )
+     * @Route("/user_points_history", name="page_foundation_cif_user_points_history", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      */
     public function getUserPointsHistoryAction()
     {
@@ -211,7 +211,7 @@ class DataController extends ModelController
      *
      * @return Response
      *
-     * @Route("/user_fvu/{field}", name="page_foundation_cif_user_field_value_unique", requirements={"field"="nick|email"}, options={"expose"=true} )
+     * @Route("/user_fvu/{field}", name="page_foundation_cif_user_field_value_unique", requirements={"field"="nick|email"}, options={"expose"=true}, condition="request.isXmlHttpRequest()")
      * @Method({"POST"})
      */
     public function checkUserFieldValueUniqueAction($field)
@@ -235,7 +235,7 @@ class DataController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/points_definitions", name="page_foundation_cif_points_definitions", options={"expose"=true})
+     * @Route("/points_definitions", name="page_foundation_cif_points_definitions", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      */
     public function getPointsDefinitionsAction()
     {
@@ -247,7 +247,7 @@ class DataController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/user_fvpc", name="page_foundation_cif_user_password_correct", options={"expose"=true} )
+     * @Route("/user_fvpc", name="page_foundation_cif_user_password_correct", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      * @Method({"POST"})
      */
     public function checkUserPasswordCorrectAction()

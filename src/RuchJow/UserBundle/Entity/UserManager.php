@@ -153,6 +153,27 @@ class UserManager extends FOSDoctrineUserManager
 
 
     /**
+     * @param User $user
+     */
+    public function generateRemoveAccountToken(User $user)
+    {
+        $token = $this->tokenGenerator->generateToken('remove.account.token');
+        $user->setRemoveAccountToken($token);
+        $user->setRemoveAccountRequestedAt(new \DateTime());
+    }
+
+
+    /**
+     * @param User $user
+     */
+    public function removeRemoveAccountToken(User $user)
+    {
+        $user->setRemoveAccountToken(null);
+        $user->setRemoveAccountRequestedAt(null);
+    }
+
+
+    /**
      *
      * @param User     $user
      * @param string[] $linksData
@@ -267,6 +288,18 @@ class UserManager extends FOSDoctrineUserManager
     }
 
     /**
+     * Finds a user by password reset token.
+     *
+     * @param string $token
+     *
+     * @return User
+     */
+    public function findUserByRemoveAccountToken($token)
+    {
+        return $this->findUserBy(array('removeAccountToken' => $token));
+    }
+
+    /**
      * Finds a user by their name and email
      *
      * @param $nick
@@ -374,4 +407,5 @@ class UserManager extends FOSDoctrineUserManager
         /** @var PreSignedUserData $data */
         return $repo->find($token);
     }
+
 }

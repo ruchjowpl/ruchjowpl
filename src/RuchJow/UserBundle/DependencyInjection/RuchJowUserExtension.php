@@ -63,6 +63,20 @@ class RuchJowUserExtension extends Extension
             $config['password_reset']['email']['from_name']
         );
 
+        // Remove account mail configuration.
+        $container->setParameter(
+            'ruch_jow_user.remove_account.email.subject',
+            $config['remove_account']['email']['subject']
+        );
+        $container->setParameter(
+            'ruch_jow_user.remove_account.email.from',
+            $config['remove_account']['email']['from']
+        );
+        $container->setParameter(
+            'ruch_jow_user.remove_account.email.from_name',
+            $config['remove_account']['email']['from_name']
+        );
+
         // Invitation mail configuration.
         $container->setParameter(
             'ruch_jow_user.invitation.email.subject',
@@ -121,7 +135,18 @@ class RuchJowUserExtension extends Extension
         $tokens['referral.link.token'] = $config['referral_links']['token_length'];
 
         // Password reset
+        $tokens['remove.account.token'] = $config['remove_account']['token_length'];
+        $container->setParameter(
+            'ruch_jow_user.remove_account.token_expiration_time',
+            $config['remove_account']['token_expiration_time']
+        );
+
+        // Password reset
         $tokens['password.reset.token'] = $config['password_reset']['token_length'];
+        $container->setParameter(
+            'ruch_jow_user.password_reset.token_expiration_time',
+            $config['password_reset']['token_expiration_time']
+        );
 
         // TOKENS (set parameter)
         $container->setParameter(

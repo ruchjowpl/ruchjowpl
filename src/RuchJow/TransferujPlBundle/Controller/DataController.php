@@ -27,7 +27,7 @@ class DataController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/encode", name="ruch_jow_transferuj_pl_encode", options={"expose"=true} )
+     * @Route("/encode", name="ruch_jow_transferuj_pl_encode", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      */
     public function encodeAction()
     {

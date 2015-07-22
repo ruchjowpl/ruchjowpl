@@ -21,7 +21,7 @@ class DefaultController extends ModelController
      *
      * @return Response
      *
-     * @Route("/announcements", name="feed_announcements", options={"expose"=true})
+     * @Route("/announcements", name="feed_announcements", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      */
     public function announcementsAction(Request $request)
     {

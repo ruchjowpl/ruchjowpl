@@ -24,7 +24,7 @@ class UserController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/cif/users/unverified", name="backend_cif_users_unverified", options={"expose": true})
+     * @Route("/cif/users/unverified", name="backend_cif_users_unverified", options={"expose": true}, condition="request.isXmlHttpRequest()")
      */
     public function usersUnverifiedAction(/*Request $request*/)
     {
@@ -55,7 +55,7 @@ class UserController extends ModelController
      *
      * @return Response
      *
-     * @Route("/cif/user/data/{name}", name="backend_cif_user_data", options={"expose": true})
+     * @Route("/cif/user/data/{name}", name="backend_cif_user_data", options={"expose": true}, condition="request.isXmlHttpRequest()")
      */
     public function userDataAction($name/*, Request $request*/)
     {
@@ -101,7 +101,7 @@ class UserController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/cif/user/points_add_options", name="backend_cif_points_add_options", options={"expose": true})
+     * @Route("/cif/user/points_add_options", name="backend_cif_points_add_options", options={"expose": true}, condition="request.isXmlHttpRequest()")
      */
     public function userPointsAddOptionsAction(/*Request $request*/)
     {
@@ -125,7 +125,7 @@ class UserController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/cif/user/points_add", name="backend_cif_user_points_add", options={"expose": true})
+     * @Route("/cif/user/points_add", name="backend_cif_user_points_add", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function userPointsAddAction()
@@ -194,7 +194,7 @@ class UserController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/cif/user/donation_add", name="backend_cif_user_donation_add", options={"expose": true})
+     * @Route("/cif/user/donation_add", name="backend_cif_user_donation_add", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function userDonationAddAction()

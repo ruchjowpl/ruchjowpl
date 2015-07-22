@@ -48,6 +48,9 @@
 
                             var httpConfig = {
                                 method: 'GET',
+                                headers: {
+                                    'X-Requested-With': 'XMLHttpRequest'
+                                },
                                 url: source.url,
                                 transformResponse: function (value) {
                                     x2js = x2js || new X2JS();

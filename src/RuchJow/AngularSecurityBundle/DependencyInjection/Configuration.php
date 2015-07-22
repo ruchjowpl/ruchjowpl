@@ -22,10 +22,10 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('xsrf_cookie_name')
-                    ->defaultValue('RJ_ANG_XSRF_TOKEN')
+                    ->defaultValue('XSRF-TOKEN')
                 ->end()
-                ->scalarNode('xsrf_json_name')
-                    ->defaultValue('ang_xsrf_token')
+                ->scalarNode('xsrf_header_name')
+                    ->defaultValue('X-XSRF-TOKEN')
                 ->end()
             ->end();
 
