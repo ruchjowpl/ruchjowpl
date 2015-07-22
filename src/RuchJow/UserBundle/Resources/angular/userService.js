@@ -465,7 +465,7 @@
                                 headers: {
                                 'X-Requested-With': 'XMLHttpRequest'
                                 },
-                                data: token
+                                data: JSON.stringify(token)
                             };
 
                             return $http(httpConfig)
@@ -474,12 +474,12 @@
                                     // Request success does not mean that user has logged id.
                                     if (typeof response.data.status === 'undefinded' || response.data.status !== 'success') {
                                         // Login unsuccessful
-                                        return $q.reject('User remove failed');
+                                        return $q.reject('token_not_exists');
                                     }
 
-                                    return 'User removed';
+                                    return 'confirmed';
                                 }, function (/*response*/) {
-                                    return $q.reject('Internal server error');
+                                    return $q.reject('internal_error');
                                 });
                         },
                         getCurrentUser: function() {

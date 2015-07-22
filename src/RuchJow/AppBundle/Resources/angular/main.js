@@ -15,6 +15,7 @@ angular.module('ruchJowApp', [
 
     'ruchJow.user',
     'ruchJow.user.confirmation',      // User confirmation handler action.
+    'ruchJow.user.removeAccountHandler',  // User remove confirmation handler action.
     'ruchJow.user.referralLinkHandler',   // Referral link handler action.
     'ruchJow.user.newPasswordHandler',   // New password action handler action.
     'ruchJow.user.preSignedRegister',    // open registration form with nick and e-mail fields filled with stored values.

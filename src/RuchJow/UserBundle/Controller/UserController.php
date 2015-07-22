@@ -370,9 +370,10 @@ class UserController extends ModelController
             return $this->createJsonResponse(array('status' => 'expired_token'));
         }
 
+        $this->getUserManager()->removeAccount($user);
 
-//        $this->getUserManager()->removeAccount($user);
-
+        $this->get('security.token_storage')->setToken(null);
+        $this->get('request')->getSession()->invalidate();
 
         return $this->createJsonResponse(array('status' => 'success'));
     }

@@ -24,6 +24,14 @@ angular.module('ruchJow.user.translations', ['pascalprecht.translate'])
                     token_not_found: 'Niepoprawny link. Mimo to zapraszamy do poparcia efektu JOW.',
                     email_taken: 'Użytkownik z adresem email, który mamy zapisany w bazie dla tego linku, już poparł efekt JOW',
                     internal_error: 'Wystąpił wewnętrzny błąd. Mimo to zapraszamy do poparcia efektu JOW.'
+                },
+                remove_account: {
+                    msg: {
+                        confirmed: 'Twoje konto zostało usunięte. Dziękujemy za korzystanie z serwisu ruchjow.pl',
+                        token_not_exists: 'Link weryfikacyjny jest niepoprawy',
+                        internal_error: 'Wystąpił wewnętrzny błąd po stronie serwera. Jeśli błąd się powtórzy prosimy o kontakt z administratorami',
+                        pending: 'Trwa sprawdzanie linku weryfikacyjnego'
+                    }
                 }
             }
         });

@@ -8,11 +8,36 @@ angular.module('ruchJow.user.removeAccountHandler', ['ruchJow.homepageActions', 
             handleRemoveAccountToken: function (token) {
 
                 var modalInstance = $modal.open({
-                    templateUrl: 'removeAccountHandlerModal.html',
-                    controller: function ($scope, $modalInstance) {
-                        $scope.cancel = function () {
+                    templateUrl: 'removeAccountConfirmationModal.html',
+                    controller: ['$scope', '$modalInstance', 'ruchJowSecurity', 'token', function ($scope, $modalInstance, ruchJowSecurity, token) {
+
+                        $scope.status = 'pending';
+                        $scope.message = 'user.remove_account.msg.pending';
+                        ruchJowSecurity.confirmRemoveAccount(token)
+                            .then(function () {
+                                $scope.status = 'confirmed';
+                                $scope.message = 'user.remove_account.msg.confirmed';
+                            }, function (status) {
+                                switch (status) {
+                                    case 'token_not_exists':
+                                        $scope.status = status;
+                                        $scope.message = 'user.remove_account.msg.token_not_exists';
+                                        break;
+                                    default:
+                                        $scope.status = 'internal_error';
+                                        $scope.message = 'user.remove_account.msg.internal_error';
+                                }
+                            });
+
+                        $scope.ok = function () {
                             $modalInstance.close();
                         };
+
+                    }],
+                    resolve: {
+                        token: function () {
+                            return token;
+                        }
                     }
                 });
 
@@ -22,5 +47,5 @@ angular.module('ruchJow.user.removeAccountHandler', ['ruchJow.homepageActions', 
 
     }])
     .config(['ruchJowHomepageActionsProvider',  function (homepageActionsProvider) {
-        homepageActionsProvider.register('referral', 'ruchJowUserReferralHandler.handleReferralToken');
+        homepageActionsProvider.register('remove_account', 'ruchJowRemoveAccountHandler.handleRemoveAccountToken');
     }]);

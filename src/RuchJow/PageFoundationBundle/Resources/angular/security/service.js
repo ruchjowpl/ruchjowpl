@@ -203,10 +203,28 @@ angular.module('ruchJow.security.service', [
                                 return removePromise;
                             }
 
-                            removeModalPromise = userService.confirmRemove()
+                            removeModalPromise = userService.confirmRemove(token)
+                                .then(function () {
+                                    // We want to get new user and wait for the response, but even if it fail...
+                                    return service.requestCurrentUser()
+                                        ['finally'](function () {
+                                        // ...we return resolved promise.
+                                        return $q.when();
+                                    });
+
+                                }, function () {
+                                    // We want to get user and wait for the response...
+                                    return service.requestCurrentUser()
+                                        ['finally'](function () {
+                                        // ...and return rejected promise.
+                                        return $q.reject();
+                                    });
+                                })
                                 ['finally'](function () {
                                 removeModalPromise = null;
                             });
+
+                            return removeModalPromise;
                         },
                         currentUser: undefined,
                         isAuthenticated: function(){

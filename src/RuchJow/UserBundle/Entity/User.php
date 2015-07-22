@@ -20,6 +20,7 @@ class User extends BaseUser
     const DISPLAY_NAME_NICK = 'nick';
     const DISPLAY_NAME_FULL_NAME = 'full_name';
     const DISPLAY_NAME_FULL_NAME_NICK = 'full_name_nick';
+    const DISPLAY_NAME_REMOVED = 'removed';
 
     /**
      * @ORM\Id
@@ -362,6 +363,9 @@ class User extends BaseUser
             case self::DISPLAY_NAME_FULL_NAME_NICK:
                 return $this->getFirstName() . ' ' . $this->getLastName()
                 . ' (' . $this->getUsername() . ')';
+
+            case self::DISPLAY_NAME_REMOVED:
+                return '-';
         }
 
         // Default display nam

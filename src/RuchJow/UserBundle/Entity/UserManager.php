@@ -140,6 +140,8 @@ class UserManager extends FOSDoctrineUserManager
         $token = $this->tokenGenerator->generateToken('password.reset.token');
         $user->setPasswordResetToken($token);
         $user->setPasswordResetRequestedAt(new \DateTime());
+
+        $this->objectManager->persist($user);
     }
 
     /**
@@ -149,6 +151,8 @@ class UserManager extends FOSDoctrineUserManager
     {
         $user->setPasswordResetToken(null);
         $user->setPasswordResetRequestedAt(null);
+
+        $this->objectManager->persist($user);
     }
 
 
@@ -160,6 +164,8 @@ class UserManager extends FOSDoctrineUserManager
         $token = $this->tokenGenerator->generateToken('remove.account.token');
         $user->setRemoveAccountToken($token);
         $user->setRemoveAccountRequestedAt(new \DateTime());
+
+        $this->objectManager->persist($user);
     }
 
 
@@ -170,8 +176,59 @@ class UserManager extends FOSDoctrineUserManager
     {
         $user->setRemoveAccountToken(null);
         $user->setRemoveAccountRequestedAt(null);
+
+        $this->objectManager->persist($user);
     }
 
+
+    public function removeAccount(User $user, $flush = true)
+    {
+        if ($address = $user->getAddress()) {
+            $this->objectManager->remove($address);
+        }
+
+        if ($socialLinks = $user->getSocialLinks()) {
+            foreach ($socialLinks as $socialLink) {
+                $user->removeSocialLink($socialLink);
+                $this->objectManager->remove($socialLink);
+            }
+        }
+
+        $user
+            ->setAbout('')
+            ->setAddress(null)
+            ->setAboutVisible(false)
+            ->setCommune(null)
+            ->setConfirmationToken(null)
+            ->setDisplayNameFormat(User::DISPLAY_NAME_REMOVED)
+            ->setRemoveAccountToken(null)
+            ->setEmail(md5($user->getEmailCanonical()))
+            ->setEmailCanonical(md5($user->getEmailCanonical()))
+            ->setFirstName('')
+            ->setFirstNameVisible(false)
+            ->setLastName('')
+            ->setLastNameVisible(false)
+            ->setRemoveAccountToken(null)
+            ->setCommune(null)
+            ->setOrganisation(null)
+            ->setOrganisationVisible(false)
+            ->setLocalGov(false)
+            ->setReferralToken(null)
+            ->setPasswordResetToken(null)
+            ->setPhone(null)
+            ->setReferrer(null)
+            ->setSocialLinksVisible(false)
+            ->setSupports(false)
+            ->setLocked(true)
+            ->setEnabled(false)
+            ->setRoles(array());
+
+        $this->objectManager->persist($user);
+
+        if ($flush) {
+            $this->objectManager->flush();
+        }
+    }
 
     /**
      *
@@ -407,5 +464,7 @@ class UserManager extends FOSDoctrineUserManager
         /** @var PreSignedUserData $data */
         return $repo->find($token);
     }
+
+
 
 }
