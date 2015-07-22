@@ -193,6 +193,12 @@
                 <Symfony2Console command="doctrine:fixtures:load">
                     <arg value="--no-interaction" />
                 </Symfony2Console>
+                <Symfony2Console command="doctrine:fixtures:load">
+                    <arg value="--no-interaction" />
+                    <arg value="--append" />
+                    <arg value="--fixtures=${dir.src}/RuchJow/UserBundle/Test/DataFixtures/ORM" />
+                    <arg value="" />
+                </Symfony2Console>
             </then>
             <else>
                 <input message="Would you like to initialize project database"
@@ -241,9 +247,32 @@
                         </if>
                         <echo msg="Creating project database schema ..."/>
                         <Symfony2Console command="doctrine:schema:create"/>
+                        <echo msg="Populating database with required fixtures ..."/>
                         <Symfony2Console command="doctrine:fixtures:load">
                             <arg value="--no-interaction" />
                         </Symfony2Console>
+                        <if>
+                            <not><equals arg1="${symfony.env}" arg2="prod" /></not>
+                            <then>
+                                <input message="Would you like to populate database with test data?"
+                                       propertyName="populateDb"
+                                       validArgs="y,n"
+                                       defaultValue="y"
+                                       promptChar="?"/>
+                                <if>
+                                    <equals arg1="${populateDb}" arg2="y" />
+                                    <then>
+                                        <Symfony2Console command="doctrine:fixtures:load">
+                                            <arg value="--no-interaction" />
+                                            <arg value="--append" />
+                                            <arg value="--fixtures=${dir.src}/RuchJow/UserBundle/Test/DataFixtures/ORM" />
+                                            <arg value="" />
+                                        </Symfony2Console>
+                                    </then>
+
+                                </if>
+                            </then>
+                        </if>
                     </then>
                 </if>
             </else>

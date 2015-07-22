@@ -195,10 +195,23 @@ class DataController extends ModelController
 
         $ret = array();
         foreach ($points as $entry) {
+            $details = '';
+            if ($entry->getType() === 'user.referral') {
+                $data = unserialize($entry->getDataSerial());
+                if (isset($data['user']) && !empty($data['user'])) {
+                    $user = $this->getUserManager()->findUserBy(array('id'=> $data['user']));
+                    if (!$user || !$user->isSupports()) {
+                        $details = '%unknown%';
+                    } else {
+                        $details = $user->getDisplayName();
+                    }
+                }
+            }
             $ret[] = array(
-                'date'   => $entry->getDate()->format('D M d Y H:i:s O'),
-                'points' => $entry->getPoints(),
-                'type'   => $entry->getType(),
+                'date'    => $entry->getDate()->format('D M d Y H:i:s O'),
+                'points'  => $entry->getPoints(),
+                'type'    => $entry->getType(),
+                'details' => $details
             );
         }
 
