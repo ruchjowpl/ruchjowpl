@@ -100,9 +100,17 @@ ruch_jow_user:
         from:      ~
         from_name: ~
     referral_links:
-        token_length: 10;
+        token_length: 10
+    remove_account:
+        token_length: 10
+        token_expiration_time: 86400
+        email:
+            subject:   "Ruch JOW - usunięcie konta"
+            from:      ~
+            from_name: ~
     password_reset:
-        token_length: 10;
+        token_length: 10
+        token_expiration_time: 86400
         email:
             subject:   "Ruch JOW - ustawienie nowego hasła"
             from:      ~
@@ -221,3 +229,7 @@ ruch_jow_mail_pool:
     mailgun:
         api_key: "%mailgun_api_key%"
         domain:  "%mailgun_domain%"
+
+ruch_jow_angular_security:
+    xsrf_cookie_name: "XSRF-TOKEN-ANG-RJ"
+    xsrf_header_name: "X-XSRF-TOKEN-ANG-RJ"

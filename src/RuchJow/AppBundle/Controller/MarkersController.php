@@ -22,7 +22,7 @@ class MarkersController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/cif/all", name="markers_ajax_all", options={"expose": true})
+     * @Route("/cif/all", name="markers_ajax_all", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function getAll()

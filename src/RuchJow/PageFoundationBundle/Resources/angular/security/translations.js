@@ -12,7 +12,8 @@ angular.module('ruchJow.security.translations', ['pascalprecht.translate'])
                 reset_link_sent: 'Link do ustawienia hasła został wysłany',
                 user_registered_title: 'Dziękujemy. Na podany przez Ciebie adres e-mail został wysłany link, potrzebny do potwierdzenia Twojego poparcia.',
                 user_registered_msg: 'Jeśli po godzinie nic nie otrzymasz, sprawdź czy mail nie wylądował w spamie lub w innych folderach. Jeśli mail nie dojdzie, napisz do nas na adres kontakt@ruchjow.pl',
-                unsuccess: 'Błędny użytkownik lub hasło'
+                unsuccess: 'Błędny użytkownik lub hasło',
+                account_remove_link_send: 'Na Twój adres e-mail został wysłany e-mail powtierdzający usunięcie konta.'
             },
 
             'security.login': {
@@ -60,6 +61,15 @@ angular.module('ruchJow.security.translations', ['pascalprecht.translate'])
                 },
                 passwordRepeat:{
                     'ruchJowEquals.error': 'Hasło i powtórzone hasło muszą być identyczne'
+                }
+            },
+
+            'security.remove': {
+                title: 'Czy na pewno chcesz usunąć swoje konto?',
+                message: 'Twoje dane oraz punkty zostaną trwale usunięte z serwisu ruchjow.pl.',
+                btn: {
+                    ok: 'OK',
+                    cancel: 'Anuluj'
                 }
             },
 

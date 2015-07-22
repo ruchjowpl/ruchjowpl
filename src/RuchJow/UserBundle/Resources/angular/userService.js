@@ -425,13 +425,62 @@
 
                                             return 'Logout successful';
                                         }, function (/*response*/) {
-                                            return 'Internal server error';
+                                            return $q.reject('Internal server error');
                                         });
                                 })/*.
                              then(function () {
                              setUser(null);
                              redirect(redirectTo);
                              })*/;
+                        },
+                        remove: function () {
+
+                            var httpConfig = {
+                                url: Routing.generate('user_ajax_remove_account'),
+                                method: 'POST',
+                                headers: {
+                                'X-Requested-With': 'XMLHttpRequest'
+                                }
+                            };
+
+                            return $http(httpConfig)
+                                // Interpret response.
+                                .then(function (response) {
+                                    // Request success does not mean that user has logged id.
+                                    if (typeof response.data.status === 'undefinded' || response.data.status !== 'success') {
+                                        // Login unsuccessful
+                                        return $q.reject('User remove failed');
+                                    }
+
+                                    return 'User remove link send';
+                                }, function (/*response*/) {
+                                    return $q.reject('Internal server error');
+                                });
+                        },
+                        confirmRemove: function (token) {
+
+                            var httpConfig = {
+                                url: Routing.generate('user_ajax_remove_account_confirm'),
+                                method: 'POST',
+                                headers: {
+                                'X-Requested-With': 'XMLHttpRequest'
+                                },
+                                data: JSON.stringify(token)
+                            };
+
+                            return $http(httpConfig)
+                                // Interpret response.
+                                .then(function (response) {
+                                    // Request success does not mean that user has logged id.
+                                    if (typeof response.data.status === 'undefinded' || response.data.status !== 'success') {
+                                        // Login unsuccessful
+                                        return $q.reject('token_not_exists');
+                                    }
+
+                                    return 'confirmed';
+                                }, function (/*response*/) {
+                                    return $q.reject('internal_error');
+                                });
                         },
                         getCurrentUser: function() {
 

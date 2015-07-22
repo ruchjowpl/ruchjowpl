@@ -12,6 +12,7 @@ parameters:
 #    ruch_jow_user.registration.confirmation.title: "RuchJowUserBundle:Mailer:registration.confirmation.html.twig"
     ruch_jow_user.registration.confirmation.email.template: "RuchJowUserBundle:Mailer:registration.confirmation.html.twig"
     ruch_jow_user.password.reset.email.template: "RuchJowUserBundle:Mailer:password.reset.html.twig"
+    ruch_jow_user.remove.account.email.template: "RuchJowUserBundle:Mailer:remove.account.html.twig"
     ruch_jow_user.invitation.email.template: "RuchJowUserBundle:Mailer:invitation.html.twig"
     ruch_jow_user.thanks.email.template: "RuchJowUserBundle:Mailer:thanks.html.twig"
     ruch_jow_user.reminder.email.template: "RuchJowUserBundle:Mailer:reminder.confirmation.html.twig"
@@ -50,6 +51,7 @@ services:
             -
                 confirmation.email.template: %ruch_jow_user.registration.confirmation.email.template%
                 password.reset.email.template: %ruch_jow_user.password.reset.email.template%
+                remove.account.email.template: %ruch_jow_user.remove.account.email.template%
                 invitation.email.template: %ruch_jow_user.invitation.email.template%
                 thanks.email.template: %ruch_jow_user.thanks.email.template%
                 reminder.email.template: %ruch_jow_user.reminder.email.template%

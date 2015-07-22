@@ -25,7 +25,7 @@ class ReferendumPointsController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/cif/referendumPoints/list", name="backend_cif_referendum_points_list", options={"expose": true})
+     * @Route("/cif/referendumPoints/list", name="backend_cif_referendum_points_list", options={"expose": true}, condition="request.isXmlHttpRequest()")
      */
     public function listAction()
     {
@@ -47,7 +47,7 @@ class ReferendumPointsController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/cif/referendumPoints/update", name="backend_cif_referendum_points_update", options={"expose": true})
+     * @Route("/cif/referendumPoints/update", name="backend_cif_referendum_points_update", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function updateAction()

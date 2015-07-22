@@ -1,0 +1,22 @@
+{{ '<script type="text/ng-template" id="removeConfirmModal.html">' }}
+<article>
+    <div class="modal-header center">
+        <h1 translate="">security.remove.title</h1>
+        <div ng-if="errorMessage" class="te-error-msg">[[ errorMessage ]]</div>
+    </div>
+    <div class="modal-body">
+        <div class="alert-msg warning">
+            <span translate="">security.remove.message</span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-msg-ok" ng-click="confirm()" ng-disabled="inProgress">
+            <span class="glyphicon glyphicon-refresh ruch-jow-spin-fast" ng-if="inProgress"></span>
+            <span translate="security.remove.btn.ok"></span>
+        </button>
+        <button class="btn btn-msg-cancel" ng-click="cancel()">
+            <span translate="">security.remove.btn.cancel</span>
+        </button>
+    </div>
+</article>
+{{ '</script>' }}

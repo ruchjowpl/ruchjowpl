@@ -1,0 +1,15 @@
+{{ '<script type="text/ng-template" id="removeAccountConfirmationModal.html">' }}
+    <div class="modal-header">
+        <h1>Potwierdzenie usunięcia konta</h1>
+    </div>
+    <div class="modal-body">
+        <div class="alert-msg" ng-class="{ info: (status === 'confirmed'), pending: (status === 'pending'), warning: (status !== 'confirmed' && status !== 'pending') }">
+            [[ message|translate ]]
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled="status === 'pending'" ng-click="ok()">
+            OK
+        </button>
+    </div>
+{{ '</script>' }}
