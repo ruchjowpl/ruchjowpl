@@ -6,6 +6,7 @@
                 <th>Data</th>
                 <th>Godzina</th>
                 <th>Rodzaj</th>
+                <th>Szczegóły</th>
                 <th>Punkty</th>
             </tr>
         </thead>
@@ -13,6 +14,9 @@
             <td class="tight">[[ entry.date|date:'yyyy.MM.dd' ]]</td>
             <td class="tight">[[ entry.date|date:'HH:mm' ]]</td>
             <td>[[ ('points.type.' + entry.type)|translate ]]</td>
+            <td>
+                [[ entry.details ]]
+            </td>
             <td class="tight">[[ entry.points ]]</td>
         </tr>
     </table>

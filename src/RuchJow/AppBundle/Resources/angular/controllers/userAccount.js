@@ -111,8 +111,8 @@ angular.module('ruchJow.ctrls.userAccount', [
                             $scope.history.push({
                                 date: row.date ? new Date(row.date) : null,
                                 type: checkType(row.type),
-                                points: row.points
-
+                                points: row.points,
+                                details: checkDetails(row.details)
                             });
                         }
                     }
@@ -133,6 +133,15 @@ angular.module('ruchJow.ctrls.userAccount', [
                 ];
 
                 return allowedTypes.indexOf(type) !== -1 ? type : 'other';
+            }
+
+            function checkDetails (details) {
+
+                if (details == '%unknown%') {
+                    return 'nieznany użytkownik';
+                }
+
+                return details;
             }
 
 
