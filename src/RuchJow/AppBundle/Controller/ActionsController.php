@@ -186,7 +186,7 @@ class ActionsController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/distribute_leaflets", name="app_cif_distribute_leaflets", options={"expose"=true}, condition="request.isXmlHttpRequest()")
+     * // @Route("/ajax/distribute_leaflets", name="app_cif_distribute_leaflets", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function distributeLeafletsAction()

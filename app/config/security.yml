@@ -73,7 +73,7 @@ security:
         - { path: "^/partial/[.\-a-zA-Z0-9_]+$", role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: "^/ajax/organise_event$",      role: ROLE_REGISTERED_USER }
         - { path: "^/ajax/organise_referendum_point$", role: ROLE_REGISTERED_USER }
-        - { path: "^/ajax/distribute_leaflets$", role: ROLE_REGISTERED_USER }
+#        - { path: "^/ajax/distribute_leaflets$", role: ROLE_REGISTERED_USER }
 
         # TERRITORIAL UNITS
         - { path: ^/cif/tu/ajax/communes$, role: IS_AUTHENTICATED_ANONYMOUSLY }
