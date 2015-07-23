@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('ruchjow.symfony.security', [])
+    angular.module('ruchJow.symfony.security', [])
         // This http interceptor listens for authentication failures
         .provider('symfonyTokenInterceptor', function () {
             var xsrfHeaderName = 'X-XSRF-TOKEN';

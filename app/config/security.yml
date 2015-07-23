@@ -129,6 +129,7 @@ security:
         - { path: ^/backend/cif/feedback$, role: ROLE_BACKEND_FEEDBACK }
         - { path: ^/backend/cif/users/unverified$, role: ROLE_USERS_UNVERIFIED }
         - { path: "^/backend/cif/user/data/[.\-_ a-zęóąśłżźćńA-ZĘÓĄŚŁŻŹĆŃ0-9_]+$", role: ROLE_USER_DATA }
+        - { path: ^/backend/cif/user/search$, role: ROLE_USER_DATA }
         - { path: ^/backend/cif/tasks$, role: ROLE_BACKEND_TASKS }
         - { path: ^/backend/cif/user_roles$, role: ROLE_BACKEND }
 

@@ -251,11 +251,49 @@ angular.module('ruchJow.backend.ctrls.users', [])
 
         }
     ])
+    .config(['frDataProvider', function (frDataProvider) {
+        frDataProvider.register(
+            'backendSearchUsers',
+            ['search', function (search) {
+                return {
+                    url: Routing.generate('backend_cif_user_search'),
+                    method: 'POST',
+                    data: {
+                        search: search
+                    }
+                }
+            }],
+            ['$q', 'response', function ($q, response) {
+                var data = response.data;
+
+                if (
+                    data.status === undefined
+                    || data.status !== 'success'
+                ) {
+                    return $q.reject(data.message);
+                }
+
+                if (
+                    !data.hasOwnProperty('data')
+                    || !angular.isObject(data.data)
+                ) {
+                    return $q.reject('Incorrect response')
+                }
+
+                return data.data;
+            }]
+        )
+    }])
     .controller('FindUserCtrl', [
         '$scope',
         '$state',
-        function ($scope, $state) {
+        'frData',
+        function ($scope, $state, frData) {
             $scope.username = null;
+
+            $scope.searchUsers = function (search) {
+                return frData.getParametrized('backendSearchUsers', { search: search }, search, 60);
+            };
 
             $scope.find = function () {
                 if ($scope.username) {

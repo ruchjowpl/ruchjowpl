@@ -177,12 +177,16 @@ abstract class ModelController extends Controller
      * @param mixed $data
      * @param int   $status
      *
+     * @param bool  $addProtection
+     *
      * @return Response
      */
-    protected function createJsonResponse($data, $status = 200)
+    protected function createJsonResponse($data, $status = 200, $addProtection = true)
     {
+        $protection = $addProtection ? ")]}',\n" : '';
+
         return new Response(
-            json_encode($data),
+            $protection . json_encode($data),
             $status,
             array(
                 'Content-Type' => 'application/json',

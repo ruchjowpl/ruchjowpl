@@ -5,7 +5,7 @@
         'ruchJow.security',
         'ruchJow.security.translations',
         'ruchJow.user',
-        'ruchjow.symfony.security'
+        'ruchJow.symfony.security'
     ])
         .config(['ruchJowSecurityProvider', function(provider) {
             provider.setUserServiceName('ruchJowUser');

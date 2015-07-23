@@ -23,13 +23,19 @@ class RuchJowBackendExtension extends Extension
         $configuration = new Configuration();
         $config        = $this->processConfiguration($configuration, $configs);
 
-
         // Roles.
         $roles = array();
         foreach ($config['exposed_user_roles'] as $role) {
             $roles[$role] = $role;
         }
         $container->setParameter('ruch_jow_backend.exposed_user_roles', $roles);
+
+        $container->setParameter('ruch_jow_backend.user.search.max_elements',
+            $config['user']['search']['max_elements']);
+        $container->setParameter('ruch_jow_backend.user.search.min_length',
+            $config['user']['search']['min_length']);
+        $container->setParameter('ruch_jow_backend.user.search.min_length_All',
+            $config['user']['search']['min_length_all']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
