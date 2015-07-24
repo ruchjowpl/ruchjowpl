@@ -22,7 +22,7 @@ class ActionsController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/organise_event", name="app_cif_organise_event", options={"expose"=true})
+     * @Route("/ajax/organise_event", name="app_cif_organise_event", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function organiseEventAction()
@@ -104,7 +104,7 @@ class ActionsController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/organise_referendum_point", name="app_cif_organise_referendum_point", options={"expose"=true})
+     * @Route("/ajax/organise_referendum_point", name="app_cif_organise_referendum_point", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function organiseReferendumPointAction()
@@ -186,7 +186,7 @@ class ActionsController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/distribute_leaflets", name="app_cif_distribute_leaflets", options={"expose"=true})
+     * // @Route("/ajax/distribute_leaflets", name="app_cif_distribute_leaflets", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function distributeLeafletsAction()

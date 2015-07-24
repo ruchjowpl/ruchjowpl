@@ -22,7 +22,7 @@ class DataController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/basic_statistics", name="statistics_ajax_basic", options={"expose"=true} )
+     * @Route("/basic_statistics", name="statistics_ajax_basic", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      */
     public function getBasicStatisticsAction()
     {
@@ -61,7 +61,7 @@ class DataController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/user_statistics", name="statistics_ajax_user", options={"expose"=true})
+     * @Route("/user_statistics", name="statistics_ajax_user", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      */
     public function getUserStatistics()
     {
@@ -230,7 +230,7 @@ class DataController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/unit_statistics", name="ranks_ajax_unit_statistics", options={"expose"=true})
+     * @Route("/unit_statistics", name="ranks_ajax_unit_statistics", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      */
     public function getUnitStatistics()
     {
@@ -282,7 +282,7 @@ class DataController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ranks", name="ranks_ajax_ranks", options={"expose"=true})
+     * @Route("/ranks", name="ranks_ajax_ranks", options={"expose"=true}, condition="request.isXmlHttpRequest()")
      */
     public function getRanks()
     {

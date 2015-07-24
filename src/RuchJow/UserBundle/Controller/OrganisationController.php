@@ -19,7 +19,7 @@ class OrganisationController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/organisations", name="user_ajax_organisations", options={"expose": true})
+     * @Route("/ajax/organisations", name="user_ajax_organisations", options={"expose": true}, condition="request.isXmlHttpRequest()")
      */
     public function findOrganisationsByUrlAction()
     {

@@ -22,7 +22,7 @@ class DefaultController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/folders", name="msgs_cif_get_folders", options={"expose": true})
+     * @Route("/ajax/folders", name="msgs_cif_get_folders", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("GET")
      */
     public function getFoldersAction()
@@ -60,7 +60,7 @@ class DefaultController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/messages/{folder}/{start}/{cnt}", name="msgs_cif_get_messages", options={"expose": true}, requirements={"folder": "(\#|[a-zA-Z0-9_-])+", "start": "\d+", "cnt": "[1-9]\d*"})
+     * @Route("/ajax/messages/{folder}/{start}/{cnt}", name="msgs_cif_get_messages", options={"expose": true}, requirements={"folder": "(\#|[a-zA-Z0-9_-])+", "start": "\d+", "cnt": "[1-9]\d*"}, condition="request.isXmlHttpRequest()")
      * @Method("GET")
      */
     public function getMessagesAction($folder, $start, $cnt)
@@ -111,7 +111,7 @@ class DefaultController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/message/get/{id}", name="msgs_cif_get_message", options={"expose": true}, requirements={"id": "[1-9]\d*"})
+     * @Route("/ajax/message/get/{id}", name="msgs_cif_get_message", options={"expose": true}, requirements={"id": "[1-9]\d*"}, condition="request.isXmlHttpRequest()")
      * @Method("GET")
      */
     public function getMessageAction($id)
@@ -164,7 +164,7 @@ class DefaultController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/message/send", name="msgs_cif_send_message", options={"expose": true})
+     * @Route("/ajax/message/send", name="msgs_cif_send_message", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function sendMessageAction()
