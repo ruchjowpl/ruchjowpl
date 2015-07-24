@@ -18,7 +18,15 @@
                     {#<li><a href="#">Help</a></li>#}
                 {#</ul>#}
                 <form class="navbar-form navbar-right" ng-controller="FindUserCtrl" ng-submit="find()">
-                    <input type="text" ng-model="username" class="form-control" placeholder="[[ 'raw.Find user...'|translate ]]">
+                    <input
+                            type="text"
+                            ng-model="username"
+                            typeahead="user.nick as (user.nick + ' (' + user.email + ')') for user in searchUsers($viewValue)"
+                            typeahead-loading="loading"
+
+                            class="form-control"
+                            placeholder="[[ 'raw.Find user...'|translate ]]"
+                    >
                 </form>
             </div>
         </div>

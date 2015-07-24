@@ -1,11 +1,6 @@
 {# Custom angular modules#}
 {% javascripts
-    '@RuchJowUserBundle/Resources/angular/userService.js'
-    '@RuchJowUserBundle/Resources/angular/userConfirmHandler.js'
-    '@RuchJowUserBundle/Resources/angular/referralLinkHandler.js'
-    '@RuchJowUserBundle/Resources/angular/newPasswordHandler.js'
-    '@RuchJowUserBundle/Resources/angular/userPreSignedRegisterHandler.js'
-    '@RuchJowUserBundle/Resources/angular/translations.js'
+    '@RuchJowUserBundle/Resources/angular/*.js'
 %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
@@ -13,3 +8,4 @@
 {# Inline partials#}
 {% include '@RuchJowUser/PartialsInline/userConfirmationModal.html.twig' %}
 {% include '@RuchJowUser/PartialsInline/referralLinkHandlerModal.html.twig' %}
+{% include '@RuchJowUser/PartialsInline/removeAccountConfirmationModal.html.twig' %}

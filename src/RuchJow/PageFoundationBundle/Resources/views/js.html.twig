@@ -26,16 +26,7 @@
     {% javascripts
         '@RuchJowPageFoundationBundle/Resources/angular/basicServices.js'
 
-        '@RuchJowPageFoundationBundle/Resources/angular/security/symfonyData.js'
-        '@RuchJowPageFoundationBundle/Resources/angular/security/retryQueue.js'
-        '@RuchJowPageFoundationBundle/Resources/angular/security/loginForm.js'
-        '@RuchJowPageFoundationBundle/Resources/angular/security/registerForm.js'
-        '@RuchJowPageFoundationBundle/Resources/angular/security/passwordReset.js'
-        '@RuchJowPageFoundationBundle/Resources/angular/security/service.js'
-        '@RuchJowPageFoundationBundle/Resources/angular/security/interceptor.js'
-        '@RuchJowPageFoundationBundle/Resources/angular/security/security.js'
-        '@RuchJowPageFoundationBundle/Resources/angular/security/translations.js'
-        '@RuchJowPageFoundationBundle/Resources/angular/security/service.js'
+        '@RuchJowPageFoundationBundle/Resources/angular/security/*.js'
 
         '@RuchJowPageFoundationBundle/Resources/angular/paths.js'
         '@RuchJowPageFoundationBundle/Resources/angular/ruchJowGoogleAnalytics.js'
@@ -47,6 +38,9 @@
 
         '@RuchJowPageFoundationBundle/Resources/angular/ruchJowAngularTools.js'
         '@RuchJowPageFoundationBundle/Resources/angular/ruchJowRss.js'
+
+        '@RuchJowAngularSecurityBundle/Resources/angular/rj.symfony.ng.security.js'
+
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}

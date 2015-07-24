@@ -21,7 +21,7 @@ class DefaultController extends ModelController
     /**
      * @return Response
      *
-     * @Route("/ajax/support", name="local_gov_ajax_support", options={"expose": true})
+     * @Route("/ajax/support", name="local_gov_ajax_support", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function getSupport()

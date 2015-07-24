@@ -23,7 +23,7 @@ class FeedbackController extends ModelController
      *
      * @return Response
      *
-     * @Route("/create", name="feedback_ajax_create", options={"expose": true})
+     * @Route("/create", name="feedback_ajax_create", options={"expose": true}, condition="request.isXmlHttpRequest()")
      * @Method("POST")
      */
     public function createFeedbackAction(Request $request)

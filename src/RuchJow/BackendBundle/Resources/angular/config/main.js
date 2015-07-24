@@ -16,8 +16,14 @@ angular.module('ruchJow.backend.config.globals', [
 
 
     'ruchJow.backend.ctrls.index',
-    'ruchJow.backend.translations'
+    'ruchJow.backend.translations',
+    'ruchJow.symfony.security'
 ])
+    .config(['$httpProvider', 'symfonyTokenInterceptorProvider', function ($httpProvider, symfonyTokenInterceptorProvider) {
+        $httpProvider.defaults.xsrfCookieName = 'XSRF-TOKEN-ANG-RJ';
+        $httpProvider.defaults.xsrfHeaderName = 'X-XSRF-TOKEN-ANG-RJ';
+        symfonyTokenInterceptorProvider.setXsrfHeaderName('X-XSRF-TOKEN-ANG-RJ');
+    }])
     .config(['$translateProvider', function ($translateProvider) {
         $translateProvider
             .preferredLanguage('pl')

@@ -22,9 +22,29 @@ class Configuration implements ConfigurationInterface
 
         /** @noinspection PhpUndefinedMethodInspection */
         $rootNode
+            ->addDefaultsIfNotSet()
             ->children()
                 ->arrayNode('exposed_user_roles')
                     ->prototype('scalar')->end()
+                ->end()
+                ->arrayNode('user')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('search')
+                        ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('max_elements')
+                                    ->defaultValue(10)
+                                ->end()
+                                ->scalarNode('min_length')
+                                    ->defaultValue(3)
+                                ->end()
+                                ->scalarNode('min_length_all')
+                                    ->defaultFalse()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
                 ->end()
             ->end();
 
