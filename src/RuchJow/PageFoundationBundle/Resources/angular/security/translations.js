@@ -13,7 +13,7 @@ angular.module('ruchJow.security.translations', ['pascalprecht.translate'])
                 user_registered_title: 'Dziękujemy. Na podany przez Ciebie adres e-mail został wysłany link, potrzebny do potwierdzenia Twojego poparcia.',
                 user_registered_msg: 'Jeśli po godzinie nic nie otrzymasz, sprawdź czy mail nie wylądował w spamie lub w innych folderach. Jeśli mail nie dojdzie, napisz do nas na adres kontakt@ruchjow.pl',
                 unsuccess: 'Błędny użytkownik lub hasło',
-                account_remove_link_send: 'Na Twój adres e-mail został wysłany e-mail powtierdzający usunięcie konta.'
+                account_remove_link_send: 'Na Twój adres e-mail został wysłany e-mail potwierdzający usunięcie konta.'
             },
 
             'security.login': {
@@ -48,7 +48,7 @@ angular.module('ruchJow.security.translations', ['pascalprecht.translate'])
             'security.newPassword': {
                 title: 'Resetowanie lub ustawienie pierwszego hasła',
                 'token.verify': {
-                    pending: 'Zaczekej, trwa sprawdzanie poprawności linku weryfikacyjnego',
+                    pending: 'Zaczekaj, trwa sprawdzanie poprawności linku weryfikacyjnego',
                     fail: 'Link niepoprawny'
                 },
                 password: 'Hasło',
