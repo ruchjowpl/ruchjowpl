@@ -8,9 +8,12 @@
             <span>[[ msg ]]</span>
         </div>
     </div>
-    <div class="modal-footer" ng-if="showOkBtn">
-        <button class="btn btn-msg-ok" ng-click="close()">
+    <div class="modal-footer" ng-if="showOkBtn || showCancelBtn">
+        <button class="btn btn-msg-ok" ng-click="ok()" ng-if="showOkBtn">
             <span>[[ btnOkCaption ]]</span>
+        </button>
+        <button class="btn btn-msg-cancel" ng-click="cancel()" ng-if="showCancelBtn">
+            <span>[[ btnCancelCaption ]]</span>
         </button>
     </div>
 </article>

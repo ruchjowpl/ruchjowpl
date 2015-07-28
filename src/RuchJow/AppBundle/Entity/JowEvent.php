@@ -47,7 +47,7 @@ class JowEvent
     protected $address;
 
     /**
-     * @var Commune
+     * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -166,7 +166,7 @@ class JowEvent
     }
 
     /**
-     * @return Commune
+     * @return string
      */
     public function getLink()
     {
@@ -174,12 +174,15 @@ class JowEvent
     }
 
     /**
-     * @param Commune $link
+     * @param string $link
      *
      * @return $this
      */
     public function setLink($link)
     {
+        if (!preg_match('/^https?:\/\//', $link)) {
+             $link = 'http://' . $link;
+        }
         $this->link = $link;
 
         return $this;

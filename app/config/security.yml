@@ -60,17 +60,18 @@ security:
 #
 #        # APP
         - { path: ^/$,                                    role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/cif/fe_calc_samples+$,                role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/cif/fe_get_calc/[a-zA-Z0-9_-]+$,      role: ROLE_REGISTERED_USER }
-#        - { path: ^/cif/fe_calc_evaluate/[a-zA-Z0-9_-]+$, role: ROLE_REGISTERED_USER }
-#        - { path: ^/cif/fe_get_calc_names$,               role: ROLE_REGISTERED_USER }
-##        - { path: ^/cif/fe_data/[a-zA-Z0-9_-]+$, role: ROLE_REGISTERED_USER }
 
         # APP markers
         - { path: ^/markers/cif/all$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
+        # APP Jow Events
+        - { path: ^/jow_events/cif/list(/(\d+)?(/(\d+)?)?)?$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
         # APP angular partials
         - { path: "^/partial/[.\-a-zA-Z0-9_]+$", role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+
+        # Actions
         - { path: "^/ajax/organise_event$",      role: ROLE_REGISTERED_USER }
         - { path: "^/ajax/organise_referendum_point$", role: ROLE_REGISTERED_USER }
 #        - { path: "^/ajax/distribute_leaflets$", role: ROLE_REGISTERED_USER }

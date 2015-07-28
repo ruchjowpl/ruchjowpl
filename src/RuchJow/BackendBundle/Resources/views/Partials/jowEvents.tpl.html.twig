@@ -18,18 +18,23 @@
                         <th>Godzina</th>
                         <th>Miejsce</th>
                         <th>Tytuł</th>
+                        <th>Link</th>
                         <th>Gmina</th>
-                        <th>Edit</th>
+                        <th>Akcje</th>
                     </tr>
                     </thead>
                     <tr ng-repeat="entry in jowEvents|orderBy:'id'">
                         <td class="tight">[[ entry.id ]]</td>
-                        <td class="tight">[[ entry.data|date:'yyyy-MM-dd' ]]</td>
-                        <td class="tight">[[ entry.data|date:'HH:mm' ]]</td>
+                        <td class="tight">[[ entry.date|date:'yyyy-MM-dd' ]]</td>
+                        <td class="tight">[[ entry.date|date:'HH:mm' ]]</td>
                         <td class="tight">[[ entry.venue ]]</td>
                         <td class="tight">[[ entry.title ]]</td>
+                        <td class="tight">[[ entry.link ]]</td>
                         <td class="tight">[[ entry.commune.name ]] ([[ entry.commune.region ]])</td>
-                        <td class="tight"><span ng-click="edit(entry.id)" class="clickable">Edytuj</span></td>
+                        <td class="tight">
+                            <span ng-click="edit(entry.id)" class="clickable">Edytuj</span>
+                            <span ng-click="remove(entry.id)" class="clickable">Usuń</span>
+                        </td>
                     </tr>
                 </table>
             </div>

@@ -38,34 +38,30 @@
                     label-suffix-class="'required'"
                     ruch-jow-form-show-label="false"
                     >
-                {#<datepicker#}
-                        {#name="date"#}
-                        {#ng-model="data.date"#}
-                        {#show-weeks="true"#}
-                        {#class="well well-sm"#}
-                        {#></datepicker>#}
+
 
                 <div class="row">
                     <div class="col-sm-6">
-                        <input type="text" name="date"
-                               class="form-control"
-                               datepicker-popup="yyyy-MM-dd"
-                               is-open="localData.opened"
-                               ng-model="data.date"
-                                {#datepicker-options="dateOptions"#}
-                               ng-required="true"
-                               placeholder="[[ 'jowEvents.editForm.date.date.label'|translate ]]*"
-
-                               ng-click="localData.opened = true"
-                                />
-
+                        <span datepicker=""
+                                name="date"
+                                ng-model="data.date"
+                                show-weeks="true"
+                                class="well well-sm datepicker"
+                                ></span>
+                    </div>
+                    <div class="col-sm-6" style="text-align: center;">
+                        <div class="well well-sm">
+                            <span timepicker=""
+                                    ng-model="data.date"
+                                    hour-step="1"
+                                    minute-step="5"
+                                    show-meridian="false"
+                                  class="timepicker"
+                                    ></span>
+                        </div>
                     </div>
                 </div>
-
-
             </div>
-            <div ng-click="openDate($event)">open</div>
-            [[ localData ]]
             <div
                     ruch-jow-form-simple-field="venue"
                     errors="validation.venue.$labels"
@@ -79,7 +75,7 @@
                         ng-required="true"
                         {#ruch-jow-form-null-if-empty#}
                         ruch-jow-enter-down-trigger
-                        placeholder="[[ 'jowEvents.editForm.address.label'|translate ]]*"
+                        placeholder="[[ 'jowEvents.editForm.venue.label'|translate ]]*"
                         />
             </div>
             <div
@@ -96,6 +92,23 @@
                         {#ruch-jow-form-null-if-empty#}
                         ruch-jow-enter-down-trigger
                         placeholder="[[ 'jowEvents.editForm.title.label'|translate ]]*"
+                        />
+            </div>
+            <div
+                    ruch-jow-form-simple-field="link"
+                    errors="validation.link.$labels"
+                    label-suffix-class="'required'"
+                    ruch-jow-form-show-label="false"
+                    >
+                <input
+                        type="text" name="link"
+                        ng-model="data.link"
+                        {#ng-model-options="ngModelOptions()"#}
+                        ng-required="true"
+                        ng-pattern="validation.link.pattern"
+                        {#ruch-jow-form-null-if-empty#}
+                        ruch-jow-enter-down-trigger
+                        placeholder="[[ 'jowEvents.editForm.link.label'|translate ]]*"
                         />
             </div>
             <div

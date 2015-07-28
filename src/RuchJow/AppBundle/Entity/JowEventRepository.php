@@ -12,4 +12,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class JowEventRepository extends EntityRepository
 {
+    public function findIncoming($limit = 0, $offset = 0, $skipTimeInFilter = false)
+    {
+        $qb = $this->createQueryBuilder('je');
+        $expr = $qb->expr();
+
+        $dateFormat = $skipTimeInFilter ? "Y-m-d" : "Y-m-d H:i:s";
+
+        $qb->andWhere($expr->gte('je.date', ':now'))
+            ->setParameter('now', (new \DateTime())->format($dateFormat))
+            ->orderBy('je.date', 'asc');
+
+        if ($limit) {
+            $qb->setMaxResults($limit);
+        }
+
+        if ($offset) {
+            $qb->setFirstResult($offset);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -47,6 +47,7 @@ angular.module('ruchJow.backend.ctrls.jowEvents', [
             date: data.date || null,
             venue: data.venue || null,
             title: data.title || '',
+            link: data.link || '',
             communeId: data.commune && data.commune.id ? data.commune.id : null
         };
 
@@ -81,6 +82,13 @@ angular.module('ruchJow.backend.ctrls.jowEvents', [
                 //pattern: /^(?=.*[^ _\-]$)([a-ząćęłńóśźżA-ZĄĆĘŁŃÓŚŹŻ0-9][ _.\-]?){4,}$/,
                 $labels: {
                     required: 'jowEvents.editForm.title.required.error'
+                }
+            },
+            link: {
+                pattern: /^(https?:\/\/)?([0-9a-z.-]+)\.([a-z.]{2,})([\/\w .-]*)*\/?((#|\?).*)?$/,
+                $labels: {
+                    required: 'jowEvents.editForm.link.required.error',
+                    pattern: 'jowEvents.editForm.link.pattern.error'
                 }
             },
             commune: {
@@ -164,7 +172,7 @@ angular.module('ruchJow.backend.ctrls.jowEvents', [
         var provider = {
             $get: ['$http', '$modal', 'ruchJowPartials', function ($http, $modal, ruchJowPartials) {
                 var service = {
-                    editEvent: function (address, date, venue, title, communeId, communeLabel, id) {
+                    editEvent: function (address, date, venue, title, link, communeId, communeLabel, id) {
                         var instance = $modal.open({
                             templateUrl: ruchJowPartials('editJowEvent.modal','backend'),
                             controller: 'BackendEditJowEventModalCtrl',
@@ -173,9 +181,10 @@ angular.module('ruchJow.backend.ctrls.jowEvents', [
                                 data: function () {
                                     return {
                                         address: address,
-                                        date: date,
+                                        date: date || new Date(),
                                         venue: venue,
                                         title: title,
+                                        link: link,
                                         commune: communeId && communeLabel ? {
                                             id: communeId,
                                             label: communeLabel
@@ -187,6 +196,22 @@ angular.module('ruchJow.backend.ctrls.jowEvents', [
                         });
 
                         return instance.result;
+                    },
+                    remove: function (id) {
+                        var httpConfig = {
+                            headers: {'X-Requested-With': 'XMLHttpRequest'},
+                            url: Routing.generate('backend_cif_jow_events_remove'),
+                            method: 'POST',
+                            data: id
+                        };
+
+                        return $http(httpConfig).then(function (result) {
+                            if (result.data.hasOwnProperty('status') && result.data.status === 'success') {
+                                return 'success';
+                            }
+
+                            return $q.reject('error');
+                        });
                     }
                 };
 
@@ -201,9 +226,10 @@ angular.module('ruchJow.backend.ctrls.jowEvents', [
         '$scope',
         '$state',
         '$http',
+        '$alert',
         'frData',
         'jowEventsManager',
-        function ($scope, $state, $http, frData, jowEventsManager) {
+        function ($scope, $state, $http, $alert, frData, jowEventsManager) {
 
             $scope.jowEvents = [];
             $scope.jowEventsMap = {};
@@ -228,6 +254,7 @@ angular.module('ruchJow.backend.ctrls.jowEvents', [
                             data.date,
                             data.venue,
                             data.title,
+                            data.link,
                             data.commune.id,
                             data.commune.name + '(' + data.commune.region + ')',
                             data.id
@@ -240,12 +267,42 @@ angular.module('ruchJow.backend.ctrls.jowEvents', [
                         console.log('Index not found!');
                     }
                 } else {
-                    jowEventsManager.editPoint()
+                    jowEventsManager.editEvent()
                         .then(function (data) {
                             $scope.jowEventsMap[data.id] = $scope.jowEvents.push(data) - 1;
                         });
                 }
             };
+
+            $scope.remove = function (id) {
+                $alert('jowEvents.remove.dialog.message', 'jowEvents.remove.dialog.title', { showCancelBtn: true, type: 'warning' })
+                    .then(function () {
+                        return jowEventsManager.remove(id)
+                            .then(function () {
+                                $alert('jowEvents.remove.success.message', 'jowEvents.remove.success.title');
+                            }, function () {
+                                $alert('jowEvents.remove.error.message', 'jowEvents.remove.error.title', { type: 'error' });
+                            })
+                            .then(function () {
+                                var index = $scope.jowEventsMap[id];
+                                delete $scope.jowEventsMap[id];
+
+                                $scope.jowEvents.splice(index, 1);
+                                buildEventsMap(index);
+                            });
+                    });
+            };
+
+            function buildEventsMap(startIndex) {
+                if (!startIndex) {
+                    startIndex = 0;
+                    $scope.jowEventsMap = {};
+                }
+
+                for (var i = startIndex; i < $scope.jowEvents.length; i++) {
+                    $scope.jowEventsMap[$scope.jowEvents[i].id] = i;
+                }
+            }
 
         }
     ]);

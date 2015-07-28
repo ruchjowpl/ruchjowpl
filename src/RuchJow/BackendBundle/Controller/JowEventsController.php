@@ -64,7 +64,10 @@ class JowEventsController extends ModelController
                     'date' => array('type' => 'date',),
                     'venue' => array('type' => 'string',),
                     'title' => array('type' => 'string',),
-                    'link' => array('type' => 'string',),
+                    'link' => array(
+                        'type' => 'string',
+                        'pattern' => '/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,})([\/\w \.-]*)*\/?((#|\?).*)?$/'
+                    ),
                     'communeId' => array('type' => 'entityId', 'entity' => 'RuchJowTerritorialUnitsBundle:Commune'),
                 )
             ),
@@ -138,6 +141,13 @@ class JowEventsController extends ModelController
             $id
         );
 
+        if ($error) {
+            return $this->createJsonErrorResponse(array(
+                'status' => 'error',
+                'message' => $error['message'],
+            ), 400);
+        }
+
         $repo = $em->getRepository('RuchJowAppBundle:JowEvent');
         $event = $repo->find($id);
         if (!$event) {
@@ -150,6 +160,10 @@ class JowEventsController extends ModelController
         $em = $this->getDoctrine()->getManager();
         $em->remove($event);
         $em->flush();
+
+        return $this->createJsonResponse(array(
+            'status' => 'success',
+        ));
     }
 
     /**
