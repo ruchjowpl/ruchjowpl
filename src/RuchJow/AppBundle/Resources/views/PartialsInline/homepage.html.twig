@@ -317,7 +317,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
                     <div class="page-block announcements-block" ng-controller="AnnouncementsCtrl">
                         <div class="header">
                             <h1>Komunikaty</h1>
@@ -327,13 +328,12 @@
                         </div>
 
                         <div class="row" ng-if="status === 'success' && feed.length">
-                            <div class="col-md-6" ng-repeat="item in feed" ng-if="status === 'success'">
+                            <div ng-repeat="item in feed" ng-if="status === 'success'">
                                 <h2>
                                     <span class="sub-info">[[ date(item.pubDate)|date:'dd.MM.yyyy HH:mm' ]]</span>
                                     [[ item.title ]]
                                 </h2>
-                                <div>[[ date(item.pubDate)|date:'dd.MM.yyyy HH:mm' ]]</div>
-                                <div ng-bind-html="item.description.__cdata"></div>
+                                <div ng-bind-html="description(item)"></div>
                             </div>
                         </div>
                         <div ng-if="status === 'error'">
