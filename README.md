@@ -23,14 +23,10 @@ https://gitter.im/ruchjowpl - czat projektu
 https://rozwijaj.ruchjow.pl - miejsce zgłaszania uwag, sugestii i pomysłów
 
 
-## Instalacja
+## Dokumentacja developerska
 
-    $ composer install
-
-    $ bin/phing
-
-
-
+* [Wymagania](app/Resources/doc/requirements.md)
+* [Uruchomienie aplikacji](app/Resources/doc/run.md)
 
 ## Współtworzenie
 
