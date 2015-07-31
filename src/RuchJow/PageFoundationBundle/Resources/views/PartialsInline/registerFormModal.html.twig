@@ -77,6 +77,43 @@
         {#</div>#}
 
 
+        {# Country #}
+        <div
+                {#ruch-jow-form-single-row#}
+                ruch-jow-form-simple-field="country"
+                {#show-untouched-errors="false"#}
+                {#show-pristine-errors="false"#}
+
+                label="security.register.country"
+                {#ruch-jow-form-show-label="false"#}
+
+                errors="validation.country.$labels"
+                ng-class="{ loading: loading.countries }"
+                >
+            <div ng-show="data.country">
+                <strong
+                        ruch-jow-input-icon="setCountry(null); localData.countryInputName = null;"
+                        ruch-jow-icon-class="{ delete: true, disabled: !data.country }"
+                        >
+                    [[ localData.selectedCountryLabel ? localData.selectedCountryLabel : '-' ]]
+                </strong>
+            </div>
+            <input
+                    ng-show="!data.country"
+                    {#ruch-jow-input-icon="setCommune(null); localData.communeInputName = null;"#}
+                    {#ruch-jow-wrapper-class=""#}
+                    {#ruch-jow-icon-class="{ delete: true, disabled: !localData.communeInputName && !data.communeUrl }"#}
+                    type="text" name="country"
+                    ng-model="localData.countryInputName"
+                    placeholder="[[ 'security.register.country'|translate ]]"
+                    typeahead="country.label for commune in getCountries($viewValue)"
+                    typeahead-loading="loading.countries"
+                    typeahead-on-select="setCountry($item)"
+                    ruch-jow-validate="{ country: 'data.country || data.organisationUrl' }"
+                    ruch-jow-validate-watch="['data.organisationUrl', 'data.country']"
+                    />
+        </div>
+
         {# Commune #}
         <div
             {#ruch-jow-form-single-row#}
