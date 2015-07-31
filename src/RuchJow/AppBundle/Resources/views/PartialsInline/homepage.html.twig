@@ -122,7 +122,7 @@
                             </div>
 
                             <div class="row row-small-padding">
-                                <div class="col-md-6 col-small-padding" ng-controller="JowEventsCtrl">
+                                <div class="col-md-6 col-small-padding jow-events" ng-controller="JowEventsCtrl">
                                     <h2>Wydarzenia</h2>
                                     <div ng-init="getEvents(5)">
                                         <table class="table rank-table">
@@ -142,7 +142,7 @@
                                             </tr>
                                         </table>
                                     </div>
-                                    <a ui-sref="jow_events" ruch-jow-force-hash-href="">Więcej</a>
+                                    <a ui-sref="jow_events" ruch-jow-force-hash-href="" class="more">wszystkie wydarzenia...</a>
                                 </div>
                                 <div class="col-md-6 col-small-padding announcements" ng-controller="AnnouncementsCtrl">
                                     <h2>Komunikaty</h2>

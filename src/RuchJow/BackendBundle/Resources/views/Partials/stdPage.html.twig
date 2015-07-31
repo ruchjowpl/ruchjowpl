@@ -1,3 +1,4 @@
+<article {% if pageName is defined %}id="{{ pageName }}"{% endif %}>
 <div class="main-header">
     <h1>
         {% block title %}
@@ -9,3 +10,4 @@
     {% block content %}
     {% endblock %}
 </div>
+</article>

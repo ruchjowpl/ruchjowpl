@@ -43,15 +43,16 @@
         .controller('JowEventsCtrl', ['$scope', 'frData', function ($scope, frData) {
 
             $scope.events = [];
-
-            console.log('Controller');
+            $scope.filteredEvents = [];
 
             $scope.getEvents = function (limit, offset) {
-                console.log('getEvents');
-
                 frData.getParametrized('jowEvents:get', { limit: limit, offset: offset}).then(function (events) {
                     $scope.events = events;
+                })['finally'](function () {
+                    filterUnits();
                 });
+
+
             };
 
             $scope.filter = {
@@ -59,6 +60,13 @@
                 unit: null
             };
 
+            $scope.$watch('filter.unitLabel', function (unitLabel) {
+               if (!unitLabel) { $scope.setTU(null) };
+            });
+
+            $scope.$watch('filter.unit', function (unit) {
+                filterUnits();
+            });
 
             var getTUPromise;
             $scope.getTU = function (input) {
@@ -102,8 +110,50 @@
                     $scope.filter.unit = null;
                 } else {
                     $scope.filter.unitLabel = item.label;
-                    $scope.unit = item;
+                    $scope.filter.unit = item;
                 }
             };
+
+
+            function filterUnits() {
+                var unit = $scope.filter.unit;
+
+                if (!unit) {
+                    $scope.filteredEvents = $scope.events;
+
+                    return;
+                }
+
+                $scope.filteredEvents = [];
+
+                for (var i = 0; i < $scope.events.length; i++) {
+                    var event = $scope.events[i];
+
+                    var add = false;
+                    switch (unit.unitType) {
+                        case 'commune':
+                            if (event && event.commune && event.commune.id === unit.id) {
+                                add = true;
+                            }
+                            break;
+
+                        case 'district':
+                            if (event && event.district && event.district.id === unit.id) {
+                                add = true;
+                            }
+                            break;
+
+                        case 'region':
+                            if (event && event.region && event.region.id === unit.id) {
+                                add = true;
+                            }
+                            break;
+                    }
+
+                    if (add) {
+                        $scope.filteredEvents.push(event);
+                    }
+                }
+            }
         }]);
 })();
