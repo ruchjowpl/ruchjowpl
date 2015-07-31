@@ -1,0 +1,43 @@
+{% extends 'RuchJowAppBundle:Partials:staticPage.html.twig' %}
+
+{% block title %}Wydarzenia{% endblock %}
+
+{% block static_page_content %}
+
+        <input
+                type="text"
+                name="unit"
+                ng-model="filter.unit"
+                placeholder=""
+                typeahead="unit.label for unit in getTU($viewValue)"
+                typeahead-loading="loading.territorialUnits"
+                typeahead-on-select="setTU($item)"
+                class="form-control"
+                />
+
+
+
+    <div ng-init="getEvents()">
+        <table class="table">
+            <tr>
+                <th colspan="2">Kiedy?</th>
+                <th rowspan="2">Gdzie?</th>
+                <th rowspan="2">Wydarzenie</th>
+                <th rowspan="2">Pokaż więcej</th>
+            </tr>
+            <tr>
+                <th>Data</th>
+                <th>Godzina</th>
+
+            </tr>
+            <tr ng-repeat="event in events">
+                <td>[[ event.date|date:'dd.MM.yyyy' ]]</td>
+                <td>[[ event.date|date:'HH:mm' ]]</td>
+                <td>[[ event.venue ]]</td>
+                <td>[[ event.title ]]</td>
+                <td><a href="[[ event.link ]]" target="_blank">więcej...</a></td>
+            </tr>
+        </table>
+    </div>
+
+{% endblock %}

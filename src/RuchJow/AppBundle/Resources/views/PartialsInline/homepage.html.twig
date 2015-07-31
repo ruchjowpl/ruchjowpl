@@ -122,7 +122,8 @@
                             </div>
 
                             <div class="row row-small-padding">
-                                <section class="col-md-6 col-small-padding" ng-controller="JowEventsController">
+                                <div class="col-md-6 col-small-padding" ng-controller="JowEventsCtrl">
+                                    <h2>Wydarzenia</h2>
                                     <div ng-init="getEvents(5)">
                                         <table class="table rank-table">
                                             <tr>
@@ -134,14 +135,37 @@
                                             </tr>
                                             <tr ng-repeat="event in events">
                                                 <td>[[ event.date|date:'dd.MM.yyyy' ]]</td>
-                                                <td>[[ event.date|date:'hh:mm' ]]</td>
+                                                <td>[[ event.date|date:'HH:mm' ]]</td>
                                                 <td>[[ event.venue ]]</td>
                                                 <td>[[ event.title ]]</td>
                                                 <td><a href="[[ event.link ]]" target="_blank">więcej...</a></td>
                                             </tr>
                                         </table>
                                     </div>
-                                </section>
+                                    <a ui-sref="jow_events" ruch-jow-force-hash-href="">Więcej</a>
+                                </div>
+                                <div class="col-md-6 col-small-padding announcements" ng-controller="AnnouncementsCtrl">
+                                    <h2>Komunikaty</h2>
+                                    <div ng-if="status === 'success' && !feed.length">
+                                        Brak komunikatów.
+                                    </div>
+
+                                    <div ng-if="status === 'success' && feed.length">
+                                        <div ng-repeat="item in feed" ng-if="status === 'success'" class="item">
+                                            <h3>
+                                                <span class="sub-info">[[ date(item.pubDate)|date:'dd.MM.yyyy HH:mm' ]]</span>
+                                                [[ item.title ]]
+                                            </h3>
+                                            <div ng-bind-html="description(item)"></div>
+                                        </div>
+                                    </div>
+                                    <div ng-if="status === 'error'">
+                                        Wystąpił nieoczekiwany błąd podczas pobierania komunikatów.
+                                    </div>
+                                    <div ng-if="status === 'loading'">
+                                        Wczytywanie...
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </article>
@@ -337,32 +361,6 @@
                             <div class="col-md-6">
                                 <a ruch-jow-twitter-widget="" class="twitter-timeline" href="https://twitter.com/spolecznoscJOW" data-widget-id="551374304236306434">Tweety użytkownika @spolecznoscJOW </a>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6"></div>
-                <div class="col-md-6">
-                    <div class="page-block announcements-block" ng-controller="AnnouncementsCtrl">
-                        <div class="header">
-                            <h1>Komunikaty</h1>
-                        </div>
-                        <div ng-if="status === 'success' && !feed.length">
-                            Brak komunikatów.
-                        </div>
-
-                        <div class="row" ng-if="status === 'success' && feed.length">
-                            <div ng-repeat="item in feed" ng-if="status === 'success'">
-                                <h2>
-                                    <span class="sub-info">[[ date(item.pubDate)|date:'dd.MM.yyyy HH:mm' ]]</span>
-                                    [[ item.title ]]
-                                </h2>
-                                <div ng-bind-html="description(item)"></div>
-                            </div>
-                        </div>
-                        <div ng-if="status === 'error'">
-                            Wystąpił nieoczekiwany błąd podczas pobierania komunikatów.
                         </div>
                     </div>
                 </div>

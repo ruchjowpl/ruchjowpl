@@ -107,7 +107,7 @@ class JowEventsController extends ModelController
         }
 
         $event->setAddress($data['address'])
-            ->setDate(new \DateTime($data['date']))
+            ->setDate((new \DateTime($data['date']))->setTimeZone(new \DateTimeZone(date_default_timezone_get())))
             ->setVenue($data['venue'])
             ->setTitle($data['title'])
             ->setLink($data['link'])

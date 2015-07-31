@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Route("/jow_events")
  */
-class jowEventsController extends ModelController
+class JowEventsController extends ModelController
 {
     /**
      * @return Response
