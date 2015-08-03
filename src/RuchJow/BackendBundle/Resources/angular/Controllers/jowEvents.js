@@ -1,4 +1,4 @@
-angular.module('ruchJow.backend.ctrls.referendumPoints', [
+angular.module('ruchJow.backend.ctrls.jowEvents', [
     'fr.angUtils.data',
     'ruchJow.forms',
     'ruchJow.pfound.data'
@@ -6,9 +6,9 @@ angular.module('ruchJow.backend.ctrls.referendumPoints', [
 ])
     .config(['frDataProvider', function (frDataProvider) {
         frDataProvider.register(
-            'referendumPointsList',
+            'jowEventsList',
             {
-                url: Routing.generate('backend_cif_referendum_points_list'),
+                url: Routing.generate('backend_cif_jow_events_list'),
                 method: 'GET'
             },
             ['$q', 'response', function ($q, response) {
@@ -25,14 +25,15 @@ angular.module('ruchJow.backend.ctrls.referendumPoints', [
                     !data.hasOwnProperty('data')
                     || !angular.isObject(data.data)
                 ) {
-                    return $q.reject('Incorrect referendum points data format.')
+                    return $q.reject('Incorrect response.')
                 }
 
                 return data.data;
             }]
         );
     }])
-    .controller('BackendEditReferendumPointModalCtrl', ['$scope', '$http', '$modalInstance', 'ruchJowFindCommunes', 'data', function ($scope, $http, $modalInstance, ruchJowFindCommunes, data) {
+
+    .controller('BackendEditJowEventModalCtrl', ['$scope', '$http', '$modalInstance', 'ruchJowFindCommunes', 'data', function ($scope, $http, $modalInstance, ruchJowFindCommunes, data) {
 
         $scope.loading = { communes: false };
 
@@ -42,11 +43,10 @@ angular.module('ruchJow.backend.ctrls.referendumPoints', [
         };
 
         $scope.data = {
-            title: data.title ? data.title : '',
-            subtitle: data.subtitle ? data.subtitle : '',
-            description: data.description ? data.description : '',
-            lat: data.lat ? data.lat : 0,
-            lng: data.lng ? data.lng : 0,
+            date: data.date || null,
+            venue: data.venue || null,
+            title: data.title || '',
+            link: data.link || '',
             communeId: data.commune && data.commune.id ? data.commune.id : null
         };
 
@@ -58,56 +58,35 @@ angular.module('ruchJow.backend.ctrls.referendumPoints', [
             communeInputName: null
         };
 
-        $scope.openDate = function($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-
-            $scope.localData.opened = true;
-        };
-
         $scope.validation = {
+            date: {
+                //pattern: /^(?=.*[^ _\-]$)([a-ząćęłńóśźżA-ZĄĆĘŁŃÓŚŹŻ0-9][ _.\-]?){4,}$/,
+                $labels: {
+                    required: 'jowEvents.editForm.date.required.error'
+                }
+            },
+            venue: {
+                //pattern: /^(?=.*[^ _\-]$)([a-ząćęłńóśźżA-ZĄĆĘŁŃÓŚŹŻ0-9][ _.\-]?){4,}$/,
+                $labels: {
+                    required: 'jowEvents.editForm.venue.required.error'
+                }
+            },
             title: {
                 //pattern: /^(?=.*[^ _\-]$)([a-ząćęłńóśźżA-ZĄĆĘŁŃÓŚŹŻ0-9][ _.\-]?){4,}$/,
                 $labels: {
-                    required: 'referendumPoints.editForm.title.required.error'
+                    required: 'jowEvents.editForm.title.required.error'
                 }
             },
-            subtitle: {
-                //pattern: /^(?=.*[^ _\-]$)([a-ząćęłńóśźżA-ZĄĆĘŁŃÓŚŹŻ0-9][ _.\-]?){4,}$/,
+            link: {
+                pattern: /^(https?:\/\/)?([0-9a-z.-]+)\.([a-z.]{2,})([\/\w .-]*)*\/?((#|\?).*)?$/,
                 $labels: {
-                    //required: 'referendumPoints.editForm.title.required.error'
-                }
-            },
-            description: {
-                //pattern: /^(?=.*[^ _\-]$)([a-ząćęłńóśźżA-ZĄĆĘŁŃÓŚŹŻ0-9][ _.\-]?){4,}$/,
-                $labels: {
-                    required: 'referendumPoints.editForm.description.required.error'
-                }
-            },
-            lat: {
-                //pattern: /^[0-9]?[0-9]((.|,)[0-9]{1,6})?$/,
-                min: 0,
-                max: 90,
-                $labels: {
-                    min: 'referendumPoints.editForm.lat.min.error',
-                    max: 'referendumPoints.editForm.lat.max.error',
-                    required: 'referendumPoints.editForm.lat.required.error'
-                }
-            },
-            lng: {
-                //pattern: /^[[0-9]?[0-9]((.|,)[0-9]{1,6})?$/,
-                min: 0,
-                max: 90,
-                $labels: {
-                    min: 'referendumPoints.editForm.lng.min.error',
-                    max: 'referendumPoints.editForm.lng.max.error',
-                    pattern: 'referendumPoints.editForm.lat.pattern.error',
-                    required: 'referendumPoints.editForm.lat.required.error'
+                    required: 'jowEvents.editForm.link.required.error',
+                    pattern: 'jowEvents.editForm.link.pattern.error'
                 }
             },
             commune: {
                 $labels: {
-                    commune: 'referendumPoints.editForm.commune.required.error'
+                    commune: 'jowEvents.editForm.commune.required.error'
                 }
             }
         };
@@ -153,11 +132,10 @@ angular.module('ruchJow.backend.ctrls.referendumPoints', [
             if (form.$valid && $scope.status !== 'inProgress') {
                 var httpConfig = {
                     headers: {'X-Requested-With': 'XMLHttpRequest'},
-                    url: Routing.generate('backend_cif_referendum_points_update'),
+                    url: Routing.generate('backend_cif_jow_events_update'),
                     method: 'POST',
                     data: $scope.data
                 };
-
 
                 $scope.status = 'inProgress';
                 $http(httpConfig)
@@ -182,23 +160,23 @@ angular.module('ruchJow.backend.ctrls.referendumPoints', [
             $modalInstance.dismiss(false);
         };
     }])
-    .provider('referendumPointManager', [function () {
+
+    .provider('jowEventsManager', [function () {
         var provider = {
             $get: ['$http', '$modal', 'ruchJowPartials', function ($http, $modal, ruchJowPartials) {
                 var service = {
-                    editPoint: function (title, subtitle, description, lat, lng, communeId, communeLabel, id) {
+                    editEvent: function (date, venue, title, link, communeId, communeLabel, id) {
                         var instance = $modal.open({
-                            templateUrl: ruchJowPartials('editReferendumPoint.modal','backend'),
-                            controller: 'BackendEditReferendumPointModalCtrl',
+                            templateUrl: ruchJowPartials('editJowEvent.modal','backend'),
+                            controller: 'BackendEditJowEventModalCtrl',
                             size: 'lg',
                             resolve: {
                                 data: function () {
                                     return {
+                                        date: date || new Date(),
+                                        venue: venue,
                                         title: title,
-                                        subtitle: subtitle,
-                                        description: description,
-                                        lat: lat,
-                                        lng: lng,
+                                        link: link,
                                         commune: communeId && communeLabel ? {
                                             id: communeId,
                                             label: communeLabel
@@ -210,6 +188,22 @@ angular.module('ruchJow.backend.ctrls.referendumPoints', [
                         });
 
                         return instance.result;
+                    },
+                    remove: function (id) {
+                        var httpConfig = {
+                            headers: {'X-Requested-With': 'XMLHttpRequest'},
+                            url: Routing.generate('backend_cif_jow_events_remove'),
+                            method: 'POST',
+                            data: id
+                        };
+
+                        return $http(httpConfig).then(function (result) {
+                            if (result.data.hasOwnProperty('status') && result.data.status === 'success') {
+                                return 'success';
+                            }
+
+                            return $q.reject('error');
+                        });
                     }
                 };
 
@@ -219,55 +213,87 @@ angular.module('ruchJow.backend.ctrls.referendumPoints', [
 
         return provider;
     }])
-    .controller('BackendReferendumPointsCtrl', [
+
+    .controller('BackendJowEventsCtrl', [
         '$scope',
         '$state',
         '$http',
+        '$alert',
         'frData',
-        'referendumPointManager',
-        function ($scope, $state, $http, frData, referendumPointManager) {
+        'jowEventsManager',
+        function ($scope, $state, $http, $alert, frData, jowEventsManager) {
 
-            $scope.referendumPoints = [];
-            $scope.referendumPointsMap = {};
+            $scope.jowEvents = [];
+            $scope.jowEventsMap = {};
 
 
-            frData.get('referendumPointsList')
-                .then(function (referendumPoints) {
-                    $scope.referendumPoints = referendumPoints;
-                    $scope.referendumPointsMap = {};
-                    for (var i = 0; i < $scope.referendumPoints.length; i++) {
-                        $scope.referendumPointsMap[$scope.referendumPoints[i].id] = i;
+            frData.get('jowEventsList', true)
+                .then(function (jowEvents) {
+                    $scope.jowEvents = jowEvents;
+                    $scope.jowEventsMap = {};
+                    for (var i = 0; i < $scope.jowEvents.length; i++) {
+                        $scope.jowEventsMap[$scope.jowEvents[i].id] = i;
+                        $scope.jowEvents[i].date = new Date($scope.jowEvents[i].date);
                     }
                 });
 
             $scope.edit = function (id) {
                 if (id !== undefined) {
-                    if ($scope.referendumPointsMap.hasOwnProperty(id)) {
-                        var data = $scope.referendumPoints[$scope.referendumPointsMap[id]];
-                        referendumPointManager.editPoint(
+                    if ($scope.jowEventsMap.hasOwnProperty(id)) {
+                        var data = $scope.jowEvents[$scope.jowEventsMap[id]];
+                        jowEventsManager.editEvent(
+                            data.date,
+                            data.venue,
                             data.title,
-                            data.subtitle,
-                            data.description,
-                            data.lat,
-                            data.lng,
+                            data.link,
                             data.commune.id,
-                            data.commune.name + '(' + data.commune.region + ')',
+                            data.commune.name + '(' + data.region.name+ ')',
                             data.id
                         )
                             .then(function (data) {
-                                $scope.referendumPoints[$scope.referendumPointsMap[data.id]] =
+                                $scope.jowEvents[$scope.jowEventsMap[data.id]] =
                                     data;
                             });
                     } else {
                         console.log('Index not found!');
                     }
                 } else {
-                    referendumPointManager.editPoint()
+                    jowEventsManager.editEvent()
                         .then(function (data) {
-                            $scope.referendumPointsMap[data.id] = $scope.referendumPoints.push(data) - 1;
+                            $scope.jowEventsMap[data.id] = $scope.jowEvents.push(data) - 1;
                         });
                 }
             };
+
+            $scope.remove = function (id) {
+                $alert('jowEvents.remove.dialog.message', 'jowEvents.remove.dialog.title', { showCancelBtn: true, type: 'warning' })
+                    .then(function () {
+                        return jowEventsManager.remove(id)
+                            .then(function () {
+                                $alert('jowEvents.remove.success.message', 'jowEvents.remove.success.title');
+                            }, function () {
+                                $alert('jowEvents.remove.error.message', 'jowEvents.remove.error.title', { type: 'error' });
+                            })
+                            .then(function () {
+                                var index = $scope.jowEventsMap[id];
+                                delete $scope.jowEventsMap[id];
+
+                                $scope.jowEvents.splice(index, 1);
+                                buildEventsMap(index);
+                            });
+                    });
+            };
+
+            function buildEventsMap(startIndex) {
+                if (!startIndex) {
+                    startIndex = 0;
+                    $scope.jowEventsMap = {};
+                }
+
+                for (var i = startIndex; i < $scope.jowEvents.length; i++) {
+                    $scope.jowEventsMap[$scope.jowEvents[i].id] = i;
+                }
+            }
 
         }
     ]);

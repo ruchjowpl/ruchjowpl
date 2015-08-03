@@ -3,8 +3,6 @@
 @import "variables.less";
 
 
-
-
 @import "animations.less";
 //@import "mixins.less";
 @import "globals.less";
@@ -617,5 +615,31 @@ tbody.collapse.in {
       color: @ruch-jow-disabled-color;
     }
   }
+
+  &.calendar {
+    .fa-icon(@fa-var-calendar);
+  }
 }
 
+
+
+.datepicker {
+  table {
+    width: 100%;
+  }
+
+  .btn {
+    padding: 0;
+    width: 100%;
+    line-height: 1.6;
+    font-size: 1em;
+  }
+
+  &.well {
+    margin-bottom: 0;
+  }
+}
+
+.timepicker {
+  margin: 0 auto;
+}

@@ -1,0 +1,46 @@
+{% extends 'RuchJowAppBundle:Partials:staticPage.html.twig' %}
+
+{% set pageName = 'jow_events_page' %}
+
+{% block title %}Wydarzenia{% endblock %}
+
+{% block static_page_content %}
+
+    <div class="filter">
+        <label>Filtr</label>
+        <input
+            type="text"
+            name="unit"
+            ng-model="filter.unitLabel"
+            placeholder="Wyszukaj województwo, powiat lub gminę po nazwie albo kodzie pocztowym"
+            typeahead="unit.label for unit in getTU($viewValue)"
+            typeahead-loading="loading.territorialUnits"
+            typeahead-on-select="setTU($item)"
+            class="form-control"
+            />
+    </div>
+
+    <div ng-init="getEvents()">
+        <table class="table">
+            <tr>
+                <th class="tight" colspan="2">Kiedy?</th>
+                <th rowspan="2">Gdzie?</th>
+                <th rowspan="2">Wydarzenie</th>
+                <th class="tight" rowspan="2">Pokaż więcej</th>
+            </tr>
+            <tr>
+                <th class="tight">Data</th>
+                <th class="tight">Godzina</th>
+
+            </tr>
+            <tr ng-repeat="event in filteredEvents|orderBy:'date' track by event.id">
+                <td class="tight">[[ event.date|date:'dd.MM.yyyy' ]]</td>
+                <td class="tight">[[ event.date|date:'HH:mm' ]]</td>
+                <td class="">[[ event.venue ]]</td>
+                <td class="">[[ event.title ]]</td>
+                <td class="tight"><a href="[[ event.link ]]" target="_blank">więcej...</a></td>
+            </tr>
+        </table>
+    </div>
+
+{% endblock %}

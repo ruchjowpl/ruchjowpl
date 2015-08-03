@@ -105,9 +105,24 @@ angular.module('ruchJow.backend.translations', ['pascalprecht.translate'])
                         'required.error': 'Pole gmina jest wymagane'
                     },
                     submit: 'Zapisz'
-                },
-
-
+                }
+            },
+            jowEvents: {
+                editForm: {
+                    venue: {
+                        label: 'Miejsce (adres)'
+                    },
+                    title: {
+                        label: 'Tytuł'
+                    },
+                    link: {
+                        label: 'Link'
+                    },
+                    commune: {
+                        label: 'Gmina'
+                    },
+                    submit: 'Zapisz'
+                }
             }
 
 

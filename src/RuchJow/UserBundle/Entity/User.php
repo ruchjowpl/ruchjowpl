@@ -640,8 +640,6 @@ class User extends BaseUser
     }
 
 
-
-
     /**
      * Set address
      *

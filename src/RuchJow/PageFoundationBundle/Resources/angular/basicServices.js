@@ -34,7 +34,8 @@ angular.module('ruchJow.basicServices', ['pascalprecht.translate'])
     .config(['$translateProvider', function ($translateProvider) {
         $translateProvider.translations('en', {
             $alert: {
-                ok: 'OK'
+                ok: 'OK',
+                cancel: 'Anuluj'
             }
         });
     }])
@@ -51,8 +52,10 @@ angular.module('ruchJow.basicServices', ['pascalprecht.translate'])
                         {
                             type: 'info',
                             btnOkCaption: translate ? '$alert.ok' : 'OK',
+                            btnCancelCaption: translate ? '$alert.cancel' : 'Cancel',
                             translate: translate,
                             showOkBtn: true,
+                            showCancelBtn: false,
                             templateUrl: '$alert.html',
                             size: 'sm'
 
@@ -63,6 +66,9 @@ angular.module('ruchJow.basicServices', ['pascalprecht.translate'])
                     if (opts.btnOkCaption) {
                         opts.btnOkCaption = trans(opts.btnOkCaption);
                     }
+                    if (opts.btnCancelCaption) {
+                        opts.btnCancelCaption = trans(opts.btnCancelCaption);
+                    }
 
                     var modal = $modal.open({
                         templateUrl: opts.templateUrl,
@@ -72,6 +78,7 @@ angular.module('ruchJow.basicServices', ['pascalprecht.translate'])
                             $scope.type = options.type;
                             $scope.translate = options.translate;
                             $scope.showOkBtn = options.showOkBtn;
+                            $scope.showCancelBtn = options.showCancelBtn;
 
                             $q.when(msg).then(
                                 function (text) { $scope.msg = text; },
@@ -85,8 +92,15 @@ angular.module('ruchJow.basicServices', ['pascalprecht.translate'])
                                 function (text) { $scope.btnOkCaption = text; },
                                 function (text) { $scope.btnOkCaption = text; }
                             );
+                            $q.when(options.btnCancelCaption).then(
+                                function (text) { $scope.btnCancelCaption = text; },
+                                function (text) { $scope.btnCancelCaption = text; }
+                            );
 
-                            $scope.close = function () {
+                            $scope.ok = function () {
+                                $modalInstance.close();
+                            };
+                            $scope.cancel = function () {
                                 $modalInstance.dismiss();
                             }
                         }],

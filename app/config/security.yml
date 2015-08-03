@@ -60,23 +60,25 @@ security:
 #
 #        # APP
         - { path: ^/$,                                    role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/cif/fe_calc_samples+$,                role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/cif/fe_get_calc/[a-zA-Z0-9_-]+$,      role: ROLE_REGISTERED_USER }
-#        - { path: ^/cif/fe_calc_evaluate/[a-zA-Z0-9_-]+$, role: ROLE_REGISTERED_USER }
-#        - { path: ^/cif/fe_get_calc_names$,               role: ROLE_REGISTERED_USER }
-##        - { path: ^/cif/fe_data/[a-zA-Z0-9_-]+$, role: ROLE_REGISTERED_USER }
 
         # APP markers
         - { path: ^/markers/cif/all$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
+        # APP Jow Events
+        - { path: ^/jow_events/cif/list(/(\d+)?(/(\d+)?)?)?$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
         # APP angular partials
         - { path: "^/partial/[.\-a-zA-Z0-9_]+$", role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+
+        # Actions
         - { path: "^/ajax/organise_event$",      role: ROLE_REGISTERED_USER }
         - { path: "^/ajax/organise_referendum_point$", role: ROLE_REGISTERED_USER }
 #        - { path: "^/ajax/distribute_leaflets$", role: ROLE_REGISTERED_USER }
 
         # TERRITORIAL UNITS
         - { path: ^/cif/tu/ajax/communes$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cif/tu/ajax/search/tu$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/cif/tu/geo_shapes,     role: IS_AUTHENTICATED_ANONYMOUSLY }
 
         # TERRITORIAL UNITS
@@ -140,6 +142,10 @@ security:
         - { path: ^/backend/cif/referendumPoints/list$, role: ROLE_REFERENDUM_POINTS }
         - { path: ^/backend/cif/referendumPoints/update$, role: ROLE_REFERENDUM_POINTS_ADMIN }
 
+        - { path: ^/backend/cif/jowEvents/list$, role: ROLE_JOW_EVENTS }
+        - { path: ^/backend/cif/jowEvents/update$, role: ROLE_JOW_EVENTS_ADMIN }
+        - { path: ^/backend/cif/jowEvents/remove$, role: ROLE_JOW_EVENTS_ADMIN }
+
 
 
         - { path: "^/backend/partial/[.\-a-zA-Z0-9_]+$", role: ROLE_BACKEND }
@@ -154,19 +160,21 @@ security:
             - ROLE_USER_DATA
             - ROLE_BACKEND_TASKS
             - ROLE_REFERENDUM_POINTS
+            - ROLE_JOW_EVENTS
 
         ROLE_BACKEND_ADMIN:
             - ROLE_BACKEND
             - ROLE_ADD_POINTS
             - ROLE_ADD_DONATION
             - ROLE_REFERENDUM_POINTS_ADMIN
+            - ROLE_JOW_EVENTS_ADMIN
 
         ROLE_ADMIN:
             - ROLE_BACKEND_ADMIN
 
         ROLE_SUPER_ADMIN:
             - ROLE_ADMIN
-            - ROLE_ALLOWED_TO_SWITCH # "wcielanie się" w usera, żeby sprawdzić daną rzecz na jego uprawnieniach
+            - ROLE_ALLOWED_TO_SWITCH
 
 
 ruch_jow_page_foundation:

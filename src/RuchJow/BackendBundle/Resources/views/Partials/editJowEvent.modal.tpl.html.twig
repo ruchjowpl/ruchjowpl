@@ -1,0 +1,132 @@
+<article>
+    <form
+            ng-submit="save()"
+            name="jowEventEditForm"
+            {#ng-controller="RegisterFormSubmitCtrl"#}
+            id="jow_event_edit_form"
+            novalidate
+    >
+        <div ng-init="setForm(jowEventEditForm)"></div>
+
+        <div class="close-control clickable" ng-click="cancel()"></div>
+
+        {#<div class="modal-header center">#}
+            {#<h1></h1>#}
+        {#</div>#}
+
+        <div class="modal-body">
+
+            <div
+                    ruch-jow-form-simple-field="date"
+                    errors="validation.date.$labels"
+                    label-suffix-class="'required'"
+                    ruch-jow-form-show-label="false"
+                    >
+
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <span datepicker=""
+                            name="date"
+                            ng-model="data.date"
+                            show-weeks="true"
+                            class="well well-sm datepicker"
+                            ></span>
+                    </div>
+                    <div class="col-sm-6" style="text-align: center;">
+                        <div class="well well-sm">
+                            <span timepicker=""
+                                    ng-model="data.date"
+                                    hour-step="1"
+                                    minute-step="5"
+                                    show-meridian="false"
+                                  class="timepicker"
+                                    ></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                    ruch-jow-form-simple-field="venue"
+                    errors="validation.venue.$labels"
+                    label-suffix-class="'required'"
+                    ruch-jow-form-show-label="false"
+                    >
+                <input
+                        type="text" name="venue"
+                        ng-model="data.venue"
+                        {#ng-model-options="ngModelOptions()"#}
+                        ng-required="true"
+                        {#ruch-jow-form-null-if-empty#}
+                        ruch-jow-enter-down-trigger
+                        placeholder="[[ 'jowEvents.editForm.venue.label'|translate ]]"
+                        />
+            </div>
+            <div
+                    ruch-jow-form-simple-field="title"
+                    errors="validation.title.$labels"
+                    label-suffix-class="'required'"
+                    ruch-jow-form-show-label="false"
+                    >
+                <input
+                        type="text" name="title"
+                        ng-model="data.title"
+                        {#ng-model-options="ngModelOptions()"#}
+                        ng-required="true"
+                        {#ruch-jow-form-null-if-empty#}
+                        ruch-jow-enter-down-trigger
+                        placeholder="[[ 'jowEvents.editForm.title.label'|translate ]]"
+                        />
+            </div>
+            <div
+                    ruch-jow-form-simple-field="link"
+                    errors="validation.link.$labels"
+                    label-suffix-class="'required'"
+                    ruch-jow-form-show-label="false"
+                    >
+                <input
+                        type="text" name="link"
+                        ng-model="data.link"
+                        {#ng-model-options="ngModelOptions()"#}
+                        ng-required="true"
+                        ng-pattern="validation.link.pattern"
+                        {#ruch-jow-form-null-if-empty#}
+                        ruch-jow-enter-down-trigger
+                        placeholder="[[ 'jowEvents.editForm.link.label'|translate ]]"
+                        />
+            </div>
+            <div
+                    ruch-jow-form-simple-field="commune"
+                    ruch-jow-form-show-label="false"
+                    errors="validation.commune.$labels"
+                    ng-class="{ loading: loading.communes }"
+                    >
+                <div ng-show="data.communeId">
+                    <strong
+                            ruch-jow-input-icon="setCommune(null); localData.communeInputName = null;"
+                            ruch-jow-icon-class="{ delete: true, disabled: !data.communeId }"
+                            >
+                        [[ localData.selectedCommuneLabel ? localData.selectedCommuneLabel : '-' ]]
+                    </strong>
+                </div>
+                <input
+                        ng-show="!data.communeId"
+                        type="text" name="commune"
+                        ng-model="localData.communeInputName"
+                        placeholder="[[ 'jowEvents.editForm.commune.label'|translate ]]"
+                        typeahead="commune.label for commune in getCommunes($viewValue)"
+                        typeahead-loading="loading.communes"
+                        typeahead-on-select="setCommune($item)"
+                        ruch-jow-validate="{ commune: 'data.communeId' }"
+                        />
+            </div>
+
+            <div class="btns">
+                <button type="submit" class="btn btn-register btn-go">
+                    <span class="glyphicon glyphicon-refresh te-spin-fast" ng-if="status == 'inProgress'"></span> [[ 'jowEvents.editForm.submit'|translate ]]
+                </button>
+                <span ng-if="status === 'error'">Wystąpił problem podczas zapisu wydarzenia</span>
+            </div>
+        </div>
+    </form>
+</article>
