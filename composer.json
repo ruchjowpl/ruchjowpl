@@ -294,9 +294,9 @@
       "type": "package",
       "package": {
         "name": "ruch-jow-local/font-awesome",
-        "version": "4.3",
+        "version": "4.4",
         "dist": {
-          "url": "http://fontawesome.io/assets/font-awesome-4.3.0.zip",
+          "url": "http://fortawesome.github.io/Font-Awesome/assets/font-awesome-4.4.0.zip",
           "type": "zip"
         }
       }

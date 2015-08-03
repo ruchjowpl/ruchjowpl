@@ -4,6 +4,7 @@ angular.module('ruchJow.ctrls.index', [
     'ruchJow.ctrls.homepage',
     'ruchJow.ctrls.loginMenu',
     'ruchJow.ctrls.ranks',
+    'ruchJow.ctrls.jowEvents',
     'ruchJow.ctrls.pointsInfo',
     'ruchJow.ctrls.userAccount',
     'ruchJow.ctrls.userMessages',

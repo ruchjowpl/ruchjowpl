@@ -151,6 +151,12 @@
                     templateUrl: ruchJowPartialsProvider.getUrl('contact','app')/*,
                      controller: 'ChallengesCtrl'*/
                 })
+
+                .state('jow_events', {
+                    url: '/jow_events',
+                    templateUrl: ruchJowPartialsProvider.getUrl('jowEvents','app'),
+                    controller: 'JowEventsCtrl'
+                })
             ;
 
         }])

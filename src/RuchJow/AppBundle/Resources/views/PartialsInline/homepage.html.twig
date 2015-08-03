@@ -52,52 +52,53 @@
                                     </ul>
                                 </div>
                             </div>
-                            <section class="col-md-9 col-small-padding">
-                                <h2>Nasza aktywność</h2>
-                                <div class="map-title">
-                                    <span class="active-territorial-unit">
-                                        <span ng-show="activeTerritorialUnit.type !== 'country'">
-                                            <span class="type">
-                                                [[ ('tu.type.' + activeTerritorialUnit.type)|translate ]]
-                                            </span>
-                                            <span class="name">
-                                                [[ activeTerritorialUnit.name ]]
-                                            </span>
-                                        </span>
-                                        {#<span class="name" ng-show="activeTerritorialUnit.type === 'country'" translate>#}
-                                            {#tu.whole_country#}
-                                        {#</span>#}
-                                    </span>
-                                    <span class="level-up clickable glyphicon glyphicon-chevron-up" ng-click="showParent()" ng-show="parent"></span>
-                                </div>
-                                <div
-                                        ruch-jow-map
-                                        map-init-view="country"
-                                        markers-data="markersData"
-                                        other-markers-data="localGovMarkers"
-                                        active-territorial-unit="activeTerritorialUnit"
-                                        highlighted-territorial-unit="hiUnit"
-                                        class="ruch-jow-google-map"
-                                        options="{ minZoom: 6 }"
-                                        >
-                                    <ul class="map-legend">
-                                        <li>
-                                            <span class="img">{% image '@map_marker_star' %}<img src="{{ asset_url }}" />{% endimage %}</span>
-                                            - aktywność samorządów
-                                        </li>
-                                        <li>
-                                            <span class="img">{% image '@map_marker_referendum_point' %}<img src="{{ asset_url }}" />{% endimage %}</span>
-                                            - punkty referendalne
-                                        </li>
-                                        <li>
-                                            <span class="img">{% image '@map_marker_circle' %}<img src="{{ asset_url }}" />{% endimage %}</span>
-                                            - zaangażowanie regionów
-                                        </li>
-                                    </ul>
-                                </div>
-                            </section>
 
-                            <section class="col-md-3 col-small-padding">
+                            <div class="row row-small-padding">
+                                <section class="col-md-9 col-small-padding">
+                                    <h2>Nasza aktywność</h2>
+                                    <div class="map-title">
+                                        <span class="active-territorial-unit">
+                                            <span ng-show="activeTerritorialUnit.type !== 'country'">
+                                                <span class="type">
+                                                    [[ ('tu.type.' + activeTerritorialUnit.type)|translate ]]
+                                                </span>
+                                                <span class="name">
+                                                    [[ activeTerritorialUnit.name ]]
+                                                </span>
+                                            </span>
+                                            {#<span class="name" ng-show="activeTerritorialUnit.type === 'country'" translate>#}
+                                                {#tu.whole_country#}
+                                            {#</span>#}
+                                        </span>
+                                        <span class="level-up clickable glyphicon glyphicon-chevron-up" ng-click="showParent()" ng-show="parent"></span>
+                                    </div>
+                                    <div
+                                            ruch-jow-map
+                                            map-init-view="country"
+                                            markers-data="markersData"
+                                            other-markers-data="localGovMarkers"
+                                            active-territorial-unit="activeTerritorialUnit"
+                                            highlighted-territorial-unit="hiUnit"
+                                            class="ruch-jow-google-map"
+                                            options="{ minZoom: 6 }"
+                                            >
+                                        <ul class="map-legend">
+                                            <li>
+                                                <span class="img">{% image '@map_marker_star' %}<img src="{{ asset_url }}" />{% endimage %}</span>
+                                                - aktywność samorządów
+                                            </li>
+                                            <li>
+                                                <span class="img">{% image '@map_marker_referendum_point' %}<img src="{{ asset_url }}" />{% endimage %}</span>
+                                                - punkty referendalne
+                                            </li>
+                                            <li>
+                                                <span class="img">{% image '@map_marker_circle' %}<img src="{{ asset_url }}" />{% endimage %}</span>
+                                                - zaangażowanie regionów
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </section>
+                                <section class="col-md-3 col-small-padding">
                                 <div
                                         ruch-jow-rank-table=""
                                         ranking-obj="territorialUnitRanking"
@@ -118,6 +119,54 @@
 
                                 <a ui-sref="ranks" ruch-jow-force-hash-href="" class="clickable pull-right" translate>zobacz wszystkie rankingi &raquo;</a>
                             </section>
+                            </div>
+
+                            <div class="row row-small-padding">
+                                <div class="col-md-6 col-small-padding jow-events" ng-controller="JowEventsCtrl">
+                                    <h2>Wydarzenia</h2>
+                                    <div ng-init="getEvents(5)">
+                                        <table class="table rank-table">
+                                            <tr>
+                                                <th>Data</th>
+                                                <th>Godzina</th>
+                                                <th>Miejsce</th>
+                                                <th>Wydarzenie</th>
+                                                <th>Pokaż więcej</th>
+                                            </tr>
+                                            <tr ng-repeat="event in events">
+                                                <td>[[ event.date|date:'dd.MM.yyyy' ]]</td>
+                                                <td>[[ event.date|date:'HH:mm' ]]</td>
+                                                <td>[[ event.venue ]]</td>
+                                                <td>[[ event.title ]]</td>
+                                                <td><a href="[[ event.link ]]" target="_blank">więcej...</a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <a ui-sref="jow_events" ruch-jow-force-hash-href="" class="more">wszystkie wydarzenia...</a>
+                                </div>
+                                <div class="col-md-6 col-small-padding announcements" ng-controller="AnnouncementsCtrl">
+                                    <h2>Komunikaty</h2>
+                                    <div ng-if="status === 'success' && !feed.length">
+                                        Brak komunikatów.
+                                    </div>
+
+                                    <div ng-if="status === 'success' && feed.length">
+                                        <div ng-repeat="item in feed" ng-if="status === 'success'" class="item">
+                                            <h3>
+                                                <span class="sub-info">[[ date(item.pubDate)|date:'dd.MM.yyyy HH:mm' ]]</span>
+                                                [[ item.title ]]
+                                            </h3>
+                                            <div ng-bind-html="description(item)"></div>
+                                        </div>
+                                    </div>
+                                    <div ng-if="status === 'error'">
+                                        Wystąpił nieoczekiwany błąd podczas pobierania komunikatów.
+                                    </div>
+                                    <div ng-if="status === 'loading'">
+                                        Wczytywanie...
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </article>
                 </div>
@@ -312,32 +361,6 @@
                             <div class="col-md-6">
                                 <a ruch-jow-twitter-widget="" class="twitter-timeline" href="https://twitter.com/spolecznoscJOW" data-widget-id="551374304236306434">Tweety użytkownika @spolecznoscJOW </a>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="page-block announcements-block" ng-controller="AnnouncementsCtrl">
-                        <div class="header">
-                            <h1>Komunikaty</h1>
-                        </div>
-                        <div ng-if="status === 'success' && !feed.length">
-                            Brak komunikatów.
-                        </div>
-
-                        <div class="row" ng-if="status === 'success' && feed.length">
-                            <div class="col-md-6" ng-repeat="item in feed" ng-if="status === 'success'">
-                                <h2>
-                                    <span class="sub-info">[[ date(item.pubDate)|date:'dd.MM.yyyy HH:mm' ]]</span>
-                                    [[ item.title ]]
-                                </h2>
-                                <div>[[ date(item.pubDate)|date:'dd.MM.yyyy HH:mm' ]]</div>
-                                <div ng-bind-html="item.description.__cdata"></div>
-                            </div>
-                        </div>
-                        <div ng-if="status === 'error'">
-                            Wystąpił nieoczekiwany błąd podczas pobierania komunikatów.
                         </div>
                     </div>
                 </div>

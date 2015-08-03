@@ -1,0 +1,46 @@
+{% extends '@RuchJowBackend/Partials/stdPage.html.twig' %}
+
+{% set pageName = 'jow_events' %}
+
+{% block title %}
+    Wydarzenia
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-block">
+                <span ng-click="edit()" class="clickable">Dodaj</span>
+                <table class="data-table" ng-class="{ 'in-progress-center': loading }">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Data</th>
+                        <th>Godzina</th>
+                        <th>Miejsce</th>
+                        <th>Tytuł</th>
+                        <th>Link</th>
+                        <th>Gmina</th>
+                        <th>Akcje</th>
+                    </tr>
+                    </thead>
+                    <tr ng-repeat="entry in jowEvents|orderBy:'id'">
+                        <td class="tight">[[ entry.id ]]</td>
+                        <td class="tight">[[ entry.date|date:'yyyy-MM-dd' ]]</td>
+                        <td class="tight">[[ entry.date|date:'HH:mm' ]]</td>
+                        <td class="tight">[[ entry.venue ]]</td>
+                        <td class="tight">[[ entry.title ]]</td>
+                        <td class="tight">[[ entry.link ]]</td>
+                        <td class="tight">[[ entry.commune.name ]] ([[ entry.region.name ]])</td>
+                        <td class="tight">
+                            <span ng-click="edit(entry.id)" class="clickable">Edytuj</span>
+                            <span ng-click="remove(entry.id)" class="clickable">Usuń</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
