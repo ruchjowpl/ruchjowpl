@@ -15,7 +15,7 @@ class LoadCountriesData extends AbstractFixture implements OrderedFixtureInterfa
     function load(ObjectManager $manager)
     {
         $country = new Country();
-        $country->setISOCountryCode('PL');
+        $country->setCode('PL');
         $manager->persist($country);
         $manager->flush();
     }

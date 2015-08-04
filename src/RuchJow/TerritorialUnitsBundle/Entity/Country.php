@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Country
 {
-
     /**
      * Main country
      *
@@ -36,7 +35,7 @@ class Country
      *
      * @ORM\Column(length=2, unique=true)
      */
-    protected $ISOCountryCode;
+    protected $code;
 
 
     /**
@@ -54,19 +53,19 @@ class Country
      *
      * @return string
      */
-    public function getISOCountryCode()
+    public function getCode()
     {
-        return $this->ISOCountryCode;
+        return $this->code;
     }
 
     /**
      * Sets Country code
      *
-     * @param string $ISOCountryCode code in ISO 3166-1 alpha-2 format
+     * @param string $code code in ISO 3166-1 alpha-2 format
      */
-    public function setISOCountryCode($ISOCountryCode)
+    public function setCode($code)
     {
-        $this->ISOCountryCode = $ISOCountryCode;
+        $this->code = $code;
     }
 
     /**
@@ -78,7 +77,7 @@ class Country
     {
         return array(
             'id' => $this->getId(),
-            'ISOCountryCode' => $this->getISOCountryCode(),
+            'code' => $this->getCode(),
         );
     }
 }

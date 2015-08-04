@@ -10,5 +10,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class CountryRepository extends EntityRepository
 {
+    /**
+     * @param $code
+     *
+     * @return null|Country
+     */
+    public function findOneByCode($code) {
 
+        return $this->findOneBy(array('code'=>$code));
+    }
 }

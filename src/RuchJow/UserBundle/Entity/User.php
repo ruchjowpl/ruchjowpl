@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use RuchJow\AddressBundle\Entity\Address;
 use RuchJow\SocialLinksBundle\Entity\SocialLink;
 use RuchJow\TerritorialUnitsBundle\Entity\Commune;
+use RuchJow\TerritorialUnitsBundle\Entity\Country;
 
 /**
  * @ORM\Entity(repositoryClass="RuchJow\UserBundle\Entity\UserRepository")
@@ -64,6 +65,14 @@ class User extends BaseUser
      */
     protected $phone;
 
+    /**
+     * @var Country
+     *
+     * @ORM\ManyToOne(targetEntity="RuchJow\TerritorialUnitsBundle\Entity\Country")
+     * @JoinColumn(name="country_id", referencedColumnName="id", nullable=true)
+     */
+    protected $country;
+    
     /**
      * @var Commune
      *
@@ -396,6 +405,30 @@ class User extends BaseUser
         return $this->phone;
     }
 
+    /**
+     * Set country
+     *
+     * @param Country $country
+     *
+     * @return User
+     */
+    public function setCountry(Country $country = null)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+    
     /**
      * Set commune
      *

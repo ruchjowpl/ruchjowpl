@@ -106,11 +106,10 @@
                     type="text" name="country"
                     ng-model="localData.countryInputName"
                     placeholder="[[ 'security.register.country'|translate ]]"
-                    typeahead="country.label for commune in getCountries($viewValue)"
+                    typeahead="country.label for country in getCountries($viewValue)"
                     typeahead-loading="loading.countries"
                     typeahead-on-select="setCountry($item)"
-                    ruch-jow-validate="{ country: 'data.country || data.organisationUrl' }"
-                    ruch-jow-validate-watch="['data.organisationUrl', 'data.country']"
+                    autocomplete="false"
                     />
         </div>
 

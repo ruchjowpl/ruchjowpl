@@ -46,6 +46,41 @@ angular.module('ruchJow.pfound.data', [/*'gd.tools', 'ngRoute'*/])
             }
         };
     }])
+    .factory('ruchJowFindCountries', ['$http', '$q', function ($http, $q) {
+
+        var getCountries = function (value) {
+            var canceler = $q.defer();
+
+            var config = {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                method: 'POST',
+                url: Routing.generate('territorial_units_ajax_countries'),
+                data: JSON.stringify(value),
+                timeout: canceler.promise
+            };
+
+            var promise = $http(config).then(function (request) {
+                return request.data;
+            });
+
+            promise.canceler = canceler;
+
+            return promise;
+        };
+
+        return {
+            getCountries: function (value) {
+                return getCountries(value);
+            },
+            cancel: function (promise) {
+                if (promise.canceler) {
+                    promise.canceler.resolve();
+                }
+            }
+        };
+    }])
     .factory('ruchJowFindCommunes', ['$http', '$q', function ($http, $q) {
 
         var getCommunes = function (value) {

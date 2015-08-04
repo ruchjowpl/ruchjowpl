@@ -92,6 +92,7 @@ angular.module('ruchJow.security.translations', ['pascalprecht.translate'])
             'security.register.lastName': 'Nazwisko',
             'security.register.email': 'E-mail',
             'security.register.phone': 'Telefon',
+            'security.register.country': 'Kraj',
             'security.register.commune': 'Gmina',
             'security.register.isRegulationsAccepted': 'Regulamin',
 
@@ -119,8 +120,11 @@ angular.module('ruchJow.security.translations', ['pascalprecht.translate'])
             'registerForm.lastName.pattern.error': 'Nazwisko musi zaczynać się od wielkiej litery i składać się z co najmniej dwóch znaków. Jeśli nazwisko składa się z dwóch członów, należy je rozdzielić znakiem "-".',
             'registerForm.lastName.required.error': 'Nazwisko nie może być puste',
 
+            //Country
+            'registerForm.country.country': 'Pole Kraj musi być wypełnione',
+
             // Commune
-            'registerForm.commune.commune': 'Pole gmina nie musi być wypełnione, tylko jeśli zostaną uzupełnione dane promowanej organizacji, bloga czy fanpage\'a',
+            'registerForm.commune.commune': 'Pole gmina nie musi być wypełnione, tylko jeśli podano kraj inny niż Polska lub zostaną uzupełnione dane promowanej organizacji, bloga czy fanpage\'a',
 
 
             // Organisation
