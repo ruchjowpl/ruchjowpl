@@ -17,22 +17,6 @@
         <div class="modal-body">
 
             <div
-                    ruch-jow-form-simple-field="address"
-                    errors="validation.address.$labels"
-                    label-suffix-class="'required'"
-                    ruch-jow-form-show-label="false"
-                    >
-                <input
-                        type="text" name="address"
-                        ng-model="data.address"
-                        {#ng-model-options="ngModelOptions()"#}
-                        ng-required="true"
-                        {#ruch-jow-form-null-if-empty#}
-                        ruch-jow-enter-down-trigger
-                        placeholder="[[ 'jowEvents.editForm.address.label'|translate ]]*"
-                        />
-            </div>
-            <div
                     ruch-jow-form-simple-field="date"
                     errors="validation.date.$labels"
                     label-suffix-class="'required'"
@@ -43,11 +27,11 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <span datepicker=""
-                                name="date"
-                                ng-model="data.date"
-                                show-weeks="true"
-                                class="well well-sm datepicker"
-                                ></span>
+                            name="date"
+                            ng-model="data.date"
+                            show-weeks="true"
+                            class="well well-sm datepicker"
+                            ></span>
                     </div>
                     <div class="col-sm-6" style="text-align: center;">
                         <div class="well well-sm">
@@ -75,7 +59,7 @@
                         ng-required="true"
                         {#ruch-jow-form-null-if-empty#}
                         ruch-jow-enter-down-trigger
-                        placeholder="[[ 'jowEvents.editForm.venue.label'|translate ]]*"
+                        placeholder="[[ 'jowEvents.editForm.venue.label'|translate ]]"
                         />
             </div>
             <div
@@ -91,7 +75,7 @@
                         ng-required="true"
                         {#ruch-jow-form-null-if-empty#}
                         ruch-jow-enter-down-trigger
-                        placeholder="[[ 'jowEvents.editForm.title.label'|translate ]]*"
+                        placeholder="[[ 'jowEvents.editForm.title.label'|translate ]]"
                         />
             </div>
             <div
@@ -108,13 +92,12 @@
                         ng-pattern="validation.link.pattern"
                         {#ruch-jow-form-null-if-empty#}
                         ruch-jow-enter-down-trigger
-                        placeholder="[[ 'jowEvents.editForm.link.label'|translate ]]*"
+                        placeholder="[[ 'jowEvents.editForm.link.label'|translate ]]"
                         />
             </div>
             <div
                     ruch-jow-form-simple-field="commune"
-                    {#label="security.register.commune"#}
-                    {#ruch-jow-form-show-label="false"#}
+                    ruch-jow-form-show-label="false"
                     errors="validation.commune.$labels"
                     ng-class="{ loading: loading.communes }"
                     >

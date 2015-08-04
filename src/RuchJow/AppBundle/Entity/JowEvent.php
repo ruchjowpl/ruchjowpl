@@ -42,13 +42,6 @@ class JowEvent
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, nullable=false)
-     */
-    protected $address;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $link;
@@ -141,26 +134,6 @@ class JowEvent
     public function setVenue($venue)
     {
         $this->venue = $venue;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * @param string $address
-     *
-     * @return $this
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
 
         return $this;
     }

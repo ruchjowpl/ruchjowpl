@@ -43,7 +43,6 @@ angular.module('ruchJow.backend.ctrls.jowEvents', [
         };
 
         $scope.data = {
-            address: data.address || '',
             date: data.date || null,
             venue: data.venue || null,
             title: data.title || '',
@@ -60,12 +59,6 @@ angular.module('ruchJow.backend.ctrls.jowEvents', [
         };
 
         $scope.validation = {
-            address: {
-                //pattern: /^(?=.*[^ _\-]$)([a-ząćęłńóśźżA-ZĄĆĘŁŃÓŚŹŻ0-9][ _.\-]?){4,}$/,
-                $labels: {
-                    required: 'jowEvents.editForm.address.required.error'
-                }
-            },
             date: {
                 //pattern: /^(?=.*[^ _\-]$)([a-ząćęłńóśźżA-ZĄĆĘŁŃÓŚŹŻ0-9][ _.\-]?){4,}$/,
                 $labels: {
@@ -172,7 +165,7 @@ angular.module('ruchJow.backend.ctrls.jowEvents', [
         var provider = {
             $get: ['$http', '$modal', 'ruchJowPartials', function ($http, $modal, ruchJowPartials) {
                 var service = {
-                    editEvent: function (address, date, venue, title, link, communeId, communeLabel, id) {
+                    editEvent: function (date, venue, title, link, communeId, communeLabel, id) {
                         var instance = $modal.open({
                             templateUrl: ruchJowPartials('editJowEvent.modal','backend'),
                             controller: 'BackendEditJowEventModalCtrl',
@@ -180,7 +173,6 @@ angular.module('ruchJow.backend.ctrls.jowEvents', [
                             resolve: {
                                 data: function () {
                                     return {
-                                        address: address,
                                         date: date || new Date(),
                                         venue: venue,
                                         title: title,
@@ -250,13 +242,12 @@ angular.module('ruchJow.backend.ctrls.jowEvents', [
                     if ($scope.jowEventsMap.hasOwnProperty(id)) {
                         var data = $scope.jowEvents[$scope.jowEventsMap[id]];
                         jowEventsManager.editEvent(
-                            data.address,
                             data.date,
                             data.venue,
                             data.title,
                             data.link,
                             data.commune.id,
-                            data.commune.name + '(' + data.commune.region + ')',
+                            data.commune.name + '(' + data.region.name+ ')',
                             data.id
                         )
                             .then(function (data) {

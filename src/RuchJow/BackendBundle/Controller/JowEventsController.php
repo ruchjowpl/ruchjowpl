@@ -60,7 +60,6 @@ class JowEventsController extends ModelController
                         'entity' => 'RuchJowAppBundle:JowEvent',
                         'optional' => true,
                     ),
-                    'address' => array('type' => 'string',),
                     'date' => array('type' => 'date',),
                     'venue' => array('type' => 'string',),
                     'title' => array('type' => 'string',),
@@ -106,8 +105,7 @@ class JowEventsController extends ModelController
             ), 400);
         }
 
-        $event->setAddress($data['address'])
-            ->setDate((new \DateTime($data['date']))->setTimeZone(new \DateTimeZone(date_default_timezone_get())))
+        $event->setDate((new \DateTime($data['date']))->setTimeZone(new \DateTimeZone(date_default_timezone_get())))
             ->setVenue($data['venue'])
             ->setTitle($data['title'])
             ->setLink($data['link'])
@@ -176,7 +174,6 @@ class JowEventsController extends ModelController
         $id = $event->getId();
         $entry = array(
             'id' => $id,
-            'address' => $event->getAddress(),
             'date' => $event->getDate()->format('c'),
             'venue' => $event->getVenue(),
             'title' => $event->getTitle(),
@@ -188,8 +185,18 @@ class JowEventsController extends ModelController
             $entry['commune'] = array(
                 'id' => $commune->getId(),
                 'name' => $commune->getName(),
-                'district' => $commune->getDistrict()->getName(),
-                'region' => $commune->getDistrict()->getRegion()->getName(),
+            );
+
+            $district = $commune->getDistrict();
+            $entry['district'] = array(
+                'id' => $district->getId(),
+                'name' => $district->getName(),
+            );
+
+            $region = $district->getRegion();
+            $entry['region'] = array(
+                'id' => $region->getId(),
+                'name' => $region->getName(),
             );
         }
 

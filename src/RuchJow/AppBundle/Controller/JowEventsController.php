@@ -63,7 +63,6 @@ class JowEventsController extends ModelController
         $id    = $event->getId();
         $entry = array(
             'id'      => $id,
-            'address' => $event->getAddress(),
             'date'    => $event->getDate()->format('c'),
             'venue'   => $event->getVenue(),
             'title'   => $event->getTitle(),
@@ -73,10 +72,20 @@ class JowEventsController extends ModelController
 
         if ($commune = $event->getCommune()) {
             $entry['commune'] = array(
-                'id'       => $commune->getId(),
-                'name'     => $commune->getName(),
-                'district' => $commune->getDistrict()->getName(),
-                'region'   => $commune->getDistrict()->getRegion()->getName(),
+                'id' => $commune->getId(),
+                'name' => $commune->getName(),
+            );
+
+            $district = $commune->getDistrict();
+            $entry['district'] = array(
+                'id' => $district->getId(),
+                'name' => $district->getName(),
+            );
+
+            $region = $district->getRegion();
+            $entry['region'] = array(
+                'id' => $region->getId(),
+                'name' => $region->getName(),
             );
         }
 
