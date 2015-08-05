@@ -3,6 +3,7 @@
 namespace RuchJow\UserBundle\DataFixtures\ORM;
 
 use RuchJow\TerritorialUnitsBundle\Entity\CommuneRepository;
+use RuchJow\TerritorialUnitsBundle\Entity\Country;
 use RuchJow\UserBundle\Entity\UserManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -34,6 +35,7 @@ class LoadTestUsersData extends AbstractFixture implements OrderedFixtureInterfa
         $lastName,
         $roles,
         $passwordText = null,
+        $country,
         $commune = null,
         $organisation = null,
         $registered = true
@@ -58,7 +60,7 @@ class LoadTestUsersData extends AbstractFixture implements OrderedFixtureInterfa
             $user->setPassword('')
                 ->setLocked(true);
         }
-
+        $user->setCountry($country);
         if ($commune) {
             $user->setCommune($commune);
         }
@@ -81,6 +83,7 @@ class LoadTestUsersData extends AbstractFixture implements OrderedFixtureInterfa
      */
     public function load(ObjectManager $manager)
     {
+        $country = $manager->getRepository('RuchJowTerritorialUnitsBundle:Country')->findOneByCode(Country::MAIN_COUNTRY);
         /** @var CommuneRepository $communeRepo */
         $communeRepo = $manager->getRepository('RuchJowTerritorialUnitsBundle:Commune');
         $communes = $communeRepo->findAll(); // quite counter-efficient, but ORDER BY RAND() is not supported in DQL
@@ -97,6 +100,7 @@ class LoadTestUsersData extends AbstractFixture implements OrderedFixtureInterfa
             'Almighty',
             'ROLE_ADMIN',
             'admin',
+            $country,
             null,
             null,
             false
@@ -116,6 +120,7 @@ class LoadTestUsersData extends AbstractFixture implements OrderedFixtureInterfa
                 'Lastname' . $i,
                 'ROLE_USER',
                 $username,
+                $country,
                 $communes[array_rand($communes)],
                 $organisation,
                 true
@@ -139,6 +144,7 @@ class LoadTestUsersData extends AbstractFixture implements OrderedFixtureInterfa
                 $faker->lastName,
                 'ROLE_USER',
                 null,
+                $country,
                 $communes[array_rand($communes)],
                 $organisation
 

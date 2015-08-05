@@ -292,7 +292,7 @@ class DataController extends ModelController
                 'children' => array(
                     'type'  => array(
                         'type' => 'string',
-                        'in'   => array('user', 'region', 'district', 'commune', 'organisation'),
+                        'in'   => array('user', 'region', 'district', 'commune', 'country', 'organisation'),
                     ),
                     'level' => array(
                         'type'     => 'array',
@@ -300,7 +300,7 @@ class DataController extends ModelController
                         'children' => array(
                             'type' => array(
                                 'type' => 'string', // country|region|district|commune
-                                'in'   => array('country', 'region', 'district', 'commune'),
+                                'in'   => array('world', 'country', 'region', 'district', 'commune'),
                             ),
                             'id'   => array(
                                 'type'     => 'int',
@@ -337,13 +337,14 @@ class DataController extends ModelController
             $data['level']['id'] = null;
         }
 
-        if ($data['level']['type'] !== 'country' && $data['level']['id'] === null) {
+        if (!in_array($data['level']['type'], array('world', 'country')) && $data['level']['id'] === null) {
             return $this->createJsonErrorResponse('Incorrect level id.');
         }
 
         $i = 0;
 
         $levelsHierarchy = array(
+            'world'        => ++$i,
             'country'      => ++$i,
             'organisation' => ++$i,
             'region'       => ++$i,
@@ -361,7 +362,6 @@ class DataController extends ModelController
         if (!isset($data['page'])) {
             $data['page'] = 1;
         }
-
 
         /** @var User $user */
         $user = $this->getUser();
@@ -383,6 +383,17 @@ class DataController extends ModelController
                     $data['page'],
                     $user && $user->getOrganisation()
                         ? $user->getOrganisation()
+                        : null
+                );
+
+                return $this->createJsonResponse($ret);
+
+            case 'country':
+                $ret = $this->getStatisticManager()->getCountryRank(
+                    $data['limit'],
+                    $data['page'],
+                    $user && $user->getCountry()
+                        ? $user->getCountry()
                         : null
                 );
 

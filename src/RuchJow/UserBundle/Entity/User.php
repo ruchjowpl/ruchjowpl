@@ -72,7 +72,7 @@ class User extends BaseUser
      * @JoinColumn(name="country_id", referencedColumnName="id", nullable=true)
      */
     protected $country;
-    
+
     /**
      * @var Commune
      *
@@ -428,7 +428,7 @@ class User extends BaseUser
     {
         return $this->country;
     }
-    
+
     /**
      * Set commune
      *

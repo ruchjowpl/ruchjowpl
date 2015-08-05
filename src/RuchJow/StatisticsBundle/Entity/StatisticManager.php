@@ -1302,7 +1302,7 @@ class StatisticManager
             . ' and c.' . $countryMeta->getColumnName('id') . ' = s.' . $statsMeta->getColumnName('suffix');
 
         if (!empty($where)) {
-            $sql .= ' ' . implode(' AND ', $where);
+            $sql .= ' where ' . implode(' AND ', $where);
         }
 
         $stmt = $em->getConnection()->prepare($sql);
@@ -1366,7 +1366,7 @@ class StatisticManager
             ' order by s.' . $statsMeta->getColumnName('intData') . ' desc' .
             ' limit :skip, :limit';
 
-        $params['statName'] = RuchJowStatisticsBundle::STAT_POINTS_ORGANISATION;
+        $params['statName'] = RuchJowStatisticsBundle::STAT_POINTS_COUNTRY;
         $params['skip']     = intval($limit * ($page - 1));
         $params['limit']    = $limit;
 
@@ -1447,7 +1447,6 @@ class StatisticManager
             $ret[$i] = array(
                 'rank'   => $rank['rank'],
                 'points' => $points,
-                'name'   => '',
             );
             $cMap[$row['country_code']] = $i;
 
@@ -1468,9 +1467,8 @@ class StatisticManager
         $countries = $em->getRepository('RuchJowTerritorialUnitsBundle:Country')->findBy(array('code' => $cCodes));
 
         foreach ($countries as $country) {
-            $ret[$cMap[$country->getId()]]['code'] = $country->getCode();
+            $ret[$cMap[$country->getCode()]]['code'] = $country->getCode();
         }
-
 
         $highlighted = null;
 

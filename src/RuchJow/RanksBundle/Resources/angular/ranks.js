@@ -458,7 +458,7 @@ angular.module('ruchJow.ctrls.ranks', ['ui.bootstrap', 'ruchJow.security'])
 
             // RANKING: TU
             $scope.territorialUnitRanking = {
-                limit: 10,
+                limit: 5,
                 columns: 1,
                 types: {
                     list: ['country', 'region', 'district', 'commune'],
@@ -519,7 +519,29 @@ angular.module('ruchJow.ctrls.ranks', ['ui.bootstrap', 'ruchJow.security'])
                 $scope.territorialUnitRanking.update();
             });
 
-
+            // COUNTRY RANKING
+            $scope.countryRanking = {
+                limit: 5,
+                type: 'country',
+                reset: function () {
+                    this.loading = false;
+                    this.page = 1;
+                    this.totalPages = 1;
+                    this.ranking = null;
+                    this.highlighted = null;
+                },
+                update: function () {
+                    this.loading = true;
+                    var rankingObj = this;
+                    ruchJowGeneralRanks.updateRankingObj(this, {type: 'world'})['finally'](function () {
+                        rankingObj.loading = false;
+                    });
+                }
+            };
+            $scope.countryRanking.reset();
+            $scope.$watch("[countryRanking.page, countryRanking.limit]", function () {
+                $scope.countryRanking.update();
+            });
 
 
             // Listen if user has been changed
