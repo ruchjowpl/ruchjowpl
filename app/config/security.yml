@@ -78,6 +78,7 @@ security:
 
         # TERRITORIAL UNITS
         - { path: ^/cif/tu/ajax/communes$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cif/tu/ajax/countries$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/cif/tu/ajax/search/tu$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/cif/tu/geo_shapes,     role: IS_AUTHENTICATED_ANONYMOUSLY }
 

@@ -8,10 +8,12 @@ use RuchJow\TerritorialUnitsBundle\Entity\CommuneRepository;
 use RuchJow\TerritorialUnitsBundle\Entity\District;
 use RuchJow\TerritorialUnitsBundle\Entity\GeoShapeRepository;
 use RuchJow\TerritorialUnitsBundle\Entity\Region;
+use RuchJow\TerritorialUnitsBundle\Intl\RegionBundle;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Intl\Intl;
 
 /**
  * Class DefaultController
@@ -59,6 +61,40 @@ class DefaultController extends ModelController
             $communes = $repo->findCommunesByName($data, 8);
 
             $retArray = $this->prepareCommunesArray($communes);
+        }
+
+        return $this->createJsonResponse($retArray);
+    }
+
+
+    /**
+     * @return Response
+     *
+     * @Route("/ajax/countries", name="territorial_units_ajax_countries", options={"expose": true})
+     */
+    public function getCountries()
+    {
+        $error = $this->validateRequestJson(
+            array('type' => 'string'),
+            $data
+        );
+
+        if ($error) {
+            return $this->createJsonErrorResponse($error['message']);
+        }
+
+        $retArray = array();
+        $regionBundle = new RegionBundle();
+
+        if (preg_match('/^\d\d-?\d{0,3}/', $data)) {
+            $countries = $regionBundle->findCountriesByName($data);
+
+            $retArray = $this->prepareCountriesArray($countries);
+
+        } elseif (preg_match('/^(?=.*[A-Za-zĘÓŁŚĄŻŹĆŃęółśążźćń]{2,})([A-Za-zĘÓŁŚĄŻŹĆŃęółśążźćń\s])*$/', $data)) {
+            $countries = $regionBundle->findCountriesByName($data);
+
+            $retArray = $this->prepareCountriesArray($countries);
         }
 
         return $this->createJsonResponse($retArray);
@@ -186,6 +222,19 @@ class DefaultController extends ModelController
         }
 
         return $this->createJsonResponse($shape->toArray(true));
+    }
+
+    protected function prepareCountriesArray($countries)
+    {
+        $retArray = array();
+        foreach ($countries as $countryCode=>$countryName) {
+            $retArray[] = array(
+                'code' => $countryCode,
+                'name' => $countryName
+            );
+        }
+
+        return $retArray;
     }
 
     protected function prepareCommunesArray($communes)

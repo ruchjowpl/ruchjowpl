@@ -5,6 +5,9 @@ namespace RuchJow\UserBundle\Controller;
 use RuchJow\AddressBundle\Entity\Address;
 use RuchJow\TerritorialUnitsBundle\Entity\Commune;
 use RuchJow\TerritorialUnitsBundle\Entity\CommuneRepository;
+use RuchJow\TerritorialUnitsBundle\Entity\Country;
+use RuchJow\TerritorialUnitsBundle\Entity\CountryRepository;
+use RuchJow\TerritorialUnitsBundle\Intl\RegionBundle;
 use RuchJow\UserBundle\Entity\Organisation;
 use RuchJow\UserBundle\Entity\OrganisationRepository;
 use RuchJow\UserBundle\Entity\User;
@@ -38,6 +41,7 @@ class UserController extends ModelController
                     'nick'             => array('type' => 'string'),
                     'email'            => array('type' => 'string'),
 //                    'phone'            => array('type' => 'string', 'optional' => true),
+                    'country'          => array('type' => 'string', 'optional' => false),
                     'commune'          => array('type' => 'entityId', 'entity' => 'RuchJowTerritorialUnitsBundle:Commune', 'optional' => true),
                     'organisationUrl'  => array('type' => 'string', 'optional' => true),
                     'organisationName' => array('type' => 'string', 'optional' => true),
@@ -70,9 +74,18 @@ class UserController extends ModelController
             return $this->createJsonErrorResponse('User with this email has expressed their support already.');
         }
 
+
+        // Check if country has valid code.
+        $regionBundle = new RegionBundle();
+        if (is_null($regionBundle->getCountryName($data['country']))) {
+
+            return $this->createJsonErrorResponse('Given Country code does not exists.');
+        }
+
+
         // Check if commune or organisation is set.
-        if (!isset($data['commune']) && !isset($data['organisationUrl'])) {
-            return $this->createJsonErrorResponse('Commune can only be omitted if organisation has been chosen.');
+        if (!isset($data['country']) && !isset($data['commune']) && !isset($data['organisationUrl'])) {
+            return $this->createJsonErrorResponse('Commune and Country can only be omitted if organisation has been chosen.');
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -87,6 +100,20 @@ class UserController extends ModelController
 //        if (isset($data['phone']) && $data['phone']) {
 //            $user->setPhone($data['phone']);
 //        }
+
+        // Attach country
+        /** @var CountryRepository $countryRepo */
+        $countryRepo = $this->getRepository('RuchJowTerritorialUnitsBundle:Country');
+        /** @var Country $country */
+        $country = $countryRepo->findOneByCode($data['country']);
+
+        if (is_null($country)) {
+            $newCountry = new Country();
+            $newCountry->setCode($data['country']);
+            $em->persist($newCountry);
+        }
+
+        $user->setCountry($country);
 
         // Attach commune (if applicable).
         if (isset($data['commune'])) {

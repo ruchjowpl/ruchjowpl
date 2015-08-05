@@ -14,12 +14,13 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
         '$q',
         '$timeout',
         'ipCookie',
+        'ruchJowFindCountries',
         'ruchJowFindCommunes',
         'ruchJowFindOrganisations',
         'ruchJowStatistics',
         'registerCallback',
         'initData',
-        function ($scope, $modalInstance, $q, $timeout, ipCookie, ruchJowFindCommunes, ruchJowFindOrganisations, ruchJowStatistics, registerCallback, initData) {
+        function ($scope, $modalInstance, $q, $timeout, ipCookie, ruchJowFindCountries, ruchJowFindCommunes, ruchJowFindOrganisations, ruchJowStatistics, registerCallback, initData) {
 
         $scope.showUntouched = false;
 
@@ -46,6 +47,7 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
             nick: (initData && initData.hasOwnProperty('nick')) ? initData.nick : null,
             email: (initData && initData.hasOwnProperty('email')) ? initData.email : null,
             //phone: null,
+            country: null,
             commune: null,
             organisationUrl: null,
             organisationName: null,
@@ -56,6 +58,8 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
         $scope.localData = {
             passwordRepeat: null,
             passwordVisible: false,
+            countryInputName: null,
+            selectedCountryLabel: null,
             communeInputName: null,
             selectedCommuneLabel: null
         };
@@ -103,6 +107,12 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
             //        required: 'registerForm.phone.required.error'
             //    }
             //},
+            country: {
+                $labels: {
+                    country: 'registerForm.country.country.error',
+                    required: 'registerForm.country.required.error'
+                }
+            },
             commune: {
                 $labels: {
                     commune: 'registerForm.commune.commune'
@@ -223,6 +233,39 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
                 $scope.orgs.set(null);
             }
         });
+
+
+        // Countries
+        $scope.loading = { countries: false };
+
+        var getCountriesPromise;
+        $scope.getCountries = function (input) {
+
+            if (getCountriesPromise) {
+                ruchJowFindCountries.cancel(getCountriesPromise);
+            }
+
+            getCountriesPromise = ruchJowFindCountries.getCountries(input);
+
+            return getCountriesPromise.then(function (countries) {
+                angular.forEach(countries, function (country) {
+                    country.label = country.name;
+                });
+
+                return countries;
+            });
+
+        };
+        $scope.setCountry = function (item) {
+            if (!item) {
+                $scope.data.country = null;
+                $scope.localData.selectedCountryLabel = null;
+            } else {
+                $scope.data.country = item.code;
+                $scope.localData.selectedCountryLabel = item.label;
+            }
+        };
+        $scope.setCountry({code: 'PL', label: 'Polska'});
 
         // Communes
         $scope.loading = { communes: false };
