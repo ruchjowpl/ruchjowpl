@@ -442,7 +442,6 @@ class UserManager extends FOSDoctrineUserManager
         return $ret;
     }
 
-
     /**
      * @param User $user
      */
@@ -453,9 +452,10 @@ class UserManager extends FOSDoctrineUserManager
         }
     }
 
-
     /**
      * @param string $token
+     *
+     * @return PreSignedUserData
      */
     public function getPreSignedUserData($token)
     {
@@ -464,7 +464,4 @@ class UserManager extends FOSDoctrineUserManager
         /** @var PreSignedUserData $data */
         return $repo->find($token);
     }
-
-
-
 }
