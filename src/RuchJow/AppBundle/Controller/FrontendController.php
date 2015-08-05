@@ -33,7 +33,7 @@ class FrontendController extends ModelController
 
         $interval = $today->diff($referendumDate);
 //        $interval = $referendumDate->diff($today);
-        if(!$interval->invert && $interval->d == 0) {
+        if(!$interval->invert && $interval->days == 0) {
             $daysToReferendum =1;
         } else {
             $daysToReferendum=$interval->format('%r%a');
