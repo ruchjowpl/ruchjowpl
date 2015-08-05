@@ -144,6 +144,16 @@ class EventsSubscriber implements EventSubscriberInterface
             $points
         );
 
+        if ($country = $pointsEntry->getCountry()) {
+            $this->statisticManager->incStatistic(
+                array(
+                    RuchJowStatisticsBundle::STAT_POINTS_COUNTRY,
+                    $country->getCode()
+                ),
+                $points
+            );
+        }
+
         if ($commune = $pointsEntry->getCommune()) {
             $this->statisticManager->incStatistic(
                 array(

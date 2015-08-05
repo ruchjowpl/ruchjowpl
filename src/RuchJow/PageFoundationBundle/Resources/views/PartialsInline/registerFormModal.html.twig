@@ -125,6 +125,8 @@
 
             errors="validation.commune.$labels"
             ng-class="{ loading: loading.communes }"
+
+            ng-if="data.country === 'PL'"
         >
             <div ng-show="data.commune">
                 <strong
@@ -145,8 +147,9 @@
                 typeahead="commune.label for commune in getCommunes($viewValue)"
                 typeahead-loading="loading.communes"
                 typeahead-on-select="setCommune($item)"
-                ruch-jow-validate="{ commune: 'data.commune || data.organisationUrl' }"
+                ruch-jow-validate="{ commune: 'data.commune || data.organisationUrl || data.country !== 'PL' }"
                 ruch-jow-validate-watch="['data.organisationUrl', 'data.commune']"
+                autocomplete="false"
             />
         </div>
 

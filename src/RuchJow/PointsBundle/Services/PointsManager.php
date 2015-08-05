@@ -73,6 +73,7 @@ class PointsManager
             ->setType($type)
             ->setOrganisation($user->getOrganisation())
             ->setCommune($user->getCommune())
+            ->setCountry($user->getCountry())
             ->setData($additionalData);
 
         if ($date) {

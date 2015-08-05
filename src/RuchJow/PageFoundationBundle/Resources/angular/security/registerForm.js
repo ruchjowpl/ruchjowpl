@@ -109,7 +109,8 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
             //},
             country: {
                 $labels: {
-                    country: 'registerForm.country.country'
+                    country: 'registerForm.country.country.error',
+                    required: 'registerForm.country.required.error'
                 }
             },
             commune: {
@@ -255,15 +256,16 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
             });
 
         };
-        $scope.setCountries = function (item) {
+        $scope.setCountry = function (item) {
             if (!item) {
                 $scope.data.country = null;
                 $scope.localData.selectedCountryLabel = null;
             } else {
-                $scope.data.country = item.id;
+                $scope.data.country = item.code;
                 $scope.localData.selectedCountryLabel = item.label;
             }
         };
+        $scope.setCountry({code: 'PL', label: 'Polska'});
 
         // Communes
         $scope.loading = { communes: false };
