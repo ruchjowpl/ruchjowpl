@@ -3,6 +3,7 @@
 namespace RuchJow\TerritorialUnitsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use RuchJow\TerritorialUnitsBundle\Intl\RegionBundle;
 
 /**
  * @ORM\Entity(repositoryClass="RuchJow\TerritorialUnitsBundle\Entity\CountryRepository")
@@ -66,6 +67,20 @@ class Country
     public function setCode($code)
     {
         $this->code = $code;
+    }
+
+    /**
+     * Returns Country name
+     *
+     * @param string $displayLocale display locale
+     *
+     * @return string
+     */
+    public function getName($displayLocale = null)
+    {
+        $regionBundle = new RegionBundle();
+
+        return $regionBundle->getCountryName($this->code, $displayLocale);
     }
 
     /**
