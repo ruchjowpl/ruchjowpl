@@ -33,7 +33,7 @@ class Country
      *
      * @var string
      *
-     * @ORM\Column(length=2, unique=true)
+     * @ORM\Column(name="_code", length=2, unique=true)
      */
     protected $code;
 

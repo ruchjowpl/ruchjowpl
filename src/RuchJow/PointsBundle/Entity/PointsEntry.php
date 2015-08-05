@@ -41,7 +41,7 @@ class PointsEntry
      * @var Country
      *
      * @ORM\ManyToOne(targetEntity="RuchJow\TerritorialUnitsBundle\Entity\Country")
-     * @ORM\JoinColumn(name="country_code", referencedColumnName="code", nullable=true)
+     * @ORM\JoinColumn(name="country_id", referencedColumnName="id", nullable=true)
      */
     protected $country;
 
