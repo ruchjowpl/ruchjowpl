@@ -69,10 +69,10 @@ class User extends BaseUser
      * @var Country
      *
      * @ORM\ManyToOne(targetEntity="RuchJow\TerritorialUnitsBundle\Entity\Country")
-     * @JoinColumn(name="country_id", referencedColumnName="id", nullable=false)
+     * @JoinColumn(name="country_id", referencedColumnName="id", nullable=true)
      */
     protected $country;
-    
+
     /**
      * @var Commune
      *
@@ -428,7 +428,7 @@ class User extends BaseUser
     {
         return $this->country;
     }
-    
+
     /**
      * Set commune
      *
