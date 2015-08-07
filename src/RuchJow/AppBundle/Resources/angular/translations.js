@@ -55,6 +55,9 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
             email: {
                 label: 'E-mail'
             },
+            country: {
+                label: 'Kraj'
+            },
             commune: {
                 label: 'Gmina'
             },
@@ -313,6 +316,7 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
                     'district': 'powiat',
                     'commune': 'gmina',
 
+                    'country_plural': 'kraje',
                     'region_plural': 'województwa',
                     'district_plural': 'powiaty',
                     'commune_plural': 'gminy'

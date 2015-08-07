@@ -202,7 +202,7 @@ angular.module('ruchJow.ctrls.userAccount', [
                     }
                 },
                 initEdit: function () {
-                    var country = ruchJowSecurity.currentUser.country
+                    var country = ruchJowSecurity.currentUser.country;
 
                     if (country) {
                         $scope.country.selectedCountryLabel = country.name;

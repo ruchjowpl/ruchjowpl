@@ -1,5 +1,63 @@
 <div class="row">
     <div class="col-md-6 user-data-field">
+        <form name="ruchJowUserDataCountryEdit" ng-submit="country.save()">
+            <a class="action-link edit" ng-show="!country.edit" ng-click="country.initEdit()" translate="" >form.edit</a>
+            <button type="button" class="action-link cancel link-btn" ng-show="country.edit" ng-click="country.edit = false" ng-disabled="country.saveInProgress" translate="" >form.cancel</button>
+            <button type="button" class="action-link save link-btn" ng-class="{ 'in-progress': country.saveInProgress }" ng-show="country.edit" ng-click="country.save()" ng-disabled="!ruchJowUserDataCountryEdit.$valid || country.saveInProgress" translate="" >form.save</button>
+
+            <label translate="">country.label</label>
+            <div class="content">
+                <div ng-hide="country.edit">
+                    [[ security.currentUser.country.name ]]
+                </div>
+
+
+                {# Country #}
+                <div ng-if="country.edit">
+                    <div ruch-jow-form-table>
+                        <div
+                                ruch-jow-form-field="country"
+                                {#label="[[ 'form.country.name.label'|translate ]]"#}
+                                {#label-suffix-class="'required'"#}
+                                errors="country.validation.$labels"
+                                ruch-jow-form-show-label="false"
+                                ruch-jow-form-errors-on-top="false"
+
+                                ng-class="{ loading: loading.countries }"
+                                >
+                            <div ng-show="country.data.country">
+                                [[ country.selectedCountryLabel ? country.selectedCountryLabel : '-' ]]
+                            </div>
+                            <input
+                                    ng-disabled="country.saveInProgress"
+                                    type="text"
+                                    name="country"
+                                    ng-model="country.inputName" {#ng-model-options="ngModelOptions()"#}
+
+                                    typeahead="country.label for country in country.get($viewValue)"
+                                    typeahead-loading="country.loading"
+                                    typeahead-on-select="country.set($item)"
+
+                                    ng-requuired="true"
+                                    ruch-jow-validate="{ country: 'country.data.country' }"
+                                    ruch-jow-validate-watch="['data.country']"
+
+                                    ruch-jow-enter-down-trigger
+                                    ruch-jow-form-null-if-empty
+
+                                    title="[[ 'security.register.country'|translate ]]"
+                                    placeholder="[[ 'security.register.country'|translate ]]"
+                                    />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 user-data-field">
         <form name="ruchJowUserDataCommuneEdit" ng-submit="commune.save()">
             <a class="action-link edit" ng-show="!commune.edit" ng-click="commune.initEdit()" translate="" >form.edit</a>
             <button type="button" class="action-link cancel link-btn" ng-show="commune.edit" ng-click="commune.edit = false" ng-disabled="commune.saveInProgress" translate="" >form.cancel</button>

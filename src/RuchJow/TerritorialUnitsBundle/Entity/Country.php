@@ -91,8 +91,9 @@ class Country
     public function toArray()
     {
         return array(
-            'id' => $this->getId(),
+            'id'   => $this->getId(),
             'code' => $this->getCode(),
+            'name' => $this->getName()
         );
     }
 }

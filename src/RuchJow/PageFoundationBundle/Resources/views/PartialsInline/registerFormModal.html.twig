@@ -147,7 +147,7 @@
                 typeahead="commune.label for commune in getCommunes($viewValue)"
                 typeahead-loading="loading.communes"
                 typeahead-on-select="setCommune($item)"
-                ruch-jow-validate="{ commune: 'data.commune || data.organisationUrl || data.country !== 'PL' }"
+                ruch-jow-validate="{ commune: 'data.commune || data.organisationUrl || data.country !== &quot;PL&quot;' }"
                 ruch-jow-validate-watch="['data.organisationUrl', 'data.commune']"
                 autocomplete="false"
             />

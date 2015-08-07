@@ -135,6 +135,11 @@ class DataController extends ModelController
             'displayName' => $user->getDisplayName(),
         );
 
+        // COUNTRY
+        if ($country = $user->getCountry()) {
+            $userArray['country'] = $country->toArray();
+        }
+
         // COMMUNE
         if ($commune = $user->getCommune()) {
             $userArray['commune'] = $commune->toArray();

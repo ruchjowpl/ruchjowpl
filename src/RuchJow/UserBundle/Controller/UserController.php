@@ -482,6 +482,11 @@ class UserController extends ModelController
                         'optional' => true,
                         'in' => array(User::DISPLAY_NAME_NICK, User::DISPLAY_NAME_FULL_NAME),
                     ),
+                    'country' => array(
+                        'type' => 'entityId',
+                        'entity' => 'RuchJowTerritorialUnitsBundle:Country',
+                        'optional' => true
+                    ),
                     'commune' => array(
                         'type' => 'entityId',
                         'entity' => 'RuchJowTerritorialUnitsBundle:Commune',
