@@ -117,6 +117,11 @@ class UserController extends ModelController
 
         // Attach commune (if applicable).
         if (isset($data['commune'])) {
+
+            if ($country->getCode() !== Country::MAIN_COUNTRY) {
+                return $this->createJsonErrorResponse('Commune should not be provided for non default country.');
+            }
+
             /** @var CommuneRepository $communeRepo */
             $communeRepo = $this->getRepository('RuchJowTerritorialUnitsBundle:Commune');
             /** @var Commune $commune */

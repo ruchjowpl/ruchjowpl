@@ -238,6 +238,28 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
         // Countries
         $scope.loading = { countries: false };
 
+
+        $scope.tabs = {
+            poland: true,
+            other: false
+        };
+
+        $scope.$watch('tabs.poland', function (poland) {
+            if (poland) {
+                $scope.setCountry('default');
+            } else {
+                $scope.setCountry();
+            }
+        });
+
+        $scope.$watch('data.country', function (country) {
+            if (country === 'PL') {
+                $scope.tabs.poland = true;
+            } else {
+                $scope.setCommune();
+            }
+        }, true);
+
         var getCountriesPromise;
         $scope.getCountries = function (input) {
 
@@ -261,11 +283,16 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
                 $scope.data.country = null;
                 $scope.localData.selectedCountryLabel = null;
             } else {
+                if (item === 'default') {
+                    item = {code: 'PL', label: 'Polska'};
+                }
+
                 $scope.data.country = item.code;
                 $scope.localData.selectedCountryLabel = item.label;
             }
+            $scope.localData.countryInputName = '';
         };
-        $scope.setCountry({code: 'PL', label: 'Polska'});
+        $scope.setCountry('default');
 
         // Communes
         $scope.loading = { communes: false };
@@ -300,6 +327,7 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
                 $scope.data.commune = item.id;
                 $scope.localData.selectedCommuneLabel = item.label;
             }
+            $scope.localData.communeInputName = '';
         };
 
         $scope.errorMessage = null;
