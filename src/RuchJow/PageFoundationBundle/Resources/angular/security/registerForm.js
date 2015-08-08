@@ -110,7 +110,6 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
             country: {
                 $labels: {
                     country: 'registerForm.country.country.error',
-                    required: 'registerForm.country.required.error'
                 }
             },
             commune: {

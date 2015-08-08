@@ -149,6 +149,7 @@
                             ng-model="localData.countryInputName"
                             placeholder="[[ 'security.register.country'|translate ]]"
                             ruch-jow-validate="{ country: 'data.country' }"
+                            ruch-jow-validate-watch="['data.country']"
                             typeahead="country.label for country in getCountries($viewValue)"
                             typeahead-loading="loading.countries"
                             typeahead-on-select="setCountry($item)"
