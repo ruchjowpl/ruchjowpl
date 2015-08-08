@@ -137,8 +137,10 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
                 }
             },
             passwordRepeat: {
+                pattern: /^(?=.*[A-Z])(?=.*[0-9]).{5,20}$/,
                 $labels: {
-                    ruchJowEquals: 'registerForm.passwordRepeat.ruchJowEquals.error'
+                    pattern: 'registerForm.passwordRepeat.pattern.error',
+                    equals: 'registerForm.passwordRepeat.equals.error'
                 }
             },
             isRegulationsAccepted: {

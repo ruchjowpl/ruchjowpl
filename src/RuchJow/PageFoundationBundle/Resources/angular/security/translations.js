@@ -142,7 +142,8 @@ angular.module('ruchJow.security.translations', ['pascalprecht.translate'])
                     'pattern.error': 'Hasło musi zawierać wielką literę i cyfrę oraz musi mieć długość od 5 do 20 znaków'
                 },
                 passwordRepeat: {
-                    'ruchJowEquals.error': 'Hasła nie są identyczne'
+                    'pattern.error': 'Hasło musi zawierać wielką literę i cyfrę oraz musi mieć długość od 5 do 20 znaków',
+                    'equals.error': 'Hasła nie są identyczne'
                 },
 
                 // Email

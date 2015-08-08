@@ -282,11 +282,13 @@
             <input
                 type="password" name="passwordRepeat"
                 ng-model="localData.passwordRepeat" {#ng-model-options="ngModelOptions()"#}
+                ng-pattern="validation.passwordRepeat.pattern"
                 ruch-jow-enter-down-trigger
                 ruch-jow-form-null-if-empty
                 title="[[ 'security.register.passwordRepeat'|translate ]]"
                 placeholder="[[ 'security.register.passwordRepeat'|translate ]]"
-                ruch-jow-equals="data.password"
+                ruch-jow-validate="{ equals: '!data.password || data.password === localData.passwordRepeat' }"
+                ruch-jow-validate-watch="['data.password']"
                 />
         </div>
 
