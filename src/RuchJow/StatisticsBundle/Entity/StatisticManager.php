@@ -1409,6 +1409,7 @@ class StatisticManager
                         'rank'        => $incRank,
                         'points'      => $incPoints,
                         'code'        => $includeCountry->getCode(),
+                        'name'        => $includeCountry->getName(),
                         'highlighted' => true,
                     );
 
@@ -1428,6 +1429,7 @@ class StatisticManager
                         'rank'        => $incRank,
                         'points'      => $incPoints,
                         'code'        => $includeCountry->getCode(),
+                        'name'        => $includeCountry->getName(),
                         'highlighted' => true,
                     );
 
@@ -1458,6 +1460,7 @@ class StatisticManager
                 'rank'        => $incRank,
                 'points'      => $incPoints,
                 'code'        => $includeCountry->getCode(),
+                'name'        => $includeCountry->getName(),
                 'highlighted' => true,
             );
         }

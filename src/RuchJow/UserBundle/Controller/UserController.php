@@ -637,6 +637,9 @@ class UserController extends ModelController
                     $user->setAddress($address);
                 }
 
+                $user->setFirstName($addressData['firstName']);
+                $user->setLastName($addressData['lastName']);
+
                 $address
                     ->setFirstName(isset($addressData['firstName']) ? $addressData['firstName'] : null)
                     ->setLastName(isset($addressData['lastName']) ? $addressData['lastName'] : null)
@@ -648,7 +651,9 @@ class UserController extends ModelController
 
                 $em->persist($address);
             } else {
-                $user->setAddress(null);
+                $user->setAddress(null)
+                    ->setFirstName(null)
+                    ->setLastName(null);
             }
             $em->persist($user);
         }

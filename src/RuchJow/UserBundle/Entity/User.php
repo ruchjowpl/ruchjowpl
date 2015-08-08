@@ -363,11 +363,13 @@ class User extends BaseUser
                 if (
                     !$this->getFirstNameVisible()
                     || !$this->getLastNameVisible()
+                    || !trim($this->getFirstName())
+                    && !trim($this->getLastName())
                 ) {
                     break;
                 }
 
-                return $this->getFirstName() . ' ' . $this->getLastName();
+                return trim(trim($this->getFirstName()) . ' ' . trim($this->getLastName()));
 
             case self::DISPLAY_NAME_FULL_NAME_NICK:
                 return $this->getFirstName() . ' ' . $this->getLastName()
