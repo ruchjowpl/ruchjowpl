@@ -1299,7 +1299,7 @@ class StatisticManager
             . ' join ' . $countryMeta->getTableName() . ' c'
             . ' on'
             . ' s.' . $statsMeta->getColumnName('name') . ' = :statName'
-            . ' and c.' . $countryMeta->getColumnName('id') . ' = s.' . $statsMeta->getColumnName('suffix');
+            . ' and c.' . $countryMeta->getColumnName('code') . ' = s.' . $statsMeta->getColumnName('suffix');
 
         if (!empty($where)) {
             $sql .= ' where ' . implode(' AND ', $where);
@@ -1345,6 +1345,12 @@ class StatisticManager
         if ($includeCountry) {
             $where[] = 'c.code <> :includeCountryCode';
             $params['includeCountryCode'] = $includeCountry->getCode();
+        }
+
+        if ($exclude) {
+            $where[] = ' c.' . $statsMeta->getColumnName('code')
+                . ' <> :exclude';
+            $params['exclude'] = $exclude;
         }
 
         $sql = 'select' .
@@ -1471,6 +1477,7 @@ class StatisticManager
 
         foreach ($countries as $country) {
             $ret[$cMap[$country->getCode()]]['code'] = $country->getCode();
+            $ret[$cMap[$country->getCode()]]['name'] = $country->getName();
         }
 
         $highlighted = null;
