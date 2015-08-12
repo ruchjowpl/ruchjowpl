@@ -10,7 +10,7 @@ use RuchJow\TaskBundle\Entity\TaskTypeMap;
 use RuchJow\UserBundle\Entity\User;
 use RuchJow\UserBundle\Entity\UserRepository;
 
-class LoadTaskTypeMApData extends AbstractFixture implements OrderedFixtureInterface
+class LoadTaskTypeMapData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * {@inheritDoc}

@@ -15,6 +15,7 @@ class RuchJowStatisticsBundle extends Bundle
     const STAT_DONATIONS_AVG       = 'statistics.donations_avg';
     const STAT_POINTS_TOTAL        = 'statistics.points.total';
     const STAT_POINTS_USER         = 'statistics.points.user';
+    const STAT_POINTS_COUNTRY      = 'statistics.points.country';
     const STAT_POINTS_COMMUNE      = 'statistics.points.commune';
     const STAT_POINTS_DISTRICT     = 'statistics.points.district';
     const STAT_POINTS_REGION       = 'statistics.points.region';

@@ -92,6 +92,7 @@ angular.module('ruchJow.security.translations', ['pascalprecht.translate'])
             'security.register.lastName': 'Nazwisko',
             'security.register.email': 'E-mail',
             'security.register.phone': 'Telefon',
+            'security.register.country': 'Kraj',
             'security.register.commune': 'Gmina',
             'security.register.isRegulationsAccepted': 'Regulamin',
 
@@ -119,8 +120,12 @@ angular.module('ruchJow.security.translations', ['pascalprecht.translate'])
             'registerForm.lastName.pattern.error': 'Nazwisko musi zaczynać się od wielkiej litery i składać się z co najmniej dwóch znaków. Jeśli nazwisko składa się z dwóch członów, należy je rozdzielić znakiem "-".',
             'registerForm.lastName.required.error': 'Nazwisko nie może być puste',
 
+            //Country
+            'registerForm.country.country.error': 'Pole kraj musi być wypełnione',
+
             // Commune
-            'registerForm.commune.commune': 'Pole gmina nie musi być wypełnione, tylko jeśli zostaną uzupełnione dane promowanej organizacji, bloga czy fanpage\'a',
+            'registerForm.commune.commune.error': 'Pole gmina nie musi być wypełnione, tylko jeśli podano kraj inny niż Polska lub zostaną uzupełnione dane promowanej organizacji, bloga czy fanpage\'a',
+            'registerForm.commune.required.error': 'Pole gmina musi być wypełnione',
 
 
             // Organisation
@@ -138,7 +143,8 @@ angular.module('ruchJow.security.translations', ['pascalprecht.translate'])
                     'pattern.error': 'Hasło musi zawierać wielką literę i cyfrę oraz musi mieć długość od 5 do 20 znaków'
                 },
                 passwordRepeat: {
-                    'ruchJowEquals.error': 'Hasła nie są identyczne'
+                    'pattern.error': 'Hasło musi zawierać wielką literę i cyfrę oraz musi mieć długość od 5 do 20 znaków',
+                    'equals.error': 'Hasła nie są identyczne'
                 },
 
                 // Email

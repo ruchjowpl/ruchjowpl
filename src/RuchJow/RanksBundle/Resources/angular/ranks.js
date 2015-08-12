@@ -458,7 +458,7 @@ angular.module('ruchJow.ctrls.ranks', ['ui.bootstrap', 'ruchJow.security'])
 
             // RANKING: TU
             $scope.territorialUnitRanking = {
-                limit: 10,
+                limit: 5,
                 columns: 1,
                 types: {
                     list: ['country', 'region', 'district', 'commune'],
@@ -519,35 +519,73 @@ angular.module('ruchJow.ctrls.ranks', ['ui.bootstrap', 'ruchJow.security'])
                 $scope.territorialUnitRanking.update();
             });
 
+            // COUNTRY RANKING
+            $scope.countryRanking = {
+                limit: 5,
+                type: 'country',
+                reset: function () {
+                    this.loading = false;
+                    this.page = 1;
+                    this.totalPages = 1;
+                    this.ranking = null;
+                    this.highlighted = null;
+                },
+                update: function () {
+                    this.loading = true;
+                    var rankingObj = this;
+                    ruchJowGeneralRanks.updateRankingObj(this, {type: 'world'})['finally'](function () {
+                        rankingObj.loading = false;
+                    });
+                }
+            };
+            $scope.countryRanking.reset();
+            $scope.$watch("[countryRanking.page, countryRanking.limit]", function () {
+                $scope.countryRanking.update();
+            });
 
 
-
+            $scope.userCountry = null;
             // Listen if user has been changed
-            var checkUser = function () {
-                var commune;
-                if (security.currentUser && (commune = security.currentUser.commune)) {
-                    $scope.userCommune = commune;
-                    $scope.userDistrict = commune.district;
-                    $scope.userRegion = commune.district.region;
+            var checkUser = function (scope) {
+
+                var user;
+                if (user = security.currentUser) {
+                    scope.user = user;
+                    scope.userCountry = user.country;
                 } else {
-                    $scope.user = null;
-                    $scope.userCommune = null;
-                    $scope.userDistrict = null;
-                    $scope.userRegion = null;
+                    scope.user = null;
+                    scope.userCountry = null;
                 }
 
+                var commune;
+                if (security.currentUser && (commune = security.currentUser.commune)) {
+                    scope.userCommune = commune;
+                    scope.userDistrict = commune.district;
+                    scope.userRegion = commune.district.region;
+                } else {
+                    scope.userCommune = null;
+                    scope.userDistrict = null;
+                    scope.userRegion = null;
+                }
 
-                $scope.nationwideUserRanking.update();
-                $scope.organisationRanking.update();
-                $scope.nationwideTerritorialUnitRanking.update();
-
-                $scope.userRanking.update();
-                $scope.territorialUnitRanking.update();
             };
-            $scope.$on('ruchJowUserChanged', function () {
-                checkUser();
+            $scope.$on('ruchJowUserChanged', function (ev) {
+                checkUser(ev.currentScope);
             });
-            checkUser();
+            $scope.$watch('userCommune', function () {
+                $scope.territorialUnitRanking.update();
+            }, true);
+            $scope.$watch('userCountry', function () {
+                $scope.countryRanking.update();
+            }, true);
+            $scope.$watch('user', function () {
+                $scope.userRanking.update();
+                $scope.nationwideUserRanking.update();
+                $scope.nationwideTerritorialUnitRanking.update();
+                $scope.organisationRanking.update();
+            });
+
+            checkUser($scope);
 
             // Watch changes triggered by map.
             $scope.$watch('[activeTerritorialUnit.type, activeTerritorialUnit.id]', function () {
@@ -774,26 +812,37 @@ angular.module('ruchJow.ctrls.ranks', ['ui.bootstrap', 'ruchJow.security'])
             });
 
             // Listen if user has been changed
-            var checkUser = function () {
-                var commune;
-                if (security.currentUser && (commune = security.currentUser.commune)) {
-                    $scope.userCommune = commune;
-                    $scope.userDistrict = commune.district;
-                    $scope.userRegion = commune.district.region;
+            var checkUser = function (scope) {
+                var user;
+                if (user = security.currentUser) {
+                    scope.user = user;
+                    scope.userCountry = user.country;
                 } else {
-                    $scope.user = null;
-                    $scope.userCommune = null;
-                    $scope.userDistrict = null;
-                    $scope.userRegion = null;
+                    scope.user = null;
+                    scope.userCountry = null;
                 }
 
-                $scope.userRanking.update();
-                $scope.territorialUnitRanking.update();
+                var commune;
+                if (security.currentUser && (commune = security.currentUser.commune)) {
+                    scope.userCommune = commune;
+                    scope.userDistrict = commune.district;
+                    scope.userRegion = commune.district.region;
+                } else {
+                    scope.userCommune = null;
+                    scope.userDistrict = null;
+                    scope.userRegion = null;
+                }
             };
-            $scope.$on('ruchJowUserChanged', function () {
-                checkUser();
+            $scope.$on('ruchJowUserChanged', function (ev) {
+                checkUser(ev.currentScope);
             });
-            checkUser();
+            $scope.$watch('userCommune', function () {
+                $scope.territorialUnitRanking.update();
+            }, true);
+            $scope.$watch('user', function () {
+                $scope.userRanking.update();
+            });
+            checkUser($scope);
 
 
             // Watch changes triggered by map.

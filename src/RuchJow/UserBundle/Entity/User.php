@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use RuchJow\AddressBundle\Entity\Address;
 use RuchJow\SocialLinksBundle\Entity\SocialLink;
 use RuchJow\TerritorialUnitsBundle\Entity\Commune;
+use RuchJow\TerritorialUnitsBundle\Entity\Country;
 
 /**
  * @ORM\Entity(repositoryClass="RuchJow\UserBundle\Entity\UserRepository")
@@ -63,6 +64,14 @@ class User extends BaseUser
      * @ORM\Column(name="phone", type="string", length=15, nullable=true)
      */
     protected $phone;
+
+    /**
+     * @var Country
+     *
+     * @ORM\ManyToOne(targetEntity="RuchJow\TerritorialUnitsBundle\Entity\Country")
+     * @JoinColumn(name="country_id", referencedColumnName="id", nullable=false)
+     */
+    protected $country;
 
     /**
      * @var Commune
@@ -354,11 +363,13 @@ class User extends BaseUser
                 if (
                     !$this->getFirstNameVisible()
                     || !$this->getLastNameVisible()
+                    || !trim($this->getFirstName())
+                    && !trim($this->getLastName())
                 ) {
                     break;
                 }
 
-                return $this->getFirstName() . ' ' . $this->getLastName();
+                return trim(trim($this->getFirstName()) . ' ' . trim($this->getLastName()));
 
             case self::DISPLAY_NAME_FULL_NAME_NICK:
                 return $this->getFirstName() . ' ' . $this->getLastName()
@@ -394,6 +405,30 @@ class User extends BaseUser
     public function getPhone()
     {
         return $this->phone;
+    }
+
+    /**
+     * Set country
+     *
+     * @param Country $country
+     *
+     * @return User
+     */
+    public function setCountry(Country $country = null)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 
     /**

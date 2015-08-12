@@ -14,12 +14,13 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
         '$q',
         '$timeout',
         'ipCookie',
+        'ruchJowFindCountries',
         'ruchJowFindCommunes',
         'ruchJowFindOrganisations',
         'ruchJowStatistics',
         'registerCallback',
         'initData',
-        function ($scope, $modalInstance, $q, $timeout, ipCookie, ruchJowFindCommunes, ruchJowFindOrganisations, ruchJowStatistics, registerCallback, initData) {
+        function ($scope, $modalInstance, $q, $timeout, ipCookie, ruchJowFindCountries, ruchJowFindCommunes, ruchJowFindOrganisations, ruchJowStatistics, registerCallback, initData) {
 
         $scope.showUntouched = false;
 
@@ -46,6 +47,7 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
             nick: (initData && initData.hasOwnProperty('nick')) ? initData.nick : null,
             email: (initData && initData.hasOwnProperty('email')) ? initData.email : null,
             //phone: null,
+            country: null,
             commune: null,
             organisationUrl: null,
             organisationName: null,
@@ -56,6 +58,8 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
         $scope.localData = {
             passwordRepeat: null,
             passwordVisible: false,
+            countryInputName: null,
+            selectedCountryLabel: null,
             communeInputName: null,
             selectedCommuneLabel: null
         };
@@ -103,9 +107,14 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
             //        required: 'registerForm.phone.required.error'
             //    }
             //},
+            country: {
+                $labels: {
+                    country: 'registerForm.country.country.error',
+                }
+            },
             commune: {
                 $labels: {
-                    commune: 'registerForm.commune.commune'
+                    commune: 'registerForm.commune.commune.error'
                 }
             },
             organisationUrl: {
@@ -128,8 +137,10 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
                 }
             },
             passwordRepeat: {
+                pattern: /^(?=.*[A-Z])(?=.*[0-9]).{5,20}$/,
                 $labels: {
-                    ruchJowEquals: 'registerForm.passwordRepeat.ruchJowEquals.error'
+                    pattern: 'registerForm.passwordRepeat.pattern.error',
+                    equals: 'registerForm.passwordRepeat.equals.error'
                 }
             },
             isRegulationsAccepted: {
@@ -224,6 +235,66 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
             }
         });
 
+
+        // Countries
+        $scope.loading = { countries: false };
+
+
+        $scope.tabs = {
+            poland: true,
+            other: false
+        };
+
+        $scope.$watch('tabs.poland', function (poland) {
+            if (poland) {
+                $scope.setCountry('default');
+            } else {
+                $scope.setCountry();
+            }
+        });
+
+        $scope.$watch('data.country', function (country) {
+            if (country === 'PL') {
+                $scope.tabs.poland = true;
+            } else {
+                $scope.setCommune();
+            }
+        }, true);
+
+        var getCountriesPromise;
+        $scope.getCountries = function (input) {
+
+            if (getCountriesPromise) {
+                ruchJowFindCountries.cancel(getCountriesPromise);
+            }
+
+            getCountriesPromise = ruchJowFindCountries.getCountries(input);
+
+            return getCountriesPromise.then(function (countries) {
+                angular.forEach(countries, function (country) {
+                    country.label = country.name;
+                });
+
+                return countries;
+            });
+
+        };
+        $scope.setCountry = function (item) {
+            if (!item) {
+                $scope.data.country = null;
+                $scope.localData.selectedCountryLabel = null;
+            } else {
+                if (item === 'default') {
+                    item = {code: 'PL', label: 'Polska'};
+                }
+
+                $scope.data.country = item.code;
+                $scope.localData.selectedCountryLabel = item.label;
+            }
+            $scope.localData.countryInputName = '';
+        };
+        $scope.setCountry('default');
+
         // Communes
         $scope.loading = { communes: false };
 
@@ -257,6 +328,7 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
                 $scope.data.commune = item.id;
                 $scope.localData.selectedCommuneLabel = item.label;
             }
+            $scope.localData.communeInputName = '';
         };
 
         $scope.errorMessage = null;

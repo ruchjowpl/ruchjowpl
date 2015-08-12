@@ -2,6 +2,7 @@
 
 namespace RuchJow\UserBundle\DataFixtures\ORM;
 
+use RuchJow\TerritorialUnitsBundle\Entity\Country;
 use RuchJow\UserBundle\Entity\UserManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -25,7 +26,7 @@ class LoadUsersData extends AbstractFixture implements OrderedFixtureInterface, 
         $this->container = $container;
     }
 
-    private function makeUser($username, $passwordText, $email, $firstName, $lastName, $roles, $commune = null, $organisation = null)
+    private function makeUser($username, $passwordText, $email, $firstName, $lastName, $roles, $country, $commune = null, $organisation = null)
     {
         /** @var UserManager $manager */
         $manager = $this->container->get('ruch_jow_user.user_manager');
@@ -43,6 +44,7 @@ class LoadUsersData extends AbstractFixture implements OrderedFixtureInterface, 
 
 //        $manager->confirmRegistration($user);
 
+        $user->setCountry($country);
         if ($commune) {
             $user->setCommune($commune);
         }
@@ -61,8 +63,16 @@ class LoadUsersData extends AbstractFixture implements OrderedFixtureInterface, 
      */
     public function load(ObjectManager $manager)
     {
-        $this->makeUser('moderator', 'xlUZhD6ub2JT69c', 'spolecznoscjow@gmail.com',
-            'Moderator', 'Moderujący', 'ROLE_MODERATOR');
+        $country = $manager->getRepository('RuchJowTerritorialUnitsBundle:Country')->findOneByCode(Country::MAIN_COUNTRY);
+        $this->makeUser(
+            'moderator',
+            'xlUZhD6ub2JT69c',
+            'spolecznoscjow@gmail.com',
+            'Moderator',
+            'Moderujący',
+            'ROLE_MODERATOR',
+            $country
+        );
    }
 
     /**
