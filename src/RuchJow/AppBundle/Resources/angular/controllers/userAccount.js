@@ -157,25 +157,34 @@ angular.module('ruchJow.ctrls.userAccount', [
 
             var getOrgsPromise, getCountriesPromise, getCommunesPromise;
 
-            // Country
-            $scope.country = {
+            // Territorial Units
+            $scope.tu = {
                 edit: false,
                 loading: false,
                 saveInProgress: false,
 
                 validation: {
-                    $labels: {
-                        country: 'registerForm.country.country.error',
-                        required: 'registerForm.country.required.error'
+                    country: {
+                        $labels: {
+                            country: 'registerForm.country.country.error'
+                        }
+                    },
+                    commune: {
+                        $labels: {
+                            commune: 'registerForm.commune.required.error'
+                        }
                     }
                 },
-                inputName: null,
+                countryInputName: null,
+                selectedCountryLabel: null,
+                communeInputName: null,
                 selectedCommuneLabel: null,
                 data: {
+                    country: null,
                     commune: null
                 },
 
-                get: function (input) {
+                getCountries: function (input) {
 
                     if (getCountriesPromise) {
                         ruchJowFindCountries.cancel(getCountriesPromise);
@@ -192,62 +201,23 @@ angular.module('ruchJow.ctrls.userAccount', [
                     });
 
                 },
-                set: function (item) {
+                setCountry: function (item) {
                     if (!item) {
-                        $scope.country.data.country = null;
-                        $scope.country.selectedCountryLabel = null;
+                        $scope.tu.data.country = null;
+                        $scope.tu.selectedCountryLabel = null;
+                        $scope.tu.countryInputName = '';
                     } else {
-                        $scope.country.data.country = item.id;
-                        $scope.country.selectedCountryLabel = item.label;
-                    }
-                },
-                initEdit: function () {
-                    var country = ruchJowSecurity.currentUser.country;
+                        if (item === 'default') {
+                            item = {code: 'PL', label: 'Polska'};
+                        }
 
-                    if (country) {
-                        $scope.country.selectedCountryLabel = country.name;
-                        $scope.country.data.country = country.id;
-                    } else {
-                        $scope.country.selectedCountryLabel = null;
-                        $scope.country.data.country = null;
+                        $scope.tu.data.country = item.code;
+                        $scope.tu.selectedCountryLabel = item.label;
+                        $scope.tu.countryInputName = item.label;
                     }
 
-                    $scope.country.edit = true;
                 },
-
-                save: function () {
-                    $scope.country.saveInProgress = true;
-                    ruchJowSecurity.getUserService().updateUserCountry($scope.country.data.country)
-                        .then(function () {
-                            return ruchJowSecurity.requestCurrentUser()
-                        })
-                        .then(function () {
-                            $scope.country.edit = false;
-                        })['finally'](function () {
-                        $scope.country.saveInProgress = false;
-                    });
-                }
-            };
-
-            // Commune
-            $scope.commune = {
-                edit: false,
-                loading: false,
-                saveInProgress: false,
-
-                validation: {
-                    $labels: {
-                        commune: 'registerForm.commune.commune.error',
-                        required: 'registerForm.commune.required.error'
-                    }
-                },
-                inputName: null,
-                selectedCommuneLabel: null,
-                data: {
-                    commune: null
-                },
-
-                get: function (input) {
+                getCommunes: function (input) {
 
                     if (getCommunesPromise) {
                         ruchJowFindCommunes.cancel(getCommunesPromise);
@@ -268,39 +238,46 @@ angular.module('ruchJow.ctrls.userAccount', [
                     });
 
                 },
-                set: function (item) {
+                setCommune: function (item) {
                     if (!item) {
-                        $scope.commune.data.commune = null;
-                        $scope.commune.selectedCommuneLabel = null;
+                        $scope.tu.data.commune = null;
+                        $scope.tu.selectedCommuneLabel = null;
+                        $scope.tu.communeInputName = '';
                     } else {
-                        $scope.commune.data.commune = item.id;
-                        $scope.commune.selectedCommuneLabel = item.label;
+                        $scope.tu.data.commune = item.id;
+                        $scope.tu.selectedCommuneLabel = item.label;
+                        $scope.tu.communeInputName = item.label;
                     }
                 },
                 initEdit: function () {
-                    var commune = ruchJowSecurity.currentUser.commune
+                    var country = ruchJowSecurity.currentUser.country;
+                    var commune = ruchJowSecurity.currentUser.commune;
 
-                    if (commune) {
-                        $scope.commune.selectedCommuneLabel = commune.name;
-                        $scope.commune.data.commune = commune.id;
-                    } else {
-                        $scope.commune.selectedCommuneLabel = null;
-                        $scope.commune.data.commune = null;
-                    }
 
-                    $scope.commune.edit = true;
+                    $scope.tu.setCountry(
+                        country ? {code: country.code, label: country.name} : null
+                    );
+
+                    $scope.tu.setCommune(
+                        commune ? {id: commune.id, label: commune.name} : null
+                    );
+
+                    $scope.tu.edit = true;
                 },
 
                 save: function () {
-                    $scope.commune.saveInProgress = true;
-                    ruchJowSecurity.getUserService().updateUserCommune($scope.commune.data.commune)
+                    $scope.tu.saveInProgress = true;
+                    ruchJowSecurity.getUserService().updateUserTU(
+                        $scope.tu.data.country,
+                        $scope.tu.data.commune
+                    )
                         .then(function () {
                             return ruchJowSecurity.requestCurrentUser()
                         })
                         .then(function () {
                             $scope.commune.edit = false;
                         })['finally'](function () {
-                        $scope.commune.saveInProgress = false;
+                        $scope.tu.saveInProgress = false;
                     });
                 }
             };

@@ -487,15 +487,20 @@ class UserController extends ModelController
                         'optional' => true,
                         'in' => array(User::DISPLAY_NAME_NICK, User::DISPLAY_NAME_FULL_NAME),
                     ),
-                    'country' => array(
-                        'type' => 'entityId',
-                        'entity' => 'RuchJowTerritorialUnitsBundle:Country',
-                        'optional' => true
-                    ),
-                    'commune' => array(
-                        'type' => 'entityId',
-                        'entity' => 'RuchJowTerritorialUnitsBundle:Commune',
-                        'optional' => true
+                    'territorialUnit' => array(
+                        'type'     => 'array',
+                        'optional' => true,
+                        'children' => array(
+                            'country' => array(
+                                'type' => 'string',
+                                'optional' => false
+                            ),
+                            'commune' => array(
+                                'type' => 'entityId',
+                                'entity' => 'RuchJowTerritorialUnitsBundle:Commune',
+                                'optional' => true
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -578,16 +583,58 @@ class UserController extends ModelController
             $em->persist($user);
         }
 
-        // Organisation
-        if (isset($data['commune'])) {
-            $commune = $this->getRepository('RuchJowTerritorialUnitsBundle:Commune')->find($data['commune']);
+        // Country and Commune
+        if (isset($data['territorialUnit'])) {
 
-            if (!$commune) {
-                // This should never happen (as we already verified commune id).
-                return $this->createJsonErrorResponse('Commune not found.');
+            $tu = $data['territorialUnit'];
+
+            /** @var CountryRepository $countryRepo */
+            $countryRepo = $this->getRepository('RuchJowTerritorialUnitsBundle:Country');
+            /** @var Country $country */
+            $country = $countryRepo->findOneByCode($tu['country']);
+
+            if (is_null($country)) {
+
+                // Check if country has valid code.
+                $regionBundle = new RegionBundle();
+                if (is_null($regionBundle->getCountryName($tu['country']))) {
+
+                    return $this->createJsonErrorResponse('Given Country code does not exists.');
+                }
+
+                $country = new Country();
+                $country->setCode($tu['country']);
+
+                $em->persist($country);
             }
 
-            $user->setCommune($commune);
+            // Main country...
+            if ($country->getCode() === Country::MAIN_COUNTRY) {
+
+                // Must have commune
+                if (!isset($tu['commune'])) {
+                    return $this->createJsonErrorResponse('Commune must be provided.');
+                }
+
+                $commune = $this->getRepository('RuchJowTerritorialUnitsBundle:Commune')->find($tu['commune']);
+
+                if (!$commune) {
+                    // This should never happen (as we already verified commune id).
+                    return $this->createJsonErrorResponse('Commune not found.');
+                }
+
+            } else {
+                // Other country must not have commune
+                if (isset($tu['commune'])) {
+                    return $this->createJsonErrorResponse('Commune must not be provided.');
+                }
+
+                $commune = null;
+            }
+
+            $user->setCountry($country)
+                ->setCommune($commune);
+
             $em->persist($user);
         }
 

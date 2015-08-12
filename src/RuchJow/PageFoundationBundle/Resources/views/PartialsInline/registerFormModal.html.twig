@@ -287,8 +287,8 @@
                 ruch-jow-form-null-if-empty
                 title="[[ 'security.register.passwordRepeat'|translate ]]"
                 placeholder="[[ 'security.register.passwordRepeat'|translate ]]"
-                ruch-jow-validate="{ equals: '!data.password || data.password === localData.passwordRepeat' }"
-                ruch-jow-validate-watch="['data.password']"
+                ruch-jow-validate="{ equals: '!data.password || data.password === $value' }"
+                ruch-jow-validate-watch="['data.password', 'localData.passwordRepeat']"
                 />
         </div>
 

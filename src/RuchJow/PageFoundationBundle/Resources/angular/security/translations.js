@@ -121,10 +121,11 @@ angular.module('ruchJow.security.translations', ['pascalprecht.translate'])
             'registerForm.lastName.required.error': 'Nazwisko nie może być puste',
 
             //Country
-            'registerForm.country.country.error': 'Pole Kraj musi być wypełnione',
+            'registerForm.country.country.error': 'Pole kraj musi być wypełnione',
 
             // Commune
-            'registerForm.commune.commune': 'Pole gmina nie musi być wypełnione, tylko jeśli podano kraj inny niż Polska lub zostaną uzupełnione dane promowanej organizacji, bloga czy fanpage\'a',
+            'registerForm.commune.commune.error': 'Pole gmina nie musi być wypełnione, tylko jeśli podano kraj inny niż Polska lub zostaną uzupełnione dane promowanej organizacji, bloga czy fanpage\'a',
+            'registerForm.commune.required.error': 'Pole gmina musi być wypełnione',
 
 
             // Organisation

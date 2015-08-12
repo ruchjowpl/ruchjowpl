@@ -536,9 +536,12 @@
                                 country: id
                             });
                         },
-                        updateUserCommune: function (id) {
+                        updateUserTU: function (countryCode, communeId) {
                             return service.updateUserData({
-                                commune: id
+                                territorialUnit: {
+                                    country: countryCode,
+                                    commune: communeId
+                                }
                             });
                         },
                         updateUserOrganisation: function (url, name) {

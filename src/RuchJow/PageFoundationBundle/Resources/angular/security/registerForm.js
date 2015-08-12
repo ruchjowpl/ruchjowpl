@@ -114,7 +114,7 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
             },
             commune: {
                 $labels: {
-                    commune: 'registerForm.commune.commune'
+                    commune: 'registerForm.commune.commune.error'
                 }
             },
             organisationUrl: {

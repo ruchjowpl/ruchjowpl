@@ -80,6 +80,10 @@ class DataController extends ModelController
             $userArray['address'] = $address->toArray();
         }
 
+        if ($country = $user->getCountry()) {
+            $userArray['country'] = $country->toArray();
+        }
+
         if ($commune = $user->getCommune()) {
             $userArray['commune'] = $commune->toArray();
         }

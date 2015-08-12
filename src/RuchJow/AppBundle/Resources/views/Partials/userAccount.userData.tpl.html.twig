@@ -1,115 +1,100 @@
 <div class="row">
     <div class="col-md-6 user-data-field">
-        <form name="ruchJowUserDataCountryEdit" ng-submit="country.save()">
-            <a class="action-link edit" ng-show="!country.edit" ng-click="country.initEdit()" translate="" >form.edit</a>
-            <button type="button" class="action-link cancel link-btn" ng-show="country.edit" ng-click="country.edit = false" ng-disabled="country.saveInProgress" translate="" >form.cancel</button>
-            <button type="button" class="action-link save link-btn" ng-class="{ 'in-progress': country.saveInProgress }" ng-show="country.edit" ng-click="country.save()" ng-disabled="!ruchJowUserDataCountryEdit.$valid || country.saveInProgress" translate="" >form.save</button>
+        <form name="ruchJowUserDataTUEdit" ng-submit="tu.save()">
+            <a class="action-link edit" ng-show="!tu.edit" ng-click="tu.initEdit()" translate="" >form.edit</a>
+            <button type="button" class="action-link cancel link-btn" ng-show="tu.edit" ng-click="tu.edit = false" ng-disabled="tu.saveInProgress" translate="" >form.cancel</button>
+            <button type="button" class="action-link save link-btn" ng-class="{ 'in-progress': tu.saveInProgress }" ng-show="tu.edit" ng-click="tu.save()" ng-disabled="!ruchJowUserDataTUEdit.$valid || tu.saveInProgress" translate="" >form.save</button>
 
-            <label translate="">country.label</label>
+            <label translate="">countryCommune.label</label>
+
             <div class="content">
-                <div ng-hide="country.edit">
-                    [[ security.currentUser.country.name ]]
+                <div ng-hide="tu.edit">
+                    <input
+                            type="text"
+                            value="[[ security.currentUser.country.name ]]"
+                            placeholder="[[ 'security.register.country'|translate ]]"
+                            disabled="true"
+                    />
+
+                    <input ng-if="security.currentUser.commune || security.currentUser.country === 'PL'"
+                           type="text"
+                           value="[[ security.currentUser.commune.name ]]"
+                           placeholder="[[ 'security.register.commune'|translate ]]"
+                           disabled="true"
+                    />
                 </div>
 
-
-                {# Country #}
-                <div ng-if="country.edit">
+                <div ng-if="tu.edit">
                     <div ruch-jow-form-table>
                         <div
-                                ruch-jow-form-field="country"
-                                {#label="[[ 'form.country.name.label'|translate ]]"#}
-                                {#label-suffix-class="'required'"#}
-                                errors="country.validation.$labels"
-                                ruch-jow-form-show-label="false"
-                                ruch-jow-form-errors-on-top="false"
+                            ruch-jow-form-field="country"
+                            {#label="[[ 'form.organisation.name.label'|translate ]]"#}
+                            {#label-suffix-class="'required'"#}
+                            errors="tu.validation.country.$labels"
+                            ruch-jow-form-show-label="false"
+                            ruch-jow-form-errors-on-top="false"
 
-                                ng-class="{ loading: loading.countries }"
-                                >
-                            <div ng-show="country.data.country">
-                                [[ country.selectedCountryLabel ? country.selectedCountryLabel : '-' ]]
-                            </div>
+                            ng-class="{ loading: tu.countryLoading }" {# !!!!!!!!!!!!!!!!!#}
+                        >
                             <input
-                                    ng-disabled="country.saveInProgress"
+                                    ng-disabled="tu.data.country && ruchJowUserDataTUEdit.country.$valid || tu.saveInProgress"
                                     type="text"
                                     name="country"
-                                    ng-model="country.inputName" {#ng-model-options="ngModelOptions()"#}
+                                    ng-model="tu.countryInputName" {#ng-model-options="ngModelOptions()"#}
 
-                                    typeahead="country.label for country in country.get($viewValue)"
-                                    typeahead-loading="country.loading"
-                                    typeahead-on-select="country.set($item)"
+                                    typeahead="country.label for country in tu.getCountries($viewValue)"
+                                    typeahead-loading="tu.countryLoading"
+                                    typeahead-on-select="tu.setCountry($item)"
 
-                                    ng-requuired="true"
-                                    ruch-jow-validate="{ country: 'country.data.country' }"
-                                    ruch-jow-validate-watch="['data.country']"
+                                    ruch-jow-validate="{ country: 'tu.data.country' }"
+                                    ruch-jow-validate-watch="['tu.data.country']"
 
                                     ruch-jow-enter-down-trigger
                                     ruch-jow-form-null-if-empty
 
                                     title="[[ 'security.register.country'|translate ]]"
                                     placeholder="[[ 'security.register.country'|translate ]]"
+
+                                    ruch-jow-input-icon="tu.setCountry(null)"
+                                    ruch-jow-icon-class="{ delete: true, disabled: !tu.data.country }"
+                                    />
+                        </div>
+
+                        <div ng-if="tu.data.country && tu.data.country === 'PL'"
+                                ruch-jow-form-field="commune"
+                                {#label="[[ 'form.organisation.name.label'|translate ]]"#}
+                                {#label-suffix-class="'required'"#}
+                                errors="tu.validation.commune.$labels"
+                                ruch-jow-form-show-label="false"
+                                ruch-jow-form-errors-on-top="false"
+
+                                ng-class="{ loading: tu.communeLoading }" {# !!!!!!!!!!!!!!!!!#}
+                                >
+                            <input
+                                    ng-disabled="tu.data.commune && ruchJowUserDataTUEdit.commune.$valid || tu.saveInProgress"
+                                    type="text"
+                                    name="commune"
+                                    ng-model="tu.communeInputName"
+
+                                    typeahead="commune.label for commune in tu.getCommunes($viewValue)"
+                                    typeahead-loading="tu.communeLoading"
+                                    typeahead-on-select="tu.setCommune($item)"
+
+                                    ruch-jow-validate="{ commune: 'tu.data.commune' }"
+                                    ruch-jow-validate-watch="['tu.data.commune']"
+
+                                    ruch-jow-enter-down-trigger
+                                    ruch-jow-form-null-if-empty
+
+                                    title="[[ 'security.register.commune'|translate ]]"
+                                    placeholder="[[ 'security.register.commune'|translate ]]"
+
+                                    ruch-jow-input-icon="tu.setCommune(null)"
+                                    ruch-jow-icon-class="{ delete: true, disabled: !tu.data.commune }"
                                     />
                         </div>
                     </div>
                 </div>
-
-            </div>
-        </form>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6 user-data-field">
-        <form name="ruchJowUserDataCommuneEdit" ng-submit="commune.save()">
-            <a class="action-link edit" ng-show="!commune.edit" ng-click="commune.initEdit()" translate="" >form.edit</a>
-            <button type="button" class="action-link cancel link-btn" ng-show="commune.edit" ng-click="commune.edit = false" ng-disabled="commune.saveInProgress" translate="" >form.cancel</button>
-            <button type="button" class="action-link save link-btn" ng-class="{ 'in-progress': commune.saveInProgress }" ng-show="commune.edit" ng-click="commune.save()" ng-disabled="!ruchJowUserDataCommuneEdit.$valid || commune.saveInProgress" translate="" >form.save</button>
-
-            <label translate="">commune.label</label>
-            <div class="content">
-                <div ng-hide="commune.edit">
-                    [[ security.currentUser.commune.name ]]
-                </div>
-
-
-                {# Commune #}
-                <div ng-if="commune.edit">
-                    <div ruch-jow-form-table>
-                        <div
-                            ruch-jow-form-field="commune"
-                            {#label="[[ 'form.organisation.name.label'|translate ]]"#}
-                            {#label-suffix-class="'required'"#}
-                            errors="commune.validation.$labels"
-                            ruch-jow-form-show-label="false"
-                            ruch-jow-form-errors-on-top="false"
-
-                            ng-class="{ loading: loading.communes }" {# !!!!!!!!!!!!!!!!!#}
-                        >
-                            <div ng-show="commune.data.commune">
-                                [[ commune.selectedCommuneLabel ? commune.selectedCommuneLabel : '-' ]]
-                            </div>
-                            <input
-                                ng-disabled="commune.saveInProgress"
-                                type="text"
-                                name="commune"
-                                ng-model="commune.inputName" {#ng-model-options="ngModelOptions()"#}
-
-                                typeahead="commune.label for commune in commune.get($viewValue)"
-                                typeahead-loading="commune.loading"
-                                typeahead-on-select="commune.set($item)"
-
-                                ng-requuired="true"
-                                ruch-jow-validate="{ commune: 'commune.data.commune' }"
-                                ruch-jow-validate-watch="['data.commune']"
-
-                                ruch-jow-enter-down-trigger
-                                ruch-jow-form-null-if-empty
-
-                                title="[[ 'security.register.postcode.or.commune.name'|translate ]]"
-                                placeholder="[[ 'security.register.postcode.or.commune.name'|translate ]]"
-                            />
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </form>
     </div>

@@ -55,6 +55,9 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
             email: {
                 label: 'E-mail'
             },
+            countryCommune: {
+                label: 'Kraj / Gmina'
+            },
             country: {
                 label: 'Kraj'
             },
