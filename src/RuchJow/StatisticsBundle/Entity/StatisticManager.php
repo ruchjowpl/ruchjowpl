@@ -1331,6 +1331,10 @@ class StatisticManager
 //        $total = $this->getOrganisationSingleRank(null);
         $total = $countryRepo->getCount($exclude);
 
+        if ($includeCountry && $includeCountry->getCode() === $exclude) {
+            $includeCountry = null;
+        }
+
         if ($includeCountry) {
             $limit--;
             $totalPages = max(ceil(($total - 1)/ $limit), 1);
@@ -1393,7 +1397,7 @@ class StatisticManager
         if ($includeCountry) {
             $incPoints = $this->getStatisticValue(array(
                 RuchJowStatisticsBundle::STAT_POINTS_COUNTRY,
-                $includeCountry->getId()
+                $includeCountry->getCode()
             ), 0 );
             $incRank = $this->getCountrySingleRank($incPoints);
         }

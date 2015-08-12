@@ -551,24 +551,30 @@ angular.module('ruchJow.ctrls.ranks', ['ui.bootstrap', 'ruchJow.security'])
                     $scope.userCommune = commune;
                     $scope.userDistrict = commune.district;
                     $scope.userRegion = commune.district.region;
+                    $scope.userCountry = security.currentUser.country;
                 } else {
                     $scope.user = null;
                     $scope.userCommune = null;
                     $scope.userDistrict = null;
                     $scope.userRegion = null;
+                    $scope.userCountry = null;
                 }
-
-
+            };
+            $scope.$on('ruchJowUserChanged', function () {
+                checkUser();
+            });
+            $scope.$watch('userCommune', function () {
                 $scope.nationwideUserRanking.update();
                 $scope.organisationRanking.update();
                 $scope.nationwideTerritorialUnitRanking.update();
 
                 $scope.userRanking.update();
                 $scope.territorialUnitRanking.update();
-            };
-            $scope.$on('ruchJowUserChanged', function () {
-                checkUser();
+            }, true);
+            $scope.$watch('userCountry', function () {
+                $scope.countryRanking.update();
             });
+
             checkUser();
 
             // Watch changes triggered by map.

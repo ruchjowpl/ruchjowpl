@@ -206,6 +206,7 @@ angular.module('ruchJow.ctrls.userAccount', [
                         $scope.tu.data.country = null;
                         $scope.tu.selectedCountryLabel = null;
                         $scope.tu.countryInputName = '';
+                        $scope.tu.setCommune(null);
                     } else {
                         if (item === 'default') {
                             item = {code: 'PL', label: 'Polska'};
@@ -214,6 +215,10 @@ angular.module('ruchJow.ctrls.userAccount', [
                         $scope.tu.data.country = item.code;
                         $scope.tu.selectedCountryLabel = item.label;
                         $scope.tu.countryInputName = item.label;
+
+                        if ($scope.tu.data.country !== 'PL') {
+                            $scope.tu.setCommune(null);
+                        }
                     }
 
                 },
@@ -275,7 +280,7 @@ angular.module('ruchJow.ctrls.userAccount', [
                             return ruchJowSecurity.requestCurrentUser()
                         })
                         .then(function () {
-                            $scope.commune.edit = false;
+                            $scope.tu.edit = false;
                         })['finally'](function () {
                         $scope.tu.saveInProgress = false;
                     });
