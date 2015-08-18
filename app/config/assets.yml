@@ -298,6 +298,18 @@ assetic:
                 - '%kernel.root_dir%/Resources/public/img/layout/imgForTwitter.jpg'
             output: images/twitter_img_v2.jpg
 
+        img_homepage_poland_background:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/polandBg.svg'
+            output: images/layout/poland_bg.svg
+
+        img_homepage_main_background:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/hp_main_background.jpg'
+            output: images/layout/hp_main_background.jpg
+
+
+
         img_homepage_infographics:
             inputs:
                 - '%kernel.root_dir%/Resources/public/img/layout/homepageInfographics.jpg'
