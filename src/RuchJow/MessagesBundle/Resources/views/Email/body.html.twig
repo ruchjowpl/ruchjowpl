@@ -3,9 +3,10 @@
     <meta charset="UTF-8"/>
     <style>
         body {margin: 0; font-family: sans-serif;}
+        .helper {display: inline-block; height: 100%;}
         .wrapper {width: 460px; margin: 0 auto;}
         .header {height: 100px; background: #005a8f; color: #fff; line-height: 100px;}
-        .header a, .header img {display: inline-block; vertical-align: middle; color: inherit;}
+        .header a, .header img {display: inline-block; vertical-align: middle; color: inherit; white-space: nowrap; text-decoration: none;}
         .header .account-link { float: right; color: inherit; text-decoration: underline; }
         .content {padding: 50px 0; color: #373737;}
         h1 { font-size: 22px; font-weight: 500; margin: 0 0 15px;}
@@ -23,8 +24,9 @@
     <div class="wrapper">
         <a href="{{ app.request.scheme ~ '://' ~ app.request.host }}">
             {% image '@img_logo' %}
-            <img src="{{ app.request.scheme ~ '://' ~ app.request.host ~ asset_url }}" alt="RuchJOW.pl" width="56"/>
+            <img src="{{ app.request.scheme ~ '://' ~ app.request.host ~ asset_url }}" alt="RuchJOW.pl"/>
             {% endimage %}
+            <span class="helper">&nbsp;</span>
         </a>
 
         <a class="account-link" href="{{ app.request.scheme ~ '://' ~ app.request.host }}/?url=/user">Twoje konto</a>
