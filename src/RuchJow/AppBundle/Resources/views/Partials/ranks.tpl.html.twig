@@ -106,7 +106,7 @@
         </div>
     </div>
 
-    <div class="container" ng-controller="RanksFullCtrl">
+    <div class="container" {#ng-controller="RanksFullCtrl"#}>
         {# <div class="row">
             <div class="col-md-12">
                 <div class="page-block ranks-block">
@@ -154,7 +154,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="page-block ranks-block" ng-controller="RanksFullCtrl">
+                <div class="page-block ranks-block" {#ng-controller="RanksFullCtrl"#}>
                     <div class="header">
                         <h1>Rankingi &ndash; ludzie i regiony</h1>
                         <div class="links">
@@ -224,6 +224,15 @@
                                     >
                                         <a ng-click="setCurrentTU(row.unitType, row.unitId)" class="clickable">[[ row.name ]]</a>
                                     </div>
+
+                                    <div
+                                            ruch-jow-rank-table=""
+                                            ranking-obj="countryRanking"
+                                            name-column-title="Pozostałe kraje"
+                                            points-column-title="Punkty"
+                                            >
+                                        <span>[[ row.name ]]</span>
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -234,7 +243,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="page-block ranks-block" ng-controller="RanksFullCtrl">
+                <div class="page-block ranks-block" {#ng-controller="RanksFullCtrl"#}>
                     <div class="header">
                         <h1>Rankingi &ndash; promowane strony</h1>
                         <div class="links">

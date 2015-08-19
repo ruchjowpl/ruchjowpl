@@ -80,6 +80,10 @@ class DataController extends ModelController
             $userArray['address'] = $address->toArray();
         }
 
+        if ($country = $user->getCountry()) {
+            $userArray['country'] = $country->toArray();
+        }
+
         if ($commune = $user->getCommune()) {
             $userArray['commune'] = $commune->toArray();
         }
@@ -134,6 +138,11 @@ class DataController extends ModelController
             'nick'        => $user->getUserName(),
             'displayName' => $user->getDisplayName(),
         );
+
+        // COUNTRY
+        if ($country = $user->getCountry()) {
+            $userArray['country'] = $country->toArray();
+        }
 
         // COMMUNE
         if ($commune = $user->getCommune()) {

@@ -123,6 +123,7 @@
                 this.userId = userId;
                 this.roles = roles;
 
+                this.country = null;
                 this.commune = null;
                 this.email = null;
                 this.phone = null;
@@ -498,6 +499,7 @@
                                             user.phone = userData.phone ? userData.phone : null;
                                             user.displayNameFormat = userData.displayNameFormat;
                                             user.visibility = userData.visibility;
+                                            user.country = userData.country ? userData.country : null;
                                             user.commune = userData.commune ? userData.commune : null;
                                             user.organisation = userData.organisation ? userData.organisation : null;
                                             user.about = userData.about ? userData.about : '';
@@ -529,9 +531,17 @@
 
                             return currentUserRequest;
                         },
-                        updateUserCommune: function (id) {
+                        updateUserCountry: function (id) {
                             return service.updateUserData({
-                                commune: id
+                                country: id
+                            });
+                        },
+                        updateUserTU: function (countryCode, communeId) {
+                            return service.updateUserData({
+                                territorialUnit: {
+                                    country: countryCode,
+                                    commune: communeId
+                                }
                             });
                         },
                         updateUserOrganisation: function (url, name) {

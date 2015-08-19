@@ -9,12 +9,13 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query;
 use RuchJow\StatisticsBundle\RuchJowStatisticsBundle;
 use RuchJow\TerritorialUnitsBundle\Entity\Commune;
+use RuchJow\TerritorialUnitsBundle\Entity\Country;
+use RuchJow\TerritorialUnitsBundle\Entity\CountryRepository;
 use RuchJow\TerritorialUnitsBundle\Entity\District;
 use RuchJow\TerritorialUnitsBundle\Entity\Region;
 use RuchJow\UserBundle\Entity\Organisation;
 use RuchJow\UserBundle\Entity\OrganisationRepository;
 use RuchJow\UserBundle\Entity\User;
-use RuchJow\UserBundle\Entity\UserManager;
 use Symfony\Component\DependencyInjection\Container;
 
 class StatisticManager
@@ -162,8 +163,6 @@ class StatisticManager
      */
     public function incStatistic($name, $inc = 1, $flush = false)
     {
-
-
         $stat = $this->getStatistic($name);
         $val  = $stat->getData();
         $stat->setData(is_numeric($val) ? $inc + $val : $inc);
@@ -1263,6 +1262,236 @@ class StatisticManager
             'page'        => $page,
             'ranking'     => $ret,
             'highlighted' => $highlighted
+        );
+    }
+
+    public function getCountrySingleRank($points, $nextRank = false, $exclude = 'PL')
+    {
+        /** @var EntityManager $em */
+        $em = $this->getEntityManager();
+
+        /** @var ClassMetadata $statsMeta */
+        $statsMeta = $em->getClassMetadata('RuchJowStatisticsBundle:Statistic');
+        /** @var ClassMetadata $countryMeta */
+        $countryMeta = $em->getClassMetadata('RuchJowTerritorialUnitsBundle:Country');
+
+        $params             = array();
+        $params['statName'] = RuchJowStatisticsBundle::STAT_POINTS_COUNTRY;
+
+        $where = array();
+
+        if (null !== $points) {
+            $where[] = ' s.' . $statsMeta->getColumnName('intData')
+                . ' ' . ($nextRank ? '>=' : '>') . ' :points';
+            $params['points'] = $points;
+        }
+
+        if ($exclude) {
+            $where[] = ' c.' . $statsMeta->getColumnName('code')
+                . ' <> :exclude';
+            $params['exclude'] = $exclude;
+        }
+
+        $sql = 'select'
+            . ' count(id)'
+            . ' from'
+            . ' ' . $statsMeta->getTableName() . ' s'
+            . ' join ' . $countryMeta->getTableName() . ' c'
+            . ' on'
+            . ' s.' . $statsMeta->getColumnName('name') . ' = :statName'
+            . ' and c.' . $countryMeta->getColumnName('code') . ' = s.' . $statsMeta->getColumnName('suffix');
+
+        if (!empty($where)) {
+            $sql .= ' where ' . implode(' AND ', $where);
+        }
+
+        $stmt = $em->getConnection()->prepare($sql);
+        $this->bindParams($params, $stmt);
+
+        $stmt->execute();
+        $ret = $stmt->fetch(Query::HYDRATE_SINGLE_SCALAR);
+
+        return $ret[0] + (null === $points ? 0 : 1);
+    }
+
+    public function getCountryRank($limit, $page = 1, Country $includeCountry = null, $exclude = 'PL')
+    {
+        /** @var EntityManager $em */
+        $em = $this->getEntityManager();
+
+        /** @var CountryRepository $orgRepo */
+        $countryRepo = $em->getRepository('RuchJowTerritorialUnitsBundle:Country');
+
+        /** @var ClassMetadata $statsMeta */
+        $statsMeta = $em->getClassMetadata('RuchJowStatisticsBundle:Statistic');
+        /** @var ClassMetadata $countryMeta */
+        $countryMeta = $em->getClassMetadata('RuchJowTerritorialUnitsBundle:Country');
+
+        // Total elements, limit, current page.
+//        $total = $this->getOrganisationSingleRank(null);
+        $total = $countryRepo->getCount($exclude);
+
+        if ($includeCountry && $includeCountry->getCode() === $exclude) {
+            $includeCountry = null;
+        }
+
+        if ($includeCountry) {
+            $limit--;
+            $totalPages = max(ceil(($total - 1)/ $limit), 1);
+        } else {
+            $totalPages = ceil($total/ $limit);
+        }
+
+        $page = max(min($totalPages, $page), 1);
+
+        $params = array();
+        $where = array();
+        if ($includeCountry) {
+            $where[] = 'c.code <> :includeCountryCode';
+            $params['includeCountryCode'] = $includeCountry->getCode();
+        }
+
+        if ($exclude) {
+            $where[] = ' c.' . $statsMeta->getColumnName('code')
+                . ' <> :exclude';
+            $params['exclude'] = $exclude;
+        }
+
+        $sql = 'select' .
+            ' s.' . $statsMeta->getColumnName('name') . ' statistic_name,' .
+            ' s.' . $statsMeta->getColumnName('suffix') . ' statistic_suffix,' .
+            ' coalesce(s.' . $statsMeta->getColumnName('intData') . ', 0) points,' .
+            ' c.' . $countryMeta->getColumnName('code') . ' country_code' .
+
+            ' from' .
+
+            ' ' . $countryMeta->getTableName() . ' c' .
+            ' left join ' . $statsMeta->getTableName() . ' s' .
+            ' on' .
+            ' s.' . $statsMeta->getColumnName('name') . ' = :statName' .
+            ' and c.' . $countryMeta->getColumnName('code') . ' = s.' . $statsMeta->getColumnName('suffix') .
+
+            ($where ? ' where ' . implode(' and ', $where) : '') .
+
+            ' order by s.' . $statsMeta->getColumnName('intData') . ' desc' .
+            ' limit :skip, :limit';
+
+        $params['statName'] = RuchJowStatisticsBundle::STAT_POINTS_COUNTRY;
+        $params['skip']     = intval($limit * ($page - 1));
+        $params['limit']    = $limit;
+
+
+        // Execute statement and fetch results.
+        $stmt = $em->getConnection()->prepare($sql);
+        $this->bindParams($params, $stmt);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+
+
+        $ret  = array();
+        $cCodes = array();
+        $cMap = array();
+        $i    = 0;
+        $rank = null;
+
+        if ($includeCountry) {
+            $incPoints = $this->getStatisticValue(array(
+                RuchJowStatisticsBundle::STAT_POINTS_COUNTRY,
+                $includeCountry->getCode()
+            ), 0 );
+            $incRank = $this->getCountrySingleRank($incPoints);
+        }
+
+
+        foreach ($rows as $row) {
+            $cCodes[$row['country_code']] = $row['country_code'];
+
+            $points = intval($row['points']);
+            if (null === $rank) {
+                $rank = array(
+                    'points' => $points,
+                    'rank'   => $this->getCountrySingleRank($points),
+                    'cnt'    => null,
+                );
+
+                if (isset($incRank) && isset($incPoints) && $incRank <= $rank['rank']) {
+                    $ret[$i++] = array(
+                        'rank'        => $incRank,
+                        'points'      => $incPoints,
+                        'code'        => $includeCountry->getCode(),
+                        'name'        => $includeCountry->getName(),
+                        'highlighted' => true,
+                    );
+
+                    unset($incRank);
+                }
+            } elseif ($points !== $rank['points']) {
+                $rank = array(
+                    'points' => $points,
+                    'rank'   => $rank['cnt'] === null
+                        ? $this->getCountrySingleRank($points)
+                        : $rank['rank'] + $rank['cnt'],
+                    'cnt'    => 0
+                );
+
+                if (isset($incRank) && isset($incPoints) && $incRank <= $rank['rank']) {
+                    $ret[$i++] = array(
+                        'rank'        => $incRank,
+                        'points'      => $incPoints,
+                        'code'        => $includeCountry->getCode(),
+                        'name'        => $includeCountry->getName(),
+                        'highlighted' => true,
+                    );
+
+                    if ($incRank == $rank['rank']) {
+                        $rank['cnt']++;
+                    }
+
+                    unset($incRank);
+                }
+            }
+
+
+            if (null !== $rank['cnt']) {
+                $rank['cnt']++;
+            }
+
+            $ret[$i] = array(
+                'rank'   => $rank['rank'],
+                'points' => $points,
+            );
+            $cMap[$row['country_code']] = $i;
+
+            $i++;
+        }
+
+        if (isset($incRank) && isset($incPoints)) {
+            $ret[$i] = array(
+                'rank'        => $incRank,
+                'points'      => $incPoints,
+                'code'        => $includeCountry->getCode(),
+                'name'        => $includeCountry->getName(),
+                'highlighted' => true,
+            );
+        }
+
+
+        /** @var Country[] $countries */
+        $countries = $em->getRepository('RuchJowTerritorialUnitsBundle:Country')->findBy(array('code' => $cCodes));
+
+        foreach ($countries as $country) {
+            $ret[$cMap[$country->getCode()]]['code'] = $country->getCode();
+            $ret[$cMap[$country->getCode()]]['name'] = $country->getName();
+        }
+
+        $highlighted = null;
+
+        return array(
+            'total'       => $total,
+            'pages'       => $totalPages,
+            'page'        => $page,
+            'ranking'     => $ret,
+            'highlighted' => $highlighted,
         );
     }
 

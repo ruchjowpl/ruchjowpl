@@ -2,9 +2,9 @@
 
 namespace RuchJow\PointsBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use RuchJow\TerritorialUnitsBundle\Entity\Commune;
+use RuchJow\TerritorialUnitsBundle\Entity\Country;
 use RuchJow\UserBundle\Entity\Organisation;
 use RuchJow\UserBundle\Entity\User;
 
@@ -36,6 +36,14 @@ class PointsEntry
      * @ORM\JoinColumn(name="organisation_id", referencedColumnName="id", nullable=true)
      */
     protected $organisation;
+
+    /**
+     * @var Country
+     *
+     * @ORM\ManyToOne(targetEntity="RuchJow\TerritorialUnitsBundle\Entity\Country")
+     * @ORM\JoinColumn(name="country_id", referencedColumnName="id", nullable=true)
+     */
+    protected $country;
 
     /**
      * @var Commune
@@ -225,7 +233,7 @@ class PointsEntry
      *
      * @param User $user
      *
-*@return PointsEntry
+     * @return PointsEntry
      */
     public function setUser(User $user = null)
     {
@@ -249,7 +257,7 @@ class PointsEntry
      *
      * @param Organisation $organisation
      *
-*@return PointsEntry
+     * @return PointsEntry
      */
     public function setOrganisation(Organisation $organisation = null)
     {
@@ -269,11 +277,31 @@ class PointsEntry
     }
 
     /**
+     * @return Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param Country $country
+     *
+     * @return $this
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
      * Set commune
      *
      * @param Commune $commune
      *
-*@return PointsEntry
+     * @return PointsEntry
      */
     public function setCommune(Commune $commune = null)
     {

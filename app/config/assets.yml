@@ -291,12 +291,12 @@ assetic:
 
         img_for_facebook:
             inputs:
-                - '%kernel.root_dir%/Resources/public/img/layout/imgForFacebook.jpg'
-            output: images/fb_img_v2.jpg
+                - '%kernel.root_dir%/Resources/public/img/layout/imgForFacebook.png'
+            output: images/fb_img.png
         img_for_twitter:
             inputs:
-                - '%kernel.root_dir%/Resources/public/img/layout/imgForTwitter.jpg'
-            output: images/twitter_img_v2.jpg
+                - '%kernel.root_dir%/Resources/public/img/layout/imgForTwitter.png'
+            output: images/twitter_img.png
 
         img_homepage_poland_background:
             inputs:

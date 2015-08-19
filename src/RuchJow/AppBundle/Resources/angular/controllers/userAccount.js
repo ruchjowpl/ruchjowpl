@@ -151,30 +151,78 @@ angular.module('ruchJow.ctrls.userAccount', [
         '$scope',
         'ruchJowSecurity',
         'ruchJowFindOrganisations',
+        'ruchJowFindCountries',
         'ruchJowFindCommunes',
-        function ($scope, ruchJowSecurity, ruchJowFindOrganisations, ruchJowFindCommunes) {
+        function ($scope, ruchJowSecurity, ruchJowFindOrganisations, ruchJowFindCountries, ruchJowFindCommunes) {
 
-            var getOrgsPromise, getCommunesPromise;
+            var getOrgsPromise, getCountriesPromise, getCommunesPromise;
 
-            // Commune
-            $scope.commune = {
+            // Territorial Units
+            $scope.tu = {
                 edit: false,
                 loading: false,
                 saveInProgress: false,
 
                 validation: {
-                    $labels: {
-                        commune: 'registerForm.commune.commune.error',
-                        required: 'registerForm.commune.required.error'
+                    country: {
+                        $labels: {
+                            country: 'registerForm.country.country.error'
+                        }
+                    },
+                    commune: {
+                        $labels: {
+                            commune: 'registerForm.commune.required.error'
+                        }
                     }
                 },
-                inputName: null,
+                countryInputName: null,
+                selectedCountryLabel: null,
+                communeInputName: null,
                 selectedCommuneLabel: null,
                 data: {
+                    country: null,
                     commune: null
                 },
 
-                get: function (input) {
+                getCountries: function (input) {
+
+                    if (getCountriesPromise) {
+                        ruchJowFindCountries.cancel(getCountriesPromise);
+                    }
+
+                    getCountriesPromise = ruchJowFindCountries.getCountries(input);
+
+                    return getCountriesPromise.then(function (countries) {
+                        angular.forEach(countries, function (country) {
+                            country.label = country.name;
+                        });
+
+                        return countries;
+                    });
+
+                },
+                setCountry: function (item) {
+                    if (!item) {
+                        $scope.tu.data.country = null;
+                        $scope.tu.selectedCountryLabel = null;
+                        $scope.tu.countryInputName = '';
+                        $scope.tu.setCommune(null);
+                    } else {
+                        if (item === 'default') {
+                            item = {code: 'PL', label: 'Polska'};
+                        }
+
+                        $scope.tu.data.country = item.code;
+                        $scope.tu.selectedCountryLabel = item.label;
+                        $scope.tu.countryInputName = item.label;
+
+                        if ($scope.tu.data.country !== 'PL') {
+                            $scope.tu.setCommune(null);
+                        }
+                    }
+
+                },
+                getCommunes: function (input) {
 
                     if (getCommunesPromise) {
                         ruchJowFindCommunes.cancel(getCommunesPromise);
@@ -195,39 +243,46 @@ angular.module('ruchJow.ctrls.userAccount', [
                     });
 
                 },
-                set: function (item) {
+                setCommune: function (item) {
                     if (!item) {
-                        $scope.commune.data.commune = null;
-                        $scope.commune.selectedCommuneLabel = null;
+                        $scope.tu.data.commune = null;
+                        $scope.tu.selectedCommuneLabel = null;
+                        $scope.tu.communeInputName = '';
                     } else {
-                        $scope.commune.data.commune = item.id;
-                        $scope.commune.selectedCommuneLabel = item.label;
+                        $scope.tu.data.commune = item.id;
+                        $scope.tu.selectedCommuneLabel = item.label;
+                        $scope.tu.communeInputName = item.label;
                     }
                 },
                 initEdit: function () {
-                    var commune = ruchJowSecurity.currentUser.commune
+                    var country = ruchJowSecurity.currentUser.country;
+                    var commune = ruchJowSecurity.currentUser.commune;
 
-                    if (commune) {
-                        $scope.commune.selectedCommuneLabel = commune.name;
-                        $scope.commune.data.commune = commune.id;
-                    } else {
-                        $scope.commune.selectedCommuneLabel = null;
-                        $scope.commune.data.commune = null;
-                    }
 
-                    $scope.commune.edit = true;
+                    $scope.tu.setCountry(
+                        country ? {code: country.code, label: country.name} : null
+                    );
+
+                    $scope.tu.setCommune(
+                        commune ? {id: commune.id, label: commune.name} : null
+                    );
+
+                    $scope.tu.edit = true;
                 },
 
                 save: function () {
-                    $scope.commune.saveInProgress = true;
-                    ruchJowSecurity.getUserService().updateUserCommune($scope.commune.data.commune)
+                    $scope.tu.saveInProgress = true;
+                    ruchJowSecurity.getUserService().updateUserTU(
+                        $scope.tu.data.country,
+                        $scope.tu.data.commune
+                    )
                         .then(function () {
                             return ruchJowSecurity.requestCurrentUser()
                         })
                         .then(function () {
-                            $scope.commune.edit = false;
+                            $scope.tu.edit = false;
                         })['finally'](function () {
-                        $scope.commune.saveInProgress = false;
+                        $scope.tu.saveInProgress = false;
                     });
                 }
             };
