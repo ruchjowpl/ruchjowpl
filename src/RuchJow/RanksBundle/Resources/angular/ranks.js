@@ -750,241 +750,25 @@ angular.module('ruchJow.ctrls.ranks', ['ui.bootstrap', 'ruchJow.security'])
             $scope.children = null;
             $scope.localGovMarkers = [];
 
-            // RANKING: User
-            $scope.userRanking = {
-                limit: 5,
-                type: 'user',
-                loading: false,
-                reset: function () {
-                    this.page = 1;
-                    this.totalPages = 1;
-                    this.ranking = null;
-                    this.highlighted = null;
-                },
-                update: function () {
-                    this.loading = true;
-                    var rankingObj = this;
-                    updateRankingObj(this)['finally'](function () {
-                        rankingObj.loading = false;
-                    });
-                }
-            };
-            $scope.userRanking.reset();
-            $scope.$watch('userRanking.page', function () {
-                $scope.userRanking.update();
-            });
-            $scope.$watch('userRanking.limit', function () {
-                $scope.userRanking.update();
-            });
-
-            // RANKING: TU
-            $scope.territorialUnitRanking = {
-                limit: 5,
-                typeMap: {
-                    country: 'region',
-                    region: 'district',
-                    district: 'commune'
-                },
-                loading: false,
-                reset: function () {
-                    this.page = 1;
-                    this.pages = 1;
-                    this.ranking = null;
-                    this.highlighted = null;
-                    this.type = this.typeMap[$scope.activeTerritorialUnit.type];
-                },
-                update: function () {
-                    if (this.type) {
-                        this.loading = true;
-                        var rankingObj = this;
-                        updateRankingObj(this)['finally'](function () {
-                            rankingObj.loading = false;
-                        });
-                    }
-                }
-            };
-            $scope.territorialUnitRanking.reset();
-            $scope.$watch('territorialUnitRanking.page', function () {
-                $scope.territorialUnitRanking.update();
-            });
-            $scope.$watch('territorialUnitRanking.limit', function () {
-                $scope.territorialUnitRanking.update();
-            });
-
-            // Listen if user has been changed
-            var checkUser = function (scope) {
-                var user;
-                if (user = security.currentUser) {
-                    scope.user = user;
-                    scope.userCountry = user.country;
-                } else {
-                    scope.user = null;
-                    scope.userCountry = null;
-                }
-
-                var commune;
-                if (security.currentUser && (commune = security.currentUser.commune)) {
-                    scope.userCommune = commune;
-                    scope.userDistrict = commune.district;
-                    scope.userRegion = commune.district.region;
-                } else {
-                    scope.userCommune = null;
-                    scope.userDistrict = null;
-                    scope.userRegion = null;
-                }
-            };
-            $scope.$on('ruchJowUserChanged', function (ev) {
-                checkUser(ev.currentScope);
-            });
-            $scope.$watch('userCommune', function () {
-                $scope.territorialUnitRanking.update();
-            }, true);
-            $scope.$watch('user', function () {
-                $scope.userRanking.update();
-            });
-            checkUser($scope);
 
 
-            // Watch changes triggered by map.
-            $scope.$watch('activeTerritorialUnit.type + activeTerritorialUnit.id', function () {
-                $scope.markersData = {};
-                ruchJowTUStatistics.getStatistics(
-                    $scope.activeTerritorialUnit.type,
-                    $scope.activeTerritorialUnit.id
-                ).then(function (data) {
-                        $scope.markersData = data;
-                    });
-
-                $scope.parent = null;
-                ruchJowTerritorialUnits.getParent(
-                    $scope.activeTerritorialUnit.type,
-                    $scope.activeTerritorialUnit.id
-                ).then(function (data) {
-                        $scope.parent = data;
-                    });
-
-                $scope.children = null;
-                ruchJowTerritorialUnits.getChildren(
-                    $scope.activeTerritorialUnit.type,
-                    $scope.activeTerritorialUnit.id
-                ).then(function (data) {
-                    $scope.children = data;
+            //$scope.markersData = {};
+            ruchJowTUStatistics.getStatistics(
+                $scope.activeTerritorialUnit.type,
+                $scope.activeTerritorialUnit.id
+            ).then(function (data) {
+                    $scope.markersData = data;
                 });
 
-                // Update LOCAL GOV MARKERS
-                $scope.localGovMarkers = [];
-                ruchJowLocalGov.getMarkersData(
-                    $scope.activeTerritorialUnit.type,
-                    $scope.activeTerritorialUnit.id
-                ).then(function (data) {
-                    $scope.localGovMarkers = data;
-                });
 
-                // GET RANKING: User
-                $scope.userRanking.reset();
-                $scope.userRanking.update();
-
-                // GET RANKING: TU
-                $scope.territorialUnitRanking.reset();
-                $scope.territorialUnitRanking.update();
+            // Update LOCAL GOV MARKERS
+            $scope.localGovMarkers = [];
+            ruchJowLocalGov.getMarkersData(
+                $scope.activeTerritorialUnit.type,
+                $scope.activeTerritorialUnit.id
+            ).then(function (data) {
+                $scope.localGovMarkers = data;
             });
-
-
-            // Change current region
-            $scope.setCurrentTU = function (type, id) {
-
-                if (angular.isObject(type)) {
-                    id = type.id;
-                    type = type.type;
-                }
-
-                if (['my_region', 'my_district', 'my_commune'].indexOf(type) !== -1) {
-                    if (!$scope.userCommune) {
-                        return;
-                    }
-
-                    switch (type) {
-                        case 'my_region':
-                            type = 'region';
-                            id = $scope.userRegion.id;
-                            break;
-
-                        case 'my_district':
-                            type = 'district';
-                            id = $scope.userDistrict.id;
-                            break;
-
-                        case 'my_commune':
-                            type = 'commune';
-                            id = $scope.userCommune.id;
-                            break;
-                    }
-                }
-
-                $scope.activeTerritorialUnit.type = type;
-                $scope.activeTerritorialUnit.id = id;
-                $scope.activeTerritorialUnit.name = '';
-
-                ruchJowTerritorialUnits.getName(type, id).then(function (name) {
-                    $scope.activeTerritorialUnit.name = name;
-                });
-            };
-
-            $scope.showParent = function() {
-                if ($scope.parent) {
-                    $scope.setCurrentTU($scope.parent)
-                }
-            };
-
-            $scope.isCurrentTU = function(type, id) {
-                var atu = $scope.activeTerritorialUnit;
-                switch (type) {
-                    case 'country':
-                        return atu.type === 'country';
-
-                    case 'my_region':
-                        return (
-                        atu.type === 'region'
-                        && $scope.userRegion
-                        && atu.id === $scope.userRegion.id
-                        );
-
-                    case 'my_district':
-                        return (
-                        atu.type === 'district'
-                        && $scope.userDistrict
-                        && atu.id === $scope.userDistrict.id
-                        );
-
-                    case 'my_commune':
-                        return (
-                        atu.type === 'commune'
-                        && $scope.userCommune
-                        && atu.id === $scope.userCommune.id
-                        );
-
-                    case 'region':
-                        return (atu.type === 'region' && id && atu.id === id);
-
-                    case 'district':
-                        return (atu.type === 'district' && id && atu.id === id);
-
-                    case 'commune':
-                        return (atu.type === 'commune' && id && atu.id === id);
-                }
-
-                return false;
-            };
-
-            function updateRankingObj(rankingObj) {
-                return ruchJowGeneralRanks.updateRankingObj(
-                    rankingObj,
-                    {
-                        type: $scope.activeTerritorialUnit.type,
-                        id: $scope.activeTerritorialUnit.id
-                    }
-                );
-            }
         }
     ])
     .directive('ruchJowRankTable', [function () {
