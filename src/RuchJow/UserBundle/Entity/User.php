@@ -229,11 +229,19 @@ class User extends BaseUser
      */
     protected $aboutVisible = true;
 
-    /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
-    protected $facebook_id;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="facebook_id", type="string", length=255, nullable=true)
+     */
+    protected $facebookId;
 
-    /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
-    protected $facebook_access_token;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true)
+     */
+    protected $facebookAccessToken;
 
 
     //*********************************
@@ -250,39 +258,6 @@ class User extends BaseUser
     //*********************************
     //****** GETTERS and SETTERS ******
     //*********************************
-
-
-    /**
-     * @return mixed
-     */
-    public function getFacebookId()
-    {
-        return $this->facebook_id;
-    }
-
-    /**
-     * @param mixed $facebook_id
-     */
-    public function setFacebookId($facebook_id)
-    {
-        $this->facebook_id = $facebook_id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFacebookAccessToken()
-    {
-        return $this->facebook_access_token;
-    }
-
-    /**
-     * @param mixed $facebook_access_token
-     */
-    public function setFacebookAccessToken($facebook_access_token)
-    {
-        $this->facebook_access_token = $facebook_access_token;
-    }
 
     /**
      * Get id
@@ -1022,6 +997,46 @@ class User extends BaseUser
     public function setAboutVisible($aboutVisible)
     {
         $this->aboutVisible = $aboutVisible;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFacebookId()
+    {
+        return $this->facebookId;
+    }
+
+    /**
+     * @param string $facebookId
+     *
+     * @return $this
+     */
+    public function setFacebookId($facebookId)
+    {
+        $this->facebookId = $facebookId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFacebookAccessToken()
+    {
+        return $this->facebookAccessToken;
+    }
+
+    /**
+     * @param string $facebookAccessToken
+     *
+     * @return $this
+     */
+    public function setFacebookAccessToken($facebookAccessToken)
+    {
+        $this->facebookAccessToken = $facebookAccessToken;
 
         return $this;
     }
