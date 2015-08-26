@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'RuchJowIcons';
-	src:url('fonts/RuchJowIcons.eot?ag2ose');
-	src:url('fonts/RuchJowIcons.eot?#iefixag2ose') format('embedded-opentype'),
-		url('fonts/RuchJowIcons.ttf?ag2ose') format('truetype'),
-		url('fonts/RuchJowIcons.woff?ag2ose') format('woff'),
-		url('fonts/RuchJowIcons.svg?ag2ose#RuchJowIcons') format('svg');
+	src:url('fonts/RuchJowIcons.eot?lig8ax');
+	src:url('fonts/RuchJowIcons.eot?#iefixlig8ax') format('embedded-opentype'),
+		url('fonts/RuchJowIcons.ttf?lig8ax') format('truetype'),
+		url('fonts/RuchJowIcons.woff?lig8ax') format('woff'),
+		url('fonts/RuchJowIcons.svg?lig8ax#RuchJowIcons') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -23,9 +23,6 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.ruch-jow-icon-logo_youtube:before {
-	content: "\e625";
-}
 .ruch-jow-icon-facebook:before {
 	content: "\e620";
 }
@@ -41,14 +38,8 @@
 .ruch-jow-icon-twitter:before {
 	content: "\e624";
 }
-.ruch-jow-icon-thumb:before {
-	content: "\e605";
-}
-.ruch-jow-icon-checklist:before {
-	content: "\e606";
-}
-.ruch-jow-icon-bills:before {
-	content: "\e607";
+.ruch-jow-icon-youtube:before {
+	content: "\e625";
 }
 .ruch-jow-icon-dollars:before {
 	content: "\e600";
@@ -61,6 +52,27 @@
 }
 .ruch-jow-icon-supporters:before {
 	content: "\e603";
+}
+.ruch-jow-icon-map:before {
+	content: "\e604";
+}
+.ruch-jow-icon-thumb:before {
+	content: "\e605";
+}
+.ruch-jow-icon-checklist:before {
+	content: "\e606";
+}
+.ruch-jow-icon-bills:before {
+	content: "\e607";
+}
+.ruch-jow-icon-billboard:before {
+	content: "\e608";
+}
+.ruch-jow-icon-meeting:before {
+	content: "\e609";
+}
+.ruch-jow-icon-leaflets:before {
+	content: "\e60a";
 }
 .ruch-jow-icon-hex_jow:before {
 	content: "\e630";
@@ -95,15 +107,18 @@
 .ruch-jow-icon-hex_poi:before {
 	content: "\e63a";
 }
-.ruch-jow-icon-billboard:before {
-	content: "\e608";
+.ruch-jow-icon-hex_billboard:before {
+	content: "\e63b";
 }
-.ruch-jow-icon-meeting:before {
-	content: "\e609";
+.ruch-jow-icon-hex_meeting:before {
+	content: "\e63c";
 }
-.ruch-jow-icon-leaflets:before {
-	content: "\e60a";
+.ruch-jow-icon-hex_leaflets:before {
+	content: "\e63d";
 }
-.ruch-jow-icon-map:before {
-	content: "\e604";
+.ruch-jow-icon-hex_map:before {
+	content: "\e63e";
+}
+.ruch-jow-icon-hex_map_o:before {
+	content: "\e63f";
 }

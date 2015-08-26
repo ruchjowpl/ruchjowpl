@@ -6,7 +6,8 @@
         'ruchJow.config.security',
         'ruchJow.config.globals',
         'ruchJow.rss',
-        'fr.angUtils.timeEvents'
+        'fr.angUtils.timeEvents',
+        'ruchJow.facebook'
     ])
         .config(['frTimeEventsProvider', function (frTimeEventsProvider) {
             // FIXME Change time to 5min instead of 30sec.
@@ -14,6 +15,14 @@
         }])
         .config(['ruchJowRssProvider', function (ruchJowRssProvider) {
             ruchJowRssProvider.registerSource('announcements', Routing.generate('feed_announcements'));
+        }])
+        .run(['facebook', function (facebook) {
+
+            console.log('asdfasdf');
+            facebook.get().then(function (FB) {
+                console.log(FB);
+            });
+
         }])
     ;
 

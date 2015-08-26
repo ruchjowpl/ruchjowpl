@@ -1,12 +1,14 @@
 @ruch-jow-if-font-path: 'fonts/';
 
+@cachefix: 'sfd7f8s79f';
+
 @font-face {
 	font-family: 'RuchJowIcons';
-	src:url('@{ruch-jow-if-font-path}ruchjowicons.eot?-ns1wwf8');
-	src:url('@{ruch-jow-if-font-path}ruchjowicons.eot?#iefix-ns1wwf8') format('embedded-opentype'),
-		url('@{ruch-jow-if-font-path}ruchjowicons.woff?-ns1wwf8') format('woff'),
-		url('@{ruch-jow-if-font-path}ruchjowicons.ttf?-ns1wwf8') format('truetype'),
-		url('@{ruch-jow-if-font-path}ruchjowicons.svg?-ns1wwf8#icomoon') format('svg');
+	src:url('@{ruch-jow-if-font-path}ruchjowicons.eot?-@{cachefix}');
+	src:url('@{ruch-jow-if-font-path}ruchjowicons.eot?#iefix-@{cachefix}') format('embedded-opentype'),
+		url('@{ruch-jow-if-font-path}ruchjowicons.woff?-@{cachefix}') format('woff'),
+		url('@{ruch-jow-if-font-path}ruchjowicons.ttf?-@{cachefix}') format('truetype'),
+		url('@{ruch-jow-if-font-path}ruchjowicons.svg?-@{cachefix}#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -17,38 +19,38 @@
   }
 }
 
-@ruch-jow-icon-facebook:        "\e620";
-@ruch-jow-icon-google_plus_alt: "\e621";
-@ruch-jow-icon-google_plus:     "\e622";
-@ruch-jow-icon-pinterest:       "\e623";
-@ruch-jow-icon-twitter:         "\e624";
-@ruch-jow-icon-youtube:         "\e625";
+@import 'variables';
 
-@ruch-jow-icon-thumb:      "\e605";
-@ruch-jow-icon-checklist:  "\e606";
-@ruch-jow-icon-bills:      "\e607";
-@ruch-jow-icon-dollars:    "\e600";
-@ruch-jow-icon-politician: "\e601";
-@ruch-jow-icon-rankings:   "\e602";
-@ruch-jow-icon-supporters: "\e603";
-@ruch-jow-icon-map:        "\e604";
-@ruch-jow-icon-billboard:  "\e608";
-@ruch-jow-icon-meeting:    "\e609";
-@ruch-jow-icon-leaflets:   "\e60a";
-
-@ruch-jow-icon-hex_jow:      "\e630";
-@ruch-jow-icon-hex_ok:       "\e631";
-@ruch-jow-icon-hex_victory:  "\e632";
-@ruch-jow-icon-hex_calendar: "\e633";
-@ruch-jow-icon-hex_mail:     "\e634";
-@ruch-jow-icon-hex_colport:  "\e635";
-@ruch-jow-icon-hex_leaflet:  "\e636";
-@ruch-jow-icon-hex_money:    "\e637";
-@ruch-jow-icon-hex_movie:    "\e638";
-@ruch-jow-icon-hex_people:   "\e639";
-@ruch-jow-icon-hex_poi:      "\e63a";
-
-
+//@ruch-jow-icon-facebook:        "\e620";
+//@ruch-jow-icon-google_plus_alt: "\e621";
+//@ruch-jow-icon-google_plus:     "\e622";
+//@ruch-jow-icon-pinterest:       "\e623";
+//@ruch-jow-icon-twitter:         "\e624";
+//@ruch-jow-icon-youtube:         "\e625";
+//
+//@ruch-jow-icon-dollars:    "\e600";
+//@ruch-jow-icon-politician: "\e601";
+//@ruch-jow-icon-rankings:   "\e602";
+//@ruch-jow-icon-supporters: "\e603";
+//@ruch-jow-icon-map:        "\e604";
+//@ruch-jow-icon-thumb:      "\e605";
+//@ruch-jow-icon-checklist:  "\e606";
+//@ruch-jow-icon-bills:      "\e607";
+//@ruch-jow-icon-billboard:  "\e608";
+//@ruch-jow-icon-meeting:    "\e609";
+//@ruch-jow-icon-leaflets:   "\e60a";
+//
+//@ruch-jow-icon-hex_jow:      "\e630";
+//@ruch-jow-icon-hex_ok:       "\e631";
+//@ruch-jow-icon-hex_victory:  "\e632";
+//@ruch-jow-icon-hex_calendar: "\e633";
+//@ruch-jow-icon-hex_mail:     "\e634";
+//@ruch-jow-icon-hex_colport:  "\e635";
+//@ruch-jow-icon-hex_leaflet:  "\e636";
+//@ruch-jow-icon-hex_money:    "\e637";
+//@ruch-jow-icon-hex_movie:    "\e638";
+//@ruch-jow-icon-hex_people:   "\e639";
+//@ruch-jow-icon-hex_poi:      "\e63a";
 
 
 // In PHP storm: replace "\e620" with variable.
@@ -97,7 +99,6 @@
 }
 
 
-
 .ruch-jow-icon-hex_jow:before {
   content: @ruch-jow-icon-hex_jow;
 }
@@ -142,6 +143,23 @@
 }
 .ruch-jow-icon-map:before {
   content: @ruch-jow-icon-map;
+}
+
+
+.ruch-jow-icon-hex_billboard:before {
+  content:  @ruch-jow-icon-hex_billboard;
+}
+.ruch-jow-icon-hex_meeting:before {
+  content:  @ruch-jow-icon-hex_meeting;
+}
+.ruch-jow-icon-hex_leaflets:before {
+  content:  @ruch-jow-icon-hex_leaflets;
+}
+.ruch-jow-icon-hex_map:before {
+  content:  @ruch-jow-icon-hex_map;
+}
+.ruch-jow-icon-hex_map_o:before {
+  content:  @ruch-jow-icon-hex_map_o;
 }
 
 

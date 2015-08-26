@@ -4,6 +4,8 @@
 {% block javascripts %}
     {{ parent() }}
 
+    <script type="text/javascript" src="{{ path('app_parameters') }}"></script>
+
     {% javascripts
         '@RuchJowAppBundle/Resources/angular/controllers/*.js'
 
@@ -36,7 +38,7 @@
     <script type="text/javascript" async="" src="//platform.twitter.com/widgets.js" style=""></script>
 
     {# FACEBOOK #}
-    <script type="text/javascript" async="" src="//connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.1" style=""></script>
+    <script type="text/javascript" async="" src="//connect.facebook.net/pl_PL/sdk.js" style=""></script>
 
     {# TAG MANAGER #}
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

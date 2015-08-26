@@ -8,7 +8,8 @@
         'ruchJow.basicServices',
         'ruchJow.points',
         'ruchJow.statistics',
-        'ruchJow.feedback'
+        'ruchJow.feedback',
+        'ruchJow.facebook'
     ])
 
         // UI ROUTER ($state, $stateParams)
@@ -40,7 +41,8 @@
             'ruchJowFeedbackModal',
             'ruchJowUserProfile',
             'ruchJowMessages',
-            function ($rootScope, $state, $stateParams, ruchJowSecurity, frNumberFormat, ruchJowConstants, ruchJowPartials, ruchJowPoints, ruchJowStatistics, ruchJowFeedbackModal, ruchJowUserProfile, ruchJowMessages) {
+            'facebook',
+            function ($rootScope, $state, $stateParams, ruchJowSecurity, frNumberFormat, ruchJowConstants, ruchJowPartials, ruchJowPoints, ruchJowStatistics, ruchJowFeedbackModal, ruchJowUserProfile, ruchJowMessages, facebook) {
 
                 // States
                 $rootScope.$state = $state;
@@ -75,6 +77,9 @@
                 $rootScope.$showMessage = ruchJowMessages.showMessage;
                 $rootScope.$sendMessage = ruchJowMessages.sendMessageModal;
 
+
+                // Facebook
+                $rootScope.facebook = facebook;
             }
         ])
         // Helper functions

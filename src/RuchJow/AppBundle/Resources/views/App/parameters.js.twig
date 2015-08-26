@@ -15,12 +15,12 @@
 
         return {
             get: get,
-            $get: get
+            $get: function () { return get; }
         };
 
         function get(name, defaultValue) {
-            return parameters.hasOwnProperty[name] ?
-                parameters[name],
+            return parameters.hasOwnProperty(name) ?
+                parameters[name] :
                 defaultValue;
         }
     }
