@@ -1,0 +1,28 @@
+(function () {
+   'use strict';
+
+    angular.module('ruchJow.parameters', [])
+        .provider('ruchJowParameters', ruchJowParameters);
+
+    //ruchJowParameters.$inject = [];
+
+    function ruchJowParameters() {
+        var parameters = {
+        {% for parameterName, parameterValue in parameters %}
+            '{{ parameterName }}': '{{ parameterValue }}'
+        {% endfor %}
+        };
+
+        return {
+            get: get,
+            $get: get
+        };
+
+        function get(name, defaultValue) {
+            return parameters.hasOwnProperty[name] ?
+                parameters[name],
+                defaultValue;
+        }
+    }
+
+})();

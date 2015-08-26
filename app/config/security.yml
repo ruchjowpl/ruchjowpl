@@ -65,6 +65,7 @@ security:
         - { path: ^/login/facebook$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/connect$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/parameters.js$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/users/register$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/users/register/confirm$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 

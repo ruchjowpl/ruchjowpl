@@ -40,6 +40,9 @@ parameters:
     transferuj_pl_user_id:       ~
     transferuj_pl_security_code: ~
 
+    facebook_client_id:     ~
+    facebook_client_secret: ~
+
     locale:            pl
     secret:            ThisTokenIsNotSoSecretChangeIt
 
