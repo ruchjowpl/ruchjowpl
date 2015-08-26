@@ -5,7 +5,6 @@ namespace RuchJow\UserBundle\Entity;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\AbstractQuery;
 use FOS\UserBundle\Doctrine\UserManager as FOSDoctrineUserManager;
-use FOS\UserBundle\Model\User;
 use FOS\UserBundle\Util\CanonicalizerInterface;
 use RuchJow\SocialLinksBundle\Entity\SocialLinkManager;
 use RuchJow\TerritorialUnitsBundle\Entity\Country;
