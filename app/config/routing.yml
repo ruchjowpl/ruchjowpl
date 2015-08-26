@@ -6,7 +6,7 @@ ruch_jow_transferuj_pl:
     resource: "@RuchJowTransferujPlBundle/Resources/config/routing.yml"
     prefix: /transferuj_pl
 
-# User-related routes
+## User-related routes
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
@@ -22,6 +22,21 @@ fos_user_security:
 #    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
 #    prefix: /profile
 
+#HWIOAuthBundle routes
+#hwi_oauth_security:
+#    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+#    prefix: /login
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix: /connect
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+facebook_login:
+    pattern: /login/check-facebook
 
 # JS Routing
 fos_js_routing:

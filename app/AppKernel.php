@@ -23,8 +23,8 @@ class AppKernel extends Kernel
             // libs bundles
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new Qbitz\FreshmailBundle\QbitzFreshmailBundle(),
             new cspoo\Swiftmailer\MailgunBundle\cspooSwiftmailerMailgunBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 
             // custom bundles
             new RuchJow\AjaxAuthBundle\RuchJowAjaxAuthBundle(),

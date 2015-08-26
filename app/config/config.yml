@@ -209,9 +209,9 @@ ruch_jow_transferuj_pl:
             id:            "%transferuj_pl_user_id%"
             security_code: "%transferuj_pl_security_code%"
 
-qbitz_freshmail:
-    api_key: "%freshmail_api_key%"
-    api_secret: "%freshmail_api_secret%"
+#qbitz_freshmail:
+#    api_key: "%freshmail_api_key%"
+#    api_secret: "%freshmail_api_secret%"
 
 cspoo_swiftmailer_mailgun:
     key: "%mailgun_api_key%"
@@ -233,3 +233,27 @@ ruch_jow_mail_pool:
 ruch_jow_angular_security:
     xsrf_cookie_name: "XSRF-TOKEN-ANG-RJ"
     xsrf_header_name: "X-XSRF-TOKEN-ANG-RJ"
+
+hwi_oauth:
+    connect:
+        confirmation: true
+        account_connector: ruch_jow_user.oauth_user_provider
+    firewall_name: main
+
+    fosub:
+        # try 30 times to check if a username is available (foo, foo1, foo2 etc)
+        username_iterations: 30
+        # mapping between resource owners (see below) and properties
+        properties:
+            facebook: facebookId
+    resource_owners:
+        facebook:
+            type:          facebook
+            client_id:     892849524135624
+            client_secret: e70b4d8bbb8e0ede94c7a817c881074a
+            scope:         "email"
+            infos_url:     "https://graph.facebook.com/me?fields=id,name,email"
+            paths:
+                email:          email
+            options:
+                auth_type: rerequest # Re-asking for Declined Permissions

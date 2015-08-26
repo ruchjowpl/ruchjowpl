@@ -5,13 +5,16 @@ namespace RuchJow\UserBundle\Entity;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\AbstractQuery;
 use FOS\UserBundle\Doctrine\UserManager as FOSDoctrineUserManager;
+use FOS\UserBundle\Model\User;
 use FOS\UserBundle\Util\CanonicalizerInterface;
 use RuchJow\SocialLinksBundle\Entity\SocialLinkManager;
+use RuchJow\TerritorialUnitsBundle\Entity\Country;
 use RuchJow\UserBundle\Services\TokenGenerator;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use \DateTime;
+use FOS\UserBundle\Model\UserInterface;
 
 class UserManager extends FOSDoctrineUserManager
 {
@@ -463,5 +466,28 @@ class UserManager extends FOSDoctrineUserManager
 
         /** @var PreSignedUserData $data */
         return $repo->find($token);
+    }
+
+    /**
+     * Updates a user.
+     *
+     * @param UserInterface $user
+     * @param Boolean       $andFlush Whether to flush the changes (default true)
+     */
+    public function updateUser(UserInterface $user, $andFlush = true)
+    {
+        $this->updateCanonicalFields($user);
+        $this->updatePassword($user);
+
+        //TODO: delete this plz
+        if (!empty($user->getFacebookId()) && is_null($user->getCountry())) {
+            $mainCountry = $this->objectManager->getRepository('RuchJowTerritorialUnitsBundle:Country')->findMainCountry();
+            $user->setCountry($mainCountry);
+        }
+
+        $this->objectManager->persist($user);
+        if ($andFlush) {
+            $this->objectManager->flush();
+        }
     }
 }

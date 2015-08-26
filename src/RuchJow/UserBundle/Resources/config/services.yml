@@ -17,6 +17,8 @@ parameters:
     ruch_jow_user.thanks.email.template: "RuchJowUserBundle:Mailer:thanks.html.twig"
     ruch_jow_user.reminder.email.template: "RuchJowUserBundle:Mailer:reminder.confirmation.html.twig"
 
+    ruch_jow_user.oauth_user_provider.class: RuchJow\UserBundle\Security\OAuthUserProvider
+
 services:
 #    ruch_jow_user.user_repository:
 #        class: %ruch_jow_user.user_repository.class%
@@ -76,3 +78,8 @@ services:
             - @ruch_jow_user.user_manager
         tags:
             - { name: kernel.event_subscriber }
+            #danvbe/UserBundle/Resources/services.yml
+
+    ruch_jow_user.oauth_user_provider:
+        class: "%ruch_jow_user.oauth_user_provider.class%"
+        arguments: [@ruch_jow_user.user_manager,{facebook: facebook_id}]

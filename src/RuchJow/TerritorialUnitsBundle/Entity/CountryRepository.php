@@ -21,6 +21,15 @@ class CountryRepository extends EntityRepository
     }
 
     /**
+     *
+     * @return null|Country
+     */
+    public function findMainCountry() {
+
+        return $this->findOneByCode(Country::MAIN_COUNTRY);
+    }
+
+    /**
      * @param string $exclude
      *
      * @return mixed
