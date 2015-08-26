@@ -15,6 +15,7 @@
 
 
 
+
 .homepage-infographics {
   > * {
     padding: 0;
@@ -74,9 +75,6 @@
 
   }
 }
-
-
-
 
 #ruch_jow_mouse_follower {
   padding: 0.2em 0.3em;
@@ -291,9 +289,6 @@ body {
   }
 }
 
-
-
-
 .page {
 
   input, textarea, select {
@@ -434,6 +429,635 @@ body {
 
 
 /*********** HOMEPAGE ***********/
+#hp_main_block {
+  padding-top: 2rem;
+  background: url('../images/layout/hp_main_background.jpg');
+  background-size: cover;
+
+  min-height: 500px;
+
+  .map-bg {
+    padding: 5rem 1rem 0;
+
+    opacity: 0.8;
+    background: url('../images/layout/poland_bg.svg') no-repeat top;
+    background-size: contain;
+
+    width: 100%;
+
+    text-align: center;
+    color: #fff;
+
+    font-size: 1.5rem;
+
+
+
+    h2 {
+      font-weight: bold;
+      font-size: 2.333em;
+    }
+
+    .subtitle {
+      font-weight: bold;
+      font-size: 1.666em;
+      margin: 3rem 1.5rem 2.5rem;
+    }
+
+
+    .icon-wrapper {
+      max-width: 48rem;
+      margin-left: auto;
+      margin-right: auto;
+
+      .row {
+
+        > * {
+          padding-top: floor(@grid-gutter-width-small / 2);
+          padding-bottom: ceil(@grid-gutter-width-small / 2);
+        }
+      }
+    }
+
+    .icon {
+      font-size: 5.5em;
+      line-height: 1;
+      display: block;
+    }
+
+    .number {
+      font-size: 2em;
+      font-weight: bold;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .info {
+      font-size: 1.1em;
+      font-weight: 600;
+    }
+
+
+    @media (max-width: @screen-xs-max)  {
+      padding-top: 4.5rem;
+      font-size: 1.2rem;
+      min-height: 43rem;
+    }
+
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max)  {
+      min-height: 48rem;
+    }
+
+    @media (min-width: @screen-md-min) and (max-width: @screen-md-max)  {
+      min-height: 48rem;
+
+      .row {
+        margin-left: 1rem;
+      }
+    }
+
+    @media (min-width: @screen-lg-min) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+
+      min-height: 48rem;
+
+      .row {
+        margin-left: 1rem;
+      }
+    }
+  }
+
+  #referendum_counter {
+    text-align: center;
+    color: #fff;
+
+    font-size: 2.5rem;
+
+    h1 {
+      font-weight: bold;
+      font-size: 2.6em;
+
+      .subtitle {
+        font-size: 0.75em;
+        font-weight: normal;
+      }
+    }
+
+    .btn-wrapper {
+      > * {
+        padding: 0;
+      }
+    }
+
+    .btn {
+      border: none;
+      background: #dc0f27;
+      width: 100%;
+      max-width: 45rem;
+
+      font-size:1.2em;
+      padding: 0.65em 0.8em;
+    }
+
+    @media (min-width: @screen-md-min) and (max-width: @screen-md-max)  {
+      margin-top: 4rem;
+    }
+
+    @media (min-width: @screen-lg-min) {
+      margin-top: 6rem;
+    }
+  }
+}
+
+#hp_referendum_importance {
+  background: #2c4d94;
+  color: #fff;
+  text-align: center;
+
+  font-size: 1.8rem;
+
+  h2 {
+    font-size: 1.8em;
+    margin: 0.8em 0 1em;
+  }
+
+  .icon-block {
+    .icon {
+      font-size: 5.4em;
+      margin-bottom: 0.3em;
+    }
+
+    .info {
+      font-size: 1.1em;
+    }
+  }
+
+  .btn {
+    background: #dc0f27;
+    font-size: 1.3em;
+    padding: 0.65em 0.8em;
+    margin: 0.7em 0 1.7em;
+
+    border: none;
+  }
+
+}
+
+#hp_ranks {
+  background: #fff;
+  color: #2c4d94;
+  font-size: 1.8rem;
+
+  h2 {
+    text-align: left;
+    font-size: 1.8em;
+    margin: 0.8em 0 1em;
+  }
+
+  .ruch-jow-google-map {
+    max-width: 100%;
+    height: 52rem;
+    width: 55rem;
+
+    @media (max-width: @screen-xs-max) {
+      height: 37rem;
+    }
+  }
+}
+
+#hp_news {
+  background: #fff;
+  color: #2c4d94;
+  font-size: 1.8rem;
+
+  #hp_jow_events {
+
+    .hp-table {
+      font-size: 1.4rem;
+
+      th, td {
+        text-align: center;
+        padding: 1rem 0.6rem;
+      }
+    }
+  }
+
+  #hp_announcements {
+    font-size: 1.4rem;
+
+    h4 {
+      margin: 0;
+      padding: 1rem 0.6rem;
+
+      font-size: 1em;
+
+      background: #2c4d94;
+      color: #fff;
+      font-weight: 600;
+
+      .sub-info {
+        float: right;
+      }
+    }
+
+    .content {
+      margin: 0.5rem 0 1.5rem;
+      color: #333;
+    }
+  }
+}
+
+#hp_people_of_jow {
+  background: #fff url('../images/layout/hp_people_background.jpg');
+  background-size: cover;
+
+  color: #2c4d94;
+  font-size: 1.8rem;
+
+  text-align: center;
+
+  h2 {
+    text-align: left;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .btn {
+    background: #dc0f27;
+    font-size: 1.3em;
+    padding: 0.65em 0.8em;
+    margin: 1.5em 0 5em;
+
+    border: none;
+  }
+}
+
+
+
+#hp_support {
+  background: #2c4d94;
+  color: #fff;
+  font-size: 1.8rem;
+
+  min-height: 500px;
+
+  .row > * {
+    padding-top: 0;
+    padding-bottom: @grid-gutter-width / 2;
+  }
+
+  h2 {
+    margin-bottom: 2rem;
+  }
+
+  .icons-wrapper {
+
+    @x: 0.5em;
+    @y: 0.85em;
+
+    position: relative;
+    font-size: 7em;
+
+    width: (5 * @x);
+    height: (3.3 * @y);
+
+    max-width: 100%;
+    margin: 0 auto;
+
+    .icon {
+      position: absolute;
+
+      line-height: 1;
+      display: block;
+
+      &.icon-1 {
+        top: 0;
+        left: (3 * @x);
+      }
+
+      &.icon-2 {
+        top: (1 * @y);
+        left: 0;
+      }
+
+      &.icon-3 {
+        top: (1 * @y);
+        left: (2 * @x);
+      }
+
+      &.icon-4 {
+        top: (2 * @y);
+        left: (1 * @x);
+      }
+    }
+
+  }
+
+  .map-bg {
+    margin-top: 2rem;
+    padding: 8rem 1rem 0;
+
+    opacity: 0.8;
+    background: url('../images/layout/poland_bg_blue.svg') no-repeat top;
+    background-size: contain;
+
+    width: 100%;
+
+    color: #fff;
+
+    font-size: 1.5rem;
+
+    .wrapper {
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+
+      h3 {
+        font-weight: bold;
+        font-size: 2em;
+        margin-bottom: 1em;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          position: relative;
+          padding-left: 1.2em;
+          margin-bottom: 0.65em;
+
+          font-size: 1.2em;
+
+          line-height: normal;
+
+          .ruch-jow-icon(@ruch-jow-icon-map);
+
+          &:before {
+            position: absolute;
+            left: 0;
+            top: 0.5em;
+
+            font-size: 0.666em;
+
+            color: #dc0f27;
+          }
+        }
+      }
+    }
+
+
+    @media (max-width: @screen-xs-max) {
+      padding-top: 4.5rem;
+      min-height: 43rem;
+    }
+
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+      min-height: 48rem;
+    }
+
+    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+      min-height: 48rem;
+    }
+
+    @media (min-width: @screen-lg-min) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+
+      min-height: 48rem;
+    }
+  }
+
+  .btns-wrapper {
+    text-align: center;
+    position: relative;
+    z-index: 10;
+  }
+
+  .btn {
+    background: #dc0f27;
+    font-size: 1.3em;
+    padding: 0.65em 0.8em;
+    margin: -4em 0 2em;
+
+    border: none;
+  }
+}
+
+#hp_challenges {
+  background: #fff;
+  color: #2c4d94;
+  font-size: 1.8rem;
+
+  text-align: center;
+
+  h2 {
+    text-align: left;
+  }
+
+  .counter-block {
+    color: #dc0f27;
+
+    min-height: 14.5em;
+
+    .icon {
+      line-height: 1;
+      display: block;
+      font-size: 7em;
+      min-height: 1em;
+    }
+
+    .info {
+      display: block;
+    }
+
+    .counter {
+      display: block;
+
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+  }
+
+
+  .btn {
+    background: #dc0f27;
+    font-size: 1.3em;
+    padding: 0.65em 0.8em;
+    margin: .5em 0 2em;
+
+    border: none;
+
+    z-index: 100;
+  }
+}
+
+
+#hp_other {
+
+  h2 {
+    margin-bottom: 1em;
+  }
+
+  > .container > .row:first-child {
+    @border: 1px solid #6a7bae;
+
+    > * {
+      //padding-bottom: floor(@grid-gutter-width/2);
+      margin-bottom: 1rem;
+
+      &:first-child {
+        @media (min-width: @screen-md-min) {
+          border-right: @border;
+        }
+
+        @media (max-width: @screen-sm-max) {
+          border-bottom: @border;
+        }
+      }
+    }
+
+    border-bottom: @border;
+  }
+
+  background: #2c4d94;
+  color: #fff;
+
+  .row > * {
+    padding-top: 0;
+  }
+
+  .video-element {
+    text-align: center;
+
+    iframe {
+      width: 100%;
+      min-height: 19.7rem;
+
+      @aspect: 5.625;
+
+      @media (max-width: @screen-xs-max) {
+        @width: 45rem;
+        max-width: @width;
+        height: floor(@aspect * @width)/10;
+      }
+
+      @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        @width: 63rem;
+        max-width: @width;
+        height: floor(@aspect * @width)/10;
+      }
+
+      @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        @width: 53rem;
+        max-width: @width;
+        height: floor(@aspect * @width)/10;
+      }
+
+      @media (min-width: @screen-lg-min) {
+        @width: 64rem;
+        max-width: @width;
+        height: floor(@aspect * @width)/10;
+      }
+    }
+  }
+
+  .img-wrapper {
+    text-align: center;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .btns-wrapper {
+    text-align: right;
+  }
+
+  .btn {
+    background: #dc0f27;
+    font-size: 1.3em;
+    padding: 0.65em 0.8em;
+    margin: 1.5em 0 0;
+
+    border: none;
+  }
+
+  .shop {
+
+    > * {
+      padding-bottom: 3rem;
+    }
+
+    .tshirt {
+      text-align: center;
+    }
+
+    .statement {
+      text-align: right;
+
+      h3 {
+        font-size: 4rem;
+        font-weight: normal;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+table.hp-table {
+  color: #fff;
+  border: none;
+
+  tr {
+    &:nth-child(even) {
+      background: #7389b8;
+
+      td, th {
+        border-right: 1px solid #8094be;
+      }
+    }
+
+    &:nth-child(odd) {
+      background: #2c4d94;
+
+      td, th {
+        border-right: 1px solid #405e9e;
+      }
+    }
+
+    td, th {
+      border: none;
+      font-weight: normal;
+
+      &:last-child {
+        border-right: none !important;
+      }
+    }
+  }
+
+
+}
+
+
 .row > * {
   padding-top: @grid-gutter-width / 2;
   padding-bottom: @grid-gutter-width / 2;
@@ -1735,7 +2359,6 @@ body {
 
 
 
-
 /*********** BODY ***********/
 body {
   margin-top: 0;
@@ -2138,7 +2761,8 @@ tbody.collapse.in {
   }
 
   hr {
-    margin: 0.2em
+    margin: 0.2em;
+    border-top-color: @ruch-jow-footer-color;
   }
 
   .copyright {

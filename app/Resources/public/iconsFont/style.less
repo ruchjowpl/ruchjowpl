@@ -2,17 +2,19 @@
 
 @font-face {
 	font-family: 'RuchJowIcons';
-	src:url('@{ruch-jow-if-font-path}ruchjowicons.eot?-ns8wwf');
-	src:url('@{ruch-jow-if-font-path}ruchjowicons.eot?#iefix-ns8wwf') format('embedded-opentype'),
-		url('@{ruch-jow-if-font-path}ruchjowicons.woff?-ns8wwf') format('woff'),
-		url('@{ruch-jow-if-font-path}ruchjowicons.ttf?-ns8wwf') format('truetype'),
-		url('@{ruch-jow-if-font-path}ruchjowicons.svg?-ns8wwf#icomoon') format('svg');
+	src:url('@{ruch-jow-if-font-path}ruchjowicons.eot?-ns1wwf8');
+	src:url('@{ruch-jow-if-font-path}ruchjowicons.eot?#iefix-ns1wwf8') format('embedded-opentype'),
+		url('@{ruch-jow-if-font-path}ruchjowicons.woff?-ns1wwf8') format('woff'),
+		url('@{ruch-jow-if-font-path}ruchjowicons.ttf?-ns1wwf8') format('truetype'),
+		url('@{ruch-jow-if-font-path}ruchjowicons.svg?-ns1wwf8#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 
 [class^="ruch-jow-icon-"], [class*=" ruch-jow-icon-"] {
-  .ruch-jow-icon();
+  &:before {
+    .ruch-jow-icon();
+  }
 }
 
 @ruch-jow-icon-facebook:        "\e620";
@@ -29,6 +31,22 @@
 @ruch-jow-icon-politician: "\e601";
 @ruch-jow-icon-rankings:   "\e602";
 @ruch-jow-icon-supporters: "\e603";
+@ruch-jow-icon-map:        "\e604";
+@ruch-jow-icon-billboard:  "\e608";
+@ruch-jow-icon-meeting:    "\e609";
+@ruch-jow-icon-leaflets:   "\e60a";
+
+@ruch-jow-icon-hex_jow:      "\e630";
+@ruch-jow-icon-hex_ok:       "\e631";
+@ruch-jow-icon-hex_victory:  "\e632";
+@ruch-jow-icon-hex_calendar: "\e633";
+@ruch-jow-icon-hex_mail:     "\e634";
+@ruch-jow-icon-hex_colport:  "\e635";
+@ruch-jow-icon-hex_leaflet:  "\e636";
+@ruch-jow-icon-hex_money:    "\e637";
+@ruch-jow-icon-hex_movie:    "\e638";
+@ruch-jow-icon-hex_people:   "\e639";
+@ruch-jow-icon-hex_poi:      "\e63a";
 
 
 
@@ -39,7 +57,7 @@
 
 
 .ruch-jow-icon-facebook:before {
-  content: "\e620";
+  content: @ruch-jow-icon-facebook;
 }
 .ruch-jow-icon-google_plus_alt:before {
   content:  @ruch-jow-icon-google_plus_alt;
@@ -80,6 +98,51 @@
 
 
 
+.ruch-jow-icon-hex_jow:before {
+  content: @ruch-jow-icon-hex_jow;
+}
+.ruch-jow-icon-hex_ok:before {
+  content: @ruch-jow-icon-hex_ok;
+}
+.ruch-jow-icon-hex_victory:before {
+  content: @ruch-jow-icon-hex_victory;
+}
+.ruch-jow-icon-hex_calendar:before {
+  content: @ruch-jow-icon-hex_calendar;
+}
+.ruch-jow-icon-hex_mail:before {
+  content: @ruch-jow-icon-hex_mail;
+}
+.ruch-jow-icon-hex_colport:before {
+  content: @ruch-jow-icon-hex_colport;
+}
+.ruch-jow-icon-hex_leaflet:before {
+  content: @ruch-jow-icon-hex_leaflet;
+}
+.ruch-jow-icon-hex_money:before {
+  content: @ruch-jow-icon-hex_money;
+}
+.ruch-jow-icon-hex_movie:before {
+  content: @ruch-jow-icon-hex_movie;
+}
+.ruch-jow-icon-hex_people:before {
+  content: @ruch-jow-icon-hex_people;
+}
+.ruch-jow-icon-hex_poi:before {
+  content: @ruch-jow-icon-hex_poi;
+}
+.ruch-jow-icon-billboard:before {
+  content: @ruch-jow-icon-billboard;
+}
+.ruch-jow-icon-meeting:before {
+  content: @ruch-jow-icon-meeting;
+}
+.ruch-jow-icon-leaflets:before {
+  content: @ruch-jow-icon-leaflets;
+}
+.ruch-jow-icon-map:before {
+  content: @ruch-jow-icon-map;
+}
 
 
 .ruch-jow-icon() {

@@ -184,19 +184,19 @@ assetic:
         ####### RuchJow ICON FONTS #######
         ruch_jow_icon_font_woff:
             inputs:
-                - '%kernel.root_dir%/Resources/public/iconsFont/fonts/icomoon.woff'
+                - '%kernel.root_dir%/Resources/public/iconsFont/fonts/RuchJowIcons.woff'
             output: fonts/ruchjowicons.woff
         ruch_jow_icon_font_ttf:
             inputs:
-                - '%kernel.root_dir%/Resources/public/iconsFont/fonts/icomoon.ttf'
+                - '%kernel.root_dir%/Resources/public/iconsFont/fonts/RuchJowIcons.ttf'
             output: fonts/ruchjowicons.ttf
         ruch_jow_icon_font_eot:
             inputs:
-                - '%kernel.root_dir%/Resources/public/iconsFont/fonts/icomoon.eot'
+                - '%kernel.root_dir%/Resources/public/iconsFont/fonts/RuchJowIcons.eot'
             output: fonts/ruchjowicons.eot
         ruch_jow_icon_font_svg:
             inputs:
-                - '%kernel.root_dir%/Resources/public/iconsFont/fonts/icomoon.svg'
+                - '%kernel.root_dir%/Resources/public/iconsFont/fonts/RuchJowIcons.svg'
             output: fonts/ruchjowicons.svg
 
         ####### FONTS (ROBOTO) #######
@@ -291,12 +291,34 @@ assetic:
 
         img_for_facebook:
             inputs:
-                - '%kernel.root_dir%/Resources/public/img/layout/imgForFacebook.jpg'
-            output: images/fb_img_v2.jpg
+                - '%kernel.root_dir%/Resources/public/img/layout/imgForFacebook.png'
+            output: images/fb_img.png
         img_for_twitter:
             inputs:
-                - '%kernel.root_dir%/Resources/public/img/layout/imgForTwitter.jpg'
-            output: images/twitter_img_v2.jpg
+                - '%kernel.root_dir%/Resources/public/img/layout/imgForTwitter.png'
+            output: images/twitter_img.png
+
+        img_homepage_poland_background:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/polandBg.svg'
+            output: images/layout/poland_bg.svg
+
+        img_homepage_poland_background_blue:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/polandBgBlue.svg'
+            output: images/layout/poland_bg_blue.svg
+
+        img_homepage_main_background:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/hp_main_background.jpg'
+            output: images/layout/hp_main_background.jpg
+
+        img_homepage_people_background:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/layout/hp_people_background.jpg'
+            output: images/layout/hp_people_background.jpg
+
+
 
         img_homepage_infographics:
             inputs:
@@ -410,6 +432,11 @@ assetic:
                 - '%kernel.root_dir%/Resources/public/img/misc/abc-jow-ebook.png'
             output: images/misc/abc-jow-ebook.png
 
+        misc_tshirt:
+            inputs:
+                - '%kernel.root_dir%/Resources/public/img/misc/tshirt.png'
+            output: images/misc/tshirt.png
+
         misc_ankieta_poparcia_wykres:
             inputs: ['%kernel.root_dir%/Resources/public/img/misc/ankieta_poparcia_wykres.png']
             output: images/misc/ankieta_poparcia_wykres.png
@@ -449,6 +476,18 @@ assetic:
         misc_urna:
             inputs: ['%kernel.root_dir%/Resources/public/img/misc/urna.png']
             output: images/misc/urna.png
+
+        ####### PEOPLE OF JOW #######
+        people_wojciech_blasiak:
+            inputs: ['%kernel.root_dir%/Resources/public/img/people/wojciech_blasiak.jpg']
+            output: images/people/wojciech_blasiak.jpg
+        people_tomasz_kazmierski:
+            inputs: ['%kernel.root_dir%/Resources/public/img/people/tomasz_kazmierski.jpg']
+            output: images/people/tomasz_kazmierski.jpg
+        people_patryk_halaczkiewicz:
+            inputs: ['%kernel.root_dir%/Resources/public/img/people/patryk_halaczkiewicz.jpg']
+            output: images/people/patryk_halaczkiewicz.jpg
+
 
 
         ####### OTHER MEDIA #######

@@ -1,384 +1,308 @@
 {{ '<script type="text/ng-template" id="homepage.html">' }}
 
     <div class="page">
-        <div class="container main">
 
-
-            <div class="row">
-                <div class="col-md-12">
-                    <article>
-                        <div class="page-block ranks-block" ng-controller="RanksCtrl">
-                            <div class="header">
-                                <h1>Budujemy ruch obywatelski. Organizujmy się, pokażmy, że jest nas wielu</h1>
-                                {#<div class="links">#}
-                                    {#<ul>#}
-                                        {#<li><a class="clickable" ng-class="{'active': isSelected('country')}" ng-click="setCurrentTU('country')">cały kraj</a></li>#}
-                                        {#<li><a class="clickable" ng-class="{'active': isSelected('my_region')}" ng-click="setCurrentTU('my_region')" ng-show="userRegion">moje województwo</a></li>#}
-                                        {#<li><a class="clickable" ng-class="{'active': isSelected('my_district')}" ng-click="setCurrentTU('my_district')" ng-show="userDistrict">mój powiat</a></li>#}
-                                        {#<li><a class="clickable" ng-class="{'active': isSelected('my_commune')}" ng-click="setCurrentTU('my_commune')" ng-show="userCommune">moja gmina</a></li>#}
-                                    {#</ul>#}
-                                {#</div>#}
-                            </div>
-                            <div class="referendum-block">
-                                <div class="col-md-8 col-small-padding referendum-block-left">
-                                    {% if daysToReferendum == 0 %}
-                                        Już <strong>dziś</strong><br/>
-                                        referendum 6 IX !<br/>
-                                    {% elseif daysToReferendum > 0 %}
-                                        Jeszcze <strong>{{ daysToReferendum }}</strong> dni<br/>
-                                        do referendum 6 IX !<br/>
-                                    {% else %}
-                                        Referendum 6 IX !<br/>
-                                    {% endif %}
-                                    <a class="btn" href="http://referendum15.pl">Dowiedz się więcej</a>
-                                    <a class="btn clickable ng-scope" ng-click="security.register()">Dołącz do nas</a>
-                                    <a class="btn" ui-sref="challenges.make_donation" ruch-jow-force-hash-href="">Wesprzyj</a>
-                                </div>
-                                <div class="col-md-4 col-small-padding referendum-block-right">
-                                    Zmieniajmy razem Polskę
-                                    <ul>
-                                        <li>
-                                            <a href="https://wspieram.ruchjow.pl/billbordy/" target="_blank">Sfinansuj billboard</a>
-                                            <span>Wystawiliśmy już 150 billboardów</span>
-                                        </li>
-                                        <li>
-                                            <a href="https://sklep.ruchjow.pl/index.php?id_category=17&controller=category" target="_blank">Wspomóż druk materiałów</a>
-                                            <span>Wysłaliśmy już 1 000 000 ulotek i broszur</span>
-                                        </li>
-                                        <li>
-                                            <a href="https://ruchjow.pl/#/challenges/organise_event" target="_blank">Zorganizuj prelekcję JOW</a>
-                                            <span>Zorganizowaliśmy już ponad 200 spotkań</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="row row-small-padding">
-                                <section class="col-md-9 col-small-padding">
-                                    <h2>Nasza aktywność</h2>
-                                    <div class="map-title">
-                                        <span class="active-territorial-unit">
-                                            <span ng-show="activeTerritorialUnit.type !== 'country'">
-                                                <span class="type">
-                                                    [[ ('tu.type.' + activeTerritorialUnit.type)|translate ]]
-                                                </span>
-                                                <span class="name">
-                                                    [[ activeTerritorialUnit.name ]]
-                                                </span>
-                                            </span>
-                                            {#<span class="name" ng-show="activeTerritorialUnit.type === 'country'" translate>#}
-                                                {#tu.whole_country#}
-                                            {#</span>#}
-                                        </span>
-                                        <span class="level-up clickable glyphicon glyphicon-chevron-up" ng-click="showParent()" ng-show="parent"></span>
+        <div id="hp_main_block">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6" id="referendum_counter">
+                        <h1>
+                            {% if daysToReferendum == 0 %}
+                                Już dziś<br/>
+                                <span class="subtitle">referendum 6.IX</span>
+                            {% elseif daysToReferendum > 0 %}
+                                Jeszcze {{ daysToReferendum }} dni<br/>
+                                <span class="subtitle">do referendum 6.IX</span>
+                            {% else %}
+                                Referendum 6.IX
+                            {% endif %}
+                        </h1>
+                        <div class="row btn-wrapper">
+                            <div class="col-sm-offset-2 col-sm-8 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10">
+                                <div class="row">
+                                    <div class=" col-sm-5">
+                                        <a class="btn clickable ng-scope" ng-click="security.register()">Dołącz</a>
                                     </div>
-                                    <div
-                                            ruch-jow-map
-                                            map-init-view="country"
-                                            markers-data="markersData"
-                                            other-markers-data="localGovMarkers"
-                                            active-territorial-unit="activeTerritorialUnit"
-                                            highlighted-territorial-unit="hiUnit"
-                                            class="ruch-jow-google-map"
-                                            options="{ minZoom: 6 }"
-                                            >
-                                        <ul class="map-legend">
-                                            <li>
-                                                <span class="img">{% image '@map_marker_star' %}<img src="{{ asset_url }}" />{% endimage %}</span>
-                                                - aktywność samorządów
-                                            </li>
-                                            <li>
-                                                <span class="img">{% image '@map_marker_referendum_point' %}<img src="{{ asset_url }}" />{% endimage %}</span>
-                                                - punkty referendalne
-                                            </li>
-                                            <li>
-                                                <span class="img">{% image '@map_marker_circle' %}<img src="{{ asset_url }}" />{% endimage %}</span>
-                                                - zaangażowanie regionów
-                                            </li>
-                                        </ul>
+                                    <div class="col-sm-offset-2 col-sm-5">
+                                        <a class="btn" ui-sref="challenges.make_donation" ruch-jow-force-hash-href="">Wesprzyj</a>
                                     </div>
-                                </section>
-                                <section class="col-md-3 col-small-padding">
-                                <div
-                                        ruch-jow-rank-table=""
-                                        ranking-obj="territorialUnitRanking"
-                                        name-column-title="[[ (territorialUnitRanking.type ? ('tu.type.' + territorialUnitRanking.type) : '')|translate ]]"
-                                        points-column-title="Punkty"
-                                        hide-points="true"
-                                        >
-                                    <a ng-click="setCurrentTU(row.unitType, row.unitId)" class="clickable">[[ row.name ]]</a>
-                                </div>
-
-                                <div
-                                        ruch-jow-rank-table=""
-                                        ranking-obj="userRanking"
-                                        name-column-title="Użytkownik"
-                                        points-column-title="Punkty"
-                                        hide-points="true"
-                                        ><a class="clickable" ng-click="$showModalProfile(row.nick)">[[ row.displayName ]]</a></div>
-
-                                <a ui-sref="ranks" ruch-jow-force-hash-href="" class="clickable pull-right" translate>zobacz wszystkie rankingi &raquo;</a>
-                            </section>
-                            </div>
-
-                            <div class="row row-small-padding">
-                                <div class="col-md-6 col-small-padding jow-events" ng-controller="JowEventsCtrl">
-                                    <h2>Wydarzenia</h2>
-                                    <div ng-init="getEvents(5)">
-                                        <table class="table rank-table">
-                                            <tr>
-                                                <th>Data</th>
-                                                <th>Godzina</th>
-                                                <th>Miejsce</th>
-                                                <th>Wydarzenie</th>
-                                                <th>Pokaż więcej</th>
-                                            </tr>
-                                            <tr ng-repeat="event in events">
-                                                <td>[[ event.date|date:'dd.MM.yyyy' ]]</td>
-                                                <td>[[ event.date|date:'HH:mm' ]]</td>
-                                                <td>[[ event.venue ]]</td>
-                                                <td>[[ event.title ]]</td>
-                                                <td><a href="[[ event.link ]]" target="_blank">więcej...</a></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <a ui-sref="jow_events" ruch-jow-force-hash-href="" class="more">wszystkie wydarzenia...</a>
-                                </div>
-                                <div class="col-md-6 col-small-padding announcements" ng-controller="AnnouncementsCtrl">
-                                    <h2>Komunikaty</h2>
-                                    <div ng-if="status === 'success' && !feed.length">
-                                        Brak komunikatów.
-                                    </div>
-
-                                    <div ng-if="status === 'success' && feed.length">
-                                        <div ng-repeat="item in feed" ng-if="status === 'success'" class="item">
-                                            <h3>
-                                                <span class="sub-info">[[ date(item.pubDate)|date:'dd.MM.yyyy HH:mm' ]]</span>
-                                                [[ item.title ]]
-                                            </h3>
-                                            <div ng-bind-html="description(item)"></div>
-                                        </div>
-                                    </div>
-                                    <div ng-if="status === 'error'">
-                                        Wystąpił nieoczekiwany błąd podczas pobierania komunikatów.
-                                    </div>
-                                    <div ng-if="status === 'loading'">
-                                        Wczytywanie...
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-
-            <div class="row" id="hp_join">
-                <div class="col-md-8" id="hp_join_statement">
-                    <p ng-show="!(security.currentUser && security.currentUser.username)">Dołącz do Ruchu Obywatelskiego na rzecz <strong>Jednomandatowych Okręgów Wyborczych</strong> w&nbsp;wyborach do&nbsp;<strong>Sejmu</strong>.</p>
-                    <p ng-show="security.currentUser && security.currentUser.username">Budujemy Ruch Obywatelski na rzecz <strong>Jednomandatowych Okręgów Wyborczych</strong> w&nbsp;wyborach do&nbsp;<strong>Sejmu</strong>.</p>
-                </div>
-                <div class="col-md-4" id="hp_join_statement">
-                    <button ng-show="!(security.currentUser && security.currentUser.username)" ng-click="security.register()">DOŁĄCZ</button>
-                    <button ng-show="security.currentUser && security.currentUser.username" ui-sref="challenges.make_donation" ruch-jow-force-hash-href="">Wesprzyj</button>
-                </div>
-            </div>
-
-
-
-            {#<div class="row" ng-if="security.currentUser && security.currentUser.username">#}
-                {#<div class="col-md-9">#}
-                    {#<div class="page-block title-block">#}
-                        {#<article>#}
-                            {#&#123;&#35;<div class="movie">&#35;&#125;#}
-                                {#&#123;&#35;<iframe width="350" height="197" src="//www.youtube.com/embed/nQKzDiqc4rQ" frameborder="0" allowfullscreen></iframe>&#35;&#125;#}
-                            {#&#123;&#35;</div>&#35;&#125;#}
-
-                            {#<div class="col-md-6 message">#}
-                                {#<h1>O co walczymy?</h1>#}
-                                {#<p>#}
-                                    {#Walczymy o <strong>Jednomandatowe Okręgi Wyborcze (JOW)</strong> w wyborach do Sejmu, <strong>na wzór brytyjski</strong>!#}
-                                    {#Chcemy posłów odpowiedzialnych przed wyborcami,#}
-                                    {#chcemy sprawnie zarządzanego państwa oraz urzędów i instytucji publicznych działających dla obywatela.#}
-                                    {#Ale zmiany nie zaczną politycy, musimy zrobić to sami.#}
-                                    {#Czas na działanie! Czas na <strong>Ruch JOW</strong>!#}
-                                {#</p>#}
-                                {#<p><a ui-sref="about" ruch-jow-force-hash-href="">czytaj więcej...</a></p>#}
-                            {#</div>#}
-
-                            {#<div class="col-md-6 movie">#}
-                                {#<iframe width="380" height="214" src="//www.youtube.com/embed/nQKzDiqc4rQ" frameborder="0" allowfullscreen></iframe>#}
-                            {#</div>#}
-                        {#</article>#}
-                    {#</div>#}
-                {#</div>#}
-                {#<div class="col-md-3" ruch-jow-link-block="'challenges.make_donation'">#}
-                     {#<div class="page-block support-block">#}
-                         {#<span class="img-support ruch-jow-icon-supporters"></span>#}
-                         {#Wspieraj nas finansowo i pomóż nam walczyć o zmianę ordynacji wyborczej#}
-                         {#<a class="btn btn-go" ui-sref="challenges.make_donation" ruch-jow-force-hash-href="">Wspieraj teraz</a>#}
-                     {#</div>#}
-                 {#</div>#}
-            {#</div>#}
-
-            {#<div class="row" ng-if="security.currentUser && security.currentUser.username">#}
-                {#<div class="col-md-12 homepage-infographics">#}
-                    {#&#123;&#35;<div class="page-block title-block homepage-infographics">&#35;&#125;#}
-                        {#<div class="col-md-4">#}
-                            {#{% image '@img_homepage_infographics_1_of_3' %}#}
-                            {#<img src="{{ asset_url }}" alt="Ruch JOW - 1. krok" />#}
-                            {#{% endimage %}#}
-                        {#</div>#}
-
-                        {#<div class="col-md-4">#}
-                            {#{% image '@img_homepage_infographics_2_of_3' %}#}
-                            {#<img src="{{ asset_url }}" alt="Ruch JOW - 2. krok" />#}
-                            {#{% endimage %}#}
-                        {#</div>#}
-
-                        {#<div class="col-md-4">#}
-                            {#{% image '@img_homepage_infographics_3_of_3' %}#}
-                            {#<img src="{{ asset_url }}" alt="Ruch JOW - 3. krok" />#}
-                            {#{% endimage %}#}
-                        {#</div>#}
-                    {#&#123;&#35;</div>&#35;&#125;#}
-                {#</div>#}
-            {#</div>#}
-
-
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="page-block ranks-info-block">
-                        <div class="support-votes col-md-4">
-                            <div class="ranks-info-element-wrapper">
-                                <div class="top"><span class="img"></span><span class="text">Jest nas już</span></div>
-                                <div class="content">
-                                    <div class="big">[[ getStatistics('basic.supportersCnt')|frNumberFormat ]]</div>
-                                    W ostatnim tygodniu [[ getStatistics('basic.supportersCnt7d')|frNumberFormat ]]
-                                </div>
-                            </div>
-                        </div>
-                        <div class="public-people col-md-4">
-                            <div class="ranks-info-element-wrapper">
-                                <div class="top">
-                                    <div class="text">[[ getStatistics('basic.localGovSupportCnt')|frNumberFormat ]]</div>
-                                    <span class="img"></span>
-                                </div>
-                                <div class="content">
-                                    Poparcie środowisk samorządowych
-                                </div>
-                            </div>
-                        </div>
-                        <div class="collected col-md-4">
-                            <div class="ranks-info-element-wrapper">
-                                <div class="top">
-                                    <span class="img"></span>
-                                    <span class="text">
-                                        Zebraliśmy już
-                                        <span class="big">[[ getStatistics('basic.donations')|frNumberFormat:'cash' ]]</span>
-                                    </span>
-                                </div>
-                                <div class="content">
-                                    w ostatnim tygodniu [[ getStatistics('basic.donations7d')|frNumberFormat:'cash' ]]
-                                    <a class="btn" ui-sref="challenges.make_donation">Wesprzyj akcję</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="row videos-block">
-                <div class="col-md-4 video-element">
-                    <iframe width="100%" src="//www.youtube.com/embed/xXZloNlcQfA" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <div class="col-md-4  video-element">
-                    <iframe width="100%" src="//www.youtube.com/embed/oB8GW6NuzgM" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <div class="col-md-4  video-element">
-                    <iframe width="100%" src="//www.youtube.com/embed/FMnVxes3n9U" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-
-            {#<div class="row">#}
-                {#<div class="col-md-12">#}
-                    {#<div class="quote-block">#}
-                        {#<div class="content">#}
-                            {#<div class="quote">Zacząłbym od reformy ordynacji wyborczej, a więc od wprowadzenia Jednomandatowych Okręgów Wyborczych. Usunęłoby to podstawową słabość obecnego systemu, jaką jest przerost partyjniactwa.</div>#}
-                            {#<div class="signature">Jan Nowak-Jeziorański (1914-2005) - legendarny kurier</div>#}
-                        {#</div>#}
-                        {#{% image output="/images/portrait.JNJ.jpg" '@RuchJowAppBundle/Resources/private/images/portrait.JNJ.jpg' %}#}
-                            {#<img class="image" src="{{ asset_url }}" alt="Jan Nowak-Jeziorański" />#}
-                        {#{% endimage %}#}
-                    {#</div>#}
-                {#</div>#}
-            {#</div>#}
-
-            <div class="row">
-                <div class="col-md-12">
-                    <article>
-                        <div class="abc-jow-guide-block">
-                            <div class="row">
-                                <div class="col-md-4 guide-img">
-                                    {% image '@misc_abc_jow' %}<img src="{{ asset_url }}" alt="przewodnik JOW" />{% endimage %}
-                                </div>
-                                <div class="col-md-8">
-                                    <h1>Pobierz przewodnik i poznaj JOWy</h1>
-                                    <ul>
-                                        <li>Bezpłatne kompendium wiedzy o JOWach</li>
-                                        <li>Wszystko w jednym i przystępnym ebooku</li>
-                                        <li>Dowiesz się kim jesteśmy i o co walczymy</li>
-                                    </ul>
-                                    <a class="btn btn-go"
-                                       href="{{ asset('res/przewodnik-jow.pdf') }}"
-                                       target="_blank"
-                                       ng-click="ruchJowGoogleAnalytics('send', 'event', { eventCategory: 'BroszuraJow', eventAction: 'Pobranie', eventValue: 1});">Pobierz</a>
+                    <div class="col-md-6">
+                        <div class="map-bg">
+                            <h2>Zmieniamy razem Polskę</h2>
+                            <p class="subtitle">Do tej pory sfinansowaliście:</p>
+                            <div class="icon-wrapper">
+                                <div class="row row-small-padding">
+                                    <div class="col-xs-4 col-small-padding">
+                                        <div class="icon ruch-jow-icon-billboard"></div>
+                                        <div class="number">100</div>
+                                        <div class="info">billboardów</div>
+                                    </div>
+                                    <div class="col-xs-4 col-small-padding">
+                                        <div class="icon ruch-jow-icon-leaflets"></div>
+                                        <div class="number">1 000 000</div>
+                                        <div class="info">ulotek i broszur</div>
+                                    </div>
+                                    <div class="col-xs-4 col-small-padding">
+                                        <div class="icon ruch-jow-icon-meeting"></div>
+                                        <div class="number">190</div>
+                                        <div class="info">spotkań</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="page-block news-block">
-                        <div class="header">
-                            <h1>Aktualności</h1>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <iframe
-                                    src="https://www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FspolecznoscJOW&amp;width&amp;height=657&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=true&amp;show_border=false"
-                                    scrolling="no"
-                                    frameborder="0"
-                                    allowTransparency="true"
-                                    class="facebook-likebox"
-                                    style="width: 100%">
-                                </iframe>
-                            </div>
-                            <div class="col-md-6">
-                                <a ruch-jow-twitter-widget="" class="twitter-timeline" href="https://twitter.com/spolecznoscJOW" data-widget-id="551374304236306434">Tweety użytkownika @spolecznoscJOW </a>
-                            </div>
+                            {#<div class="helper"></div>#}
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div id="hp_referendum_importance">
+
+            <div class="container">
+                <h2>Dlaczego referendum jest tak ważne?</h2>
+                <div class="row">
+                    <div class="col-sm-4 icon-block">
+                        <div class="icon ruch-jow-icon-hex_jow"></div>
+                        <div class="info">JOW to poseł odpowiedzialny bezpośrednio przed wyborcą, nie szefem partii</div>
+                    </div>
+                    <div class="col-sm-4 icon-block">
+                        <div class="icon ruch-jow-icon-hex_victory"></div>
+                        <div class="info">To jedyna szansa na prawdziwą zmianę systemu i wymianę polityków</div>
+                    </div>
+                    <div class="col-sm-4 icon-block">
+                        <div class="icon ruch-jow-icon-hex_ok"></div>
+                        <div class="info">To głosowanie na ludzi, których się zna, a nie przypadkowe nazwiska z listy</div>
+                    </div>
+                </div>
+                <a class="btn" href="http://referendum15.pl" target="_blank">Zobacz więcej</a>
+            </div>
+
+        </div>
+
+        <div id="hp_ranks">
+
+            <div class="container" ng-controller="RanksCtrl">
+                <h2>Zobacz co się dzieje w Twoim regionie</h2>
+
+                <div
+                        ruch-jow-map
+                        map-init-view="country"
+                        markers-data="markersData"
+                        other-markers-data="localGovMarkers"
+                        active-territorial-unit="activeTerritorialUnit"
+                        highlighted-territorial-unit="hiUnit"
+                        class="ruch-jow-google-map"
+                        options="{ minZoom: 5 }"
+                        >
+                    <ul class="map-legend">
+                        <li>
+                            <span class="img">{% image '@map_marker_star' %}<img src="{{ asset_url }}" />{% endimage %}</span>
+                            - aktywność samorządów
+                        </li>
+                        <li>
+                            <span class="img">{% image '@map_marker_referendum_point' %}<img src="{{ asset_url }}" />{% endimage %}</span>
+                            - punkty referendalne
+                        </li>
+                        <li>
+                            <span class="img">{% image '@map_marker_circle' %}<img src="{{ asset_url }}" />{% endimage %}</span>
+                            - zaangażowanie regionów
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="hp_news">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6" id="hp_jow_events" ng-controller="JowEventsCtrl">
+                        <h3>Wydarzenia</h3>
+                        <div ng-init="getEvents(5)">
+                            <table class="table hp-table">
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Godzina</th>
+                                    <th>Miejsce</th>
+                                    <th>Wydarzenie</th>
+                                    <th>Pokaż więcej</th>
+                                </tr>
+                                <tr ng-repeat="event in events">
+                                    <td>[[ event.date|date:'dd.MM.yyyy' ]]</td>
+                                    <td>[[ event.date|date:'HH:mm' ]]</td>
+                                    <td>[[ event.venue ]]</td>
+                                    <td>[[ event.title ]]</td>
+                                    <td><a href="[[ event.link ]]" target="_blank">więcej...</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <a ui-sref="jow_events" ruch-jow-force-hash-href="" class="more">wszystkie wydarzenia...</a>
+                    </div>
+                    <div class="col-md-6" id="hp_announcements" ng-controller="AnnouncementsCtrl">
+                        <h3>Komunikaty</h3>
+                        <div ng-if="status === 'success' && !feed.length">
+                            Brak komunikatów.
+                        </div>
+
+                        <div ng-if="status === 'success' && feed.length">
+                            <div ng-repeat="item in feed" ng-if="status === 'success'" class="item">
+                                <h4>
+                                    <span class="sub-info">[[ date(item.pubDate)|date:'dd.MM.yyyy HH:mm' ]]</span>
+                                    [[ item.title ]]
+                                </h4>
+                                <div ng-bind-html="description(item)" class="content"></div>
+                            </div>
+                        </div>
+                        <div ng-if="status === 'error'">
+                            Wystąpił nieoczekiwany błąd podczas pobierania komunikatów.
+                        </div>
+                        <div ng-if="status === 'loading'">
+                            Wczytywanie...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="hp_people_of_jow">
+            <div class="container">
+                <h2>Ludzie ruchu JOW</h2>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        {% image '@people_wojciech_blasiak' %}
+                            <img src="{{ asset_url }}" alt="dr Wojciech Błasiak" />
+                        {% endimage %}
+                    </div>
+                    <div class="col-md-4">
+                        {% image '@people_tomasz_kazmierski' %}
+                            <img src="{{ asset_url }}" alt="prof. Tomasz Kaźmierski" />
+                        {% endimage %}
+                    </div>
+                    <div class="col-md-4">
+                        {% image '@people_patryk_halaczkiewicz' %}
+                            <img src="{{ asset_url }}" alt="Patryk Hałaczkiewicz" />
+                        {% endimage %}
+                    </div>
+                </div>
+
+                <a class="btn" href="https://ludzie.ruchjow.pl/" target="_blank">Poznaj nas</a>
+
+            </div>
+        </div>
 
 
-            {#<div class="row">#}
-                {#<div class="col-md-12">#}
-                    {#<div class="page-block disqus-block">#}
-                        {#<div class="header">#}
-                            {#<h1>Wyraź swoją opinię</h1>#}
-                        {#</div>#}
+        <div id="hp_support">
+            <div class="container">
 
-                        {#<div id="disqus_thread" ruch-jow-disqus=""></div>#}
-                        {#<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>#}
-                    {#</div>#}
-                {#</div>#}
-            {#</div>#}
+                <div class="row">
+                    <div class="col-md-5">
+                        <h2>Wsparcie finansowe</h2>
+                        <div class="icons-wrapper">
+                            <i class="icon icon-1 ruch-jow-icon-hex_movie"></i>
+                            <i class="icon icon-2 ruch-jow-icon-hex_victory"></i>
+                            <i class="icon icon-3 ruch-jow-icon-hex_mail"></i>
+                            <i class="icon icon-4 ruch-jow-icon-hex_jow"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="map-bg">
+                            <div class="wrapper">
+                                <h3>Dzięki waszym wpłatom:</h3>
+                                <ul>
+                                    <li class="ruch-jow-icon-facebook">wysłaliśmy pół miliona drukowanych materiałów;</li>
+                                    <li class="ruch-jow-icon-facebook">stworzyliśmy kilkadziesiąt filmów i animacji o JOW;</li>
+                                    <li class="ruch-jow-icon-facebook">wsparliśmy organizację kilkuset spotkań;</li>
+                                    <li class="ruch-jow-icon-facebook">wspieramy działalność setek wolontariuszy;</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btns-wrapper">
+                    <a class="btn" href="https://ludzie.ruchjow.pl/" target="_blank">Poznaj nas</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="hp_challenges">
+            <div class="container">
+                <h2>Podejmij wyzwanie i promuj JOW-y</h2>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-4 col-md-2 counter-block">
+                        <i class="icon ruch-jow-icon-hex_people"></i>
+                        <span class="info">Jest już nas</span>
+                        <span class="counter">[[ getStatistics('basic.supportersCnt')|frNumberFormat ]]</span>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-md-2 counter-block">
+                        <i class="icon ruch-jow-icon-hex_people"></i>
+                        <span class="info">Poparcie środowisk samorządowych</span>
+                        <span class="counter">[[ getStatistics('basic.localGovSupportCnt')|frNumberFormat ]]</span>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-md-2 counter-block">
+                        <i class="icon ruch-jow-icon-hex_money"></i>
+                        <span class="info">Zebraliśmy już</span>
+                        <span class="counter">[[ getStatistics('basic.donations')|frNumberFormat:'cash' ]]</span>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-md-2 counter-block">
+                        <i class="icon ruch-jow-icon-hex_billboard"></i>
+                        <span class="info">Billboardy</span>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-md-2 counter-block">
+                        <i class="icon ruch-jow-icon-hex_meeting"></i>
+                        <span class="info">Spotkania</span>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-md-2 counter-block">
+                        <i class="icon ruch-jow-icon-hex_poi"></i>
+                        <span class="info">Punkty referendalne</span>
+                    </div>
+                </div>
+                <div class="btns-wrapper">
+                    <a class="btn" href="https://ruchjow.pl/#/challenges/make_donation" target="_blank">Wesprzyj</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="hp_other">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h2>Odwiedź społeczność JOW</h2>
+                        <div class="video-element">
+                            <iframe width="100%" src="//www.youtube.com/embed/xXZloNlcQfA" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <h2>Pobierz przewodnik i poznaj JOW-y</h2>
+                        <div class="img-wrapper">
+                            {% image '@misc_abc_jow' %}<img src="{{ asset_url }}" alt="przewodnik JOW" />{% endimage %}
+                        </div>
+                        <div class="btns-wrapper">
+                            <a class="btn"
+                               href="http://uniqpolimedia.pl/klienci/jow/broszura%20jow%20pw.pdf"
+                               target="_blank">Pobierz</a>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Sklep</h2>
+                <div class="row shop">
+                    <div class="col-sm-12 col-md-6 tshirt">
+                        {% image '@misc_tshirt' %}<img src="{{ asset_url }}" alt="koszulka" />{% endimage %}
+                    </div>
+                    <div class="col-sm-offset-1 col-sm-10 col-md-offset-0 col-md-5 statement">
+                        <h3>
+                            Wybierz jeden z wielu gadżetów z naszym logo i
+                            <strong>wesprzyj ruch JOW!</strong>
+                        </h3>
+
+                        <a class="btn" href="https://sklep.ruchjow.pl/index.php" target="_blank">Przejdź do sklepu</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
