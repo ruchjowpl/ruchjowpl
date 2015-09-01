@@ -14,6 +14,9 @@ use RuchJow\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Facebook\Exceptions\FacebookResponseException;
+use Facebook\Exceptions\FacebookSDKException;
+use Facebook\Facebook;
 
 /**
  * Class DefaultController
@@ -970,6 +973,72 @@ class UserController extends ModelController
         $user = $this->getUserManager()->findUserByEmail($email);
         if ($user) {
             return $this->createJsonResponse(array('status' => 'exist_email'));
+        }
+
+        return $this->createJsonResponse(array('status' => 'success'));
+    }
+
+
+    /**
+     * @Route("/ajax/connect_facebook", name="user_ajax_connect_facebook", options={"expose"=true}, condition="request.isXmlHttpRequest()")
+     *
+     * @return Response
+     */
+    public function connectFacebookAction()
+    {
+        $error = $this->validateRequestJson(
+            array(
+                'type' => 'array',
+                'children' => array(
+                    'userID' => array(
+                        'type' => 'string',
+                        'optional' => false,
+                    ),
+                    'accessToken' => array(
+                        'type' => 'string',
+                        'optional' => false,
+                    ),
+                ),
+            ),
+            $data
+        );
+
+        if ($error) {
+            return $this->createJsonErrorResponse($error['message']);
+        }
+
+        $container = $this->container;
+        $fb = new Facebook([
+            'app_id' => $container->getParameter('facebook_client_id'),
+            'app_secret' => $container->getParameter('facebook_client_secret'),
+            'default_graph_version' => 'v2.4',
+        ]);
+
+        try {
+            // Returns a `Facebook\FacebookResponse` object
+            $response = $fb->get('/me?fields=id', $data['accessToken']);
+        } catch(FacebookResponseException $e) {
+            return $this->createJsonErrorResponse('Graph returned an error: ' . $e->getMessage());
+        } catch(FacebookSDKException $e) {
+            return $this->createJsonErrorResponse('Facebook SDK returned an error: ' . $e->getMessage());
+        }
+
+        $graphUser = $response->getGraphUser();
+
+        if ($graphUser->getId() != $data['userID']) {
+            return $this->createJsonErrorResponse('Invalid userID');
+        }
+        /** @var User $user */
+        $user = $this->getUser();
+        if ($user) {
+            $user->setFacebookId($graphUser->getId());
+
+            $om = $this->getDoctrine()->getManager();
+
+            $om->persist($user);
+            $om->flush();
+        } else {
+            return $this->createJsonErrorResponse('User not logged in.');
         }
 
         return $this->createJsonResponse(array('status' => 'success'));

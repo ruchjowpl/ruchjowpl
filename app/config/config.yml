@@ -236,7 +236,7 @@ ruch_jow_angular_security:
 
 hwi_oauth:
     connect:
-        confirmation: true
+        confirmation: false
         account_connector: ruch_jow_user.oauth_user_provider
     firewall_name: main
 
@@ -245,7 +245,7 @@ hwi_oauth:
         username_iterations: 30
         # mapping between resource owners (see below) and properties
         properties:
-            facebook: facebookId
+            facebook: facebook_id
     resource_owners:
         facebook:
             type:          facebook

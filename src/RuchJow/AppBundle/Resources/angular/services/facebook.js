@@ -9,9 +9,9 @@
             $get: $get
         };
 
-        $get.$inject = ['$q', '$window', 'ruchJowParameters'];
+        $get.$inject = ['$q', '$http', '$window', 'ruchJowParameters'];
 
-        function $get($q, $window, ruchJowParameters) {
+        function $get($q, $http, $window, ruchJowParameters) {
             var service = {
                 fb: null,
                 checkLogin: checkLoginState,
@@ -75,6 +75,34 @@
                 }).then(function (response) {
                     console.log('Facebook login response:');
                     console.log(response);
+
+                    if (response.authResponse) {
+                        var canceler = $q.defer();
+
+                        var config = {
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            method: 'POST',
+                            url: Routing.generate('user_ajax_connect_facebook'),
+                            data: JSON.stringify({
+                                'userID' : response.authResponse.userID,
+                                'accessToken': response.authResponse.accessToken,
+                            }),
+                            timeout: canceler.promise
+                        };
+
+                        var promise = $http(config).then(function (response) {
+                            return response.data;
+                        });
+
+                        promise.canceler = canceler;
+
+                        //console.log(Routing.generate('hwi_oauth_service_redirect', {service : "facebook"}));
+                        //document.location = Routing.generate('hwi_oauth_service_redirect', {service : "facebook"});
+                    } else {
+                        alert('Cancelled.');
+                    }
                 });
             }
 

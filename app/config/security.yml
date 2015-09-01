@@ -65,7 +65,6 @@ security:
         - { path: ^/login/facebook$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/connect$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/parameters.js$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/users/register$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/users/register/confirm$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
@@ -85,7 +84,8 @@ security:
 
 #
 #        # APP
-        - { path: ^/$,                                    role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/parameters.js$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
         # APP markers
         - { path: ^/markers/cif/all$, role: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -127,6 +127,7 @@ security:
         - { path: ^/cif/user/ajax/invite_friends$,         role: ROLE_REGISTERED_USER }
         - { path: ^/cif/user/ajax/remove/account$,         role: ROLE_REGISTERED_USER }
         - { path: ^/cif/user/ajax/remove/account/confirm$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cif/user/ajax/connect_facebook$,       role: ROLE_REGISTERED_USER }
 
         # STATISTICS
         - { path: ^/cif/statistics/basic_statistics$, role: IS_AUTHENTICATED_ANONYMOUSLY }

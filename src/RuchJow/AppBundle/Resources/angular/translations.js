@@ -46,6 +46,13 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
                 socialLinks: { label: 'Linki do Twoich profili społecznościowych' },
                 about: { label: 'Kilka słów o Tobie' }
             },
+
+            userDataFacebookConnect: {
+                label: 'Połączenie z kontem facebook',
+                    'connect': {
+                    label: 'Połącz z kontem facebook'
+                }
+            },
             userDataDeleteAccount: {
                 label: 'Usunięcie konta',
                 'delete': {

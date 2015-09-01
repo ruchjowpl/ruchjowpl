@@ -729,7 +729,8 @@
         <label translate="">userDataFacebookConnect.label</label>
 
         <div class="content">
-            <a class="btn clickable" ng-click="facebook.login()">Facebook</a>
+            {# TODO: check if user is alraeady connected #}
+            <a class="btn clickable" ng-click="facebook.login()"> [[ 'userDataDeleteAccount.connect.label' | translate ]]</a>
 
             <div id="status">
             </div>

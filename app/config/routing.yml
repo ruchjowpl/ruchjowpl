@@ -23,9 +23,9 @@ fos_user_security:
 #    prefix: /profile
 
 #HWIOAuthBundle routes
-#hwi_oauth_security:
-#    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-#    prefix: /login
+hwi_oauth_security:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix: /login
 
 hwi_oauth_connect:
     resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
@@ -34,6 +34,8 @@ hwi_oauth_connect:
 hwi_oauth_redirect:
     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
     prefix:   /connect
+    options:
+        expose: true
 
 facebook_login:
     pattern: /login/check-facebook
