@@ -427,6 +427,41 @@ body {
   }
 }
 
+/*********** New Layout ***********/
+.page-block-std, .page-block-inv {
+  .container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    > h1, > h2 {
+      &:first-child {
+        margin-top: 0;
+      }
+      font-size: 1.8rem;
+    }
+  }
+
+  h1 {
+    font-size: 2.1rem;
+    margin: 1.4rem 0 1rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    margin: 1.4rem 0 1rem;
+  }
+}
+
+.page-block-std {
+  background: @ruch-jow-main-bg-color;
+  color: @ruch-jow-main-color;
+}
+
+.page-block-inv {
+  background: @ruch-jow-main-inv-bg-color;
+  color: @ruch-jow-main-inv-color;
+}
+
 
 /*********** HOMEPAGE ***********/
 #hp_main_block {
@@ -1034,8 +1069,6 @@ body {
 }
 
 
-
-
 #hp_social {
     background: #fff;
     color: #2c4d94;
@@ -1483,6 +1516,49 @@ table.hp-table {
 
     .btn {
       .btn(#419fdd, #3685b9, #fff);
+    }
+  }
+}
+
+#videos_page {
+
+  h2.main-title {
+    font-size: 2.3rem;
+    font-weight: 600;
+  }
+
+  .video-element {
+    text-align: center;
+
+    iframe {
+      width: 100%;
+      min-height: 10rem;
+
+      @aspect: 5.6;
+
+      @media (max-width: @screen-xs-max) {
+        @width: 40rem;
+        max-width: @width;
+        height: floor(@aspect * @width)/10;
+      }
+
+      @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        @width: 34.2rem;
+        max-width: @width;
+        height: floor(@aspect * @width)/10;
+      }
+
+      @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        @width: 28.9rem;
+        max-width: @width;
+        height: floor(@aspect * @width)/10;
+      }
+
+      @media (min-width: @screen-lg-min) {
+        @width: 35.6rem;
+        max-width: @width;
+        height: floor(@aspect * @width)/10;
+      }
     }
   }
 }

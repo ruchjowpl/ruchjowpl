@@ -1,0 +1,34 @@
+{% set videos = [{
+    title: 'REFERENDUM',
+    title_class: 'main-title',
+    links: ['FMnVxes3n9U']
+}, {
+title: 'KOMENTARZE',
+links: ['B415mjCPS6A', 'HnlwXjST0SU', 'xXZloNlcQfA', 'yqnymmdJDwc', 'IBbIvytHYqQ']
+}, {
+title: 'WYDARZENIA',
+links: ['raX3S3FxbmM', 'O3yz3j4vRG4']
+}, {
+title: 'WYKŁADY',
+links: ['8DMeIW6iP0I']
+}, {
+title: 'ANIMACJE',
+links: ['_54-wT9KPc0', 'JiV8dgY8ckc', 'Mu_hxeyPtf4']
+}]  %}
+
+<div id="videos_page">
+{% for item in videos %}
+<div class="page-block-std">
+    <div class="container">
+        <h2 {% if item.title_class is defined %}class="{{ item.title_class }}"{% endif %}>{{ item.title }}</h2>
+        <div class="row">
+            {% for link in item.links %}
+            <div class="col-sm-6 col-md-4 video-element">
+                <iframe width="100%" src="//www.youtube.com/embed/{{ link }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>

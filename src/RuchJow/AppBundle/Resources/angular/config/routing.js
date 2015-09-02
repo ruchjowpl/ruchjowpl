@@ -157,6 +157,12 @@
                     templateUrl: ruchJowPartialsProvider.getUrl('jowEvents','app'),
                     controller: 'JowEventsCtrl'
                 })
+
+                .state('videos', {
+                    url: '/videos',
+                    templateUrl: ruchJowPartialsProvider.getUrl('videos','app'),
+                    controller: 'JowEventsCtrl'
+                })
             ;
 
         }])

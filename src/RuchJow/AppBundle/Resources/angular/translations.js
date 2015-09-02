@@ -344,6 +344,7 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
                 about: 'O akcji',
                 events: 'Wydarzenia',
                 distribute_leaflets: 'Materiały',
+                videos: 'Video',
                 jow_pl: 'jow.pl',
                 faq: 'FAQ',
                 shop: 'Sklep',
