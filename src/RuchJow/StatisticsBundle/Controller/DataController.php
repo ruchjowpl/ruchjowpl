@@ -33,7 +33,8 @@ class DataController extends ModelController
         $paymentManager   = $this->getPaymentManager();
 
         /** @var SupportRepository $localGovSupportRepo */
-        $localGovSupportRepo = $this->getDoctrine()->getManager()->getRepository('RuchJowLocalGovBundle:Support');
+        $localGovSupportRepo  = $this->getRepository('RuchJowLocalGovBundle:Support');
+        $referendumPointsRepo = $this->getRepository('RuchJowAppBundle:ReferendumPoint');
 
 
         $data['supportersCnt']         = $statisticManager->getStatisticValue(RuchJowStatisticsBundle::STAT_SUPPORTING_USERS, 0);
@@ -43,6 +44,7 @@ class DataController extends ModelController
 //        $data['supportersLocalGovCnt7d'] = $userManager->getActiveUsersCount('P7D', true);
 
         $data['localGovSupportCnt'] = $localGovSupportRepo->count();
+        $data['referendumPointsCnt'] = $referendumPointsRepo->count();
 
         $data['donations']    = $statisticManager->getStatisticValue(RuchJowStatisticsBundle::STAT_DONATIONS, 0);
         $data['donationsCnt'] = $statisticManager->getStatisticValue(RuchJowStatisticsBundle::STAT_DONATIONS_COUNT, 0);

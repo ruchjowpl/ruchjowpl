@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'RuchJowIcons';
-	src:url('fonts/RuchJowIcons.eot?lig8ax');
-	src:url('fonts/RuchJowIcons.eot?#iefixlig8ax') format('embedded-opentype'),
-		url('fonts/RuchJowIcons.ttf?lig8ax') format('truetype'),
-		url('fonts/RuchJowIcons.woff?lig8ax') format('woff'),
-		url('fonts/RuchJowIcons.svg?lig8ax#RuchJowIcons') format('svg');
+	src:url('fonts/RuchJowIcons.eot?-j6dmqj');
+	src:url('fonts/RuchJowIcons.eot?#iefix-j6dmqj') format('embedded-opentype'),
+		url('fonts/RuchJowIcons.ttf?-j6dmqj') format('truetype'),
+		url('fonts/RuchJowIcons.woff?-j6dmqj') format('woff'),
+		url('fonts/RuchJowIcons.svg?-j6dmqj#RuchJowIcons') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -121,4 +121,7 @@
 }
 .ruch-jow-icon-hex_map_o:before {
 	content: "\e63f";
+}
+.ruch-jow-icon-hex_politician:before {
+	content: "\e640";
 }
