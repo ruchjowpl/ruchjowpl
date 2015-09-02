@@ -7,13 +7,17 @@
                 <div class="row">
                     <div class="col-md-6" id="referendum_counter">
                         <h1>
-                            {% if daysToReferendum == 0 %}
-                                Już dziś<br/>
-                                <span class="subtitle">referendum 6 IX</span>
-                            {% elseif daysToReferendum > 0 %}
+                            {% if daysToReferendum > 1 %}
                                 Jeszcze {{ daysToReferendum }} dni<br/>
                                 <span class="subtitle">do referendum 6 IX</span>
+                            {% elseif daysToReferendum == 1 %}
+                                Już jutro<br/>
+                                <span class="subtitle">referendum 6 IX</span>
+                            {% elseif daysToReferendum == 0 %}
+                                Już dziś<br/>
+                                <span class="subtitle">referendum 6 IX</span>
                             {% else %}
+                                {# Tekst po referendum#}
                                 Referendum 6 IX
                             {% endif %}
                         </h1>
