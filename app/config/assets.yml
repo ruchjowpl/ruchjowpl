@@ -266,27 +266,15 @@ assetic:
 #            inputs:
 #                - '%kernel.root_dir%/Resources/public/img/layout/logo.svg'
 #            output: images/layout/logo.svg
-        img_logo4:
-            inputs:
-                - '%kernel.root_dir%/Resources/public/img/layout/logo4_75.png'
-            output: images/layout/logo4.png
-        img_logo3:
-            inputs:
-                - '%kernel.root_dir%/Resources/public/img/layout/newLogo75.png'
-            output: images/layout/logo3.png
-        img_logo2:
-            inputs:
-                - '%kernel.root_dir%/Resources/public/img/layout/logo3_75.png'
-            output: images/layout/logo2.png
         img_logo:
             inputs:
 #                - '%kernel.root_dir%/Resources/public/img/layout/logo.png'
-                - '%kernel.root_dir%/Resources/public/img/layout/logo3.png'
+                - '%kernel.root_dir%/Resources/public/img/layout/logo4_47.png'
             output: images/layout/logo.png
-        img_logo_kukiz:
-            inputs:
-                - '%kernel.root_dir%/Resources/public/img/layout/logo_kukiz_small.png'
-            output: images/layout/logo_kukiz.png
+#        img_logo_kukiz:
+#            inputs:
+#                - '%kernel.root_dir%/Resources/public/img/layout/logo_kukiz_small.png'
+#            output: images/layout/logo_kukiz.png
 
 
         img_for_facebook:

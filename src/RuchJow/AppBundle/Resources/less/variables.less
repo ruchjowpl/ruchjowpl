@@ -31,6 +31,11 @@
 
 @ruch-jow-body-bg-color: #eaedf1;
 
+@ruch-jow-body-main-bg-color: #fff;
+@ruch-jow-body-main-color: #2c4d94;
+@ruch-jow-body-inv-bg-color: #2c4d94;
+@ruch-jow-body-inv-color: #fff;
+
 /****** FOOTER *******/
 @ruch-jow-footer-bg-color: #fff;
 @ruch-jow-footer-color: #000;
@@ -39,11 +44,12 @@
 
 /****** NAVBAR *******/
 
-@ruch-jow-navbar-height:              93px;
-@ruch-jow-navbar-font-size:           1.5em;
+@ruch-jow-navbar-height:              62px;
+@ruch-jow-navbar-font-size:           1.5rem;
+@ruch-jow-navbar-font-weight:         500;
 
-@ruch-jow-navbar-color:               #fff;
-@ruch-jow-navbar-bg-color:                  @ruch-jow-blue-dark;
+@ruch-jow-navbar-color:               @ruch-jow-body-inv-color;
+@ruch-jow-navbar-bg-color:            @ruch-jow-body-inv-bg-color;
 
 @ruch-jow-navbar-link-color:          @ruch-jow-navbar-color;
 
@@ -57,8 +63,8 @@
 @ruch-jow-navbar-link-disabled-bg:    #transparent;
 
 // Links separator
-@ruch-jow-navbar-links-separator-color1: lighten(@ruch-jow-navbar-bg-color, 10%);
-@ruch-jow-navbar-links-separator-color2: darken(@ruch-jow-navbar-bg-color, 10%);
+@ruch-jow-navbar-links-separator-color1: transparent; // lighten(@ruch-jow-navbar-bg-color, 10%);
+@ruch-jow-navbar-links-separator-color2: transparent; // darken(@ruch-jow-navbar-bg-color, 10%);
 
 
 

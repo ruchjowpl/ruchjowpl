@@ -9,21 +9,21 @@
                         <h1>
                             {% if daysToReferendum == 0 %}
                                 Już dziś<br/>
-                                <span class="subtitle">referendum 6.IX</span>
+                                <span class="subtitle">referendum 6 IX</span>
                             {% elseif daysToReferendum > 0 %}
                                 Jeszcze {{ daysToReferendum }} dni<br/>
-                                <span class="subtitle">do referendum 6.IX</span>
+                                <span class="subtitle">do referendum 6 IX</span>
                             {% else %}
-                                Referendum 6.IX
+                                Referendum 6 IX
                             {% endif %}
                         </h1>
                         <div class="row btn-wrapper">
                             <div class="col-sm-offset-2 col-sm-8 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10">
                                 <div class="row">
-                                    <div class=" col-sm-5">
-                                        <a class="btn clickable ng-scope" ng-click="security.register()">Dołącz</a>
+                                    <div class=" col-sm-7">
+                                        <a class="btn clickable ng-scope" ng-click="security.register()">Dołącz do nas</a>
                                     </div>
-                                    <div class="col-sm-offset-2 col-sm-5">
+                                    <div class="col-sm-5">
                                         <a class="btn" ui-sref="challenges.make_donation" ruch-jow-force-hash-href="">Wesprzyj</a>
                                     </div>
                                 </div>
@@ -38,7 +38,7 @@
                                 <div class="row row-small-padding">
                                     <div class="col-xs-4 col-small-padding">
                                         <div class="icon ruch-jow-icon-billboard"></div>
-                                        <div class="number">100</div>
+                                        <div class="number">150</div>
                                         <div class="info">billboardów</div>
                                     </div>
                                     <div class="col-xs-4 col-small-padding">
@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="col-xs-4 col-small-padding">
                                         <div class="icon ruch-jow-icon-meeting"></div>
-                                        <div class="number">190</div>
+                                        <div class="number">200</div>
                                         <div class="info">spotkań</div>
                                     </div>
                                 </div>
@@ -212,10 +212,10 @@
                             <div class="wrapper">
                                 <h3>Dzięki waszym wpłatom:</h3>
                                 <ul>
-                                    <li class="ruch-jow-icon-facebook">wysłaliśmy pół miliona drukowanych materiałów;</li>
-                                    <li class="ruch-jow-icon-facebook">stworzyliśmy kilkadziesiąt filmów i animacji o JOW;</li>
-                                    <li class="ruch-jow-icon-facebook">wsparliśmy organizację kilkuset spotkań;</li>
-                                    <li class="ruch-jow-icon-facebook">wspieramy działalność setek wolontariuszy;</li>
+                                    <li>wysłaliśmy pół miliona drukowanych materiałów;</li>
+                                    <li>stworzyliśmy kilkadziesiąt filmów i animacji o JOW;</li>
+                                    <li>wsparliśmy organizację kilkuset spotkań;</li>
+                                    <li>wspieramy działalność setek wolontariuszy;</li>
                                 </ul>
                             </div>
                         </div>
@@ -223,7 +223,7 @@
                 </div>
 
                 <div class="btns-wrapper">
-                    <a class="btn" href="https://ludzie.ruchjow.pl/" target="_blank">Poznaj nas</a>
+                    <a class="btn" ui-sref="challenges.make_donation" ruch-jow-force-hash-href="">Wesprzyj</a>
                 </div>
             </div>
         </div>
@@ -234,7 +234,7 @@
                 <div class="row">
                     <div class="col-xs-6 col-sm-4 col-md-2 counter-block">
                         <i class="icon ruch-jow-icon-hex_people"></i>
-                        <span class="info">Jest już nas</span>
+                        <span class="info">Jest nas już</span>
                         <span class="counter">[[ getStatistics('basic.supportersCnt')|frNumberFormat ]]</span>
                     </div>
                     <div class="col-xs-6 col-sm-4 col-md-2 counter-block">
@@ -250,18 +250,21 @@
                     <div class="col-xs-6 col-sm-4 col-md-2 counter-block">
                         <i class="icon ruch-jow-icon-hex_billboard"></i>
                         <span class="info">Billboardy</span>
+                        <span class="counter">150</span>
                     </div>
                     <div class="col-xs-6 col-sm-4 col-md-2 counter-block">
                         <i class="icon ruch-jow-icon-hex_meeting"></i>
                         <span class="info">Spotkania</span>
+                        <span class="counter">[[ 1000000|frNumberFormat ]]</span>
                     </div>
                     <div class="col-xs-6 col-sm-4 col-md-2 counter-block">
                         <i class="icon ruch-jow-icon-hex_poi"></i>
                         <span class="info">Punkty referendalne</span>
+                        <span class="counter">[[ '?'|frNumberFormat ]]</span>
                     </div>
                 </div>
                 <div class="btns-wrapper">
-                    <a class="btn" href="https://ruchjow.pl/#/challenges/make_donation" target="_blank">Wesprzyj</a>
+                    <a class="btn" ui-sref="challenges" ruch-jow-force-hash-href="">Działaj</a>
                 </div>
             </div>
         </div>
@@ -273,7 +276,9 @@
                         <h2>Odwiedź społeczność JOW</h2>
                         <div class="video-element">
                             <iframe width="100%" src="//www.youtube.com/embed/xXZloNlcQfA" frameborder="0" allowfullscreen></iframe>
+                            <a class="btn" href="http://uniqpolimedia.pl/klienci/jow/broszura%20jow%20pw.pdf" target="_blank">Zobacz wszystkie nasze filmy</a>
                         </div>
+
                     </div>
                     <div class="col-md-5">
                         <h2>Pobierz przewodnik i poznaj JOW-y</h2>
@@ -287,7 +292,36 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
+        <div id="hp_social">
+            <div class="container">
+                <h2>Aktualności</h2>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="fb-page" data-href="https://www.facebook.com/spolecznoscJOW" data-tabs="timeline" data-width="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/spolecznoscJOW"><a href="https://www.facebook.com/spolecznoscJOW">Społeczność JOW</a></blockquote></div></div>
+
+
+                        {#<iframe#}
+                                {#src="https://www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FspolecznoscJOW&amp;width&amp;height=657&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=true&amp;show_border=false"#}
+                                {#scrolling="no"#}
+                                {#frameborder="0"#}
+                                {#allowTransparency="true"#}
+                                {#class="facebook-likebox"#}
+                                {#style="width: 100%">#}
+                        {#</iframe>#}
+                    </div>
+                    <div class="col-md-6">
+                        <a ruch-jow-twitter-widget="" class="twitter-timeline" href="https://twitter.com/spolecznoscJOW" data-widget-id="551374304236306434">Tweety użytkownika @spolecznoscJOW </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="hp_shop">
+            <div class="container">
                 <h2>Sklep</h2>
                 <div class="row shop">
                     <div class="col-sm-12 col-md-6 tshirt">

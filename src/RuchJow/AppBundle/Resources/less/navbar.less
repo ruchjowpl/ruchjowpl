@@ -48,6 +48,7 @@
       > li {
 
         > a, > span {
+          font-weight: @ruch-jow-navbar-font-weight;
 
           .scroll-too-big {
             vertical-align: top;
@@ -297,14 +298,16 @@ ul.nav-tabs > li > a {
     font-size: 1.7rem;
     font-weight: bold;
     padding: 0.7rem 2.5rem 1.2rem;
-    border-radius: 0 0 0.8rem 0.8rem;
+
 
     &:first-child {
-      border-bottom-right-radius: 0;
+      border-bottom-left-radius: .8rem;
+      //border-bottom-right-radius: 0;
     }
 
     &:last-child {
-      border-bottom-left-radius: 0;
+      border-bottom-right-radius: .8rem;
+      //border-bottom-left-radius: 0;
     }
 
     &:hover, &:visited {

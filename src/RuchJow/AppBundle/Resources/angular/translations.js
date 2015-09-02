@@ -335,18 +335,27 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
 
             // Menu
             menu: {
+                referendum: 'Referendum',
+                support: 'Wspieram',
+                challenges: 'Wyzwania',
+                donation: 'Wsparcie finansowe',
+                ranks: 'Rankingi',
+                education: 'Edukacja',
+                about: 'O akcji',
+                events: 'Wydarzenia',
+                distribute_leaflets: 'Materiały',
+                jow_pl: 'jow.pl',
+                faq: 'FAQ',
+                shop: 'Sklep',
+                contact: 'Kontakt',
+                people: 'Osoby kontaktowe w regionach',
+                jow_office: 'Biuro JOW we Wrocławiu',
+
                 login: 'Zaloguj',
                 support_action: 'Dołącz',
-                ranks: 'Rankingi',
                 coordinators: 'Koordynatorzy',
-                about: 'O akcji',
                 sponsors: 'Sponsorzy',
-                contact: 'Kontakt',
-                faq: 'FAQ',
-                challenges: 'Wesprzyj',
-                why_jow: 'Dlaczego JOW?',
-                shop: 'Sklep',
-                referendum: 'Referendum'
+                why_jow: 'Dlaczego JOW?'
             },
 
             points: {
