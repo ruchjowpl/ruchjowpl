@@ -18,14 +18,17 @@
                                 <span class="subtitle">referendum</span>
                             {% else %}
                                 {# Tekst po referendum#}
-                                Referendum 6 IX
+                                <span class="subtitle" style="font-size: 0.5em;line-height: 1.2em;display: block;">
+                                    <strong>Referendum to nasz wielki sukces, większość opowiedziała się za JOW!</strong><br/>
+                                    Teraz musimy przypilnować polityków!
+                                Zarejestruj się, będziemy Cię na bieżąco informować o nowych działaniach.</span>
                             {% endif %}
                         </h1>
                         <div class="row btn-wrapper">
                             <div class="col-sm-offset-2 col-sm-8 col-md-offset-0 col-md-12 col-lg-offset-1 col-lg-10">
                                 <div class="row">
                                     <div class=" col-sm-7">
-                                        <a class="btn clickable ng-scope" ng-click="security.register()">Dołącz do nas</a>
+                                        <a class="btn clickable ng-scope" ng-click="security.register()">Zarejestruj się</a>
                                     </div>
                                     <div class="col-sm-5">
                                         <a class="btn" ui-sref="challenges.make_donation" ruch-jow-force-hash-href="">Wesprzyj</a>
