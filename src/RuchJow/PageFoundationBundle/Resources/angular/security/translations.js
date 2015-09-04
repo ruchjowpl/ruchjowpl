@@ -21,7 +21,7 @@ angular.module('ruchJow.security.translations', ['pascalprecht.translate'])
                 password: 'Hasło',
                 rememberMe: 'Zapamiętaj mnie',
                 resetPassword: 'Ustaw lub zresetuj hasło',
-                registerLink: 'Nie masz jeszcze konta? Poprzyj zmiany'
+                registerLink: 'Nie masz jeszcze konta? Zarejestruj się'
             },
 
             'loginForm.login.required': 'Nick nie może być pusty.',
