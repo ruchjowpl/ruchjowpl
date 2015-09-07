@@ -235,9 +235,9 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
                     'send.error.message_empty_address': 'Zgłoszenie chęci organizacji wydarzenia wymaga podania adresu w Edycji profilu'
                 },
                 organise_referendum_point: {
-                    title: 'Zorganizuj punkt referendalny',
+                    title: 'Zorganizuj punkt informacyjny JOW',
                     description: {
-                        label: 'Opis punktu referendalnego'
+                        label: 'Opis punktu informacyjnego JOW'
                     },
 
                     submit: 'Zgłoś chęć organizacji',
