@@ -57,8 +57,11 @@ class KernelListener
 
         if ($request->isXmlHttpRequest()) {
             if ($request->headers->get($this->xsrfHeaderName) !== $this->angularSecurity->generateToken()) {
-                $response = new Response('Token expired/invalid', 400, array($this->xsrfHeaderName => 'invalid'));
-                $event->setResponse($response);
+                /* ignore symfony web debug toolbar requests */
+                if (substr($request->getPathInfo(), 1 , 4) != '_wdt') {
+                    $response = new Response('Token expired/invalid', 400, array($this->xsrfHeaderName => 'invalid'));
+                    $event->setResponse($response);
+                }
             }
         }
     }

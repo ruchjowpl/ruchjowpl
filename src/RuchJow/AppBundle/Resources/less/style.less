@@ -427,6 +427,41 @@ body {
   }
 }
 
+/*********** New Layout ***********/
+.page-block-std, .page-block-inv {
+  .container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    > h1, > h2 {
+      &:first-child {
+        margin-top: 0;
+      }
+      font-size: 1.8rem;
+    }
+  }
+
+  h1 {
+    font-size: 2.1rem;
+    margin: 1.4rem 0 1rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    margin: 1.4rem 0 1rem;
+  }
+}
+
+.page-block-std {
+  background: @ruch-jow-main-bg-color;
+  color: @ruch-jow-main-color;
+}
+
+.page-block-inv {
+  background: @ruch-jow-main-inv-bg-color;
+  color: @ruch-jow-main-inv-color;
+}
+
 
 /*********** HOMEPAGE ***********/
 #hp_main_block {
@@ -896,6 +931,51 @@ body {
 }
 
 
+#hp_shop {
+
+  background: #2c4d94;
+  color: #fff;
+
+  h2 {
+    margin-bottom: 1em;
+  }
+
+  .row > * {
+    padding-top: 0;
+    padding-bottom: 3rem;
+  }
+
+  .tshirt {
+    text-align: center;
+  }
+
+  .statement {
+    text-align: right;
+
+    h3 {
+      font-size: 4rem;
+      font-weight: normal;
+    }
+  }
+
+  .img-wrapper {
+    text-align: center;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .btn {
+    background: #dc0f27;
+    font-size: 1.3em;
+    padding: 0.65em 0.8em;
+    margin: 1.5em 0 0;
+
+    border: none;
+  }
+}
+
 #hp_other {
 
   h2 {
@@ -907,7 +987,7 @@ body {
 
     > * {
       //padding-bottom: floor(@grid-gutter-width/2);
-      margin-bottom: 1rem;
+      //margin-bottom: 1rem;
 
       &:first-child {
         @media (min-width: @screen-md-min) {
@@ -920,7 +1000,7 @@ body {
       }
     }
 
-    border-bottom: @border;
+    //border-bottom: @border;
   }
 
   background: #2c4d94;
@@ -986,39 +1066,34 @@ body {
     border: none;
   }
 
-  .shop {
-
-    > * {
-      padding-bottom: 3rem;
-    }
-
-    .tshirt {
-      text-align: center;
-    }
-
-    .statement {
-      text-align: right;
-
-      h3 {
-        font-size: 4rem;
-        font-weight: normal;
-      }
-    }
-  }
 }
 
 
+#hp_social {
+    background: #fff;
+    color: #2c4d94;
+    text-align: center;
+    font-size: 1.8rem;
 
+    h2 {
+      text-align: left;
+      font-size: 1.8em;
+      margin: 0.8em 0 1em;
+    }
 
+  .fb_iframe_widget {
+    max-width: 100%;
 
+    > * {
+      max-width: 100%;
+    }
 
+    iframe {
+      max-width: 100%;
+    }
 
-
-
-
-
-
-
+  }
+}
 
 
 
@@ -1053,7 +1128,6 @@ table.hp-table {
       }
     }
   }
-
 
 }
 
@@ -1445,6 +1519,49 @@ table.hp-table {
   }
 }
 
+#videos_page {
+
+  h2.main-title {
+    font-size: 2.3rem;
+    font-weight: 600;
+  }
+
+  .video-element {
+    text-align: center;
+
+    iframe {
+      width: 100%;
+      min-height: 10rem;
+
+      @aspect: 5.6;
+
+      @media (max-width: @screen-xs-max) {
+        @width: 40rem;
+        max-width: @width;
+        height: floor(@aspect * @width)/10;
+      }
+
+      @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        @width: 34.2rem;
+        max-width: @width;
+        height: floor(@aspect * @width)/10;
+      }
+
+      @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        @width: 28.9rem;
+        max-width: @width;
+        height: floor(@aspect * @width)/10;
+      }
+
+      @media (min-width: @screen-lg-min) {
+        @width: 35.6rem;
+        max-width: @width;
+        height: floor(@aspect * @width)/10;
+      }
+    }
+  }
+}
+
 #why_jow_page {
 
   #abc_jow_block {
@@ -1529,7 +1646,7 @@ table.hp-table {
         float: right;
         text-align: right;
         font-size: 4.1em;
-        margin: 0 0 0.21em 1em;
+        margin: 0.6em 0 0.21em 1em;
 
         .value {
           display: table-row;

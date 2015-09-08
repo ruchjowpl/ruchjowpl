@@ -242,9 +242,9 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
                     'send.error.message_empty_address': 'Zgłoszenie chęci organizacji wydarzenia wymaga podania adresu w Edycji profilu'
                 },
                 organise_referendum_point: {
-                    title: 'Zorganizuj punkt referendalny',
+                    title: 'Zorganizuj punkt informacyjny JOW',
                     description: {
-                        label: 'Opis punktu referendalnego'
+                        label: 'Opis punktu informacyjnego JOW'
                     },
 
                     submit: 'Zgłoś chęć organizacji',
@@ -342,18 +342,28 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
 
             // Menu
             menu: {
+                referendum: 'Referendum',
+                support: 'Wspieram',
+                challenges: 'Wyzwania',
+                donation: 'Wsparcie finansowe',
+                ranks: 'Rankingi',
+                education: 'Edukacja',
+                about: 'O akcji',
+                events: 'Wydarzenia',
+                distribute_leaflets: 'Materiały',
+                videos: 'Video',
+                jow_pl: 'jow.pl',
+                faq: 'FAQ',
+                shop: 'Sklep',
+                contact: 'Kontakt',
+                people: 'Osoby kontaktowe w regionach',
+                jow_office: 'Biuro JOW we Wrocławiu',
+
                 login: 'Zaloguj',
                 support_action: 'Dołącz',
-                ranks: 'Rankingi',
                 coordinators: 'Koordynatorzy',
-                about: 'O akcji',
                 sponsors: 'Sponsorzy',
-                contact: 'Kontakt',
-                faq: 'FAQ',
-                challenges: 'Wesprzyj',
-                why_jow: 'Dlaczego JOW?',
-                shop: 'Sklep',
-                referendum: 'Referendum'
+                why_jow: 'Dlaczego JOW?'
             },
 
             points: {

@@ -23,26 +23,33 @@
 
             {# Right menu #}
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="http://referendum15.pl/" target="_blank" class="clickable" translate>menu.referendum</a></li>
-                <li ruch-jow-link-block="'challenges'"><a ui-sref="challenges" ruch-jow-force-hash-href="" class="clickable" translate>menu.challenges</a></li>
-
-
-
-                <li><a href="https://ludzie.ruchjow.pl/" target="_blank" class="clickable" translate>menu.coordinators</a></li>
-                <li ruch-jow-link-block="'about'" ng-show="security.currentUser && security.currentUser.username"><a ui-sref="about" ruch-jow-force-hash-href="" class="clickable" translate>menu.about</a></li>
-                <li ruch-jow-link-block="'ranks'" ng-show="security.currentUser && security.currentUser.username"><a ui-sref="ranks" ruch-jow-force-hash-href="" class="clickable" translate>menu.ranks</a></li>
-                {#<li ruch-jow-link-block="'faq'" ng-show="security.currentUser && security.currentUser.username"><a ui-sref="faq" ruch-jow-force-hash-href="" class="clickable" translate>menu.faq</a></li>#}
-                <li ng-show="security.currentUser && security.currentUser.username"><a href="http://sklep.ruchjow.pl" target="_blank" translate>menu.shop</a></li>
-                <li ng-show="!security.currentUser || !security.currentUser.username"><a href="http://sklep.ruchjow.pl" target="_blank" translate>menu.shop</a></li>
-
-                {# Anonymous #}
-                {# Register / support#}
-                <li ng-if="!(security.currentUser && security.currentUser.username)">
-                    <a ng-click="security.register()" class="clickable" translate="">
-                        menu.support_action
-                    </a>
+                <li class="dropdown" dropdown>
+                    <span dropdown-toggle="" class="clickable nav-element" translate ng-click="$event.stopPropagation();">menu.support</span>
+                    <ul class="dropdown-menu"  >
+                        <li><a ui-sref="challenges" ruch-jow-force-hash-href="" class="clickable" translate>menu.challenges</a></li>
+                        <li><a ui-sref="challenges.make_donation" ruch-jow-force-hash-href="" class="clickable" translate>menu.donation</a></li>
+                    </ul>
                 </li>
-                <li ruch-jow-link-block="'contact'" {#ng-show="security.currentUser && security.currentUser.username"#}><a ui-sref="contact" ruch-jow-force-hash-href="" class="clickable" translate>menu.contact</a></li>
+                <li ruch-jow-link-block="'ranks'"><a ui-sref="ranks" ruch-jow-force-hash-href="" class="clickable" translate>menu.ranks</a></li>
+                <li class="dropdown" dropdown>
+                    <span dropdown-toggle="" class="clickable nav-element" translate ng-click="$event.stopPropagation();">menu.education</span>
+                    <ul class="dropdown-menu"  >
+                        <li><a ui-sref="about" ruch-jow-force-hash-href="" class="clickable" translate>menu.about</a></li>
+                        <li><a ui-sref="jow_events" ruch-jow-force-hash-href="" class="clickable" translate>menu.events</a></li>
+                        <li><a ui-sref="challenges.distribute_leaflets" ruch-jow-force-hash-href="" class="clickable" translate>menu.distribute_leaflets</a></li>
+                        <li><a ui-sref="videos" ruch-jow-force-hash-href="" class="clickable" translate>menu.videos</a></li>
+                        <li><a href="http://jow.pl/" target="_blank" class="clickable" translate>menu.jow_pl</a></li>
+                        <li><a ui-sref="faq" ruch-jow-force-hash-href="" class="clickable" translate>menu.faq</a></li>
+                    </ul>
+                </li>
+                <li><a href="http://sklep.ruchjow.pl" target="_blank" class="clickable" translate>menu.shop</a></li>
+                <li class="dropdown" dropdown>
+                    <span dropdown-toggle="" class="clickable nav-element" translate ng-click="$event.stopPropagation();">menu.contact</span>
+                    <ul class="dropdown-menu"  >
+                        <li><a href="https://ludzie.ruchjow.pl/" target="_blank" class="clickable" translate>menu.people</a></li>
+                        <li><a ui-sref="contact" ruch-jow-force-hash-href="" class="clickable" translate>menu.jow_office</a></li>
+                    </ul>
+                </li>
 
                 {# Login #}
                 <li class="menu-login" class="dropdown" ng-if="!(security.currentUser && security.currentUser.username)">

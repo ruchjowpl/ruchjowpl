@@ -31,12 +31,17 @@ class FrontendController extends ModelController
         $referendumDate = new \DateTime('2015-09-06');
         $today = new \DateTime();
 
-        $interval = $today->diff($referendumDate);
-//        $interval = $referendumDate->diff($today);
-        if(!$interval->invert && $interval->days == 0) {
-            $daysToReferendum =1;
+        if ($today > new \DateTime('2015-09-05 00:00:00')) {
+            $daysToReferendum = 1;
+            if ($today > new \DateTime('2015-09-06 00:00:00')) {
+                $daysToReferendum = 0;
+            }
+            if ($today > new \DateTime('2015-09-06 22:01:00')) {
+                $daysToReferendum = -1;
+            }
         } else {
-            $daysToReferendum=$interval->format('%r%a');
+            $interval = $today->diff($referendumDate);
+            $daysToReferendum=$interval->days+1;
         }
 
         // $_GET parameters

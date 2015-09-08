@@ -1,5 +1,5 @@
 {{ '<script type="text/ng-template" id="userMenuElement.html">' }}
-    <span dropdown-toggle="" ng-show="security.currentUser && security.currentUser.username" class="clickable nav-element">
+    <span dropdown-toggle="" ng-show="security.currentUser && security.currentUser.username" class="clickable nav-element"  ng-click="$event.stopPropagation();">
         <span class="glyphicon glyphicon-refresh te-spin-fast" ng-show="logOutInProgress"></span>
         <span class="scroll-too-big user-name">
             <span>
