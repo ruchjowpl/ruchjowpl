@@ -245,7 +245,7 @@ hwi_oauth:
         username_iterations: 30
         # mapping between resource owners (see below) and properties
         properties:
-            facebook: facebook_id
+            facebook: facebookId
     resource_owners:
         facebook:
             type:          facebook
