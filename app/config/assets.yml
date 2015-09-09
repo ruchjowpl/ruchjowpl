@@ -28,7 +28,7 @@ assetic:
                 - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-ui-utils/ui-utils.js'
                 - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-ui-router/uncompressed/angular-ui-router.js'
                 - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-cookie/angular-cookie.js'
-                - '%kernel.root_dir%/../vendor/framling/fr-angular-utils/dist/fr-ang-utils-tpls-0.0.4.js'
+                - '%kernel.root_dir%/../vendor/framling/fr-angular-utils/dist/fr-ang-utils-tpls-0.0.6.js'
                 - '%kernel.root_dir%/../vendor/ruch-jow-local/google-x2js/xml2json.js'
             output: js/angular_with_libs.js
         angular_min:
@@ -43,7 +43,7 @@ assetic:
                 - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-ui-router/min/angular-ui-router.min.js'
                 - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-ui-utils/ui-utils.min.js'
                 - '%kernel.root_dir%/../vendor/ruch-jow-local/angular-cookie/angular-cookie.min.js'
-                - '%kernel.root_dir%/../vendor/framling/fr-angular-utils/dist/fr-ang-utils-tpls-0.0.4.min.js'
+                - '%kernel.root_dir%/../vendor/framling/fr-angular-utils/dist/fr-ang-utils-tpls-0.0.6.min.js'
                 - '%kernel.root_dir%/../vendor/ruch-jow-local/google-x2js/xml2json.min.js'
             output: js/angular_with_libs.min.js
             filter: closure

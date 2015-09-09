@@ -59,7 +59,7 @@
 
     "ruch-jow-local/google-closure-compiler": "0.0.*",
     "ruch-jow-local/google-x2js": "1.1.*",
-    "framling/fr-angular-utils": "0.0.*",
+    "framling/fr-angular-utils": "0.0.6",
 
     "kriswallsmith/buzz": "~0.15",
     "cspoo/swiftmailer-mailgun-bundle": "0.1.*",
