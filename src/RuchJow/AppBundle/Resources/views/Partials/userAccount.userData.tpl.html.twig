@@ -729,6 +729,12 @@
         <label translate="">userDataFacebookConnect.label</label>
 
         <div class="content">
+            <div ng-if="security.currentUser.facebookName">
+                Połączone konto facebook: [[ security.currentUser.facebookName ]]
+
+                <a class="btn clickable" ng-click="facebook.login()"> [[ 'userDataDeleteAccount.connect.label' | translate ]]</a>
+            </div>
+
             {# TODO: check if user is alraeady connected #}
             <a class="btn clickable" ng-click="facebook.login()"> [[ 'userDataDeleteAccount.connect.label' | translate ]]</a>
 

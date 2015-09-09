@@ -74,6 +74,7 @@ class DataController extends ModelController
             'displayNameFormat' => $user->getDisplayNameFormat(),
             'visibility'        => $user->getVisibilityArray(),
             'about'             => $user->getAbout(),
+            'facebookName'      => $user->getFacebookName(),
         );
 
         if ($address = $user->getAddress()) {

@@ -239,9 +239,16 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true)
+     * @ORM\Column(name="facebook_name", type="string", length=255, nullable=true)
      */
-    protected $facebookAccessToken;
+    protected $facebookName;
+
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true)
+//     */
+//    protected $facebookAccessToken;
 
 
     //*********************************
@@ -1024,22 +1031,45 @@ class User extends BaseUser
     /**
      * @return string
      */
-    public function getFacebookAccessToken()
+    public function getFacebookName()
     {
-        return $this->facebookAccessToken;
+        return $this->facebookName;
     }
 
     /**
-     * @param string $facebookAccessToken
+     * @param string $facebookName
      *
      * @return $this
      */
-    public function setFacebookAccessToken($facebookAccessToken)
+    public function setFacebookName($facebookName)
     {
-        $this->facebookAccessToken = $facebookAccessToken;
+        $this->facebookName = $facebookName;
 
         return $this;
     }
+
+
+
+
+//    /**
+//     * @return string
+//     */
+//    public function getFacebookAccessToken()
+//    {
+//        return $this->facebookAccessToken;
+//    }
+//
+//    /**
+//     * @param string $facebookAccessToken
+//     *
+//     * @return $this
+//     */
+//    public function setFacebookAccessToken($facebookAccessToken)
+//    {
+//        $this->facebookAccessToken = $facebookAccessToken;
+//
+//        return $this;
+//    }
 
     public function getVisibilityArray()
     {

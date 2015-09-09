@@ -503,6 +503,7 @@
                                             user.commune = userData.commune ? userData.commune : null;
                                             user.organisation = userData.organisation ? userData.organisation : null;
                                             user.about = userData.about ? userData.about : '';
+                                            user.facebookName = userData.facebookName ? userData.facebookName : null;
 
                                             var address;
                                             if (address = userData.address) {

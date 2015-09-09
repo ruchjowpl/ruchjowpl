@@ -1016,7 +1016,7 @@ class UserController extends ModelController
 
         try {
             // Returns a `Facebook\FacebookResponse` object
-            $response = $fb->get('/me?fields=id', $data['accessToken']);
+            $response = $fb->get('/me?fields=id,name', $data['accessToken']);
         } catch(FacebookResponseException $e) {
             return $this->createJsonErrorResponse('Graph returned an error: ' . $e->getMessage());
         } catch(FacebookSDKException $e) {
@@ -1028,10 +1028,17 @@ class UserController extends ModelController
         if ($graphUser->getId() != $data['userID']) {
             return $this->createJsonErrorResponse('Invalid userID');
         }
+
+        if (!$graphUser->getName()) {
+            // This should never happen.
+            return $this->createJsonErrorResponse('Facebook user name not provided');
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         if ($user) {
-            $user->setFacebookId($graphUser->getId());
+            $user->setFacebookId($graphUser->getId())
+                ->setFacebookName($graphUser->getName());
 
             $om = $this->getDoctrine()->getManager();
 
