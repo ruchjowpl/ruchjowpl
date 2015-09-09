@@ -60,8 +60,8 @@ angular.module('ruchJow.ranks', ['ruchJow.tools.mouseFollower'])
                 //points: '=',
                 markersData: '=',
                 otherMarkersData: '=',
-                highlightedTerritorialUnit: '='
-
+                highlightedTerritorialUnit: '=',
+                interactive: '&'
             },
             transclude: true,
             link: function ($scope, elem, attrs,  ctrl, $transclude) {
@@ -74,6 +74,7 @@ angular.module('ruchJow.ranks', ['ruchJow.tools.mouseFollower'])
                 var scale; // In m/pixel
                 var maxMarkerSizeFactor = 0.02;
                 var options = angular.extend({}, opts, $scope.$eval(attrs.options));
+                var interactive = $scope.interactive() === undefined ? true : $scope.interactive();
 
                 // wait for the API
                 lazyLoadApi.then(function() {
@@ -98,7 +99,7 @@ angular.module('ruchJow.ranks', ['ruchJow.tools.mouseFollower'])
                         if (!shape) {
                             return;
                         }
-                        loadShape(shape.type, shape.id);
+                        loadShape(shape.type, shape.id, { interactive: interactive });
                     }, true);
 
                     // Watch for the markersDara changes and update markers if necessary.
@@ -132,7 +133,6 @@ angular.module('ruchJow.ranks', ['ruchJow.tools.mouseFollower'])
                  */
                 function loadShape(type, id, options) {
                     var defaultOptions = {
-                        interactive: true,
                         outside: {
                             fillColor: '#FFFFFF',
                             fillOpacity: 0.9
@@ -245,26 +245,27 @@ angular.module('ruchJow.ranks', ['ruchJow.tools.mouseFollower'])
                                 infoWindowData: newInfoData
                             };
 
-                            otherMarkers[key].listenerClick = google.maps.event.addListener(
-                                otherMarkers[key].marker,
-                                'click',
-                                function () {
-                                    if (!otherMarkers[key].infoWindow) {
-                                        otherMarkers[key].infoWindow = new InfoBubble(otherMarkers[key].infoWindowData);
+                            if (interactive) {
+                                otherMarkers[key].listenerClick = google.maps.event.addListener(
+                                    otherMarkers[key].marker,
+                                    'click',
+                                    function () {
+                                        if (!otherMarkers[key].infoWindow) {
+                                            otherMarkers[key].infoWindow = new InfoBubble(otherMarkers[key].infoWindowData);
+                                        }
+
+                                        if (openedInfoWindow) {
+                                            openedInfoWindow.close();
+                                        }
+
+                                        openedInfoWindow = otherMarkers[key].infoWindow;
+                                        otherMarkers[key].infoWindow.open(
+                                            map,
+                                            otherMarkers[key].marker
+                                        );
                                     }
-
-                                    if (openedInfoWindow) {
-                                        openedInfoWindow.close();
-                                    }
-
-                                    openedInfoWindow = otherMarkers[key].infoWindow;
-                                    otherMarkers[key].infoWindow.open(
-                                        map,
-                                        otherMarkers[key].marker
-                                    );
-                                }
-
-                            );
+                                );
+                            }
 
                         } else {
                             otherMarkers[key].marker.set('position', latlng);

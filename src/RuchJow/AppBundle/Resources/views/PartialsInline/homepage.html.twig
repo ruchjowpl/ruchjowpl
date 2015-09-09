@@ -94,31 +94,34 @@
             <div class="container" ng-controller="RanksCtrl">
                 <h2>Zobacz co się dzieje w Twoim regionie</h2>
 
-                <div
-                        ruch-jow-map
-                        map-init-view="country"
-                        markers-data="markersData"
-                        other-markers-data="localGovMarkers"
-                        active-territorial-unit="activeTerritorialUnit"
-                        highlighted-territorial-unit="hiUnit"
-                        class="ruch-jow-google-map"
-                        options="{ minZoom: 5 }"
-                        >
-                    <ul class="map-legend">
-                        <li>
-                            <span class="img">{% image '@map_marker_star' %}<img src="{{ asset_url }}" />{% endimage %}</span>
-                            - aktywność samorządów
-                        </li>
-                        <li>
-                            <span class="img">{% image '@map_marker_referendum_point' %}<img src="{{ asset_url }}" />{% endimage %}</span>
-                            - punkty informacyjne JOW
-                        </li>
-                        <li>
-                            <span class="img">{% image '@map_marker_circle' %}<img src="{{ asset_url }}" />{% endimage %}</span>
-                            - zaangażowanie regionów
-                        </li>
-                    </ul>
-                </div>
+                <a ui-sref="ranks">
+                    <div
+                            ruch-jow-map
+                            map-init-view="country"
+                            markers-data="markersData"
+                            other-markers-data="localGovMarkers"
+                            active-territorial-unit="activeTerritorialUnit"
+                            highlighted-territorial-unit="hiUnit"
+                            class="ruch-jow-google-map clickable"
+                            options="{ minZoom: 5 }"
+                            interactive="false"
+                            >
+                        <ul class="map-legend">
+                            <li>
+                                <span class="img">{% image '@map_marker_star' %}<img src="{{ asset_url }}" />{% endimage %}</span>
+                                - aktywność samorządów
+                            </li>
+                            <li>
+                                <span class="img">{% image '@map_marker_referendum_point' %}<img src="{{ asset_url }}" />{% endimage %}</span>
+                                - punkty informacyjne JOW
+                            </li>
+                            <li>
+                                <span class="img">{% image '@map_marker_circle' %}<img src="{{ asset_url }}" />{% endimage %}</span>
+                                - zaangażowanie regionów
+                            </li>
+                        </ul>
+                    </div>
+                </a>
             </div>
         </div>
         <div id="hp_news">
