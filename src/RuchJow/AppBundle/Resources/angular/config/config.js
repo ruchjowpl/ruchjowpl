@@ -18,7 +18,6 @@
         }])
         .run(['facebook', function (facebook) {
 
-            console.log('asdfasdf');
             facebook.get().then(function (FB) {
                 console.log(FB);
             });

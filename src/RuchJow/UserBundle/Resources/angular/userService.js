@@ -1,7 +1,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('ruchJow.user', ['fr.angUtils.data'])
+    angular.module('ruchJow.user', ['fr.angUtils.data', 'ruchJow.facebook'])
         .config(['frDataProvider', function (frDataProvider) {
             // Register: user:getProfileData
             frDataProvider.register(
@@ -219,7 +219,8 @@
                             }) - 1;
                     }
                 },
-                '$get': ['$q', '$http', 'ruchJowTools', 'ruchJowSecuritySymfonyData', function ($q, $http, ruchJowTools, ruchJowSecuritySymfonyData) {
+                '$get': ['$q', '$http', 'ruchJowTools', 'ruchJowSecuritySymfonyData', 'facebook',
+                    function ($q, $http, ruchJowTools, ruchJowSecuritySymfonyData, facebook) {
 
                     var currentUserRequest;
 
@@ -298,7 +299,40 @@
                                     return $q.reject('Internal server error - please contact administrator...');
                                 });
                         },
-                        login: function (username, password, rememberMe) {
+                        login: function (type, data) {
+                            switch (type) {
+                                case 'facebook':
+                                    service.loginFacebook();
+                                    break;
+
+                                case 'default':
+                                default:
+                                    return service.loginStd(
+                                        data.username,
+                                        data.password,
+                                        data.rememberMe
+                                    );
+                            }
+                        },
+                        loginFacebook: function () {
+                            console.log('Login through facebook.');
+                            facebook.connect(false).then(function (fbResponse) {
+                                console.log('Pass facebook data to symfony.');
+                                console.log(fbResponse);
+
+                                var httpConfig = {
+                                    url: Routing.generate('facebook_login'),
+                                    method: 'GET',
+                                    headers: {'X-Requested-With': 'XMLHttpRequest'},
+                                    params: {code: fbResponse.authResponse.accessToken}
+                                };
+
+                                return $http(httpConfig)['finally'](function (response)  {
+                                    console.log(response);
+                                })
+                            });
+                        },
+                        loginStd: function (username, password, rememberMe) {
                             rememberMe = rememberMe || false;
 
                             var prepareHttpRequest = function (forceHttpRequest) {
@@ -497,7 +531,8 @@
                                             user.referralUrl = userData.referralUrl ? userData.referralUrl : null;
                                             user.email = userData.email ? userData.email : null;
                                             user.phone = userData.phone ? userData.phone : null;
-                                            user.displayNameFormat = userData.displayNameFormat;
+                                         //console.log(Routing.generate('hwi_oauth_service_redirect', {service : "facebook"}));
+                                    //document.location = Routing.generate('hwi_oauth_service_redirect', {service : "facebook"});   user.displayNameFormat = userData.displayNameFormat;
                                             user.visibility = userData.visibility;
                                             user.country = userData.country ? userData.country : null;
                                             user.commune = userData.commune ? userData.commune : null;
@@ -622,6 +657,48 @@
                         },
                         'getSocialLinkDefinition': function (name) {
                             return socialLinksDefsMap[name] && socialLinksDeffinitions[socialLinksDefsMap[name]];
+                        },
+                        connectFacebook: function () {
+                            return facebook.connect().then(function (response) {
+                                var config = {
+                                    headers: {
+                                        'X-Requested-With': 'XMLHttpRequest'
+                                    },
+                                    method: 'POST',
+                                    url: Routing.generate('user_ajax_connect_facebook'),
+                                    data: JSON.stringify({
+                                        'userID' : response.authResponse.userID,
+                                        'accessToken': response.authResponse.accessToken,
+                                    })
+                                };
+
+                                return $http(config).then(function (response) {
+                                    if (response.data.status === 'success') {
+                                        return 'success';
+                                    }
+
+                                    return $q.reject(response.data.status ?
+                                        response.data.status : 'internal_error');
+                                });
+                            });
+                        },
+                        disconnectFacebook: function () {
+                            var config = {
+                                headers: {
+                                    'X-Requested-With': 'XMLHttpRequest'
+                                },
+                                method: 'GET',
+                                url: Routing.generate('user_ajax_disconnect_facebook')
+                            };
+
+                            return $http(config).then(function (response) {
+                                if (response.data.status === 'success') {
+                                    return 'success';
+                                }
+
+                                return $q.reject(response.data.status ?
+                                    response.data.status : 'internal_error');
+                            })
                         }
                     };
 

@@ -55,7 +55,7 @@ angular.module('ruchJow.security.loginForm', ['ui.bootstrap.modal'])
             $scope.inProgress = true;
             $scope.errorMessage = null;
 
-            $q.when(loginCallback($scope.data.username, $scope.data.password, $scope.data.rememberMe))
+            $q.when(loginCallback('default', $scope.data))
                 .then(function () {
                     $modalInstance.close();
                 }, function (msg) {
@@ -65,6 +65,21 @@ angular.module('ruchJow.security.loginForm', ['ui.bootstrap.modal'])
                 $scope.inProgress = false;
             });
         };
+        $scope.loginFacebook = function () {
+            $scope.inProgress = true;
+            $scope.errorMessage = null;
+
+            $q.when(loginCallback('facebook'))
+                .then(function () {
+                    $modalInstance.close();
+                }, function (msg) {
+                    $scope.errorMessage = msg;
+                })
+                ['finally'](function () { // ie8 treats finally as keyword so it must be accessed this way
+                $scope.inProgress = false;
+            });
+        };
+
 
         $scope.forgotPassword = function () {
             $modalInstance.close();

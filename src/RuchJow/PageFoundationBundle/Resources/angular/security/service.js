@@ -100,7 +100,6 @@ angular.module('ruchJow.security.service', [
                             return resetPasswordLinkModalPromise;
                         },
                         register: function (initData) {
-
                             if (!registerModalPromise) {
 
                                 registerModalPromise = registerForm.open(userService.register, initData)
@@ -114,6 +113,22 @@ angular.module('ruchJow.security.service', [
                             }
 
                             return registerModalPromise;
+                        },
+                        connectFacebook: function () {
+                            service.getUserService().connectFacebook()
+                                .then(function () {
+                                    service.requestCurrentUser();
+                                }, function () {
+                                    $alert('security.$alert.connectFacebook.failed');
+                                });
+                        },
+                        disconnectFacebook: function () {
+                            service.getUserService().disconnectFacebook()
+                                .then(function () {
+                                    service.requestCurrentUser();
+                                }, function () {
+                                    $alert('security.$alert.disconnectFacebook.failed');
+                                });
                         },
                         login: function (reason) {
                             if (loginModalPromise) {

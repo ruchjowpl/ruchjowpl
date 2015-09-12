@@ -37,11 +37,12 @@ hwi_oauth_redirect:
     options:
         expose: true
 
+
+# This is only for exposing path binded to facebook_login name
 facebook_login:
     pattern: /login/check-facebook
     options:
         expose: true
-
 
 # JS Routing
 fos_js_routing:

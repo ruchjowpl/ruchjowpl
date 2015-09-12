@@ -45,6 +45,7 @@ security:
                 lifetime: 2592000 # 30 days in seconds
                 path:     /
                 domain:   ~
+
         login:
             pattern:  ^/login$
             security: false
@@ -128,6 +129,7 @@ security:
         - { path: ^/cif/user/ajax/remove/account$,         role: ROLE_REGISTERED_USER }
         - { path: ^/cif/user/ajax/remove/account/confirm$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/cif/user/ajax/connect_facebook$,       role: ROLE_REGISTERED_USER }
+        - { path: ^/cif/user/ajax/disconnect_facebook$,       role: ROLE_REGISTERED_USER }
 
         # STATISTICS
         - { path: ^/cif/statistics/basic_statistics$, role: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -1050,4 +1050,59 @@ class UserController extends ModelController
 
         return $this->createJsonResponse(array('status' => 'success'));
     }
+
+    /**
+     * @Route("/ajax/disconnect_facebook", name="user_ajax_disconnect_facebook", options={"expose"=true}, condition="request.isXmlHttpRequest()")
+     *
+     * @return Response
+     */
+    public function disconnectFacebookAction()
+    {
+//        $container = $this->container;
+//        $fb = new Facebook([
+//            'app_id' => $container->getParameter('facebook_client_id'),
+//            'app_secret' => $container->getParameter('facebook_client_secret'),
+//            'default_graph_version' => 'v2.4',
+//        ]);
+//
+//        try {
+//            // Returns a `Facebook\FacebookResponse` object
+//            $response = $fb->get('/me?fields=id,name', $data['accessToken']);
+//        } catch(FacebookResponseException $e) {
+//            return $this->createJsonErrorResponse('Graph returned an error: ' . $e->getMessage());
+//        } catch(FacebookSDKException $e) {
+//            return $this->createJsonErrorResponse('Facebook SDK returned an error: ' . $e->getMessage());
+//        }
+
+//        $graphUser = $response->getGraphUser();
+//
+//        if ($graphUser->getId() != $data['userID']) {
+//            return $this->createJsonErrorResponse('Invalid userID');
+//        }
+
+//        if (!$graphUser->getName()) {
+//            // This should never happen.
+//            return $this->createJsonErrorResponse('Facebook user name not provided');
+//        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if (!$user) {
+            $this->createJsonErrorResponse('User not found', 404);
+        }
+
+        if ($user->getFacebookId()) {
+            $this->createJsonErrorResponse('User was not connected to facebook account.');
+        }
+
+        $user->setFacebookId(null)
+            ->setFacebookName(null);
+
+        $om = $this->getDoctrine()->getManager();
+        $om->persist($user);
+        $om->flush();
+
+        return $this->createJsonResponse(array('status' => 'success'));
+    }
 }

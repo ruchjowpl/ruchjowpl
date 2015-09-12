@@ -15,7 +15,7 @@
             var service = {
                 fb: null,
                 checkLogin: checkLoginState,
-                login: login,
+                connect: connect,
                 get: get
             };
 
@@ -41,68 +41,79 @@
                 }
             }
 
-            function checkLoginState() {
-                service.fb.then(function (FB) {
+            function checkLoginState(allowLogin) {
+
+                var promise = service.fb.then(function (FB) {
                     var deferred = $q.defer();
 
                     console.log('check login');
-                    console.log(FB);
 
-                    var getstatus  = FB.getLoginStatus(function (response) {
-                        console.log('facebook returned:');
+                    FB.getLoginStatus(function (response) {
+                        console.log('check login state: facebook returned:');
                         console.log(response);
                         deferred.resolve(response);
                     });
 
-                    console.log(getstatus);
-
                     return deferred.promise;
                 }).then(function (response) {
-                    console.log('Facebook check login state:');
-                    console.log(response);
+                    console.log('check login state: parse response');
+
+                    if (response.status !== 'connected') {
+                        console.log('state !== connected - rejected (' + status + ')');
+                        return $q.reject(response);
+                    }
+
+                    console.log('state === connected - pass response');
+                    return response;
                 });
+
+                if (allowLogin) {
+                    return promise.then(null, function (response) {
+                        console.log('check login status - reject - try again');
+                        console.log(response);
+
+                        if (response.status === 'unknown') {
+                            console.log('connect');
+
+                            return connect().then(function () {
+                                console.log('connect successful');
+                                return checkLoginState(false);
+                            }, function () {
+                                console.log('connect failed');
+                            })
+                        }
+                    });
+                }
+
+                return promise;
             }
 
-            function login() {
-                service.fb.then(function (FB) {
+            function connect(email) {
+                console.log('1');
+                return service.fb.then(function (FB) {
+                    console.log('2');
                     var deferred = $q.defer();
 
+
+                    console.log(FB);
                     FB.login(function (response) {
+                        console.log('asdfsdfsdf');
+
                         deferred.resolve(response);
-                    }, {scope: 'public_profile,email'});
+                    }, {scope: 'public_profile' + (email ? ',email' :'')});
 
                     return deferred.promise;
                 }).then(function (response) {
-                    console.log('Facebook login response:');
-                    console.log(response);
-
+                    console.log('3');
                     if (response.authResponse) {
-                        var canceler = $q.defer();
-
-                        var config = {
-                            headers: {
-                                'X-Requested-With': 'XMLHttpRequest'
-                            },
-                            method: 'POST',
-                            url: Routing.generate('user_ajax_connect_facebook'),
-                            data: JSON.stringify({
-                                'userID' : response.authResponse.userID,
-                                'accessToken': response.authResponse.accessToken,
-                            }),
-                            timeout: canceler.promise
-                        };
-
-                        var promise = $http(config).then(function (response) {
-                            return response.data;
-                        });
-
-                        promise.canceler = canceler;
-
-                        //console.log(Routing.generate('hwi_oauth_service_redirect', {service : "facebook"}));
-                        //document.location = Routing.generate('hwi_oauth_service_redirect', {service : "facebook"});
+                        console.log('4');
+                        return response;
                     } else {
-                        alert('Cancelled.');
+                        console.log('5');
+                        return $q.reject('Fb error');
                     }
+                }, function () {
+                    console.log('6');
                 });
             }
 
