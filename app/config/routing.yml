@@ -22,22 +22,6 @@ fos_user_security:
 #    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
 #    prefix: /profile
 
-#HWIOAuthBundle routes
-hwi_oauth_security:
-    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-    prefix: /login
-
-hwi_oauth_connect:
-    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
-    prefix: /connect
-
-hwi_oauth_redirect:
-    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-    prefix:   /connect
-    options:
-        expose: true
-
-
 # This is only for exposing path binded to facebook_login name
 facebook_login:
     pattern: /login/check-facebook

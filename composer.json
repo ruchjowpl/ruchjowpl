@@ -64,7 +64,6 @@
     "kriswallsmith/buzz": "~0.15",
     "cspoo/swiftmailer-mailgun-bundle": "0.1.*",
     "stermedia/app-dev-security": "~1.0",
-    "hwi/oauth-bundle": "0.4.*@dev",
     "facebook/php-sdk-v4": "~5.0"
   },
   "require-dev": {

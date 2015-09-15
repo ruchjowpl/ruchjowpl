@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9af815e431ded5f5ea4f915f8304571a",
+    "hash": "af797e5b074b57874d983e63a9b973a9",
     "packages": [
         {
             "name": "cspoo/swiftmailer-mailgun-bundle",
@@ -1011,12 +1011,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "6b7bb04c6d507bb5356bf70b2d1bc30ce64ffc60"
+                "reference": "507a71ff096c74f5f7d83dd7b344ff70872331c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/6b7bb04c6d507bb5356bf70b2d1bc30ce64ffc60",
-                "reference": "6b7bb04c6d507bb5356bf70b2d1bc30ce64ffc60",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/507a71ff096c74f5f7d83dd7b344ff70872331c3",
+                "reference": "507a71ff096c74f5f7d83dd7b344ff70872331c3",
                 "shasum": ""
             },
             "require": {
@@ -1070,7 +1070,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2015-09-07 08:53:52"
+            "time": "2015-09-15 11:49:09"
         },
         {
             "name": "fzaninotto/faker",
@@ -1282,130 +1282,6 @@
                 "stream"
             ],
             "time": "2014-10-12 19:18:40"
-        },
-        {
-            "name": "hwi/oauth-bundle",
-            "version": "dev-master",
-            "target-dir": "HWI/Bundle/OAuthBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hwi/HWIOAuthBundle.git",
-                "reference": "5e812ef61226614b6203b6de940a094deff95949"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hwi/HWIOAuthBundle/zipball/5e812ef61226614b6203b6de940a094deff95949",
-                "reference": "5e812ef61226614b6203b6de940a094deff95949",
-                "shasum": ""
-            },
-            "require": {
-                "kriswallsmith/buzz": "~0.13",
-                "php": ">=5.3.3",
-                "symfony/form": "~2.3",
-                "symfony/framework-bundle": "~2.3",
-                "symfony/options-resolver": "~2.3",
-                "symfony/security-bundle": "~2.3",
-                "symfony/yaml": "~2.3"
-            },
-            "conflict": {
-                "twig/twig": "<1.12"
-            },
-            "require-dev": {
-                "doctrine/orm": "~2.3",
-                "friendsofsymfony/user-bundle": "~1.3|~2.0",
-                "symfony/phpunit-bridge": "~2.7",
-                "symfony/property-access": "~2.3",
-                "symfony/twig-bundle": "~2.3",
-                "symfony/validator": "~2.3"
-            },
-            "suggest": {
-                "doctrine/doctrine-bundle": "to use Doctrine user provider",
-                "friendsofsymfony/user-bundle": "to connect FOSUB with this bundle",
-                "symfony/property-access": "to use FOSUB integration with this bundle",
-                "symfony/twig-bundle": "to use the Twig hwi_oauth_* functions"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.4-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "HWI\\Bundle\\OAuthBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Contributors",
-                    "homepage": "https://github.com/hwi/HWIOAuthBundle/contributors"
-                },
-                {
-                    "name": "Joseph Bielawski",
-                    "email": "stloyd@gmail.com"
-                },
-                {
-                    "name": "Alexander",
-                    "email": "iam.asm89@gmail.com"
-                },
-                {
-                    "name": "Geoffrey Bachelet",
-                    "email": "geoffrey.bachelet@gmail.com"
-                }
-            ],
-            "description": "Support for authenticating users using both OAuth1.0a and OAuth2 in Symfony2.",
-            "homepage": "http://github.com/hwi/HWIOAuthBundle",
-            "keywords": [
-                "37signals",
-                "Authentication",
-                "amazon",
-                "bitbucket",
-                "bitly",
-                "box",
-                "dailymotion",
-                "deviantart",
-                "disqus",
-                "dropbox",
-                "eventbrite",
-                "facebook",
-                "firewall",
-                "fiware",
-                "flickr",
-                "foursquare",
-                "github",
-                "google",
-                "hubic",
-                "instagram",
-                "jira",
-                "linkedin",
-                "mail.ru",
-                "oauth",
-                "oauth1",
-                "oauth2",
-                "odnoklassniki",
-                "qq",
-                "salesforce",
-                "security",
-                "sensio connect",
-                "sina weibo",
-                "spotify",
-                "stack exchange",
-                "stereomood",
-                "trello",
-                "twitch",
-                "twitter",
-                "vkontakte",
-                "wechat",
-                "windows live",
-                "wordpress",
-                "yahoo",
-                "yandex"
-            ],
-            "time": "2015-09-05 06:57:42"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -2701,16 +2577,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.21.2",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "ddce1136beb8db29b9cd7dffa8ab518b978c9db3"
+                "reference": "b7fc2469fa009897871fb95b68237286fc54a5ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/ddce1136beb8db29b9cd7dffa8ab518b978c9db3",
-                "reference": "ddce1136beb8db29b9cd7dffa8ab518b978c9db3",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b7fc2469fa009897871fb95b68237286fc54a5ad",
+                "reference": "b7fc2469fa009897871fb95b68237286fc54a5ad",
                 "shasum": ""
             },
             "require": {
@@ -2723,7 +2599,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.21-dev"
+                    "dev-master": "1.22-dev"
                 }
             },
             "autoload": {
@@ -2758,7 +2634,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-09-09 05:28:51"
+            "time": "2015-09-15 06:50:16"
         },
         {
             "name": "twitter/bootstrap",
@@ -4153,16 +4029,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.2.2",
+            "version": "2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "2d7c03c0e4e080901b8f33b2897b0577be18a13c"
+                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/2d7c03c0e4e080901b8f33b2897b0577be18a13c",
-                "reference": "2d7c03c0e4e080901b8f33b2897b0577be18a13c",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ef1ca6835468857944d5c3b48fa503d5554cff2f",
+                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f",
                 "shasum": ""
             },
             "require": {
@@ -4211,7 +4087,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-08-04 03:42:39"
+            "time": "2015-09-14 06:51:16"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -4344,16 +4220,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.4.6",
+            "version": "1.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b"
+                "reference": "3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
-                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da",
+                "reference": "3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da",
                 "shasum": ""
             },
             "require": {
@@ -4389,20 +4265,20 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2015-08-16 08:51:00"
+            "time": "2015-09-15 10:49:45"
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.6",
+            "version": "4.8.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2246830f4a1a551c67933e4171bf2126dc29d357"
+                "reference": "dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2246830f4a1a551c67933e4171bf2126dc29d357",
-                "reference": "2246830f4a1a551c67933e4171bf2126dc29d357",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa",
+                "reference": "dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa",
                 "shasum": ""
             },
             "require": {
@@ -4461,7 +4337,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-08-24 04:09:38"
+            "time": "2015-09-14 06:57:22"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -5900,8 +5776,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "friendsofsymfony/user-bundle": 20,
-        "hwi/oauth-bundle": 20
+        "friendsofsymfony/user-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

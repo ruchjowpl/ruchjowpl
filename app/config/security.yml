@@ -27,17 +27,6 @@ security:
                 failure_handler: ruch_jow_ajax_auth.auth_handler
                 default_target_path: app_main_page
 
-            oauth:
-                resource_owners:
-                    facebook: "/login/check-facebook"
-                login_path:        /login
-#                use_forward:       false
-                failure_path:      /login
-#                provider:      fos_userbundle
-
-                oauth_user_provider:
-                    service: ruch_jow_user.oauth_user_provider
-
             logout:
                 path: /logout
 #                target: app_main_page

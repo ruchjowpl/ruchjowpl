@@ -234,30 +234,6 @@ ruch_jow_angular_security:
     xsrf_cookie_name: "XSRF-TOKEN-ANG-RJ"
     xsrf_header_name: "X-XSRF-TOKEN-ANG-RJ"
 
-hwi_oauth:
-    connect:
-        confirmation: false
-        account_connector: ruch_jow_user.oauth_user_provider
-    firewall_name: main
-
-    fosub:
-        # try 30 times to check if a username is available (foo, foo1, foo2 etc)
-        username_iterations: 30
-        # mapping between resource owners (see below) and properties
-        properties:
-            facebook: facebookId
-    resource_owners:
-        facebook:
-            type:          facebook
-            client_id:     "%facebook_client_id%"
-            client_secret: "%facebook_client_secret%"
-            scope:         "email"
-            infos_url:     "https://graph.facebook.com/me?fields=id,name,email"
-            paths:
-                email:          email
-            options:
-                auth_type: rerequest # Re-asking for Declined Permissions
-
 ruch_jow_facebook:
     client_id: "%facebook_client_id%"
     client_secret: "%facebook_client_secret%"

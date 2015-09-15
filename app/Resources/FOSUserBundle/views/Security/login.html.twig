@@ -20,10 +20,4 @@
 
     <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
 </form>
-    {#<a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}" alt="Sign in with Facebook">Sign in with Facebook</a>#}
-    {% for owner in hwi_oauth_resource_owners() %}
-        <a class="btn btn-block btn-{{ owner }}" href="{{ hwi_oauth_login_url(owner) }}">
-            Sign in with {{ owner | trans({}, 'HWIOAuthBundle')|capitalize }}
-        </a>
-    {% endfor %}
 {% endblock fos_user_content %}
