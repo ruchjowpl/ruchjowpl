@@ -1,6 +1,10 @@
 parameters:
     ruch_jow_ajax_auth.auth_handler.class: RuchJow\AjaxAuthBundle\Handler\AuthenticationHandler
     ruch_jow_ajax_auth.auth_exception_listener.class: RuchJow\AjaxAuthBundle\Listener\AjaxAuthenticationListener
+
+    ruch_jow_ajax_auth.security.authentication.provider.class: RuchJow\AjaxAuthBundle\Security\Authentication\Provider\FacebookProvider
+    ruch_jow_ajax_auth.security.authentication.listener.class: RuchJow\AjaxAuthBundle\Security\Firewall\FacebookListener
+
 services:
     ruch_jow_ajax_auth.auth_handler:
         class: %ruch_jow_ajax_auth.auth_handler.class%
@@ -15,3 +19,19 @@ services:
         arguments: [ "@security.context" ]
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onCoreException, priority: 1000 }
+
+
+
+    ruch_jow_ajax_auth.security.authentication.provider:
+        class: %ruch_jow_ajax_auth.security.authentication.provider.class%
+        arguments:
+            - "" # User Provider
+        public: false
+
+    ruch_jow_ajax_auth.security.authentication.listener:
+        class: %ruch_jow_ajax_auth.security.authentication.listener.class%
+        arguments:
+            - "@security.token_storage"
+            - "@security.authentication.manager"
+            - "" # Login path (taken from configuration)
+        public: false

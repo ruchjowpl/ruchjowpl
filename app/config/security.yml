@@ -13,6 +13,11 @@ security:
 
         main:
             pattern: ^/
+
+            facebook:
+                user_provider: ruch_jow_user.user_provider
+                login_path: "/login/check-facebook"
+
             form_login:
                 provider:   fos_userbundle
                 login_path: /login
@@ -21,6 +26,7 @@ security:
                 success_handler: ruch_jow_ajax_auth.auth_handler
                 failure_handler: ruch_jow_ajax_auth.auth_handler
                 default_target_path: app_main_page
+
             oauth:
                 resource_owners:
                     facebook: "/login/check-facebook"
@@ -31,6 +37,7 @@ security:
 
                 oauth_user_provider:
                     service: ruch_jow_user.oauth_user_provider
+
             logout:
                 path: /logout
 #                target: app_main_page

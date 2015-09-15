@@ -302,7 +302,7 @@
                         login: function (type, data) {
                             switch (type) {
                                 case 'facebook':
-                                    service.loginFacebook();
+                                    return service.loginFacebook();
                                     break;
 
                                 case 'default':
@@ -315,21 +315,16 @@
                             }
                         },
                         loginFacebook: function () {
-                            console.log('Login through facebook.');
-                            facebook.connect(false).then(function (fbResponse) {
-                                console.log('Pass facebook data to symfony.');
-                                console.log(fbResponse);
+                            return facebook.connect(false).then(function (fbResponse) {
 
                                 var httpConfig = {
                                     url: Routing.generate('facebook_login'),
                                     method: 'GET',
                                     headers: {'X-Requested-With': 'XMLHttpRequest'},
-                                    params: {code: fbResponse.authResponse.accessToken}
+                                    params: {signed_request: fbResponse.authResponse.signedRequest}
                                 };
 
-                                return $http(httpConfig)['finally'](function (response)  {
-                                    console.log(response);
-                                })
+                                return $http(httpConfig);
                             });
                         },
                         loginStd: function (username, password, rememberMe) {
@@ -531,8 +526,6 @@
                                             user.referralUrl = userData.referralUrl ? userData.referralUrl : null;
                                             user.email = userData.email ? userData.email : null;
                                             user.phone = userData.phone ? userData.phone : null;
-                                         //console.log(Routing.generate('hwi_oauth_service_redirect', {service : "facebook"}));
-                                    //document.location = Routing.generate('hwi_oauth_service_redirect', {service : "facebook"});   user.displayNameFormat = userData.displayNameFormat;
                                             user.visibility = userData.visibility;
                                             user.country = userData.country ? userData.country : null;
                                             user.commune = userData.commune ? userData.commune : null;

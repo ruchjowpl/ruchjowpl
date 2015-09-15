@@ -1,0 +1,10 @@
+parameters:
+    facebook.class: RuchJow\FacebookBundle\Services\Facebook
+
+services:
+    facebook:
+        class: %facebook.class%
+        arguments:
+            - %facebook.client_id%
+            - %facebook.client_secret%
+            - %facebook.api_version%

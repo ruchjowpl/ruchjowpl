@@ -257,3 +257,7 @@ hwi_oauth:
                 email:          email
             options:
                 auth_type: rerequest # Re-asking for Declined Permissions
+
+ruch_jow_facebook:
+    client_id: "%facebook_client_id%"
+    client_secret: "%facebook_client_secret%"

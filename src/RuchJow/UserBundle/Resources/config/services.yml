@@ -18,6 +18,7 @@ parameters:
     ruch_jow_user.reminder.email.template: "RuchJowUserBundle:Mailer:reminder.confirmation.html.twig"
 
     ruch_jow_user.oauth_user_provider.class: RuchJow\UserBundle\Security\OAuthUserProvider
+    ruch_jow_user.user_provider.class: RuchJow\UserBundle\Security\UserProvider
 
 services:
 #    ruch_jow_user.user_repository:
@@ -83,3 +84,7 @@ services:
     ruch_jow_user.oauth_user_provider:
         class: "%ruch_jow_user.oauth_user_provider.class%"
         arguments: [@ruch_jow_user.user_manager,{facebook: facebook_id}]
+
+    ruch_jow_user.user_provider:
+        class: "%ruch_jow_user.user_provider.class%"
+        arguments: [@ruch_jow_user.user_manager, @facebook]

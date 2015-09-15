@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 
             // custom bundles
+            new RuchJow\FacebookBundle\RuchJowFacebookBundle(),
             new RuchJow\AjaxAuthBundle\RuchJowAjaxAuthBundle(),
             new RuchJow\AngularSecurityBundle\RuchJowAngularSecurityBundle(),
             new RuchJow\JsonValidatorBundle\RuchJowJsonValidatorBundle(),
