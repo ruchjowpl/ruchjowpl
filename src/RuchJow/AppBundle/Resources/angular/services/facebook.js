@@ -16,6 +16,7 @@
                 fb: null,
                 checkLogin: checkLoginState,
                 connect: connect,
+                userData: userData,
                 get: get
             };
 
@@ -86,6 +87,18 @@
                     } else {
                         return $q.reject('Fb error');
                     }
+                });
+            }
+
+            function userData(fields) {
+                return service.fb.then(function (FB) {
+                    var deferred = $q.defer();
+
+                    FB.api('/me', { fields: fields || '' }, function (response) {
+                        deferred.resolve(response);
+                    });
+
+                    return deferred.promise;
                 });
             }
 

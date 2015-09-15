@@ -42,6 +42,7 @@ class FacebookListener implements ListenerInterface
                 $authToken = $this->authenticationManager->authenticate($token);
                 $this->tokenStorage->setToken($authToken);
 
+
                 $result   = array('success' => true);
                 $response = new Response(json_encode($result));
                 if ($xhr) {

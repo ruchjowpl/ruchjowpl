@@ -41,6 +41,8 @@ class UserController extends ModelController
             array(
                 'type'     => 'array',
                 'children' => array(
+                    'facebook'         => array('type' => 'string', 'optional' => true),
+                    'facebookName'     => array('type' => 'string', 'optional' => true),
                     'nick'             => array('type' => 'string'),
                     'email'            => array('type' => 'string'),
 //                    'phone'            => array('type' => 'string', 'optional' => true),
@@ -66,8 +68,40 @@ class UserController extends ModelController
             return $this->createJsonErrorResponse($err);
         }
 
-        // Check if nick is unique.
+
         $userManager = $this->getUserManager();
+
+        // Facebook
+        $facebook = $this->get('facebook')->getFacebook();
+        if (isset($data['facebook']) && $data['facebook']) {
+
+            if (!isset($data['facebookName']) && $data['facebook']) {
+                return $this->createJsonErrorResponse('Facebook name not provided');
+            }
+
+            $fUserName = $data['facebookName'];
+
+            $helper = $facebook->getJavaScriptHelper();
+            $helper->instantiateSignedRequest($data['facebook']);
+
+            try {
+                $fUserId = $helper->getUserId();
+            } catch(FacebookResponseException $e) {
+                // When Graph returns an error
+                return $this->createJsonErrorResponse('Graph returned an error: ' . $e->getMessage());
+
+            } catch(FacebookSDKException $e) {
+                // When validation fails or other local issues
+                return $this->createJsonErrorResponse('Facebook SDK returned an error: ' . $e->getMessage());
+            }
+
+            if ($userManager->findUserBy(array('facebookId' => $fUserId))) {
+                return $this->createJsonErrorResponse('User connected to this facebook account already exists');
+            };
+
+        }
+
+        // Check if nick is unique.
         if ($userManager->checkFieldValueExists('nick', $data['nick'])) {
             return $this->createJsonErrorResponse('User with this nick has expressed their support already.');
         }
@@ -99,6 +133,12 @@ class UserController extends ModelController
         $user
             ->setNick($data['nick'])
             ->setEmail($data['email']);
+
+        // Facebook
+        if (isset($fUserId) && isset($fUserName)) {
+            $user->setFacebookId($fUserId)
+                ->setFacebookName($fUserName);
+        }
 
 //        if (isset($data['phone']) && $data['phone']) {
 //            $user->setPhone($data['phone']);

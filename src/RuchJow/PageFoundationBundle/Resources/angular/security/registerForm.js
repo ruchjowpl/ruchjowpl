@@ -1,4 +1,10 @@
-angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.bootstrap.typeahead', 'ruchJow.forms', 'ruchJow.pfound.data'])
+angular.module('ruchJow.security.registerForm', [
+    'ui.bootstrap.modal',
+    'ui.bootstrap.typeahead',
+    'ruchJow.forms',
+    'ruchJow.pfound.data',
+    'ruchJow.facebook'
+])
     .controller('RegisterFormSubmitCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
         $scope.registerAsync = function () {
             $timeout(function () {
@@ -13,6 +19,7 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
         '$modalInstance',
         '$q',
         '$timeout',
+        '$alert',
         'ipCookie',
         'ruchJowFindCountries',
         'ruchJowFindCommunes',
@@ -20,7 +27,8 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
         'ruchJowStatistics',
         'registerCallback',
         'initData',
-        function ($scope, $modalInstance, $q, $timeout, ipCookie, ruchJowFindCountries, ruchJowFindCommunes, ruchJowFindOrganisations, ruchJowStatistics, registerCallback, initData) {
+        'facebook',
+        function ($scope, $modalInstance, $q, $timeout, $alert, ipCookie, ruchJowFindCountries, ruchJowFindCommunes, ruchJowFindOrganisations, ruchJowStatistics, registerCallback, initData, facebook) {
 
         $scope.showUntouched = false;
 
@@ -44,6 +52,7 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
         // This vars must be encapsulated in obj. because there will be created child $scope
         // with its own version of primitive vars.
         $scope.data = {
+            facebook: null,
             nick: (initData && initData.hasOwnProperty('nick')) ? initData.nick : null,
             email: (initData && initData.hasOwnProperty('email')) ? initData.email : null,
             //phone: null,
@@ -150,6 +159,25 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
             }
 
         };
+
+        // Facebook
+        $scope.connectFacebook = function () {
+            facebook.connect(true).then(function (response) {
+                $scope.data.facebook = true;
+
+                return facebook.userData('email');
+            }).then(function (response) {
+                console.log(response);
+                if (!$scope.data.email && response.email) {
+                    $scope.data.email = response.email;
+                }
+            }, function () {
+                $alert('registerForm.facebook.fail');
+            });
+        };
+
+
+
 
         // Organisation
         var getOrgsPromise;
@@ -339,7 +367,26 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
             $scope.inProgress = true;
             $scope.errorMessage = null;
 
-            $q.when(registerCallback($scope.data))
+            var promise = $scope.data.facebook ?
+                facebook.connect()
+                    .then(function (response) {
+                        $scope.data.facebook = response.authResponse.signedRequest;
+
+                        return facebook.userData();
+                    })
+                    .then(function (response) {
+                        $scope.data.facebookName = response.id;
+
+                        return response;
+                    }, function () {
+                        return $q.reject('registerForm.facebook.fail');
+                    }) :
+                    $q.when();
+
+            promise
+                .then(function () {
+                    return $q.when(registerCallback($scope.data));
+                })
                 .then(function () {
                     $modalInstance.close();
                 }, function (msg) {
@@ -348,6 +395,7 @@ angular.module('ruchJow.security.registerForm', ['ui.bootstrap.modal', 'ui.boots
                 ['finally'](function () {
                     $scope.inProgress = false;
                 });
+
         };
 
         $scope.cancel = function () {
