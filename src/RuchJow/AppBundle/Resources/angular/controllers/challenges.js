@@ -97,6 +97,13 @@ angular.module('ruchJow.ctrls.challenges', [
                 points: 'print.materials',
                 state: 'challenges.print_materials'
             });
+            addSupportForm({
+                name: 'local_gov_support',
+                title: 'supportForm.local_gov_support.title',
+                //templateUrl: ruchJowPartials('supportForm.local_gov_support', 'app'),
+                points: 'local.gov.support',
+                state: 'challenges.local_gov_support'
+            });
 
             function addSupportForm(data, active) {
                 //noinspection UnnecessaryLocalVariableJS

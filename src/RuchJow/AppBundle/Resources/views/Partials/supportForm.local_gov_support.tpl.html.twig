@@ -1,0 +1,54 @@
+<article {#ng-controller="UserAccountLocalGovSupportCtrl"#} id="local_gov_support">
+    <span class="points">
+        <span class="value"><span>+[[ getPoints('organise.event') ]] pkt</span></span>
+        <span class="comment" ng-if="comment = getPointsDef('organise.event').comment"><span>[[ ('points.comment.' + comment)|translate ]]</span></span>
+    </span>
+
+    <h1>[[ 'supportForm.local_gov_support.title'|translate ]]</h1>
+
+    <p class="p-level-1">
+        Ruch JOW opiera swoją działalność na oddolnych inicjatywach.
+        Dlatego tak ważne jest dla nas poparcie środowisk samorządowych.
+        Do tej pory ideę JOW poparło już wielu samorządowców, a ich liczba cały czas wzrasta.
+        Jeśli jesteś wójtem, burmistrzem lub prezydentem miasta zgłoś swoje poparcie przez poniższy formularz,
+        a my umieścimy Twoje nazwisko wraz z funkcją,
+        jaką obejmujesz w swoim regionie na mapce aktywności użytkowników serwisu ruchjow.pl.
+        Pozwoli to pokazać jak wiele środowisk w całej Polsce popiera postulat wprowadzenia
+        jednomandatowych okręgów wyborczych w wyborach do Sejmu RP.
+        W przypadku jakichkolwiek pytań prosimy o widomość na kontakt@ruchjow.pl.
+        Za udzielenie poparcia otrzymasz punkty motywacyjne Ruchu JOW.
+    </p>
+
+
+    <div class="row">
+        {# Invitation banners#}
+        <div class="col-md-12">
+            <div id="local_gov_support_block">
+                <p class="info">
+                    Aby zorganizować zamówienie kliknij w poniższy formularz. Następnie skontaktuje się z Tobą (na podany w Twoim profilu telefon lub adres e-mail) osoba obsługująca wydarzenia.
+                </p>
+                <form name="LocalGovSupportForm" ng-submit="submit()">
+                    <label translate="">supportForm.local_gov_support.description.label</label>
+                    <div class="row">
+                        <div class="col-sm-8 col-md-7">
+                            <textarea
+                                title=""
+                                class="event-description"
+                                name="event_info"
+                                ng-model="data.eventInfo"
+                            ></textarea>
+                            <button class="btn submit-local-gov-support">[[ 'supportForm.local_gov_support.submit'|translate ]]</button>
+                        </div>
+                        <div class="col-sm-4 col-md-5">
+                            <ul>
+                                <li ng-if="!security.currentUser || !security.currentUser.username">Aby zgłosić poparcie środowiska samorządowego będziesz musiał się zalogować</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</article>

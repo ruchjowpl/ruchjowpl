@@ -72,6 +72,7 @@ angular.module('ruchJow.backend.translations', ['pascalprecht.translate'])
                     'organise.referendumPoint': 'organizacja punktu referendalnego',
                     'print.materials': 'druk materiałów',
                     donation: 'wpłata',
+                    'local.gov.support': 'poparcie środowisk samorządowych',
                     other: 'inne'
                 }
             },

@@ -13,6 +13,7 @@ angular.module('ruchJow.ctrls.index', [
     'ruchJow.ctrls.challenges.organiseReferendumPoint',
     'ruchJow.ctrls.challenges.distributeLeaflets',
     'ruchJow.ctrls.challenges.makeDonation',
+    'ruchJow.ctrls.challenges.localGovSupport',
     'ruchJow.ctrls.challenges',
     'ruchJow.ctrls.announcements'
 ]);

@@ -284,6 +284,18 @@ angular.module('ruchJow.translations', ['pascalprecht.translate'])
                 },
                 print_materials: {
                     title: 'Druk materiałów'
+                },
+                local_gov_support: {
+                    title: 'Zgłoś poparcie środowisk samorządowych',
+                    description: {
+                        label: ''
+                    },
+
+                    submit: 'Zgłoś poparcie',
+
+                    'sent.confirmation.message': 'Zgłoszenie poparcia środowisk samorządowych zostało wysłane',
+                    'send.error.message': 'Wystąpił nieprzewidziany błąd. Prosimy o ponowne zgłoszenie. Jeżeli problem będzie nadal występował, prosimy o bezpośredni kontakt.',
+                    'send.error.message_empty_address': 'Zgłoszenie poparcia środowisk samorządowych wymaga podania adresu w Edycji profilu'
                 }
             },
 

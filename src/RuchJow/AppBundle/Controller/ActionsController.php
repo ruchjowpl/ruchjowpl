@@ -265,4 +265,86 @@ class ActionsController extends ModelController
 
         return $this->createJsonResponse('ok');
     }
+
+    /**
+     * @return Response
+     *
+     * @Route("/ajax/local_gov_support", name="app_cif_local_gov_support", options={"expose"=true}, condition="request.isXmlHttpRequest()")
+     * @Method("POST")
+     */
+    public function localGovSupportAction()
+    {
+        $error = $this->validateRequestJson(
+            array(
+                'type' => 'array',
+                'children' => array(
+                    'eventInfo' => array(
+                        'type' => 'string',
+                        'optional' => false,
+                    ),
+                ),
+            ),
+            $data
+        );
+
+        if ($error) {
+            return $this->createJsonErrorResponse($error['message']);
+        }
+
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->createJsonErrorResponse('Current user could not be get.');
+        }
+
+        if (!$user->getAddress()) {
+            return $this->createJsonErrorResponse('supportForm.local_gov_support.send.error.message_empty_address');
+        }
+
+        $taskManager = $this->getTaskManager();
+        $task = $taskManager->createTask();
+
+        $taskTitle = $this->renderView(
+            'RuchJowAppBundle:Actions:task.userSupportLocalGovSupport.title.txt.twig',
+            array('user' => $user)
+        );
+        $taskContent = $this->renderView(
+            'RuchJowAppBundle:Actions:task.userSupportLocalGovSupport.content.html.twig',
+            array(
+                'user' => $user,
+                'eventInfo' => $data['eventInfo'],
+            )
+        );
+
+        $task
+            ->setType('user_support_local_gov_support')
+            ->setTitle($taskTitle)
+            ->setContent($taskContent)
+        ;
+
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($task);
+        $em->flush($task);
+
+
+        $ruchJowMailPool = $this->getMailPool();
+        $confirmMailTitle = $this->renderView(
+            'RuchJowAppBundle:Actions:userSupportLocalGovSupport.confirm.mail.title.txt.twig',
+            array('user' => $user)
+        );
+        $confirmMailContent = $this->renderView(
+            'RuchJowAppBundle:Actions:userSupportLocalGovSupport.confirm.mail.content.html.twig',
+            array(
+                'user' => $user,
+                'distInfo' => $data['eventInfo'],
+            )
+        );
+        $ruchJowMailPool->sendMail(
+            $user->getEmail(),
+            $confirmMailTitle,
+            $confirmMailContent
+        );
+
+        return $this->createJsonResponse('ok');
+    }
 }

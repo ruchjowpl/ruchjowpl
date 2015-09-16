@@ -145,6 +145,11 @@
                     templateUrl: ruchJowPartialsProvider.getUrl('supportForm.print_materials','app'),
                     ruchJowScrollId: 'body_wrapper'
                 }/*, ['ROLE_REGISTERED_USER']*/)
+                .state('challenges.local_gov_support', {
+                    url: '/local_gov_support',
+                    templateUrl: ruchJowPartialsProvider.getUrl('supportForm.local_gov_support','app'),
+                    ruchJowScrollId: 'body_wrapper'
+                }/*, ['ROLE_REGISTERED_USER']*/)
 
                 .state('contact', {
                     url: '/contact',
