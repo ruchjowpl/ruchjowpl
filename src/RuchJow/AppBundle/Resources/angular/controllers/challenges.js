@@ -62,13 +62,13 @@ angular.module('ruchJow.ctrls.challenges', [
                 points: 'user.referral',
                 state: 'challenges.invite_friends'
             });
-            addSupportForm({
-                name: 'organise_referendum_point',
-                title: 'supportForm.organise_referendum_point.title',
-                //templateUrl: ruchJowPartials('supportForm.organise_event', 'app'),
-                points: 'organise.referendumPoint',
-                state: 'challenges.organise_referendum_point'
-            });
+            // addSupportForm({
+            //     name: 'organise_referendum_point',
+            //     title: 'supportForm.organise_referendum_point.title',
+            //     //templateUrl: ruchJowPartials('supportForm.organise_event', 'app'),
+            //     points: 'organise.referendumPoint',
+            //     state: 'challenges.organise_referendum_point'
+            // });
             addSupportForm({
                 name: 'organise_event',
                 title: 'supportForm.organise_event.title',
@@ -76,13 +76,13 @@ angular.module('ruchJow.ctrls.challenges', [
                 points: 'organise.event',
                 state: 'challenges.organise_event'
             });
-            addSupportForm({
-                name: 'distribute_leaflets',
-                title: 'supportForm.distribute_leaflets.title',
-                //templateUrl: ruchJowPartials('supportForm.distribute_leaflets', 'app'),
-                points: 'distribute.leaflets',
-                state: 'challenges.distribute_leaflets'
-            });
+            // addSupportForm({
+            //     name: 'distribute_leaflets',
+            //     title: 'supportForm.distribute_leaflets.title',
+            //     //templateUrl: ruchJowPartials('supportForm.distribute_leaflets', 'app'),
+            //     points: 'distribute.leaflets',
+            //     state: 'challenges.distribute_leaflets'
+            // });
             addSupportForm({
                 name: 'make_donation',
                 title: 'supportForm.make_donation.title',
@@ -90,13 +90,13 @@ angular.module('ruchJow.ctrls.challenges', [
                 points: 'make.donation.1pln',
                 state: 'challenges.make_donation'
             });
-            addSupportForm({
-                name: 'print_materials',
-                title: 'supportForm.print_materials.title',
-                //templateUrl: ruchJowPartials('supportForm.make_donation', 'app'),
-                points: 'print.materials',
-                state: 'challenges.print_materials'
-            });
+            // addSupportForm({
+            //     name: 'print_materials',
+            //     title: 'supportForm.print_materials.title',
+            //     //templateUrl: ruchJowPartials('supportForm.make_donation', 'app'),
+            //     points: 'print.materials',
+            //     state: 'challenges.print_materials'
+            // });
 
             function addSupportForm(data, active) {
                 //noinspection UnnecessaryLocalVariableJS
