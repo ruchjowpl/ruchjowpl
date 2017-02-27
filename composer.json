@@ -350,9 +350,9 @@
       "type": "package",
       "package": {
         "name": "ruch-jow-local/google-closure-compiler",
-        "version": "0.0.1",
+        "version": "0.0.2",
         "dist": {
-          "url": "https://dl.google.com/closure-compiler/compiler-latest.zip",
+          "url": "https://dl.google.com/closure-compiler/compiler-20160619.zip",
           "type": "zip"
         }
       }
